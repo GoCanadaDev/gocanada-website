@@ -2,6 +2,7 @@ import type { MetaFunction, LoaderFunction } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
+import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
 import { Records } from "~/components/Records"
 import type { LoaderData as RootLoader } from "~/root"
@@ -66,4 +67,8 @@ export default function Index() {
       <Records records={data} />
     </div>
   )
+}
+
+export function ErrorBoundary({ error }: { error: string }) {
+  return <ErrorBoundaryPage error={error?.toString()} />
 }

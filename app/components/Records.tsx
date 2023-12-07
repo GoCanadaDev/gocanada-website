@@ -38,7 +38,7 @@ export function Records(props: RecordsProps) {
               </span>
             )}
             {record?.artist ? (
-              <span className="bg-black font-bold leading-none tracking-tighter text-white dark:bg-white dark:text-black">
+              <span className="bg-slate-950 font-bold leading-none tracking-tighter text-white dark:bg-white dark:text-black">
                 {record.artist}
               </span>
             ) : null}

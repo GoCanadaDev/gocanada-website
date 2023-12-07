@@ -6,6 +6,7 @@ import type {
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
+import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
 import { Record } from "~/components/Record"
 import type { LoaderData as RootLoader } from "~/root"
@@ -127,4 +128,8 @@ export default function RecordPage() {
   }
 
   return <Record data={data} />
+}
+
+export function ErrorBoundary({ error }: { error: string }) {
+  return <ErrorBoundaryPage error={error?.toString()} />
 }

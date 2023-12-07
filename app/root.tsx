@@ -30,6 +30,7 @@ import { getEnv } from "./env.server"
 import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
 import { Hydrated } from "./components/Hydrated"
+import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -157,4 +158,8 @@ export default function App() {
       </body>
     </html>
   )
+}
+
+export function ErrorBoundary({ error }: { error: string }) {
+  return <ErrorBoundaryPage error={error?.toString()} />
 }

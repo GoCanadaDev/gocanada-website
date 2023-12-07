@@ -1,16 +1,16 @@
-import {LikeDislike} from '~/components/LikeDislike'
-import {RecordCover} from '~/components/RecordCover'
-import {SanityContent} from '~/components/SanityContent'
-import {Title} from '~/components/Title'
-import {secondsToMinutes} from '~/lib/secondsToMinutes'
-import type {RecordDocument} from '~/types/record'
+import { LikeDislike } from "~/components/LikeDislike"
+import { RecordCover } from "~/components/RecordCover"
+import { SanityContent } from "~/components/SanityContent"
+import { Title } from "~/components/Title"
+import { secondsToMinutes } from "~/lib/secondsToMinutes"
+import type { RecordDocument } from "~/types/record"
 
 type RecordProps = {
   data: RecordDocument
 }
 
 export function Record(props: RecordProps) {
-  const {_id, title, artist, content, image, tracks, likes, dislikes} =
+  const { _id, title, artist, content, image, tracks, likes, dislikes } =
     props.data
 
   return (
@@ -21,13 +21,11 @@ export function Record(props: RecordProps) {
         </div>
         <LikeDislike id={_id} likes={likes} dislikes={dislikes} />
       </div>
-      <div className="flex flex-shrink-0 flex-col gap-4 lg:gap-6 lg:w-2/3">
+      <div className="flex flex-shrink-0 flex-col gap-4 lg:w-2/3 lg:gap-6">
         <header>
           <Title>{title}</Title>
           {artist ? (
-            <h2 className="bg-black text-2xl font-bold tracking-tighter text-white">
-              {artist}
-            </h2>
+            <h2 className="text-2xl font-bold tracking-tighter">{artist}</h2>
           ) : null}
         </header>
         {content && content?.length > 0 ? (
