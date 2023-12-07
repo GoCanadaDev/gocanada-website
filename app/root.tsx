@@ -79,40 +79,39 @@ const getInitial = async () =>
   }))
 
 export const loader: LoaderFunction = async ({ request }) => {
-  // // Dark/light mode
-  // const cookieHeader = request.headers.get("Cookie")
-  // const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
-  // const themePreference = z
-  //   .union([z.literal("dark"), z.literal("light")])
-  //   .optional()
-  //   .parse(cookie.themePreference)
+  // Dark/light mode
+  const cookieHeader = request.headers.get("Cookie")
+  const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
+  const themePreference = z
+    .union([z.literal("dark"), z.literal("light")])
+    .optional()
+    .parse(cookie.themePreference)
 
-  // const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
-  // const bodyClassNames = getBodyClassNames(themePreference)
+  const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
+  const bodyClassNames = getBodyClassNames(themePreference)
 
-  // // Sanity content reused throughout the site
-  // const initial = await loadQuery<HomeDocument>(HOME_QUERY).then((res) => ({
-  //   ...res,
-  //   data: res.data ? homeZ.parse(res.data) : null,
-  // }))
+  // Sanity content reused throughout the site
+  const initial = await loadQuery<HomeDocument>(HOME_QUERY).then((res) => ({
+    ...res,
+    data: res.data ? homeZ.parse(res.data) : null,
+  }))
 
   return json<LoaderData>({
-    // initial,
-    // query: HOME_QUERY,
-    // params: {},
-    // bodyClassNames,
-    // isStudioRoute,
+    initial,
+    query: HOME_QUERY,
+    params: {},
+    bodyClassNames,
+    isStudioRoute,
     ENV: getEnv(),
   })
 }
 
 export default function App() {
-  // const { initial, query, params, bodyClassNames, isStudioRoute, ENV } =
-  //   useLoaderData<LoaderData>()
-  // const { data, loading } = useQuery<typeof initial.data>(query, params, {
-  //   initial,
-  // })
-  const { ENV } = useLoaderData<LoaderData>()
+  const { initial, query, params, bodyClassNames, isStudioRoute, ENV } =
+    useLoaderData<LoaderData>()
+  const { data, loading } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  })
 
   return (
     <html lang="en">
@@ -123,16 +122,14 @@ export default function App() {
         <link rel="icon" href="https://fav.farm/🇨🇦" />
         <Links />
       </head>
-      {/* <body className={bodyClassNames}>
+      <body className={bodyClassNames}>
         {isStudioRoute ? (
           <Outlet />
         ) : (
           <Layout home={loading || !data ? null : data}>
             <Outlet />
           </Layout>
-        )} */}
-      <body>
-        <Outlet />
+        )}
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
           <Suspense>
