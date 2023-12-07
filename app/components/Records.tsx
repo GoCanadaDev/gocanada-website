@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react"
+import { useTranslation } from "react-i18next"
 
 import { RecordCover } from "~/components/RecordCover"
 import type { RecordStub } from "~/types/record"
@@ -9,6 +10,8 @@ type RecordsProps = {
 
 export function Records(props: RecordsProps) {
   const { records = [] } = props
+
+  let { i18n } = useTranslation()
 
   return records.length > 0 ? (
     <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-12">
@@ -22,7 +25,7 @@ export function Records(props: RecordsProps) {
             {record?.slug ? (
               <Link
                 prefetch="intent"
-                to={record?.slug}
+                to={`${i18n.language}/${record?.slug}`}
                 className="text-bold pt-4 text-xl font-bold tracking-tighter transition-colors duration-100 ease-in-out hover:bg-cyan-400 hover:text-white lg:text-3xl"
               >
                 {record.title}
