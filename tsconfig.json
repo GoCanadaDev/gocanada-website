@@ -1,8 +1,13 @@
 {
   "include": [
     "remix.env.d.ts",
+    ".eslintrc.cjs",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.cjs",
+    "**/*.mjs",
+    ".next/types/**/*.ts",
+    ".prettierrc.mjs"
   ],
   "compilerOptions": {
     "lib": [
@@ -22,9 +27,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./app/*"
-      ]
+      "~/*": ["./app/*"]
     },
     // Remix takes care of building everything in `remix build`.
     "noEmit": true

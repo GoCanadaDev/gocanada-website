@@ -1,53 +1,58 @@
-export function headers({
-  loaderHeaders,
-  parentHeaders,
-}: {
-  loaderHeaders: Headers;
-  parentHeaders: Headers;
-}) {
-  console.log(
-    "This is an example of how to set caching headers for a route, feel free to change the value of 60 seconds or remove the header"
-  );
-  return {
-    // This is an example of how to set caching headers for a route
-    // For more info on headers in Remix, see: https://remix.run/docs/en/v1/route/headers
-    "Cache-Control": "public, max-age=60, s-maxage=60",
-  };
+import type { MetaFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
+
+import { Records } from "~/components/Records"
+import type { LoaderData as RootLoader } from "~/root"
+import { useQuery } from "~/sanity/loader"
+import { loadQuery } from "~/sanity/loader.server"
+import { RECORDS_QUERY } from "~/sanity/queries"
+import type { RecordStub } from "~/types/record"
+import { recordStubsZ } from "~/types/record"
+
+export const meta: MetaFunction<
+  typeof loader,
+  {
+    root: RootLoader
+  }
+> = ({ data, matches }) => {
+  const rootData = matches.find((match) => match.id === `root`)?.data
+  const home = rootData ? rootData.data : null
+  const title = [home?.title, home?.siteTitle].filter(Boolean).join(" | ")
+
+  return [{ title }]
+}
+
+export const loader = async () => {
+  const initial = await loadQuery<RecordStub[]>(RECORDS_QUERY).then((res) => ({
+    ...res,
+    data: res.data ? recordStubsZ.parse(res.data) : null,
+  }))
+
+  if (!initial.data) {
+    throw new Response("Not found", { status: 404 })
+  }
+
+  return json({
+    initial,
+    query: RECORDS_QUERY,
+    params: {},
+  })
 }
 
 export default function Index() {
+  const { initial, query, params } = useLoaderData<typeof loader>()
+  const { data, loading } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  })
+
+  if (loading || !data) {
+    return <div>Loading...</div>
+  }
+
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer noopener"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer noopener"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer noopener"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </main>
-  );
+    <div className="grid grid-cols-1 gap-6 lg:gap-12">
+      <Records records={data} />
+    </div>
+  )
 }
