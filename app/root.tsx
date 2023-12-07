@@ -13,7 +13,6 @@ import {
   useLoaderData,
 } from "@remix-run/react"
 import { json } from "@remix-run/node"
-import { Suspense } from "react"
 import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
@@ -30,6 +29,7 @@ import { homeZ } from "~/types/home"
 import { getEnv } from "./env.server"
 import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
+import { Hydrated } from "./components/Hydrated"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -142,9 +142,9 @@ export default function App() {
         )}
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
-          <Suspense>
+          <Hydrated>
             <VisualEditing />
-          </Suspense>
+          </Hydrated>
         ) : null}
         <Scripts />
         {/* Add ENV variables on window so they are available client-side */}

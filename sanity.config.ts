@@ -10,8 +10,8 @@ import { defaultDocumentNode, structure } from "~/sanity/structure"
 export const config = defineConfig({
   projectId,
   dataset,
-  name: "sanity-remix",
-  title: "Sanity Remix",
+  name: "go-canada",
+  title: "Go Canada",
   plugins: [
     deskTool({ structure, defaultDocumentNode }),
     presentationTool({
