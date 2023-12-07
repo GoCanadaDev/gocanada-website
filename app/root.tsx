@@ -14,6 +14,8 @@ import {
 } from "@remix-run/react"
 import { json } from "@remix-run/node"
 import { Suspense } from "react"
+import { useChangeLanguage } from "remix-i18next"
+import { useTranslation } from "react-i18next"
 import { z } from "zod"
 
 import { Layout } from "~/components/Layout"
@@ -27,7 +29,7 @@ import type { HomeDocument } from "~/types/home"
 import { homeZ } from "~/types/home"
 import { getEnv } from "./env.server"
 import VisualEditing from "./components/VisualEditing"
-import { ClientPerspective, ContentSourceMap } from "@sanity/client"
+import i18next from "~/i18next.server"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -57,23 +59,18 @@ export const meta: MetaFunction = () => [
 ]
 
 export type LoaderData = {
-  initial: {
-    data: {
-      title: string | null
-      siteTitle: string | null
-    } | null
-    sourceMap?: ContentSourceMap | undefined
-    perspective?: ClientPerspective | undefined
-  }
-  query: typeof HOME_QUERY
-  params: {}
   bodyClassNames: string
-  isStudioRoute: boolean
-  themePreference: "light" | "dark" | undefined
   ENV: ReturnType<typeof getEnv>
+  initial: any
+  isStudioRoute: boolean
+  locale: string
+  params: {}
+  query: string
+  themePreference: string | undefined
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
+  let locale = await i18next.getLocale(request)
   // Dark/light mode
   const cookieHeader = request.headers.get("Cookie")
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
@@ -92,25 +89,42 @@ export const loader: LoaderFunction = async ({ request }) => {
   }))
 
   return json<LoaderData>({
-    initial,
-    query: HOME_QUERY,
-    params: {},
     bodyClassNames,
-    isStudioRoute,
-    themePreference,
     ENV: getEnv(),
+    initial,
+    isStudioRoute,
+    locale,
+    params: {},
+    query: HOME_QUERY,
+    themePreference,
   })
 }
 
+export let handle = {
+  // In the handle export, we can add a i18n key with namespaces our route
+  // will need to load. This key can be a single string or an array of strings.
+  // TIP: In most cases, you should set this to your defaultNS from your i18n config
+  // or if you did not set one, set it to the i18next default namespace "translation"
+  i18n: "common",
+}
+
 export default function App() {
-  const { initial, query, params, bodyClassNames, isStudioRoute, ENV } =
-    useLoaderData() as LoaderData
+  const { initial, locale, query, params, bodyClassNames, isStudioRoute, ENV } =
+    useLoaderData<typeof loader>()
   const { data, loading } = useQuery<typeof initial.data>(query, params, {
     initial,
   })
 
+  let { i18n } = useTranslation()
+
+  // This hook will change the i18n instance language to the current locale
+  // detected by the loader, this way, when we do something to change the
+  // language, this locale will change and i18next will load the correct
+  // translation files
+  useChangeLanguage(locale)
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={i18n.dir()}>
       <head>
         <Meta />
         <meta charSet="utf-8" />

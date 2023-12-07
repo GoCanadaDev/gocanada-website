@@ -1,5 +1,6 @@
 import type {
   ActionFunction,
+  LoaderFunction,
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node"
@@ -22,8 +23,9 @@ export const meta: MetaFunction<
     root: RootLoader
   }
 > = ({ data, matches }) => {
-  const rootData = matches.find((match) => match.id === `root`)?.data
-  const home = rootData ? rootData.data : null
+  const rootData = matches.find((match) => match.id === `root`)
+    ?.data as RootLoader
+  const home = rootData ? rootData.initial.data : null
   const title = [data?.data?.title, home?.siteTitle].filter(Boolean).join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
 
@@ -88,7 +90,10 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 // Load the `record` document with this slug
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const loader: LoaderFunction = async ({
+  params,
+  request,
+}: LoaderFunctionArgs) => {
   // Params from the loader uses the filename
   // $slug.tsx has the params { slug: 'hello-world' }
   const initial = await loadQuery<RecordDocument>(RECORD_QUERY, params).then(

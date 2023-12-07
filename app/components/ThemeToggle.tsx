@@ -9,7 +9,11 @@ export function ThemeToggle() {
   const isDarkMode = themePreference === `dark`
 
   return (
-    <cookieToggle.Form method="post" action="/resource/toggle-theme">
+    <cookieToggle.Form
+      method="post"
+      action="/resource/toggle-theme"
+      className="flex items-center justify-center"
+    >
       <button type="submit" disabled={cookieToggle.state === "submitting"}>
         {isDarkMode ? (
           <Sun className="h-auto w-4" />
