@@ -4,4 +4,4 @@ import { homeType } from "~/sanity/schema/homeType"
 import { recordType } from "~/sanity/schema/recordType"
 import { trackType } from "~/sanity/schema/trackType"
 
-export default []
+export default [artistType, genreType, homeType, recordType, trackType]

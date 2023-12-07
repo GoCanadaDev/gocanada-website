@@ -1,3 +1,15 @@
+declare global {
+  interface Window {
+    ENV: {
+      SANITY_STUDIO_PROJECT_ID: string
+      SANITY_STUDIO_DATASET: string
+      SANITY_STUDIO_API_VERSION: string
+      SANITY_STUDIO_URL: string
+      SANITY_STUDIO_USE_STEGA: string
+    }
+  }
+}
+
 const {
   SANITY_STUDIO_PROJECT_ID,
   SANITY_STUDIO_DATASET,

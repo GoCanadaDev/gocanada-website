@@ -69,14 +69,9 @@ export type LoaderData = {
   params: {}
   bodyClassNames: string
   isStudioRoute: boolean
+  themePreference: "light" | "dark" | undefined
   ENV: ReturnType<typeof getEnv>
 }
-
-const getInitial = async () =>
-  await loadQuery<HomeDocument>(HOME_QUERY).then((res) => ({
-    ...res,
-    data: res.data ? homeZ.parse(res.data) : null,
-  }))
 
 export const loader: LoaderFunction = async ({ request }) => {
   // Dark/light mode
@@ -102,13 +97,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     params: {},
     bodyClassNames,
     isStudioRoute,
+    themePreference,
     ENV: getEnv(),
   })
 }
 
 export default function App() {
   const { initial, query, params, bodyClassNames, isStudioRoute, ENV } =
-    useLoaderData<LoaderData>()
+    useLoaderData() as LoaderData
   const { data, loading } = useQuery<typeof initial.data>(query, params, {
     initial,
   })
