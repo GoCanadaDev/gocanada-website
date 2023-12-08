@@ -39,7 +39,7 @@ export function LikeDislike(props: LikeDislikeProps) {
   return (
     <fetcher.Form
       action={location.pathname}
-      className="flex items-center justify-center gap-4 bg-slate-950 text-white"
+      className="flex items-center justify-center gap-4 bg-slate-100 text-black dark:bg-slate-800 dark:text-white"
       method="post"
     >
       <input name="id" type="hidden" value={id} />
@@ -48,7 +48,7 @@ export function LikeDislike(props: LikeDislikeProps) {
         type="submit"
         value="LIKE"
         disabled={isWorking}
-        className="flex items-center gap-2 bg-slate-950 p-4 transition-all duration-100 ease-in-out hover:bg-cyan-400 hover:text-black disabled:opacity-50"
+        className="flex items-center gap-2 bg-slate-100 p-4 transition-all duration-100 ease-in-out hover:text-slate-500 disabled:opacity-50 dark:bg-slate-800 dark:hover:text-slate-300"
         title="Like"
       >
         <span className="text-xs font-bold">{displayLikes}</span>
@@ -60,7 +60,7 @@ export function LikeDislike(props: LikeDislikeProps) {
         type="submit"
         value="DISLIKE"
         disabled={isWorking}
-        className="flex items-center gap-2 bg-slate-950 p-4 transition-all duration-100 ease-in-out hover:bg-cyan-400 hover:text-black disabled:opacity-50"
+        className="flex items-center gap-2 bg-slate-100 p-4 transition-all duration-100 ease-in-out hover:text-slate-500 disabled:opacity-50 dark:bg-slate-800 dark:hover:text-slate-300"
         title="Dislike"
       >
         <ThumbsDown />

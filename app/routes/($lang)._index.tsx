@@ -62,7 +62,7 @@ export default function Index() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:gap-12">
+    <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
       <h1>{t("greeting")}</h1>
       <Records records={data} />
     </div>

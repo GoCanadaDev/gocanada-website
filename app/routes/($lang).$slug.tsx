@@ -27,7 +27,9 @@ export const meta: MetaFunction<
   const rootData = matches.find((match) => match.id === `root`)
     ?.data as RootLoader
   const home = rootData ? rootData.initial.data : null
-  const title = [data?.data?.title, home?.siteTitle].filter(Boolean).join(" | ")
+  const title = [data?.initial?.data?.title, home?.siteTitle]
+    .filter(Boolean)
+    .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
 
   return [
