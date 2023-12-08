@@ -8,8 +8,9 @@ import MapleLeaf from "~/components/MapleLeaf"
 
 export function Logo(props: LogoProps) {
   const [style, trigger] = useBoop({
-    scale: 1.15,
-    rotation: -15,
+    scale: 1,
+    rotation: -45,
+    timing: 500,
     springConfig: {
       tension: 200,
       friction: 10,

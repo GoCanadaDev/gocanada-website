@@ -3,18 +3,26 @@ import { ThemeToggle } from "~/components/ThemeToggle"
 import { LanguageToggle } from "~/components/LanguageToggle"
 import type { LogoProps } from "~/types/home"
 import { Instagram } from "lucide-react"
+import useBoop from "~/lib/useBoop"
+import { animated } from "react-spring"
+import { MouseEventHandler } from "react"
 
 export function Header(props: LogoProps) {
+  const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
   return (
     <header className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
         <Logo home={props.home} />
         <div className="flex items-center gap-8">
           <a
+            onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
             href="https://instagram.com/canada"
-            className="transition-colors duration-200 hover:text-red-700"
+            className="border-r pr-4 transition-colors duration-200 hover:text-red-700"
           >
-            <Instagram className="inline" /> @canada
+            <animated.span style={style} className="mr-2 inline-block">
+              <Instagram className="inline" />
+            </animated.span>
+            @canada
           </a>
           <LanguageToggle />
           <ThemeToggle />

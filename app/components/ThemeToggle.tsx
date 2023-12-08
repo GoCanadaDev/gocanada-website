@@ -9,7 +9,7 @@ import { MouseEventHandler } from "react"
 
 export function ThemeToggle() {
   const [play] = useSound(clickSound)
-  const [style, trigger] = useBoop({ scale: 1.2, rotation: 10 })
+  const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
 
   const cookieToggle = useFetcher()
   const { themePreference } = useLoaderData() as LoaderData
@@ -31,11 +31,7 @@ export function ThemeToggle() {
         disabled={cookieToggle.state === "submitting"}
         onClick={() => play()}
       >
-        {isDarkMode ? (
-          <Sun className="h-auto w-4" />
-        ) : (
-          <Moon className="h-auto w-4" />
-        )}
+        {isDarkMode ? <Sun /> : <Moon />}
         <div className="sr-only select-none">
           {isDarkMode ? `Light` : `Dark`} Mode
         </div>
