@@ -1,6 +1,6 @@
-import {PortableText} from '@portabletext/react'
+import { PortableText } from "@portabletext/react"
 
-import {SanityImage} from '~/components/SanityImage'
+import { SanityImage } from "~/components/SanityImage"
 
 type ContentProps = {
   value: any[]
@@ -13,7 +13,7 @@ const components = {
 }
 
 export function SanityContent(props: ContentProps) {
-  const {value} = props
+  const { value } = props
 
   return (
     <div className="prose font-serif dark:prose-invert lg:prose-2xl prose-a:text-cyan-600 dark:prose-a:text-cyan-200">

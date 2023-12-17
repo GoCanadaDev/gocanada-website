@@ -1,39 +1,43 @@
-import {Disc, Home, Tags, Users} from 'lucide-react'
-import type {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/desk'
+import { Home, Newspaper, Tags, UserCircle } from "lucide-react"
+import type {
+  DefaultDocumentNodeResolver,
+  StructureResolver,
+} from "sanity/desk"
 
-import OGPreview from '~/sanity/components/OGPreview'
+import OGPreview from "~/sanity/components/OGPreview"
 
-import {resolveOGUrl} from './resolveOGUrl'
+import { resolveOGUrl } from "./resolveOGUrl"
 
 export const structure: StructureResolver = (S) =>
   S.list()
-    .id('root')
-    .title('Content')
+    .id("root")
+    .title("Content")
     .items([
       // Singleton, home page curation
       S.documentListItem()
-        .schemaType('home')
+        .schemaType("home")
         .icon(Home)
-        .id('home')
-        .title('Home'),
+        .id("home")
+        .title("Home"),
       S.divider(),
       // Document lists
-      S.documentTypeListItem('record').title('Records').icon(Disc),
-      S.documentTypeListItem('artist').title('Artists').icon(Users),
+      S.documentTypeListItem("postType").title("Posts").icon(Newspaper),
       S.divider(),
-      S.documentTypeListItem('genre').title('Genres').icon(Tags),
+      S.documentTypeListItem("authorType").title("Authors").icon(UserCircle),
+      S.divider(),
+      S.documentTypeListItem("categoryType").title("Categories").icon(Tags),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
-  {schemaType, documentId},
+  { schemaType, documentId }
 ) => {
   const OGPreviewView = S.view
     .component(OGPreview)
     .options({
       url: resolveOGUrl(documentId),
     })
-    .title('OG Preview')
+    .title("OG Preview")
 
   switch (schemaType) {
     case `home`:

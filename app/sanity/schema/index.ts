@@ -1,7 +1,7 @@
-import { artistType } from "~/sanity/schema/artistType"
-import { genreType } from "~/sanity/schema/genreType"
+import { authorType } from "~/sanity/schema/author"
+import { blockContentType } from "~/sanity/schema/blockContent"
+import { categoryType } from "~/sanity/schema/category"
 import { homeType } from "~/sanity/schema/homeType"
-import { recordType } from "~/sanity/schema/recordType"
-import { trackType } from "~/sanity/schema/trackType"
+import { postType } from "~/sanity/schema/post"
 
-export default [artistType, genreType, homeType, recordType, trackType]
+export default [authorType, blockContentType, categoryType, homeType, postType]

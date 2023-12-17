@@ -34,8 +34,7 @@ export function Logo(props: LogoProps) {
         <animated.span style={style} className="absolute inset-0 h-8 w-8 ">
           <MapleLeaf className="rotate-45" />
         </animated.span>
-        {/* <LeafAnimation style={style} className="absolute text-red-700" /> */}
-        {siteTitle ?? `Go Canada`}
+        {siteTitle ?? `GoCanada`}
       </Link>
     </animated.p>
   )

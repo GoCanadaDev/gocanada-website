@@ -8,15 +8,17 @@ import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
-import { Record } from "~/components/Record"
+import { client } from "~/sanity/client"
+import { SUPPORTED_LANGUAGES, SupportedLanguages } from "~/i18n"
+import i18next from "~/i18next.server"
 import type { LoaderData as RootLoader } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { writeClient } from "~/sanity/client.server"
-import { useQuery } from "~/sanity/loader"
-import { loadQuery } from "~/sanity/loader.server"
-import { RECORD_QUERY } from "~/sanity/queries"
-import type { RecordDocument } from "~/types/record"
-import { recordZ } from "~/types/record"
+import { getPost } from "~/sanity/queries"
+
+import { formatDate } from "~/lib/formatDate"
+import { PortableText } from "@portabletext/react"
+import { urlForImage } from "~/lib/sanity.image"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -26,10 +28,9 @@ export const meta: MetaFunction<
 > = ({ data, matches }) => {
   const rootData = matches.find((match) => match.id === `root`)
     ?.data as RootLoader
+
   const home = rootData ? rootData.initial.data : null
-  const title = [data?.initial?.data?.title, home?.siteTitle]
-    .filter(Boolean)
-    .join(" | ")
+  const title = [data?.post?.title, home?.siteTitle].filter(Boolean).join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
 
   return [
@@ -97,39 +98,52 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }: LoaderFunctionArgs) => {
-  // Params from the loader uses the filename
-  // $slug.tsx has the params { slug: 'hello-world' }
-  const initial = await loadQuery<RecordDocument>(RECORD_QUERY, params).then(
-    (res) => ({ ...res, data: res.data ? recordZ.parse(res.data) : null })
-  )
+  let locale = (await i18next.getLocale(request)) as SupportedLanguages
 
-  if (!initial.data) {
+  const language = locale ?? SUPPORTED_LANGUAGES[0]
+  const post = await getPost(client, params.slug!, language)
+
+  if (!post) {
     throw new Response("Not found", { status: 404 })
   }
 
   // Create social share image url
   const { origin } = new URL(request.url)
-  const ogImageUrl = `${origin}/resource/og?id=${initial.data._id}`
+  const ogImageUrl = `${origin}/resource/og?id=${post._id}`
 
   return json({
-    initial,
-    query: RECORD_QUERY,
+    post,
     params,
     ogImageUrl,
   })
 }
 
 export default function RecordPage() {
-  const { initial, query, params } = useLoaderData<typeof loader>()
-  const { data, loading } = useQuery<typeof initial.data>(query, params, {
-    initial,
-  })
+  const { post } = useLoaderData<typeof loader>()
 
-  if (loading || !data) {
-    return <div>Loading...</div>
-  }
-
-  return <Record data={data} />
+  return (
+    <section className="post">
+      {post.mainImage ? (
+        <img
+          className="post__cover"
+          src={urlForImage(post.mainImage)!.url()}
+          height={231}
+          width={367}
+          alt=""
+        />
+      ) : (
+        <div className="post__cover--none" />
+      )}
+      <div className="post__container">
+        <h1 className="post__title">{post.title}</h1>
+        <p className="post__excerpt">{post.excerpt}</p>
+        <p className="post__date">{formatDate(post._createdAt)}</p>
+        <div className="post__content">
+          <PortableText value={post.body} />
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export function ErrorBoundary({ error }: { error: string }) {

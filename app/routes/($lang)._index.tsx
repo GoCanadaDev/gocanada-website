@@ -3,14 +3,12 @@ import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
-
-import { Records } from "~/components/Records"
 import type { LoaderData as RootLoader } from "~/root"
-import { useQuery } from "~/sanity/loader"
-import { loadQuery } from "~/sanity/loader.server"
-import { RECORDS_QUERY } from "~/sanity/queries"
-import type { RecordStub } from "~/types/record"
-import { recordStubsZ } from "~/types/record"
+import { Post, getPosts } from "~/sanity/queries"
+import i18next from "~/i18next.server"
+import { client } from "~/sanity/client"
+import Card from "~/components/Card"
+import { SUPPORTED_LANGUAGES, SupportedLanguages } from "~/i18n"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -27,44 +25,35 @@ export const meta: MetaFunction<
 }
 
 type IndexLoaderData = {
-  initial: any
-  query: typeof RECORDS_QUERY
-  params: Record<string, string>
+  posts: any
+  locale: SupportedLanguages
 }
 
-export const loader: LoaderFunction = async () => {
-  const initial = await loadQuery<RecordStub[]>(RECORDS_QUERY).then((res) => ({
-    ...res,
-    data: res.data ? recordStubsZ.parse(res.data) : null,
-  }))
+export const loader: LoaderFunction = async ({ request }) => {
+  let locale = (await i18next.getLocale(request)) as SupportedLanguages
 
-  if (!initial.data) {
-    throw new Response("Not found", { status: 404 })
-  }
+  const language = locale ?? SUPPORTED_LANGUAGES[0]
+  const posts = await getPosts(client, language)
 
   return json<IndexLoaderData>({
-    initial,
-    query: RECORDS_QUERY,
-    params: {},
+    posts,
+    locale,
   })
 }
 
 export default function Index() {
-  const { initial, query, params } = useLoaderData() as IndexLoaderData
-  const { data, loading } = useQuery<typeof initial.data>(query, params, {
-    initial,
-  })
+  const { posts, locale } = useLoaderData() as IndexLoaderData
 
   let { t } = useTranslation()
-
-  if (loading || !data) {
-    return <div>Loading...</div>
-  }
 
   return (
     <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
       <h1>{t("greeting")}</h1>
-      <Records records={data} />
+      {posts.length
+        ? posts.map((post: Post) => (
+            <Card key={post.title} post={post} locale={locale} />
+          ))
+        : null}
     </div>
   )
 }
