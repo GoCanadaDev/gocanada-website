@@ -3,21 +3,24 @@ import { Link } from "@remix-run/react"
 import { urlForImage } from "~/lib/sanity.image"
 import { type Post } from "~/sanity/queries"
 import { formatDate } from "~/lib/formatDate"
-import { SupportedLanguages } from "~/i18n"
+import { useTranslation } from "react-i18next"
 
-export default function Card({
-  post,
-  locale,
-}: {
-  post: Post
-  locale: SupportedLanguages
-}) {
+export default function Card({ post }: { post: Post }) {
+  let { i18n } = useTranslation()
+
+  const postInLocale = post._translations!.find(
+    (l) => l.language === i18n.language
+  )!
+
   return (
     <div className="card">
-      {post.mainImage ? (
+      {postInLocale.mainImage ? (
         <img
           className="card__cover"
-          src={urlForImage(post.mainImage)!.width(500).height(300).url()}
+          src={urlForImage(postInLocale.mainImage)!
+            .width(500)
+            .height(300)
+            .url()}
           height={300}
           width={500}
           alt=""
@@ -27,12 +30,18 @@ export default function Card({
       )}
       <div className="card__container">
         <h3 className="card__title text-2xl font-bold">
-          <Link className="card__link" to={`${locale}/${post.slug.current}`}>
-            {post.title}
+          <Link
+            prefetch="intent"
+            className="card__link"
+            to={`${i18n.language}/${postInLocale.slug.current}`}
+          >
+            {postInLocale.title}
           </Link>
         </h3>
-        <p className="card__excerpt">{post.excerpt}</p>
-        <p className="card__date">{formatDate(post._createdAt)}</p>
+        <p className="card__excerpt">{postInLocale.excerpt}</p>
+        <p className="card__date">
+          {formatDate(postInLocale._createdAt, postInLocale.language)}
+        </p>
       </div>
     </div>
   )

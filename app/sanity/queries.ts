@@ -16,6 +16,7 @@ export const postsQuery = groq`*[_type == "postType" && language == $language &&
   mainImage,
   "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     _id,
+    _createdAt,
     title,
     slug,
     language,
@@ -43,6 +44,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $sl
   mainImage,
   "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     _id,
+    _createdAt,
     title,
     slug,
     language,

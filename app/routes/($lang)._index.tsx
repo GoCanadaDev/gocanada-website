@@ -26,23 +26,19 @@ export const meta: MetaFunction<
 
 type IndexLoaderData = {
   posts: any
-  locale: SupportedLanguages
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   let locale = (await i18next.getLocale(request)) as SupportedLanguages
-
-  const language = locale ?? SUPPORTED_LANGUAGES[0]
-  const posts = await getPosts(client, language)
+  const posts = await getPosts(client, locale)
 
   return json<IndexLoaderData>({
     posts,
-    locale,
   })
 }
 
 export default function Index() {
-  const { posts, locale } = useLoaderData() as IndexLoaderData
+  const { posts } = useLoaderData() as IndexLoaderData
 
   let { t } = useTranslation()
 
@@ -50,9 +46,7 @@ export default function Index() {
     <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
       <h1>{t("greeting")}</h1>
       {posts.length
-        ? posts.map((post: Post) => (
-            <Card key={post.title} post={post} locale={locale} />
-          ))
+        ? posts.map((post: Post) => <Card key={post.title} post={post} />)
         : null}
     </div>
   )

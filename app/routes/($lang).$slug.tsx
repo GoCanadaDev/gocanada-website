@@ -99,9 +99,7 @@ export const loader: LoaderFunction = async ({
   request,
 }: LoaderFunctionArgs) => {
   let locale = (await i18next.getLocale(request)) as SupportedLanguages
-
-  const language = locale ?? SUPPORTED_LANGUAGES[0]
-  const post = await getPost(client, params.slug!, language)
+  const post = await getPost(client, params.slug!, locale)
 
   if (!post) {
     throw new Response("Not found", { status: 404 })
@@ -118,7 +116,7 @@ export const loader: LoaderFunction = async ({
   })
 }
 
-export default function RecordPage() {
+export default function Slug() {
   const { post } = useLoaderData<typeof loader>()
 
   return (
@@ -137,7 +135,9 @@ export default function RecordPage() {
       <div className="post__container">
         <h1 className="post__title">{post.title}</h1>
         <p className="post__excerpt">{post.excerpt}</p>
-        <p className="post__date">{formatDate(post._createdAt)}</p>
+        <p className="post__date">
+          {formatDate(post._createdAt, post.language)}
+        </p>
         <div className="post__content">
           <PortableText value={post.body} />
         </div>

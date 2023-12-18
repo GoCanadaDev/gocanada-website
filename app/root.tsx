@@ -125,7 +125,7 @@ export default function App() {
   useChangeLanguage(locale)
 
   return (
-    <html lang={locale} dir={i18n.dir()}>
+    <html lang={i18n.resolvedLanguage} dir={i18n.dir()}>
       <head>
         <Meta />
         <meta charSet="utf-8" />

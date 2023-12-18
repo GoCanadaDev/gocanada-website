@@ -1,4 +1,4 @@
-import {z} from 'zod'
+import { z } from "zod"
 
 export const homeZ = z.object({
   title: z.string().nullable(),
@@ -7,4 +7,4 @@ export const homeZ = z.object({
 
 export type HomeDocument = z.infer<typeof homeZ>
 
-export type LogoProps = {home?: HomeDocument | null}
+export type LogoProps = { home?: HomeDocument | null }
