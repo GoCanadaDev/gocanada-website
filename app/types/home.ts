@@ -6,5 +6,3 @@ export const homeZ = z.object({
 })
 
 export type HomeDocument = z.infer<typeof homeZ>
-
-export type LogoProps = { home?: HomeDocument | null }

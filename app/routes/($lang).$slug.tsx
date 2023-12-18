@@ -4,7 +4,7 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import { json, redirect } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
@@ -14,11 +14,12 @@ import i18next from "~/i18next.server"
 import type { LoaderData as RootLoader } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { writeClient } from "~/sanity/client.server"
-import { getPost } from "~/sanity/queries"
+import { Post, getPost } from "~/sanity/queries"
 
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
 import { urlForImage } from "~/lib/sanity.image"
+import { Layout } from "~/components/Layout"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -93,12 +94,12 @@ export const action: ActionFunction = async ({ request }) => {
   return json({ message: "Bad request" }, 400)
 }
 
-// Load the `record` document with this slug
 export const loader: LoaderFunction = async ({
   params,
   request,
 }: LoaderFunctionArgs) => {
-  let locale = (await i18next.getLocale(request)) as SupportedLanguages
+  let locale = (params.lang ??
+    (await i18next.getLocale(request))) as SupportedLanguages
   const post = await getPost(client, params.slug!, locale)
 
   if (!post) {
@@ -113,36 +114,48 @@ export const loader: LoaderFunction = async ({
     post,
     params,
     ogImageUrl,
+    locale,
   })
 }
 
 export default function Slug() {
-  const { post } = useLoaderData<typeof loader>()
+  const { post, locale } = useLoaderData<typeof loader>()
+
+  const postInLocale = post._translations!.find(
+    (p: Post) => p.language === locale
+  )!
+  const translation = post._translations!.find(
+    (p: Post) => p.language !== locale
+  )!
+
+  const translationUrl = `/${translation.language}/${translation.slug.current}`
 
   return (
-    <section className="post">
-      {post.mainImage ? (
-        <img
-          className="post__cover"
-          src={urlForImage(post.mainImage)!.url()}
-          height={231}
-          width={367}
-          alt=""
-        />
-      ) : (
-        <div className="post__cover--none" />
-      )}
-      <div className="post__container">
-        <h1 className="post__title">{post.title}</h1>
-        <p className="post__excerpt">{post.excerpt}</p>
-        <p className="post__date">
-          {formatDate(post._createdAt, post.language)}
-        </p>
-        <div className="post__content">
-          <PortableText value={post.body} />
+    <Layout translationUrl={translationUrl}>
+      <section className="post">
+        {postInLocale.mainImage ? (
+          <img
+            className="post__cover"
+            src={urlForImage(postInLocale.mainImage)!.url()}
+            height={231}
+            width={367}
+            alt=""
+          />
+        ) : (
+          <div className="post__cover--none" />
+        )}
+        <div className="post__container">
+          <h1 className="post__title">{postInLocale.title}</h1>
+          <p className="post__excerpt">{postInLocale.excerpt}</p>
+          <p className="post__date">
+            {formatDate(postInLocale._createdAt, postInLocale.language)}
+          </p>
+          <div className="post__content">
+            <PortableText value={postInLocale.body} />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </Layout>
   )
 }
 

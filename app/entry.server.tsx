@@ -11,6 +11,8 @@ import i18n from "./i18n" // your i18n configuration file
 import { resolve } from "node:path"
 
 import { getEnv } from "./env.server"
+import { langPreferenceCookie } from "./cookies"
+import { z } from "zod"
 
 const ABORT_DELAY = 5000
 
@@ -27,8 +29,15 @@ export default async function handleRequest(
     ? "onAllReady"
     : "onShellReady"
 
+  const cookieHeader = request.headers.get("Cookie")
+  const langCookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
+  const langPreference = z
+    .union([z.literal("en"), z.literal("fr")])
+    .optional()
+    .parse(langCookie.langPreference)
+
   let instance = createInstance()
-  let lng = await i18next.getLocale(request)
+  let lng = langPreference ?? (await i18next.getLocale(request))
   let ns = i18next.getRouteNamespaces(remixContext)
 
   await instance

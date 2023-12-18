@@ -17,10 +17,8 @@ import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
 
-import { Layout } from "~/components/Layout"
-import { themePreferenceCookie } from "~/cookies"
+import { themePreferenceCookie, langPreferenceCookie } from "~/cookies"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
-import { useQuery } from "~/sanity/loader"
 import { loadQuery } from "~/sanity/loader.server"
 import { HOME_QUERY } from "~/sanity/queries"
 import styles from "~/tailwind.css"
@@ -68,17 +66,25 @@ export type LoaderData = {
   params: {}
   query: string
   themePreference: string | undefined
+  langPreference: string | undefined
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   let locale = await i18next.getLocale(request)
-  // Dark/light mode
   const cookieHeader = request.headers.get("Cookie")
-  const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
+  // Dark/light mode
+  const themeCookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
   const themePreference = z
     .union([z.literal("dark"), z.literal("light")])
     .optional()
-    .parse(cookie.themePreference)
+    .parse(themeCookie.themePreference)
+
+  // language cookie
+  const langCookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
+  const langPreference = z
+    .union([z.literal("en"), z.literal("fr")])
+    .optional()
+    .parse(langCookie.langPreference)
 
   const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
   const bodyClassNames = getBodyClassNames(themePreference)
@@ -98,6 +104,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     params: {},
     query: HOME_QUERY,
     themePreference,
+    langPreference,
   })
 }
 
@@ -110,11 +117,8 @@ export let handle = {
 }
 
 export default function App() {
-  const { initial, locale, query, params, bodyClassNames, isStudioRoute, ENV } =
+  const { locale, bodyClassNames, ENV, langPreference } =
     useLoaderData<typeof loader>()
-  const { data, loading } = useQuery<typeof initial.data>(query, params, {
-    initial,
-  })
 
   let { i18n } = useTranslation()
 
@@ -122,10 +126,10 @@ export default function App() {
   // detected by the loader, this way, when we do something to change the
   // language, this locale will change and i18next will load the correct
   // translation files
-  useChangeLanguage(locale)
+  useChangeLanguage(langPreference || locale)
 
   return (
-    <html lang={i18n.resolvedLanguage} dir={i18n.dir()}>
+    <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
       <head>
         <Meta />
         <meta charSet="utf-8" />
@@ -134,13 +138,7 @@ export default function App() {
         <Links />
       </head>
       <body className={bodyClassNames}>
-        {isStudioRoute ? (
-          <Outlet />
-        ) : (
-          <Layout home={loading || !data ? null : data}>
-            <Outlet />
-          </Layout>
-        )}
+        <Outlet />
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
           <Hydrated>

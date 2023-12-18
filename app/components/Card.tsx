@@ -3,13 +3,17 @@ import { Link } from "@remix-run/react"
 import { urlForImage } from "~/lib/sanity.image"
 import { type Post } from "~/sanity/queries"
 import { formatDate } from "~/lib/formatDate"
-import { useTranslation } from "react-i18next"
+import { SupportedLanguages } from "~/i18n"
 
-export default function Card({ post }: { post: Post }) {
-  let { i18n } = useTranslation()
-
+export default function Card({
+  post,
+  currentLang,
+}: {
+  post: Post
+  currentLang: SupportedLanguages
+}) {
   const postInLocale = post._translations!.find(
-    (l) => l.language === i18n.language
+    (l) => l.language === currentLang
   )!
 
   return (
@@ -33,7 +37,7 @@ export default function Card({ post }: { post: Post }) {
           <Link
             prefetch="intent"
             className="card__link"
-            to={`${i18n.language}/${postInLocale.slug.current}`}
+            to={`${postInLocale.language}/${postInLocale.slug.current}`}
           >
             {postInLocale.title}
           </Link>

@@ -8,7 +8,10 @@ import { Post, getPosts } from "~/sanity/queries"
 import i18next from "~/i18next.server"
 import { client } from "~/sanity/client"
 import Card from "~/components/Card"
-import { SUPPORTED_LANGUAGES, SupportedLanguages } from "~/i18n"
+import { SupportedLanguages } from "~/i18n"
+import { Layout } from "~/components/Layout"
+import { langPreferenceCookie } from "~/cookies"
+import { z } from "zod"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -26,29 +29,44 @@ export const meta: MetaFunction<
 
 type IndexLoaderData = {
   posts: any
+  currentLang: SupportedLanguages
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   let locale = (await i18next.getLocale(request)) as SupportedLanguages
-  const posts = await getPosts(client, locale)
+
+  const cookieHeader = request.headers.get("Cookie")
+  const langCookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
+  const langPreference = z
+    .union([z.literal("en"), z.literal("fr")])
+    .optional()
+    .parse(langCookie.langPreference)
+
+  const currentLang = langPreference ?? locale
+  const posts = await getPosts(client, currentLang)
 
   return json<IndexLoaderData>({
     posts,
+    currentLang,
   })
 }
 
 export default function Index() {
-  const { posts } = useLoaderData() as IndexLoaderData
+  const { posts, currentLang } = useLoaderData() as IndexLoaderData
 
-  let { t } = useTranslation()
+  let { t, ready } = useTranslation()
 
   return (
-    <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
-      <h1>{t("greeting")}</h1>
-      {posts.length
-        ? posts.map((post: Post) => <Card key={post.title} post={post} />)
-        : null}
-    </div>
+    <Layout>
+      <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
+        {ready ? <h1>{t("greeting")}</h1> : null}
+        {posts.length
+          ? posts.map((post: Post) => (
+              <Card key={post.title} post={post} currentLang={currentLang} />
+            ))
+          : null}
+      </div>
+    </Layout>
   )
 }
 

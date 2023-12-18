@@ -1,12 +1,11 @@
 import { Link } from "@remix-run/react"
 import { animated } from "react-spring"
 
-import type { LogoProps } from "~/types/home"
 import useBoop from "~/lib/useBoop"
 import { MouseEventHandler } from "react"
 import MapleLeaf from "~/components/MapleLeaf"
 
-export function Logo(props: LogoProps) {
+export function Logo() {
   const [style, trigger] = useBoop({
     scale: 1,
     rotation: -45,
@@ -16,13 +15,6 @@ export function Logo(props: LogoProps) {
       friction: 10,
     },
   })
-  const { siteTitle } = props.home ?? {}
-
-  if (!siteTitle && typeof document !== `undefined`) {
-    console.info(
-      `Create and publish "home" document in Sanity Studio at ${window.origin}/studio/desk/home`
-    )
-  }
 
   return (
     <animated.p className="text-lg font-bold tracking-tighter text-black dark:text-white lg:text-2xl">
@@ -34,7 +26,7 @@ export function Logo(props: LogoProps) {
         <animated.span style={style} className="absolute inset-0 h-8 w-8 ">
           <MapleLeaf className="rotate-45" />
         </animated.span>
-        {siteTitle ?? `GoCanada`}
+        GoCanada
       </Link>
     </animated.p>
   )
