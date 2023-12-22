@@ -30,6 +30,7 @@ import i18next from "~/i18next.server"
 import { Hydrated } from "./components/Hydrated"
 import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
 import setLanguageCookie from "~/lib/setLanguageCookie"
+import { SupportedLanguages } from "~/i18n"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -86,7 +87,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     .optional()
     .parse(langCookie.langPreference)
 
-  const headers = {...await setLanguageCookie(langPreference ?? 'en')}
+  // set cookie to current locale, preference, or default to english
+  const lang = (locale ?? langPreference ?? "en") as SupportedLanguages
+  const headers = { ...(await setLanguageCookie(lang)) }
 
   const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
   const bodyClassNames = getBodyClassNames(themePreference)

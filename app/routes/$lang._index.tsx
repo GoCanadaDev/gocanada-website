@@ -5,13 +5,10 @@ import { useTranslation } from "react-i18next"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import type { RootLoaderData as RootLoader } from "~/root"
 import { Post, getPosts } from "~/sanity/queries"
-import i18next from "~/i18next.server"
 import { client } from "~/sanity/client"
 import Card from "~/components/Card"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
-import { langPreferenceCookie } from "~/cookies"
-import { z } from "zod"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -50,7 +47,7 @@ export default function Index() {
   let { t, ready } = useTranslation()
 
   return (
-    <Layout translationUrl={language === "en" ? "/fr" : "/en"}>
+    <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"}>
       <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
         {ready ? <h1>{t("greeting")}</h1> : null}
         {posts.length
