@@ -29,7 +29,7 @@ import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
 import { Hydrated } from "./components/Hydrated"
 import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
-import setLanguageCookie from "~/lib/setLanguageCookie";
+import setLanguageCookie from "~/lib/setLanguageCookie"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -97,18 +97,21 @@ export const loader: LoaderFunction = async ({ request }) => {
     data: res.data ? homeZ.parse(res.data) : null,
   }))
 
-  return json<RootLoaderData>({
-    bodyClassNames,
-    ENV: getEnv(),
-    initial,
-    isStudioRoute,
-    locale,
-    params: {},
-    query: HOME_QUERY,
-    themePreference,
-  }, {
-    headers
-  })
+  return json<RootLoaderData>(
+    {
+      bodyClassNames,
+      ENV: getEnv(),
+      initial,
+      isStudioRoute,
+      locale,
+      params: {},
+      query: HOME_QUERY,
+      themePreference,
+    },
+    {
+      headers,
+    }
+  )
 }
 
 export let handle = {
