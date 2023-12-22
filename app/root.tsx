@@ -87,9 +87,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     .optional()
     .parse(langCookie.langPreference)
 
-  // set cookie to current locale, preference, or default to english
-  const lang = (locale ?? langPreference ?? "en") as SupportedLanguages
-  const headers = { ...(await setLanguageCookie(lang)) }
+  let headers = {};
+  if(!langPreference) {
+    // set cookie to current locale, or default to english
+    const lang = (locale ?? "en") as SupportedLanguages
+    headers = { ...(await setLanguageCookie(lang)) }
+  }
 
   const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
   const bodyClassNames = getBodyClassNames(themePreference)
