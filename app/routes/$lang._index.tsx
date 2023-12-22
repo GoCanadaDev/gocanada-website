@@ -1,17 +1,14 @@
 import type { MetaFunction, LoaderFunction } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { useLoaderData, useParams } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
-import type { LoaderData as RootLoader } from "~/root"
+import type { RootLoaderData as RootLoader } from "~/root"
 import { Post, getPosts } from "~/sanity/queries"
-import i18next from "~/i18next.server"
 import { client } from "~/sanity/client"
 import Card from "~/components/Card"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
-import { langPreferenceCookie } from "~/cookies"
-import { z } from "zod"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -29,35 +26,28 @@ export const meta: MetaFunction<
 
 type IndexLoaderData = {
   posts: any
-  currentLang: SupportedLanguages
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
-  let locale = (await i18next.getLocale(request)) as SupportedLanguages
-
-  const cookieHeader = request.headers.get("Cookie")
-  const langCookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
-  const langPreference = z
-    .union([z.literal("en"), z.literal("fr")])
-    .optional()
-    .parse(langCookie.langPreference)
-
-  const currentLang = langPreference ?? locale
-  const posts = await getPosts(client, currentLang)
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const posts = await getPosts(client, params.lang as SupportedLanguages)
 
   return json<IndexLoaderData>({
     posts,
-    currentLang,
   })
 }
 
 export default function Index() {
-  const { posts, currentLang } = useLoaderData() as IndexLoaderData
+  const { lang } = useParams()
+  let {
+    i18n: { language },
+  } = useTranslation()
+  const { posts } = useLoaderData() as IndexLoaderData
+  const currentLang = language as SupportedLanguages
 
   let { t, ready } = useTranslation()
 
   return (
-    <Layout>
+    <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"}>
       <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
         {ready ? <h1>{t("greeting")}</h1> : null}
         {posts.length

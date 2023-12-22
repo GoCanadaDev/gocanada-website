@@ -37,7 +37,7 @@ export default function Card({
           <Link
             prefetch="intent"
             className="card__link"
-            to={`${postInLocale.language}/${postInLocale.slug.current}`}
+            to={`/${postInLocale.language}/${postInLocale.slug.current}`}
           >
             {postInLocale.title}
           </Link>

@@ -3,7 +3,7 @@ import { Header } from "~/components/Header"
 
 type LayoutProps = {
   children: React.ReactNode
-  translationUrl?: string
+  translationUrl: string
 }
 
 export function Layout({ children, translationUrl }: LayoutProps) {

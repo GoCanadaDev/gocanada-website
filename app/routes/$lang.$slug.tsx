@@ -4,22 +4,23 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node"
-import { json, redirect } from "@remix-run/node"
+import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
 import { client } from "~/sanity/client"
-import { SUPPORTED_LANGUAGES, SupportedLanguages } from "~/i18n"
+import { SupportedLanguages } from "~/i18n"
 import i18next from "~/i18next.server"
-import type { LoaderData as RootLoader } from "~/root"
+import type { RootLoaderData as RootLoader } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { writeClient } from "~/sanity/client.server"
-import { Post, getPost } from "~/sanity/queries"
+import { getPost, Post } from "~/sanity/queries"
 
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
 import { urlForImage } from "~/lib/sanity.image"
 import { Layout } from "~/components/Layout"
+import { useTranslation } from "react-i18next"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -98,9 +99,8 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }: LoaderFunctionArgs) => {
-  let locale = (params.lang ??
-    (await i18next.getLocale(request))) as SupportedLanguages
-  const post = await getPost(client, params.slug!, locale)
+  let language = (await i18next.getLocale(request)) as SupportedLanguages
+  const post = await getPost(client, params.slug!, language)
 
   if (!post) {
     throw new Response("Not found", { status: 404 })
@@ -114,18 +114,20 @@ export const loader: LoaderFunction = async ({
     post,
     params,
     ogImageUrl,
-    locale,
   })
 }
 
 export default function Slug() {
-  const { post, locale } = useLoaderData<typeof loader>()
+  const {
+    i18n: { language },
+  } = useTranslation()
+  const { post } = useLoaderData<typeof loader>()
 
   const postInLocale = post._translations!.find(
-    (p: Post) => p.language === locale
+    (p: Post) => p.language === language
   )!
   const translation = post._translations!.find(
-    (p: Post) => p.language !== locale
+    (p: Post) => p.language !== language
   )!
 
   const translationUrl = `/${translation.language}/${translation.slug.current}`
