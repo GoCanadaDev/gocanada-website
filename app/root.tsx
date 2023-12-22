@@ -29,6 +29,7 @@ import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
 import { Hydrated } from "./components/Hydrated"
 import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
+import setLanguageCookie from "~/lib/setLanguageCookie";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -57,7 +58,7 @@ export const meta: MetaFunction = () => [
   },
 ]
 
-export type LoaderData = {
+export type RootLoaderData = {
   bodyClassNames: string
   ENV: ReturnType<typeof getEnv>
   initial: any
@@ -66,7 +67,6 @@ export type LoaderData = {
   params: {}
   query: string
   themePreference: string | undefined
-  langPreference: string | undefined
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -86,6 +86,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     .optional()
     .parse(langCookie.langPreference)
 
+  const headers = {...await setLanguageCookie(langPreference ?? 'en')}
+
   const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
   const bodyClassNames = getBodyClassNames(themePreference)
 
@@ -95,7 +97,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     data: res.data ? homeZ.parse(res.data) : null,
   }))
 
-  return json<LoaderData>({
+  return json<RootLoaderData>({
     bodyClassNames,
     ENV: getEnv(),
     initial,
@@ -104,7 +106,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     params: {},
     query: HOME_QUERY,
     themePreference,
-    langPreference,
+  }, {
+    headers
   })
 }
 

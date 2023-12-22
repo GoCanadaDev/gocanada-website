@@ -1,7 +1,7 @@
 import { useFetcher, useLoaderData } from "@remix-run/react"
 import { Moon, Sun } from "lucide-react"
 import useSound from "use-sound"
-import type { LoaderData } from "~/root"
+import type { RootLoaderData } from "~/root"
 import clickSound from "../../public/sounds/click.mp3"
 import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
@@ -12,7 +12,7 @@ export function ThemeToggle() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
 
   const cookieToggle = useFetcher()
-  const { themePreference } = useLoaderData() as LoaderData
+  const { themePreference } = useLoaderData() as RootLoaderData
 
   const isDarkMode = themePreference === `dark`
 

@@ -3,6 +3,7 @@ import { json, redirect } from "@remix-run/node"
 
 import { langPreferenceCookie } from "~/cookies"
 import getObjectFromFormData from "~/lib/getObjectFromFormData"
+import setLanguageCookie from "~/lib/setLanguageCookie"
 
 export const action: ActionFunction = async ({ request }) => {
   const cookieHeader = request.headers.get("Cookie")
@@ -12,14 +13,9 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const formInput = getObjectFromFormData<{ translationUrl: string }>(formData)
 
-  const headers = {
-    "Set-Cookie": await langPreferenceCookie.serialize({
-      langPreference,
-    }),
-  }
+  const headers = { ...(await setLanguageCookie(langPreference)) }
 
   if (formInput.translationUrl) {
-    console.log("there was a translationUrl", formInput.translationUrl)
     return redirect(formInput.translationUrl, {
       headers,
     })
