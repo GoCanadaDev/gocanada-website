@@ -6,8 +6,9 @@ import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
 import { MouseEventHandler } from "react"
 
-export function Header({ translationUrl }: { translationUrl?: string }) {
+export function Header({ translationUrl }: { translationUrl: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
+
   return (
     <header className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
