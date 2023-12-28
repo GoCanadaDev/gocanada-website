@@ -7,16 +7,17 @@ const baseUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
 type HeroImageProps = {
   id: string
   title: string
+  preview: string
 }
 
-// radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0))
-
-export const HeroImage = ({ id, title }: HeroImageProps) => (
+export const HeroImage = ({ id, title, preview }: HeroImageProps) => (
   <section className="relative h-screen">
     <SanityImage
       id={id}
       baseUrl={baseUrl}
+      preview={preview}
       width={1440}
+      loading="eager"
       style={{
         position: "absolute",
         top: 0,

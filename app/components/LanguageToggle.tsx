@@ -26,7 +26,6 @@ export function LanguageToggle({
   const changeLanguageTo = async (language: SupportedLanguages) => {
     if (ready) {
       const message = t("languageChanged")
-      console.log(message)
       toast.info(message)
     }
     changeLanguage(language)

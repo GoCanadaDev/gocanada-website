@@ -141,6 +141,7 @@ export default function Slug() {
           <HeroImage
             id={postInLocale.mainImage.id}
             title={postInLocale.title}
+            preview={postInLocale.mainImage.preview}
           />
           {/* {postInLocale.mainImage ? (
             <Image

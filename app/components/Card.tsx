@@ -31,6 +31,7 @@ export default function Card({
             alt=""
             width={640}
             preview={postInLocale.mainImage.preview}
+            loading="eager"
           />
         </AspectRatio>
       ) : null}

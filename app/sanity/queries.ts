@@ -88,7 +88,7 @@ export interface Post {
   title?: string
   slug: Slug
   excerpt?: string
-  mainImage?: {
+  mainImage: {
     id: string
     preview: string
   }
