@@ -24,7 +24,7 @@ export default function Card({
       {postInLocale.mainImage ? (
         <AspectRatio
           ratio={16 / 9}
-          className="overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+          className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
         >
           <Image
             id={postInLocale.mainImage.id}
