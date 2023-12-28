@@ -1,3 +1,4 @@
 {
-  "greeting": "Bonjour"
+  "greeting": "Bonjour",
+  "languageChanged": "Langue changée en Français"
 }

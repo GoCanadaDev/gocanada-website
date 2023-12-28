@@ -6,7 +6,7 @@ import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
 import { MouseEventHandler } from "react"
 
-export function Header({ translationUrl }: { translationUrl: string }) {
+export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
 
   return (

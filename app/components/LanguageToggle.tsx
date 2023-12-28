@@ -7,17 +7,31 @@ import { animated } from "react-spring"
 import clickSound from "../../public/sounds/click.mp3"
 import useBoop from "~/lib/useBoop"
 import { Globe2 } from "lucide-react"
+import { toast } from "sonner"
 
-export function LanguageToggle({ translationUrl }: { translationUrl: string }) {
+export function LanguageToggle({
+  translationUrl,
+}: {
+  translationUrl?: string
+}) {
   const [play] = useSound(clickSound)
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
-  let { i18n } = useTranslation()
+  let {
+    i18n: { changeLanguage, language },
+    t,
+    ready,
+  } = useTranslation()
   const cookieToggle = useFetcher()
 
-  const changeLanguage = async (language: SupportedLanguages) =>
-    i18n.changeLanguage(language)
+  const changeLanguageTo = async (language: SupportedLanguages) => {
+    if (ready) {
+      const message = t("languageChanged")
+      console.log(message)
+      toast.info(message)
+    }
+    changeLanguage(language)
+  }
 
-  const { language } = i18n
   const languageToChangeTo = language === "en" ? "fr" : "en"
 
   return (
@@ -27,7 +41,7 @@ export function LanguageToggle({ translationUrl }: { translationUrl: string }) {
         type="submit"
         onClick={() => {
           play()
-          changeLanguage(languageToChangeTo)
+          changeLanguageTo(languageToChangeTo)
         }}
       >
         <input name="translationUrl" defaultValue={translationUrl} hidden />
