@@ -1,18 +1,20 @@
-import { useFetcher, useLoaderData } from "@remix-run/react"
+import { useFetcher } from "@remix-run/react"
 import { Moon, Sun } from "lucide-react"
 import useSound from "use-sound"
-import type { RootLoaderData } from "~/root"
-import clickSound from "../../public/sounds/click.mp3"
+import onSound from "../../public/sounds/switch-on.mp3"
+import offSound from "../../public/sounds/switch-off.mp3"
 import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
 import { MouseEventHandler } from "react"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export function ThemeToggle() {
-  const [play] = useSound(clickSound)
+  const [switchOn] = useSound(onSound)
+  const [switchOff] = useSound(offSound)
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
 
   const cookieToggle = useFetcher()
-  const { themePreference } = useLoaderData() as RootLoaderData
+  const { themePreference } = useRootLoaderData()
 
   const isDarkMode = themePreference === `dark`
 
@@ -29,7 +31,9 @@ export function ThemeToggle() {
         title={`Activate ${isDarkMode ? "light" : "dark"} mode`}
         type="submit"
         disabled={cookieToggle.state === "submitting"}
-        onClick={() => play()}
+        onClick={() => {
+          isDarkMode ? switchOn() : switchOff()
+        }}
       >
         {isDarkMode ? <Sun /> : <Moon />}
         <div className="sr-only select-none">

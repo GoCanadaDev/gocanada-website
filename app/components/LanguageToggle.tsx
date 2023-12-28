@@ -18,7 +18,7 @@ export function LanguageToggle({ translationUrl }: { translationUrl: string }) {
     i18n.changeLanguage(language)
 
   const { language } = i18n
-  const languageToChangeTo = language === "en" ? "fr" : "en";
+  const languageToChangeTo = language === "en" ? "fr" : "en"
 
   return (
     <cookieToggle.Form method="post" action="/resource/toggle-lang">
@@ -34,7 +34,12 @@ export function LanguageToggle({ translationUrl }: { translationUrl: string }) {
         <animated.div style={style} className="mr-2 inline-block">
           <Globe2 className="inline" />
         </animated.div>
-        {languageToChangeTo.toUpperCase()}
+        <span>
+          <span className="sr-only select-none">
+            {language === "en" ? "Français" : "English"}
+          </span>
+          {languageToChangeTo.toUpperCase()}
+        </span>
       </button>
     </cookieToggle.Form>
   )
