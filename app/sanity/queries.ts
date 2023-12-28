@@ -1,7 +1,7 @@
 import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
 import type { Slug } from "sanity"
-import { ImageAsset, PortableTextBlock } from "@sanity/types"
+import { PortableTextBlock } from "@sanity/types"
 
 export const HOME_QUERY = groq`*[_id == "home"][0]{ title, siteTitle }`
 
@@ -13,7 +13,10 @@ export const postsQuery = groq`*[_type == "postType" && language == $language &&
   _createdAt,
   excerpt,
   body,
-  mainImage,
+  mainImage{
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+  },
   "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     _id,
     _createdAt,
@@ -22,7 +25,10 @@ export const postsQuery = groq`*[_type == "postType" && language == $language &&
     language,
     excerpt,
     body,
-    mainImage
+    mainImage{
+      "id": asset._ref,
+      "preview": asset->metadata.lqip,
+    }
   },
 }`
 
@@ -41,7 +47,10 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $sl
   _createdAt,
   excerpt,
   body,
-  mainImage,
+  mainImage{
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+  },
   "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     _id,
     _createdAt,
@@ -50,7 +59,10 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $sl
     language,
     excerpt,
     body,
-    mainImage
+    mainImage{
+      "id": asset._ref,
+      "preview": asset->metadata.lqip,
+    }
   },
 }`
 
@@ -76,7 +88,10 @@ export interface Post {
   title?: string
   slug: Slug
   excerpt?: string
-  mainImage?: ImageAsset
+  mainImage: {
+    id: string
+    preview: string
+  }
   body: PortableTextBlock[]
   language: "en" | "fr"
   _translations?: Post[]

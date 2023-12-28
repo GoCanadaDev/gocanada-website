@@ -4,6 +4,9 @@ import { urlForImage } from "~/lib/sanity.image"
 import { type Post } from "~/sanity/queries"
 import { formatDate } from "~/lib/formatDate"
 import { SupportedLanguages } from "~/i18n"
+import { Typography } from "./Typography"
+import { AspectRatio } from "./ui/aspect-ratio"
+import { Image } from "./Image"
 
 export default function Card({
   post,
@@ -17,23 +20,23 @@ export default function Card({
   )!
 
   return (
-    <div className="card">
+    <div className="card max-w-screen-sm">
       {postInLocale.mainImage ? (
-        <img
-          className="card__cover"
-          src={urlForImage(postInLocale.mainImage)!
-            .width(500)
-            .height(300)
-            .url()}
-          height={300}
-          width={500}
-          alt=""
-        />
-      ) : (
-        <div className="card__cover--none" />
-      )}
+        <AspectRatio
+          ratio={16 / 9}
+          className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+        >
+          <Image
+            id={postInLocale.mainImage.id}
+            alt=""
+            width={640}
+            preview={postInLocale.mainImage.preview}
+            loading="eager"
+          />
+        </AspectRatio>
+      ) : null}
       <div className="card__container">
-        <h3 className="card__title text-2xl font-bold">
+        <Typography.H3>
           <Link
             prefetch="intent"
             className="card__link"
@@ -41,11 +44,11 @@ export default function Card({
           >
             {postInLocale.title}
           </Link>
-        </h3>
-        <p className="card__excerpt">{postInLocale.excerpt}</p>
-        <p className="card__date">
+        </Typography.H3>
+        <Typography.TextSmall>
           {formatDate(postInLocale._createdAt, postInLocale.language)}
-        </p>
+        </Typography.TextSmall>
+        <Typography.Paragraph>{postInLocale.excerpt}</Typography.Paragraph>
       </div>
     </div>
   )

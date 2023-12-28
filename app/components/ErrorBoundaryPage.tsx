@@ -4,7 +4,7 @@ import { Layout } from "./Layout"
 export default function ErrorBoundaryPage({ error }: { error: string }) {
   console.error(error)
   return (
-    <Layout>
+    <Layout useMargins>
       <div className="flex h-[90%] items-center justify-center overflow-hidden rounded-lg sm:h-[92%]">
         <div className="h-auto w-5/6 max-w-[800px] rounded-lg bg-slate-100 p-6 shadow dark:bg-slate-800">
           <div className="mb-4 flex w-full items-center justify-center">

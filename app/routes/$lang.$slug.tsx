@@ -18,9 +18,11 @@ import { getPost, Post } from "~/sanity/queries"
 
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
-import { urlForImage } from "~/lib/sanity.image"
 import { Layout } from "~/components/Layout"
 import { useTranslation } from "react-i18next"
+import { Image } from "~/components/Image"
+import { Typography } from "~/components/Typography"
+import { HeroImage } from "~/components/HeroImage"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -134,29 +136,35 @@ export default function Slug() {
 
   return (
     <Layout translationUrl={translationUrl}>
-      <section className="post">
-        {postInLocale.mainImage ? (
-          <img
-            className="post__cover"
-            src={urlForImage(postInLocale.mainImage)!.url()}
-            height={231}
-            width={367}
-            alt=""
+      <article className="holy-grail">
+        <div className="full-bleed">
+          <HeroImage
+            id={postInLocale.mainImage.id}
+            title={postInLocale.title}
+            preview={postInLocale.mainImage.preview}
           />
-        ) : (
-          <div className="post__cover--none" />
-        )}
-        <div className="post__container">
-          <h1 className="post__title">{postInLocale.title}</h1>
-          <p className="post__excerpt">{postInLocale.excerpt}</p>
-          <p className="post__date">
+          {/* {postInLocale.mainImage ? (
+            <Image
+              id={postInLocale.mainImage.id}
+              alt=""
+              preview={postInLocale.mainImage.preview}
+              mode="cover"
+            />
+          ) : (
+            <div className="post__cover--none" />
+          )} */}
+        </div>
+        <div className="mx-4 my-24">
+          <Typography.H1>{postInLocale.title}</Typography.H1>
+          <Typography.TextSmall>
             {formatDate(postInLocale._createdAt, postInLocale.language)}
-          </p>
+          </Typography.TextSmall>
+          <p className="post__excerpt">{postInLocale.excerpt}</p>
           <div className="post__content">
             <PortableText value={postInLocale.body} />
           </div>
         </div>
-      </section>
+      </article>
     </Layout>
   )
 }
