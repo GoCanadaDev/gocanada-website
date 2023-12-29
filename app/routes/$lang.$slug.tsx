@@ -141,7 +141,7 @@ export default function Slug() {
             {post.excerpt}
           </Typography.Lead>
           <Separator />
-          <div className="prose prose-xl prose-slate my-24 dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
+          <div className="prose prose-xl prose-slate my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
             <PortableText value={post.body} />
           </div>
         </div>
