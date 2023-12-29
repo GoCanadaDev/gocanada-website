@@ -143,16 +143,6 @@ export default function Slug() {
             title={postInLocale.title}
             preview={postInLocale.mainImage.preview}
           />
-          {/* {postInLocale.mainImage ? (
-            <Image
-              id={postInLocale.mainImage.id}
-              alt=""
-              preview={postInLocale.mainImage.preview}
-              mode="cover"
-            />
-          ) : (
-            <div className="post__cover--none" />
-          )} */}
         </div>
         <div className="mx-4 my-24">
           <Typography.H1>{postInLocale.title}</Typography.H1>

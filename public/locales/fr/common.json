@@ -1,4 +1,6 @@
 {
   "greeting": "Bonjour",
-  "languageChanged": "Langue changée en Français"
+  "languageChanged": "Language changed to English",
+  "currentLanguage": "Français",
+  "toggleTheme": "Changer le thème"
 }

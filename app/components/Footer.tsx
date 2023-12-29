@@ -1,5 +1,7 @@
 import { Link } from "@remix-run/react"
 import { Logo } from "~/components/Logo"
+import { Separator } from "~/components/ui/separator"
+import { Fragment } from "react"
 
 const navLinks = [
   {
@@ -38,22 +40,26 @@ export function Footer() {
         {/* width: 100%; overflow: hidden; margin: 0 0 1.375rem; padding: 0.25rem 0
         0; list-style: none; text-align: center; text-transform: uppercase;
         font-size: 0; line-height: 0; */}
-        <ul className="text-center text-sm uppercase">
+        <nav
+          className="flex flex-wrap items-center justify-center text-sm uppercase"
+          role="menu"
+        >
           {navLinks.map((link, index) => (
-            <li
-              className={
-                index !== navLinks.length - 1
-                  ? "mb-4 inline-block border-r"
-                  : "mb-4 inline-block"
-              }
-              key={link.title}
-            >
-              <Link to={link.url} className=" block px-8 tracking-widest">
+            <Fragment key={link.title}>
+              <Link
+                to={link.url}
+                role="menuitem"
+                className="block px-8 py-4 tracking-widest"
+              >
                 {link.title}
               </Link>
-            </li>
+
+              {index !== navLinks.length - 1 && (
+                <Separator orientation="vertical" className="h-6" />
+              )}
+            </Fragment>
           ))}
-        </ul>
+        </nav>
       </div>
       <div className="container mx-auto p-8 text-center text-xs lg:px-12">
         &copy; {new Date().getFullYear()} GoCanada, a division of{" "}

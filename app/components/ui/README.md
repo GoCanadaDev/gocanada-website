@@ -1,0 +1,1 @@
+This directory houses components from [shadcn/ui](https://ui.shadcn.com/) and [Radix-UI](https://www.radix-ui.com/) primitives, and simply re-exports them for convenience. This allows us to customize these headless components in one place, and use them throughout the app.

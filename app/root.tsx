@@ -68,6 +68,7 @@ export type RootLoaderData = {
   params: {}
   query: string
   themePreference: string | undefined
+  langPreference: SupportedLanguages | undefined
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -87,8 +88,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     .optional()
     .parse(langCookie.langPreference)
 
-  let headers = {};
-  if(!langPreference) {
+  let headers = {}
+  if (!langPreference) {
     // set cookie to current locale, or default to english
     const lang = (locale ?? "en") as SupportedLanguages
     headers = { ...(await setLanguageCookie(lang)) }
@@ -113,6 +114,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       params: {},
       query: HOME_QUERY,
       themePreference,
+      langPreference,
     },
     {
       headers,
@@ -132,7 +134,7 @@ export default function App() {
   const { locale, bodyClassNames, ENV, langPreference } =
     useLoaderData<typeof loader>()
 
-  let { i18n } = useTranslation()
+  const { i18n } = useTranslation()
 
   // This hook will change the i18n instance language to the current locale
   // detected by the loader, this way, when we do something to change the

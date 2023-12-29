@@ -1,6 +1,5 @@
 import { Link } from "@remix-run/react"
 
-import { urlForImage } from "~/lib/sanity.image"
 import { type Post } from "~/sanity/queries"
 import { formatDate } from "~/lib/formatDate"
 import { SupportedLanguages } from "~/i18n"
@@ -13,7 +12,7 @@ export default function Card({
   currentLang,
 }: {
   post: Post
-  currentLang: SupportedLanguages
+  currentLang: SupportedLanguages | undefined
 }) {
   const postInLocale = post._translations!.find(
     (l) => l.language === currentLang

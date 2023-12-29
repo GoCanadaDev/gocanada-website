@@ -9,6 +9,7 @@ import { client } from "~/sanity/client"
 import Card from "~/components/Card"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
+import { useTranslate } from "~/lib/useTranslate"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -25,10 +26,10 @@ export const meta: MetaFunction<
 }
 
 type IndexLoaderData = {
-  posts: any
+  posts: Post[]
 }
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   const posts = await getPosts(client, params.lang as SupportedLanguages)
 
   return json<IndexLoaderData>({
@@ -38,8 +39,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function Index() {
   const { posts } = useLoaderData() as IndexLoaderData
+  const { translate } = useTranslate()
   const {
-    t,
     ready,
     i18n: { language },
   } = useTranslation()
@@ -48,7 +49,7 @@ export default function Index() {
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
       <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
-        {ready ? <h1>{t("greeting")}</h1> : null}
+        <h1>{ready ? translate("greeting") : "Hello"}</h1>
         {posts.length
           ? posts.map((post: Post) => (
               <Card key={post.title} post={post} currentLang={currentLang} />

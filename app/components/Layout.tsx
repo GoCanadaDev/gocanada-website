@@ -17,7 +17,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
       <Header translationUrl={translationUrl} />
       <main className={classes}>{children}</main>
       <Footer />
-      <Toaster richColors />
+      <Toaster richColors closeButton />
     </>
   )
 }
