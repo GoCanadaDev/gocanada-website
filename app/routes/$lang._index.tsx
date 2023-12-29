@@ -39,17 +39,14 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function Index() {
   const { posts } = useLoaderData() as IndexLoaderData
-  const { translate } = useTranslate()
   const {
-    ready,
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
-        <h1>{ready ? translate("greeting") : "Hello"}</h1>
+      <div className="full-bleed container grid grid-cols-2 gap-6 lg:gap-12">
         {posts.length
           ? posts.map((post) => <Card key={post.title} post={post} />)
           : null}
