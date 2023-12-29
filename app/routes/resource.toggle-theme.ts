@@ -1,7 +1,7 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node"
 import { redirect } from "@remix-run/node"
 
-import { themePreferenceCookie } from "~/cookies"
+import { themePreferenceCookie, langPreferenceCookie } from "~/cookies"
 
 export const action: ActionFunction = async ({ request }) => {
   const cookieHeader = request.headers.get("Cookie")
@@ -17,4 +17,10 @@ export const action: ActionFunction = async ({ request }) => {
   })
 }
 
-export const loader: LoaderFunction = () => redirect("/", { status: 404 })
+export const loader: LoaderFunction = async ({ request }) => {
+  const cookieHeader = request.headers.get("Cookie")
+  const cookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
+  const langPreference = cookie.langPreference === "en" ? "fr" : "en"
+
+  return redirect(`/${langPreference}`, { status: 404 })
+}

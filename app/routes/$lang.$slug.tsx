@@ -86,7 +86,7 @@ export default function Slug() {
 
   const translationUrl = translation
     ? `/${translation.language}/${translation.slug.current}`
-    : ""
+    : undefined
 
   return (
     <Layout translationUrl={translationUrl}>

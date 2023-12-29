@@ -15,11 +15,20 @@ export const action: ActionFunction = async ({ request }) => {
 
   const headers = { ...(await setLanguageCookie(langPreference)) }
 
-  console.log({ redirect: formInput.translationUrl })
-
-  return redirect(formInput.translationUrl, {
-    headers,
-  })
+  return redirect(
+    formInput.translationUrl === ""
+      ? `/${langPreference}`
+      : formInput.translationUrl,
+    {
+      headers,
+    }
+  )
 }
 
-export const loader: LoaderFunction = () => redirect("/", { status: 404 })
+export const loader: LoaderFunction = async ({ request }) => {
+  const cookieHeader = request.headers.get("Cookie")
+  const cookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
+  const langPreference = cookie.langPreference === "en" ? "fr" : "en"
+
+  return redirect(`/${langPreference}`, { status: 404 })
+}
