@@ -1,5 +1,4 @@
 import type {
-  ActionFunction,
   LoaderFunction,
   LoaderFunctionArgs,
   MetaFunction,
@@ -13,18 +12,17 @@ import { SupportedLanguages } from "~/i18n"
 import i18next from "~/i18next.server"
 import type { RootLoaderData as RootLoader } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
-import { writeClient } from "~/sanity/client.server"
 import { getPost, Post } from "~/sanity/queries"
 
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
 import { useTranslation } from "react-i18next"
-import { Image } from "~/components/Image"
 import { Typography } from "~/components/Typography"
 import { HeroImage } from "~/components/HeroImage"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { urlForImage } from "~/lib/sanity.image"
+import { Separator } from "~/components/ui/separator"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -82,53 +80,54 @@ export default function Slug() {
   } = useTranslation()
   const { post } = useLoaderData() as LoaderDataType
 
-  const postInLocale = post._translations!.find(
-    (p: Post) => p.language === language
-  )!
   const translation = post._translations!.find(
     (p: Post) => p.language !== language
-  )!
+  )
 
-  const translationUrl = `/${translation.language}/${translation.slug.current}`
+  const translationUrl = translation
+    ? `/${translation.language}/${translation.slug.current}`
+    : ""
 
   return (
     <Layout translationUrl={translationUrl}>
       <article className="holy-grail">
         <div className="full-bleed">
           <HeroImage
-            id={postInLocale.mainImage.id}
-            title={postInLocale.title}
-            preview={postInLocale.mainImage.preview}
+            id={post.mainImage.id}
+            title={post.title}
+            category={post.category}
+            preview={post.mainImage.preview}
           />
         </div>
         <div className="mx-4 my-24">
           <div className="mb-8 flex items-center">
             <Avatar>
               <AvatarImage
-                src={urlForImage(postInLocale.author.image)
+                src={urlForImage(post.author.image)
                   ?.width(100)
                   .height(100)
                   .url()}
               />
               <AvatarFallback>
-                {postInLocale.author.name
-                  .match(/(\b\S)?/g)!
-                  .join("")
-                  .toUpperCase()}
+                {
+                  // fake out initials by grabbing capitalized letters
+                  post.author.name
+                    .match(/(\b\S)?/g)!
+                    .join("")
+                    .toUpperCase()
+                }
               </AvatarFallback>
             </Avatar>
             <div className="ml-2">
-              <Typography.TextSmall>
-                {postInLocale.author.name}
-              </Typography.TextSmall>
+              <Typography.TextSmall>{post.author.name}</Typography.TextSmall>
               <Typography.TextMuted>
-                {formatDate(postInLocale._createdAt, postInLocale.language)}
+                {formatDate(post._createdAt, post.language)}
               </Typography.TextMuted>
             </div>
           </div>
 
           <div className="mb-8">
-            {postInLocale.tags.map((tag) => (
+            {post.tags.map((tag) => (
               <span
                 key={tag}
                 className="me-2 rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
@@ -138,10 +137,12 @@ export default function Slug() {
             ))}
           </div>
 
-          <Typography.Lead>{postInLocale.excerpt}</Typography.Lead>
-
-          <div className="prose my-24">
-            <PortableText value={postInLocale.body} />
+          <Typography.Lead className="mb-24 italic">
+            {post.excerpt}
+          </Typography.Lead>
+          <Separator />
+          <div className="prose prose-xl prose-slate my-24 dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
+            <PortableText value={post.body} />
           </div>
         </div>
       </article>

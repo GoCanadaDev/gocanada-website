@@ -51,9 +51,7 @@ export default function Index() {
       <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
         <h1>{ready ? translate("greeting") : "Hello"}</h1>
         {posts.length
-          ? posts.map((post) => (
-              <Card key={post.title} post={post} currentLang={currentLang} />
-            ))
+          ? posts.map((post) => <Card key={post.title} post={post} />)
           : null}
       </div>
     </Layout>
