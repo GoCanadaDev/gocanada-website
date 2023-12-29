@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import type { RootLoaderData as RootLoader } from "~/root"
-import { Post, getPosts } from "~/sanity/queries"
+import { PostPreview, getPosts } from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import Card from "~/components/Card"
 import { SupportedLanguages } from "~/i18n"
@@ -26,7 +26,7 @@ export const meta: MetaFunction<
 }
 
 type IndexLoaderData = {
-  posts: Post[]
+  posts: PostPreview[]
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -51,7 +51,7 @@ export default function Index() {
       <div className="full-bleed container grid grid-cols-1 gap-6 lg:gap-12">
         <h1>{ready ? translate("greeting") : "Hello"}</h1>
         {posts.length
-          ? posts.map((post: Post) => (
+          ? posts.map((post) => (
               <Card key={post.title} post={post} currentLang={currentLang} />
             ))
           : null}

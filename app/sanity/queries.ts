@@ -1,6 +1,6 @@
 import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
-import type { Slug } from "sanity"
+import type { ImageAsset, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
 
 export const HOME_QUERY = groq`*[_id == "home"][0]{ title, siteTitle }`
@@ -13,6 +13,13 @@ export const postsQuery = groq`*[_type == "postType" && language == $language &&
   _createdAt,
   excerpt,
   body,
+  "author": {
+    "name": author->name,
+    "slug": author->slug.current,
+    "imageUrl": author->image.asset._ref,
+  },
+  "category": category->title,
+  "tags": tags[]->title,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
@@ -25,6 +32,13 @@ export const postsQuery = groq`*[_type == "postType" && language == $language &&
     language,
     excerpt,
     body,
+    "author": {
+      "name": author->name,
+      "slug": author->slug.current,
+      "imageUrl": author->image.asset._ref,
+    },
+    "category": category->title,
+    "tags": tags[]->title,
     mainImage{
       "id": asset._ref,
       "preview": asset->metadata.lqip,
@@ -47,6 +61,15 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $sl
   _createdAt,
   excerpt,
   body,
+  excerpt,
+  body,
+  "author": {
+    "name": author->name,
+    "slug": author->slug.current,
+    "image": author->image,
+  },
+  "category": category->title,
+  "tags": tags[]->title,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
@@ -59,6 +82,13 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $sl
     language,
     excerpt,
     body,
+    "author": {
+      "name": author->name,
+      "slug": author->slug.current,
+      "image": author->image,
+    },
+    "category": category->title,
+    "tags": tags[]->title,
     mainImage{
       "id": asset._ref,
       "preview": asset->metadata.lqip,
@@ -81,20 +111,29 @@ export const postSlugsQuery = groq`
 *[_type == "post" && defined(slug.current)][].slug.current
 `
 
-export interface Post {
+export type PostPreview = {
   _type: "post"
   _id: string
   _createdAt: string
-  title?: string
+  _translations?: Post[]
+  language: "en" | "fr"
+  title: string
   slug: Slug
-  excerpt?: string
+  category: string
   mainImage: {
     id: string
     preview: string
   }
+}
+export type Post = PostPreview & {
   body: PortableTextBlock[]
-  language: "en" | "fr"
-  _translations?: Post[]
+  author: {
+    name: string
+    slug: Slug
+    image: ImageAsset
+  }
+  tags: string[]
+  excerpt: string
 }
 
 // https://www.sanity.io/schemas/get-the-categories-subcategories-an-author-has-written-for-a0ff8d4d

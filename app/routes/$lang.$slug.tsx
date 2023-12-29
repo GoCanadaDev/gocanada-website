@@ -23,6 +23,8 @@ import { useTranslation } from "react-i18next"
 import { Image } from "~/components/Image"
 import { Typography } from "~/components/Typography"
 import { HeroImage } from "~/components/HeroImage"
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
+import { urlForImage } from "~/lib/sanity.image"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -48,53 +50,9 @@ export const meta: MetaFunction<
   ]
 }
 
-// Perform a `like` or `dislike` mutation on a `record` document
-export const action: ActionFunction = async ({ request }) => {
-  if (request.method !== "POST") {
-    throw new Response("Method not allowed", { status: 405 })
-  }
-
-  const { token, projectId } = writeClient.config()
-
-  if (!token) {
-    throw new Response(
-      `Setup "SANITY_WRITE_TOKEN" with a token with "Editor" permissions to your environment variables. Create one at https://sanity.io/manage/project/${projectId}/api#tokens`,
-      { status: 401 }
-    )
-  }
-
-  const body = await request.formData()
-  const id = String(body.get("id"))
-  const action = String(body.get("action"))
-
-  if (id) {
-    switch (action) {
-      case "LIKE":
-        return await writeClient
-          .patch(id)
-          .setIfMissing({ likes: 0 })
-          .inc({ likes: 1 })
-          .commit()
-          .then(({ likes, dislikes }) => ({
-            likes: likes ?? 0,
-            dislikes: dislikes ?? 0,
-          }))
-      case "DISLIKE":
-        return await writeClient
-          .patch(id)
-          .setIfMissing({ dislikes: 0 })
-          .inc({ dislikes: 1 })
-          .commit()
-          .then(({ likes, dislikes }) => ({
-            likes: likes ?? 0,
-            dislikes: dislikes ?? 0,
-          }))
-      default:
-        return json({ message: "Invalid action" }, 400)
-    }
-  }
-
-  return json({ message: "Bad request" }, 400)
+type LoaderDataType = {
+  post: Post
+  ogImageUrl: string
 }
 
 export const loader: LoaderFunction = async ({
@@ -114,7 +72,6 @@ export const loader: LoaderFunction = async ({
 
   return json({
     post,
-    params,
     ogImageUrl,
   })
 }
@@ -123,7 +80,7 @@ export default function Slug() {
   const {
     i18n: { language },
   } = useTranslation()
-  const { post } = useLoaderData<typeof loader>()
+  const { post } = useLoaderData() as LoaderDataType
 
   const postInLocale = post._translations!.find(
     (p: Post) => p.language === language
@@ -145,12 +102,45 @@ export default function Slug() {
           />
         </div>
         <div className="mx-4 my-24">
-          <Typography.H1>{postInLocale.title}</Typography.H1>
-          <Typography.TextSmall>
-            {formatDate(postInLocale._createdAt, postInLocale.language)}
-          </Typography.TextSmall>
-          <p className="post__excerpt">{postInLocale.excerpt}</p>
-          <div className="post__content">
+          <div className="mb-8 flex items-center">
+            <Avatar>
+              <AvatarImage
+                src={urlForImage(postInLocale.author.image)
+                  ?.width(100)
+                  .height(100)
+                  .url()}
+              />
+              <AvatarFallback>
+                {postInLocale.author.name
+                  .match(/(\b\S)?/g)!
+                  .join("")
+                  .toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="ml-2">
+              <Typography.TextSmall>
+                {postInLocale.author.name}
+              </Typography.TextSmall>
+              <Typography.TextMuted>
+                {formatDate(postInLocale._createdAt, postInLocale.language)}
+              </Typography.TextMuted>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            {postInLocale.tags.map((tag) => (
+              <span
+                key={tag}
+                className="me-2 rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <Typography.Lead>{postInLocale.excerpt}</Typography.Lead>
+
+          <div className="prose my-24">
             <PortableText value={postInLocale.body} />
           </div>
         </div>

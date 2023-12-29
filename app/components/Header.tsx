@@ -18,12 +18,12 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
           <a
             onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
             href="https://instagram.com/canada"
-            className="pr-4 transition-colors duration-200 hover:text-red-700"
+            className="transition-colors duration-200 hover:text-red-700"
           >
-            <animated.span style={style} className="mr-2 inline-block">
+            <animated.span style={style} className="inline-block">
               <Instagram className="inline" />
             </animated.span>
-            @canada
+            <span className="pl-2">@canada</span>
           </a>
           <Separator orientation="vertical" className="h-6" />
           <LanguageToggle translationUrl={translationUrl} />

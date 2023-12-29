@@ -37,7 +37,7 @@ const H3 = ({ children, className }: TypographyProps) => (
 
 const H4 = ({ children, className }: TypographyProps) => (
   <h4
-    className={`scroll-m-20 text-xl font-semibold tracking-tight ${
+    className={`scroll-m-20 font-sans text-xs font-light uppercase tracking-[6px] ${
       className ?? ""
     }`}
   >

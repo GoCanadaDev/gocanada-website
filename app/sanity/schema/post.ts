@@ -40,10 +40,18 @@ export const postType = defineType({
       },
     }),
     defineField({
-      name: "categories",
-      title: "Categories",
+      name: "category",
+      title: "Category",
+      type: "reference",
+      to: { type: "categoryType" },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "tags",
+      title: "Tags",
       type: "array",
-      of: [{ type: "reference", to: { type: "categoryType" } }],
+      of: [{ type: "reference", to: { type: "tagType" } }],
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "publishedAt",
@@ -54,6 +62,12 @@ export const postType = defineType({
       name: "body",
       title: "Body",
       type: "blockContentType",
+    }),
+    defineField({
+      name: "language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
     }),
   ],
 

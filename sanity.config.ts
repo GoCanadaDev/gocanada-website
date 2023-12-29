@@ -26,7 +26,7 @@ export const config = defineConfig({
         { id: "fr", title: "French" },
       ],
       languageField: "language",
-      schemaTypes: ["postType"],
+      schemaTypes: ["postType", "categoryType", "tagType", "authorType"],
     }),
   ],
   basePath: `/studio`,

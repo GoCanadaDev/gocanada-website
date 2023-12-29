@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react"
 
-import { type Post } from "~/sanity/queries"
-import { formatDate } from "~/lib/formatDate"
+import { type PostPreview } from "~/sanity/queries"
 import { SupportedLanguages } from "~/i18n"
 import { Typography } from "./Typography"
 import { AspectRatio } from "./ui/aspect-ratio"
@@ -11,7 +10,7 @@ export default function Card({
   post,
   currentLang,
 }: {
-  post: Post
+  post: PostPreview
   currentLang: SupportedLanguages | undefined
 }) {
   const postInLocale = post._translations!.find(
@@ -25,29 +24,31 @@ export default function Card({
           ratio={16 / 9}
           className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
         >
-          <Image
-            id={postInLocale.mainImage.id}
-            alt=""
-            width={640}
-            preview={postInLocale.mainImage.preview}
-            loading="eager"
-          />
+          <Link
+            prefetch="intent"
+            to={`/${postInLocale.language}/${postInLocale.slug.current}`}
+          >
+            <Image
+              id={postInLocale.mainImage.id}
+              alt=""
+              width={640}
+              preview={postInLocale.mainImage.preview}
+              loading="eager"
+              className="transition-transform hover:scale-[1.05]"
+            />
+          </Link>
         </AspectRatio>
       ) : null}
       <div className="card__container">
+        <Typography.H4>{postInLocale.category}</Typography.H4>
         <Typography.H3>
           <Link
             prefetch="intent"
-            className="card__link"
             to={`/${postInLocale.language}/${postInLocale.slug.current}`}
           >
             {postInLocale.title}
           </Link>
         </Typography.H3>
-        <Typography.TextSmall>
-          {formatDate(postInLocale._createdAt, postInLocale.language)}
-        </Typography.TextSmall>
-        <Typography.Paragraph>{postInLocale.excerpt}</Typography.Paragraph>
       </div>
     </div>
   )

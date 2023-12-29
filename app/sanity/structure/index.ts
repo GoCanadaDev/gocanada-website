@@ -1,4 +1,4 @@
-import { Home, Newspaper, Tags, UserCircle } from "lucide-react"
+import { Folder, Home, Newspaper, Tags, UserCircle } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
   StructureResolver,
@@ -25,7 +25,9 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem("authorType").title("Authors").icon(UserCircle),
       S.divider(),
-      S.documentTypeListItem("categoryType").title("Categories").icon(Tags),
+      S.documentTypeListItem("categoryType").title("Categories").icon(Folder),
+      S.divider(),
+      S.documentTypeListItem("tagType").title("Tags").icon(Tags),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (

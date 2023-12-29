@@ -58,7 +58,7 @@ export function LanguageToggle({
               }}
             >
               <input name="translationUrl" defaultValue={defaultValue} hidden />
-              <animated.div style={style} className="mr-2 inline-block">
+              <animated.div style={style}>
                 <Globe2 className="inline" />
               </animated.div>
             </button>
