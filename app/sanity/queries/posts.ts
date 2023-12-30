@@ -2,6 +2,7 @@ import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
 import type { ImageAsset, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
+import { LocalizedString } from "~/sanity/queries/shared";
 
 
 export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
@@ -76,11 +77,6 @@ export async function getPost(
     slug,
     language,
   })
-}
-
-type LocalizedString = {
-  en: string
-  fr: string
 }
 
 export type PostPreview = {

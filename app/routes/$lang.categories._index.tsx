@@ -1,30 +1,40 @@
-import { useParams } from "@remix-run/react"
+import { useLoaderData, useParams } from "@remix-run/react"
 import { json, LoaderFunction } from "@remix-run/node"
-import invariant from "tiny-invariant"
-import { getPosts } from "~/sanity/queries"
+import { Category, getCategories } from "~/sanity/queries"
 import { client } from "~/sanity/client"
+import { SupportedLanguages } from "~/i18n"
+import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 
-interface IndexLoaderData {}
+interface IndexLoaderData {
+  categories: Category[]
+}
 
 export const loader: LoaderFunction = async ({ params }) => {
-  invariant(params.lang, "Expected lang param")
-  const posts = await getPosts(client, params.lang!)
+  isLangSupportedLang(params.lang)
+  const categories = await getCategories(client, params.lang!)
 
   return json<IndexLoaderData>({
-    posts,
+    categories,
   })
 }
 
 export default function CategoriesRoute() {
+  const { categories } = useLoaderData() as IndexLoaderData
   const params = useParams()
-  const lang = params.lang
-
-  // Fetch data based on language and category
-  // Render components accordingly
+  const lang = params.lang as SupportedLanguages
 
   return (
     <div>
-      <h1>List of all categories in {lang} language</h1>
+      <div>
+        {categories?.map((category) => (
+          <div>
+            <h3 key={category.name[lang]}>{category.name[lang]}</h3>
+            <div className="italic" key={category.description[lang]}>
+              {category.description[lang]}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
