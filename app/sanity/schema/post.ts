@@ -18,8 +18,7 @@ export const postType = defineType({
     defineField({
       name: "excerpt",
       title: "Excerpt",
-      type: "text",
-      rows: 4,
+      type: "localeText",
     }),
     defineField({
       name: "author",

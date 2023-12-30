@@ -16,7 +16,6 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
     "fr": slug.fr.current,
   },
   _createdAt,
-  excerpt,
   body,
   "author": {
     "name": author->name,
@@ -50,9 +49,10 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "fr": slug.fr.current,
   },
   _createdAt,
-  excerpt,
-  body,
-  excerpt,
+  "excerpt": {
+    "en": excerpt.en,
+    "fr": excerpt.fr,
+  },
   body,
   "author": {
     "name": author->name,
@@ -79,16 +79,18 @@ export async function getPost(
   })
 }
 
+type LocalizedString = {
+  en: string
+  fr: string
+}
+
 export type PostPreview = {
   _type: "post"
   _id: string
   _createdAt: string
   _translations?: Post[]
   language: "en" | "fr"
-  title: {
-    en: string
-    fr: string
-  }
+  title: LocalizedString
   slug: {
     en: Slug
     fr: Slug
@@ -107,7 +109,7 @@ export type Post = PostPreview & {
     image: ImageAsset
   }
   tags: string[]
-  excerpt: string
+  excerpt: LocalizedString
 }
 
 // https://www.sanity.io/schemas/get-the-categories-subcategories-an-author-has-written-for-a0ff8d4d

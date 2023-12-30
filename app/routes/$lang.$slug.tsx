@@ -21,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
 import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
+import invariant from "tiny-invariant"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -32,7 +33,9 @@ export const meta: MetaFunction<
     ?.data as RootLoader
 
   const home = rootData ? rootData.initial.data : null
-  const title = [data?.post?.title, home?.siteTitle].filter(Boolean).join(" | ")
+  const title = [data?.post?.title[data.post.language], home?.siteTitle]
+    .filter(Boolean)
+    .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
 
   return [
@@ -55,6 +58,8 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }: LoaderFunctionArgs) => {
+  invariant(params.slug, "Expected slug param")
+  invariant(params.lang, "Expected lang param")
   const post = await getPost(client, params.slug!, params.lang!)
 
   if (!post) {
@@ -130,7 +135,7 @@ export default function Slug() {
           </div>
 
           <Typography.Lead className="mb-24 italic">
-            {post.excerpt}
+            {post.excerpt[post.language]}
           </Typography.Lead>
           <Separator />
           <div className="prose prose-xl prose-slate my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
