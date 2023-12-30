@@ -16,9 +16,10 @@ import { z } from "zod"
 
 const ABORT_DELAY = 5000
 
-// put ENV on the global namespace so it's available in any server code
+// put ENV on the global namespace, so it's available in any server code
 global.ENV = getEnv()
 
+// noinspection JSUnusedGlobalSymbols
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
@@ -42,7 +43,7 @@ export default async function handleRequest(
 
   await instance
     .use(initReactI18next) // Tell our instance to use react-i18next
-    .use(Backend) // Setup our backend
+    .use(Backend) // Set up our backend
     .init({
       ...i18n, // spread the configuration
       lng, // The locale we detected above
@@ -64,6 +65,7 @@ export default async function handleRequest(
           responseHeaders.set("Content-Type", "text/html")
 
           resolve(
+            // @ts-ignore
             new Response(body, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
