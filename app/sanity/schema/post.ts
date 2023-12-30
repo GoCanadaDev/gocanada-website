@@ -7,17 +7,13 @@ export const postType = defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
-      type: "string",
+      title: "Post Title",
+      type: "localeString",
     }),
     defineField({
       name: "slug",
       title: "Slug",
-      type: "slug",
-      options: {
-        source: "title",
-        maxLength: 96,
-      },
+      type: "localeSlug",
     }),
     defineField({
       name: "excerpt",
@@ -63,23 +59,20 @@ export const postType = defineType({
       title: "Body",
       type: "blockContentType",
     }),
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
-    }),
   ],
 
   preview: {
     select: {
-      title: "title",
+      title: "title.en",
       author: "author.name",
       media: "mainImage",
     },
     prepare(selection) {
       const { author } = selection
-      return { ...selection, subtitle: author && `by ${author}` }
+      return {
+        ...selection,
+        subtitle: `by ${author}`,
+      }
     },
   },
 })

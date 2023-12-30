@@ -5,11 +5,16 @@ import { PortableTextBlock } from "@sanity/types"
 
 export const HOME_QUERY = groq`*[_id == "home"][0]{ title, siteTitle }`
 
-export const postsQuery = groq`*[_type == "postType" && language == $language && defined(slug.current)] | order(_createdAt desc){
+export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
   _id,
-  title,
-  slug,
-  language,
+  "title": {
+    "en": title.en,
+    "fr": title.fr,
+  },
+  "slug": {
+    "en": slug.en.current,
+    "fr": slug.fr.current,
+  },
   _createdAt,
   excerpt,
   body,
@@ -18,31 +23,12 @@ export const postsQuery = groq`*[_type == "postType" && language == $language &&
     "slug": author->slug.current,
     "imageUrl": author->image.asset._ref,
   },
-  "category": category->title,
-  "tags": tags[]->title,
+  "category": category->name[$language],
+  "tags": tags[]->name[$language],
+  "language": $language,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
-  },
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    _id,
-    _createdAt,
-    title,
-    slug,
-    language,
-    excerpt,
-    body,
-    "author": {
-      "name": author->name,
-      "slug": author->slug.current,
-      "imageUrl": author->image.asset._ref,
-    },
-    "category": category->title,
-    "tags": tags[]->title,
-    mainImage{
-      "id": asset._ref,
-      "preview": asset->metadata.lqip,
-    }
   },
 }`
 
@@ -53,11 +39,16 @@ export async function getPosts(
   return await client.fetch(postsQuery, { language })
 }
 
-export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $slug][0]{
+export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
   _id,
-  title,
-  slug,
-  language,
+  "title": {
+    "en": title.en,
+    "fr": title.fr,
+  },
+  "slug": {
+    "en": slug.en.current,
+    "fr": slug.fr.current,
+  },
   _createdAt,
   excerpt,
   body,
@@ -68,31 +59,12 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug.current == $sl
     "slug": author->slug.current,
     "image": author->image,
   },
-  "category": category->title,
-  "tags": tags[]->title,
+  "category": category->name[$language],
+  "tags": tags[]->name[$language],
+  "language": $language,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
-  },
-  "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
-    _id,
-    _createdAt,
-    title,
-    slug,
-    language,
-    excerpt,
-    body,
-    "author": {
-      "name": author->name,
-      "slug": author->slug.current,
-      "image": author->image,
-    },
-    "category": category->title,
-    "tags": tags[]->title,
-    mainImage{
-      "id": asset._ref,
-      "preview": asset->metadata.lqip,
-    }
   },
 }`
 
@@ -107,18 +79,20 @@ export async function getPost(
   })
 }
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
-`
-
 export type PostPreview = {
   _type: "post"
   _id: string
   _createdAt: string
   _translations?: Post[]
   language: "en" | "fr"
-  title: string
-  slug: Slug
+  title: {
+    en: string
+    fr: string
+  }
+  slug: {
+    en: Slug
+    fr: Slug
+  }
   category: string
   mainImage: {
     id: string

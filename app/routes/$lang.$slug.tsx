@@ -8,8 +8,6 @@ import { useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
 import { client } from "~/sanity/client"
-import { SupportedLanguages } from "~/i18n"
-import i18next from "~/i18next.server"
 import type { RootLoaderData as RootLoader } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
@@ -17,12 +15,12 @@ import { getPost, Post } from "~/sanity/queries"
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
-import { useTranslation } from "react-i18next"
 import { Typography } from "~/components/Typography"
 import { HeroImage } from "~/components/HeroImage"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
+import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -57,8 +55,7 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }: LoaderFunctionArgs) => {
-  let language = (await i18next.getLocale(request)) as SupportedLanguages
-  const post = await getPost(client, params.slug!, language)
+  const post = await getPost(client, params.slug!, params.lang!)
 
   if (!post) {
     throw new Response("Not found", { status: 404 })
@@ -75,18 +72,13 @@ export const loader: LoaderFunction = async ({
 }
 
 export default function Slug() {
-  const {
-    i18n: { language },
-  } = useTranslation()
   const { post } = useLoaderData() as LoaderDataType
 
-  const translation = post._translations!.find(
-    (p: Post) => p.language !== language
-  )
+  const otherLanguage = post.language === "en" ? "fr" : "en"
 
-  const translationUrl = translation
-    ? `/${translation.language}/${translation.slug.current}`
-    : undefined
+  const translationUrl = zeroWidthTrim(
+    `/${otherLanguage}/${post.slug[otherLanguage]}`
+  )
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -94,7 +86,7 @@ export default function Slug() {
         <div className="full-bleed">
           <HeroImage
             id={post.mainImage.id}
-            title={post.title}
+            title={post.title[post.language]}
             category={post.category}
             preview={post.mainImage.preview}
           />
