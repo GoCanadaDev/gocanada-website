@@ -4,6 +4,8 @@ import { Category, getCategories } from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import { Layout } from "~/components/Layout"
+import { Typography } from "~/components/Typography"
 
 interface IndexLoaderData {
   categories: Category[]
@@ -24,17 +26,20 @@ export default function CategoriesRoute() {
   const lang = params.lang as SupportedLanguages
 
   return (
-    <div>
+    <Layout
+      translationUrl={lang === "en" ? "/fr/categories" : "/en/categories"}
+      useMargins
+    >
       <div>
         {categories?.map((category) => (
-          <div>
-            <h3 key={category.name[lang]}>{category.name[lang]}</h3>
-            <div className="italic" key={category.description[lang]}>
+          <div key={category.name[lang]}>
+            <Typography.H3>{category.name[lang]}</Typography.H3>
+            <Typography.TextMuted key={category.description[lang]}>
               {category.description[lang]}
-            </div>
+            </Typography.TextMuted>
           </div>
         ))}
       </div>
-    </div>
+    </Layout>
   )
 }
