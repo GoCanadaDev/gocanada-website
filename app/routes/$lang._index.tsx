@@ -30,7 +30,6 @@ type IndexLoaderData = {
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
-  invariant(params.slug, "Expected slug param")
   invariant(params.lang, "Expected lang param")
   const posts = await getPosts(client, params.lang!)
 
