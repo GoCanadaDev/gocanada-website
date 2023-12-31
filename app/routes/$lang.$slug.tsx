@@ -22,6 +22,7 @@ import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
 import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
 import invariant from "tiny-invariant"
+import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Image } from "~/components/Image"
 
 export const meta: MetaFunction<
@@ -60,7 +61,7 @@ export const loader: LoaderFunction = async ({
   request,
 }: LoaderFunctionArgs) => {
   invariant(params.slug, "Expected slug param")
-  invariant(params.lang, "Expected lang param")
+  isLangSupportedLang(params.lang)
   const post = await getPost(client, params.slug!, params.lang!)
 
   if (!post) {
