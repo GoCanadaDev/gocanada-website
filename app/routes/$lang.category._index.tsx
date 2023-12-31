@@ -6,7 +6,7 @@ import { SupportedLanguages } from "~/i18n"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
+import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
 interface IndexLoaderData {
   categories: Category[]
@@ -21,26 +21,24 @@ export const loader: LoaderFunction = async ({ params }) => {
   })
 }
 
-export default function CategoriesRoute() {
+export default function CategoryIndexRoute() {
   const { categories } = useLoaderData() as IndexLoaderData
   const params = useParams()
   const lang = params.lang as SupportedLanguages
 
   return (
     <Layout
-      translationUrl={lang === "en" ? "/fr/categories" : "/en/categories"}
+      translationUrl={lang === "en" ? "/fr/category" : "/en/category"}
       useMargins
     >
       <div>
         {categories?.map((category) => {
-          const linkTo = zeroWidthTrim(
-            `/${lang}/categories/${category.name[lang]}`
-          )
+          const linkTo = `/${lang}/category/${category.slug[lang]}`
 
           return (
-            <div key={category.name[lang]}>
+            <div key={category.title[lang]}>
               <Link prefetch="intent" to={linkTo}>
-                <Typography.H3>{category.name[lang]}</Typography.H3>
+                <Typography.H3>{category.title[lang]}</Typography.H3>
                 <Typography.TextMuted key={category.description[lang]}>
                   {category.description[lang]}
                 </Typography.TextMuted>
@@ -51,4 +49,8 @@ export default function CategoriesRoute() {
       </div>
     </Layout>
   )
+}
+
+export function ErrorBoundary({ error }: { error: string }) {
+  return <ErrorBoundaryPage error={error?.toString()} />
 }

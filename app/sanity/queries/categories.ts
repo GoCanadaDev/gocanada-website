@@ -1,35 +1,41 @@
 import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
 import { LocalizedString } from "~/sanity/queries/shared"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { SupportedLanguages } from "~/i18n"
 
 export type Category = {
-  name: LocalizedString
+  title: LocalizedString
+  slug: LocalizedString
   description: LocalizedString
+  language: SupportedLanguages
 }
 
 export const categoriesQuery = groq`*[_type == "categoryType"] | order(_createdAt desc) {
-  _id,
-  "name": {
-    "en": name.en,
-    "fr": name.fr,
+  "title": {
+    "en": title.en,
+    "fr": title.fr,
+  },
+  "slug": {
+    "en": slug.en.current,
+    "fr": slug.fr.current,
   },
   "description": {
     "en": description.en,
     "fr": description.fr,
   },
-  _createdAt,
   "language": $language,
 }`
-
 
 export async function getCategories(
   client: SanityStegaClient,
   language: string
-): Promise<Category[]> {
-  return await client.fetch(categoriesQuery, { language })
+) {
+  const result = await client.fetch(categoriesQuery, { language })
+  return Object.values(sanitizeStrings(result)) as Category[]
 }
-/*
-export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
+
+export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$language].current == $slug][0]{
   _id,
   "title": {
     "en": title.en,
@@ -39,34 +45,21 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "en": slug.en.current,
     "fr": slug.fr.current,
   },
-  _createdAt,
-  "excerpt": {
-    "en": excerpt.en,
-    "fr": excerpt.fr,
+  "description": {
+    "en": description.en,
+    "fr": description.fr,
   },
-  body,
-  "author": {
-    "name": author->name,
-    "slug": author->slug.current,
-    "image": author->image,
-  },
-  "category": category->name[$language],
-  "tags": tags[]->name[$language],
   "language": $language,
-  mainImage{
-    "id": asset._ref,
-    "preview": asset->metadata.lqip,
-  },
 }`
 
-export async function getPost(
+export async function getCategory(
   client: SanityStegaClient,
   slug: string,
   language: string
-): Promise<Post> {
-  return await client.fetch(postBySlugQuery, {
+): Promise<Category> {
+  const result = await client.fetch(categoryBySlugQuery, {
     slug,
     language,
   })
+  return sanitizeStrings(result) as Category
 }
-*/

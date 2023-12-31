@@ -2,8 +2,8 @@ import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
 import type { ImageAsset, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
-import { LocalizedString } from "~/sanity/queries/shared";
-
+import { LocalizedString } from "~/sanity/queries/shared"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
   _id,
@@ -22,8 +22,8 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
     "slug": author->slug.current,
     "imageUrl": author->image.asset._ref,
   },
-  "category": category->name[$language],
-  "tags": tags[]->name[$language],
+  "category": category->title[$language],
+  "tags": tags[]->title[$language],
   "language": $language,
   mainImage{
     "id": asset._ref,
@@ -31,11 +31,9 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
   },
 }`
 
-export async function getPosts(
-  client: SanityStegaClient,
-  language: string
-): Promise<Post[]> {
-  return await client.fetch(postsQuery, { language })
+export async function getPosts(client: SanityStegaClient, language: string) {
+  const result = await client.fetch(postsQuery, { language })
+  return Object.values(sanitizeStrings(result)) as Post[]
 }
 
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
@@ -68,8 +66,12 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "slug": author->slug.current,
     "image": author->image,
   },
-  "category": category->name[$language],
-  "tags": tags[]->name[$language],
+  "category": category->title[$language],
+  "categorySlugs": {
+    "en": category->slug.en.current,
+    "fr": category->slug.fr.current,
+  },
+  "tags": tags[]->title[$language],
   "language": $language,
   mainImage{
     "id": asset._ref,
@@ -81,18 +83,19 @@ export async function getPost(
   client: SanityStegaClient,
   slug: string,
   language: string
-): Promise<Post> {
-  return await client.fetch(postBySlugQuery, {
+) {
+  const result = await client.fetch(postBySlugQuery, {
     slug,
     language,
   })
+
+  return sanitizeStrings(result) as Post
 }
 
 export type PostPreview = {
   _type: "post"
   _id: string
   _createdAt: string
-  _translations?: Post[]
   language: "en" | "fr"
   title: LocalizedString
   slug: {
@@ -100,6 +103,7 @@ export type PostPreview = {
     fr: Slug
   }
   category: string
+  categorySlugs: LocalizedString
   mainImage: {
     id: string
     preview: string

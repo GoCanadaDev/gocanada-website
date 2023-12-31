@@ -6,6 +6,7 @@ import type {
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
+import { ExternalLink } from "lucide-react"
 
 import { client } from "~/sanity/client"
 import type { RootLoaderData as RootLoader } from "~/root"
@@ -20,7 +21,6 @@ import { HeroImage } from "~/components/HeroImage"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
-import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Image } from "~/components/Image"
@@ -83,33 +83,59 @@ export default function Slug() {
 
   const otherLanguage = post.language === "en" ? "fr" : "en"
 
-  const translationUrl = zeroWidthTrim(
-    `/${otherLanguage}/${post.slug[otherLanguage]}`
-  )
+  const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
 
   // TODO: move the components and PortableText to a separate file
   const myPortableTextComponents = {
     types: {
-      image: ({ value }: { value: { id: string; preview: string } }) => {
+      image: ({
+        value,
+      }: {
+        value: {
+          id: string
+          preview: string
+          attribution?: string
+          attributionUrl?: string
+          caption?: string
+          alt?: string
+        }
+      }) => {
         return (
-          // TODO: see if we can not have a <p> wrapped around these so the .full-bleed works
-          <div className="full-bleed">
+          <figure className="full-bleed">
             <Image
               id={value.id}
               width={640}
               preview={value.preview}
               loading="lazy"
               className="w-full"
+              alt={value.alt ?? ""}
             />
-          </div>
+            {value.attribution || value.caption ? (
+              <div className="holy-grail">
+                <figcaption className="flex justify-between">
+                  {value.caption ? (
+                    <span className="flex-1 italic">{value.caption}</span>
+                  ) : null}
+                  {value.attribution ? (
+                    <span className="flex-1 text-right">
+                      Photo by{" "}
+                      {value.attributionUrl ? (
+                        <a href={value.attributionUrl}>
+                          {value.attribution}{" "}
+                          <ExternalLink className="inline h-4 w-4" />
+                        </a>
+                      ) : (
+                        value.attribution
+                      )}
+                    </span>
+                  ) : null}
+                </figcaption>
+                <Separator className="my-8" />
+              </div>
+            ) : null}
+          </figure>
         )
       },
-      // callToAction: ({ value, isInline }) =>
-      //   isInline ? (
-      //     <a href={value.url}>{value.text}</a>
-      //   ) : (
-      //     <div className="callToAction">{value.text}</div>
-      //   ),
     },
 
     // marks: {
@@ -134,6 +160,7 @@ export default function Slug() {
             id={post.mainImage.id}
             title={post.title[post.language]}
             category={post.category}
+            categorySlug={post.categorySlugs[post.language]}
             preview={post.mainImage.preview}
           />
         </div>

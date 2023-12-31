@@ -4,12 +4,12 @@ import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { useTranslate } from "~/lib/useTranslate"
-import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
+import { MoveRight } from "lucide-react"
 
 export default function Card({ post }: { post: PostPreview }) {
   const { translate } = useTranslate()
 
-  const linkTo = zeroWidthTrim(`/${post.language}/${post.slug[post.language]}`)
+  const linkTo = `/${post.language}/${post.slug[post.language]}`
   if (!post) {
     return null
   }
@@ -39,7 +39,7 @@ export default function Card({ post }: { post: PostPreview }) {
         </Typography.H3>
         <p>
           <Link className="text-sm" prefetch="intent" to={linkTo}>
-            {translate("readMore")} →
+            {translate("readMore")} <MoveRight className="inline" />
           </Link>
         </p>
       </div>
