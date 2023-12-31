@@ -1,4 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node"
+import invariant from "tiny-invariant"
 
 import { generatePngFromDocument } from "~/lib/og.server"
 import { previewClient } from "~/sanity/client.server"
@@ -9,6 +10,8 @@ export const OG_IMAGE_HEIGHT = 630
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { origin, searchParams } = new URL(request.url)
   const id = searchParams.get("id")
+
+  invariant(id, "Expected id in searchParams")
 
   if (!id) {
     return new Response("Bad request", { status: 400 })

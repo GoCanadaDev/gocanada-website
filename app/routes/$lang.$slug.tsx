@@ -8,8 +8,6 @@ import { useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 
 import { client } from "~/sanity/client"
-import { SupportedLanguages } from "~/i18n"
-import i18next from "~/i18next.server"
 import type { RootLoaderData as RootLoader } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
@@ -17,12 +15,14 @@ import { getPost, Post } from "~/sanity/queries"
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
-import { useTranslation } from "react-i18next"
 import { Typography } from "~/components/Typography"
 import { HeroImage } from "~/components/HeroImage"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
+import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
+import invariant from "tiny-invariant"
+import { Image } from "~/components/Image"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -34,7 +34,9 @@ export const meta: MetaFunction<
     ?.data as RootLoader
 
   const home = rootData ? rootData.initial.data : null
-  const title = [data?.post?.title, home?.siteTitle].filter(Boolean).join(" | ")
+  const title = [data?.post?.title[data.post.language], home?.siteTitle]
+    .filter(Boolean)
+    .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
 
   return [
@@ -57,8 +59,9 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }: LoaderFunctionArgs) => {
-  let language = (await i18next.getLocale(request)) as SupportedLanguages
-  const post = await getPost(client, params.slug!, language)
+  invariant(params.slug, "Expected slug param")
+  invariant(params.lang, "Expected lang param")
+  const post = await getPost(client, params.slug!, params.lang!)
 
   if (!post) {
     throw new Response("Not found", { status: 404 })
@@ -75,18 +78,46 @@ export const loader: LoaderFunction = async ({
 }
 
 export default function Slug() {
-  const {
-    i18n: { language },
-  } = useTranslation()
   const { post } = useLoaderData() as LoaderDataType
 
-  const translation = post._translations!.find(
-    (p: Post) => p.language !== language
+  const otherLanguage = post.language === "en" ? "fr" : "en"
+
+  const translationUrl = zeroWidthTrim(
+    `/${otherLanguage}/${post.slug[otherLanguage]}`
   )
 
-  const translationUrl = translation
-    ? `/${translation.language}/${translation.slug.current}`
-    : undefined
+  // TODO: move the components and PortableText to a separate file
+  const myPortableTextComponents = {
+    types: {
+      image: ({ value }: { value: { asset: { _ref: string } } }) => {
+        return (
+          // TODO: see if we can not have a <p> wrapped around these so the .full-bleed works
+          <span className="full-bleed">
+            <Image id={value.asset._ref} />
+          </span>
+        )
+      },
+      // callToAction: ({ value, isInline }) =>
+      //   isInline ? (
+      //     <a href={value.url}>{value.text}</a>
+      //   ) : (
+      //     <div className="callToAction">{value.text}</div>
+      //   ),
+    },
+
+    // marks: {
+    //   link: ({ children, value }) => {
+    //     const rel = !value.href.startsWith("/")
+    //       ? "noreferrer noopener"
+    //       : undefined
+    //     return (
+    //       <a href={value.href} rel={rel}>
+    //         {children}
+    //       </a>
+    //     )
+    //   },
+    // },
+  }
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -94,7 +125,7 @@ export default function Slug() {
         <div className="full-bleed">
           <HeroImage
             id={post.mainImage.id}
-            title={post.title}
+            title={post.title[post.language]}
             category={post.category}
             preview={post.mainImage.preview}
           />
@@ -138,11 +169,14 @@ export default function Slug() {
           </div>
 
           <Typography.Lead className="mb-24 italic">
-            {post.excerpt}
+            {post.excerpt[post.language]}
           </Typography.Lead>
           <Separator />
           <div className="prose prose-xl prose-slate my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
-            <PortableText value={post.body} />
+            <PortableText
+              value={post.body}
+              components={myPortableTextComponents}
+            />
           </div>
         </div>
       </article>

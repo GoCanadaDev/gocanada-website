@@ -29,28 +29,22 @@ export const authorType = defineType({
     }),
     defineField({
       name: "bio",
-      title: "Bio",
-      type: "array",
-      of: [
-        {
-          title: "Block",
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          lists: [],
-        },
-      ],
-    }),
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
+      type: "localeString",
     }),
   ],
   preview: {
     select: {
       title: "name",
+      slug: "slug.current",
       media: "image",
+    },
+    prepare(selection) {
+      const { slug, title } = selection
+      return {
+        ...selection,
+        title,
+        subtitle: slug,
+      }
     },
   },
 })

@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+import { baseLanguage } from "~/sanity/schema/language"
 
 export const categoryType = defineType({
   name: "categoryType",
@@ -6,20 +7,19 @@ export const categoryType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "title",
-      title: "Title",
-      type: "string",
+      name: "name",
+      title: "Name",
+      type: "localeString",
     }),
     defineField({
       name: "description",
       title: "Description",
-      type: "text",
-    }),
-    defineField({
-      name: "language",
-      type: "string",
-      readOnly: true,
-      hidden: true,
+      type: "localeString",
     }),
   ],
+  preview: {
+    select: {
+      title: `name.${baseLanguage.id}`,
+    },
+  },
 })

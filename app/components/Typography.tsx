@@ -74,11 +74,7 @@ const InlineCode = ({ children, className }: TypographyProps) => (
 )
 
 const Lead = ({ children, className }: TypographyProps) => (
-  <p
-    className={`text-muted-foreground text-2xl lg:text-3xl ${className ?? ""}`}
-  >
-    {children}
-  </p>
+  <p className={`text-2xl lg:text-3xl ${className ?? ""}`}>{children}</p>
 )
 
 const TextLarge = ({ children, className }: TypographyProps) => (

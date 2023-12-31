@@ -1,5 +1,6 @@
 {
   "greeting": "Bonjour",
+  "readMore": "En savoir plus",
   "languageChanged": "Language changed to English",
   "currentLanguage": "Français",
   "toggleTheme": "Changer le thème"
