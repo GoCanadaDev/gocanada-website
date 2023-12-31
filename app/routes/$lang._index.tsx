@@ -9,7 +9,7 @@ import { client } from "~/sanity/client"
 import Card from "~/components/Card"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
-import invariant from "tiny-invariant"
+import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang";
 
 export const meta: MetaFunction<
   typeof loader,
@@ -30,7 +30,7 @@ type IndexLoaderData = {
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
-  invariant(params.lang, "Expected lang param")
+  isLangSupportedLang(params.lang)
   const posts = await getPosts(client, params.lang!)
 
   return json<IndexLoaderData>({
