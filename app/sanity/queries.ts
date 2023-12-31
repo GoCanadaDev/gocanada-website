@@ -53,7 +53,16 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "en": excerpt.en,
     "fr": excerpt.fr,
   },
-  body,
+  "body": body[] {
+    ...,
+    ...select(
+      _type == "image" => {
+        ...,
+        "id": asset._ref,
+        "preview": asset->.metadata.lqip
+      } 
+    )
+  },
   "author": {
     "name": author->name,
     "slug": author->slug.current,

@@ -89,12 +89,18 @@ export default function Slug() {
   // TODO: move the components and PortableText to a separate file
   const myPortableTextComponents = {
     types: {
-      image: ({ value }: { value: { asset: { _ref: string } } }) => {
+      image: ({ value }: { value: { id: string; preview: string } }) => {
         return (
           // TODO: see if we can not have a <p> wrapped around these so the .full-bleed works
-          <span className="full-bleed">
-            <Image id={value.asset._ref} />
-          </span>
+          <div className="full-bleed">
+            <Image
+              id={value.id}
+              width={640}
+              preview={value.preview}
+              loading="lazy"
+              className="w-full"
+            />
+          </div>
         )
       },
       // callToAction: ({ value, isInline }) =>
@@ -121,8 +127,8 @@ export default function Slug() {
 
   return (
     <Layout translationUrl={translationUrl}>
-      <article className="holy-grail">
-        <div className="full-bleed">
+      <article className="">
+        <div className="w-full">
           <HeroImage
             id={post.mainImage.id}
             title={post.title[post.language]}
@@ -130,8 +136,8 @@ export default function Slug() {
             preview={post.mainImage.preview}
           />
         </div>
-        <div className="mx-4 my-24">
-          <div className="mb-8 flex items-center">
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
+          <div className="not-prose mb-8 flex items-center">
             <Avatar>
               <AvatarImage
                 src={urlForImage(post.author.image)
@@ -167,17 +173,18 @@ export default function Slug() {
               </span>
             ))}
           </div>
-
-          <Typography.Lead className="mb-24 italic">
-            {post.excerpt[post.language]}
-          </Typography.Lead>
-          <Separator />
-          <div className="prose prose-xl prose-slate my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
-            <PortableText
-              value={post.body}
-              components={myPortableTextComponents}
-            />
+          <div className="mb-24 w-full text-center">
+            <Typography.Lead className="italic">
+              {post.excerpt[post.language]}
+            </Typography.Lead>
           </div>
+          <Separator />
+        </div>
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
+          <PortableText
+            value={post.body}
+            components={myPortableTextComponents}
+          />
         </div>
       </article>
     </Layout>
