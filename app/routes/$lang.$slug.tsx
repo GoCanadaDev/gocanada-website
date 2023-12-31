@@ -22,6 +22,7 @@ import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
 import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
 import invariant from "tiny-invariant"
+import { Image } from "~/components/Image"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -85,6 +86,39 @@ export default function Slug() {
     `/${otherLanguage}/${post.slug[otherLanguage]}`
   )
 
+  // TODO: move the components and PortableText to a separate file
+  const myPortableTextComponents = {
+    types: {
+      image: ({ value }: { value: { asset: { _ref: string } } }) => {
+        return (
+          // TODO: see if we can not have a <p> wrapped around these so the .full-bleed works
+          <span className="full-bleed">
+            <Image id={value.asset._ref} />
+          </span>
+        )
+      },
+      // callToAction: ({ value, isInline }) =>
+      //   isInline ? (
+      //     <a href={value.url}>{value.text}</a>
+      //   ) : (
+      //     <div className="callToAction">{value.text}</div>
+      //   ),
+    },
+
+    // marks: {
+    //   link: ({ children, value }) => {
+    //     const rel = !value.href.startsWith("/")
+    //       ? "noreferrer noopener"
+    //       : undefined
+    //     return (
+    //       <a href={value.href} rel={rel}>
+    //         {children}
+    //       </a>
+    //     )
+    //   },
+    // },
+  }
+
   return (
     <Layout translationUrl={translationUrl}>
       <article className="holy-grail">
@@ -139,7 +173,10 @@ export default function Slug() {
           </Typography.Lead>
           <Separator />
           <div className="prose prose-xl prose-slate my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
-            <PortableText value={post.body} />
+            <PortableText
+              value={post.body}
+              components={myPortableTextComponents}
+            />
           </div>
         </div>
       </article>
