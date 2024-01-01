@@ -9,22 +9,26 @@ export const postType = defineType({
       name: "title",
       title: "Post Title",
       type: "localeString",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "localeSlug",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "localeText",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "author",
       title: "Author",
       type: "reference",
       to: { type: "authorType" },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "mainImage",
@@ -33,6 +37,7 @@ export const postType = defineType({
       options: {
         hotspot: true,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "category",
@@ -52,11 +57,13 @@ export const postType = defineType({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "body",
       title: "Body",
       type: "blockContentType",
+      validation: (Rule) => Rule.required(),
     }),
   ],
 
