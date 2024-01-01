@@ -4,7 +4,7 @@ import type {
   MetaFunction,
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { ExternalLink } from "lucide-react"
 
@@ -160,7 +160,6 @@ export default function Slug() {
             id={post.mainImage.id}
             title={post.title[post.language]}
             category={post.category}
-            categorySlug={post.categorySlugs[post.language]}
             preview={post.mainImage.preview}
           />
         </div>
@@ -193,12 +192,13 @@ export default function Slug() {
 
           <div className="mb-8">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="me-2 inline-block rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+              <Link
+                key={tag.title[post.language]}
+                to={`/${post.language}/tag/${tag.slug[post.language]}`}
+                className="me-2 inline-block rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
               >
-                {tag}
-              </span>
+                {tag.title[post.language]}
+              </Link>
             ))}
           </div>
           <div className="mb-24 w-full text-center">

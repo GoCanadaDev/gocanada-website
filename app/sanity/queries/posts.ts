@@ -4,6 +4,8 @@ import type { ImageAsset, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { Category } from "./categories"
+import { Tag } from "./tags"
 
 export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
   _id,
@@ -22,8 +24,26 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
     "slug": author->slug.current,
     "imageUrl": author->image.asset._ref,
   },
-  "category": category->title[$language],
-  "tags": tags[]->title[$language],
+  "category": {
+    "title": {
+      "en": category->title.en,
+      "fr": category->title.fr,
+    },
+    "slug": {
+      "en": category->slug.en.current,
+      "fr": category->slug.fr.current,
+    },
+  },
+  "tags": tags[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  },
   "language": $language,
   mainImage{
     "id": asset._ref,
@@ -66,12 +86,26 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "slug": author->slug.current,
     "image": author->image,
   },
-  "category": category->title[$language],
-  "categorySlugs": {
-    "en": category->slug.en.current,
-    "fr": category->slug.fr.current,
+  "category": {
+    "title": {
+      "en": category->title.en,
+      "fr": category->title.fr,
+    },
+    "slug": {
+      "en": category->slug.en.current,
+      "fr": category->slug.fr.current,
+    },
   },
-  "tags": tags[]->title[$language],
+  "tags": tags[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  },
   "language": $language,
   mainImage{
     "id": asset._ref,
@@ -102,8 +136,10 @@ export type PostPreview = {
     en: Slug
     fr: Slug
   }
-  category: string
-  categorySlugs: LocalizedString
+  category: {
+    title: Category["title"]
+    slug: Category["slug"]
+  }
   mainImage: {
     id: string
     preview: string
@@ -116,6 +152,9 @@ export type Post = PostPreview & {
     slug: Slug
     image: ImageAsset
   }
-  tags: string[]
+  tags: {
+    title: Tag["title"]
+    slug: Tag["slug"]
+  }[]
   excerpt: LocalizedString
 }

@@ -15,7 +15,7 @@ export default function Card({ post }: { post: PostPreview }) {
   }
 
   return (
-    <div className="card max-w-screen-sm">
+    <div className="max-w-screen-sm">
       {post.mainImage && post.mainImage?.id ? (
         <div className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800">
           <Link prefetch="intent" to={linkTo}>
@@ -30,16 +30,16 @@ export default function Card({ post }: { post: PostPreview }) {
           </Link>
         </div>
       ) : null}
-      <div className="card__container">
-        <Typography.H4>{post.category}</Typography.H4>
-        <Typography.H3>
+      <div className="">
+        <Typography.H4>{post.category.title[post.language]}</Typography.H4>
+        <Typography.H3 className="my-4">
           <Link prefetch="intent" to={linkTo}>
             {post.title[post.language]}
           </Link>
         </Typography.H3>
         <p>
           <Link className="text-sm" prefetch="intent" to={linkTo}>
-            {translate("readMore")} <MoveRight className="inline" />
+            {translate("readMore")} <MoveRight className="inline h-4 w-4" />
           </Link>
         </p>
       </div>
