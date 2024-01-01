@@ -17,7 +17,7 @@ export type Author = {
   posts?: PostPreview[]
 }
 
-export const authorBySlugQuery = groq`*[_type == "authorType" && slug[$language].current == $slug][0]{
+export const authorBySlugQuery = groq`*[_type == "authorType" && slug.current == $slug][0]{
   _id,
   name,
   slug,
@@ -29,7 +29,7 @@ export const authorBySlugQuery = groq`*[_type == "authorType" && slug[$language]
   image{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
-  }
+  },
   "posts": *[_type == "postType" && references(^._id)]{
     ${postsProjection}
   },
@@ -37,12 +37,13 @@ export const authorBySlugQuery = groq`*[_type == "authorType" && slug[$language]
 
 export async function getAuthor(
   client: SanityStegaClient,
+  language: string,
   slug: string,
-  language: string
 ) {
   const result = await client.fetch(authorBySlugQuery, {
-    slug,
     language,
+    slug,
   })
+
   return sanitizeStrings(result) as Author
 }
