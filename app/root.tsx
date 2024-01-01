@@ -31,6 +31,7 @@ import { Hydrated } from "./components/Hydrated"
 import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
 import setLanguageCookie from "~/lib/setLanguageCookie"
 import { SupportedLanguages } from "~/i18n"
+import { sanitizeStrings } from "./lib/sanitizeStrings"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -100,8 +101,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   // Sanity content reused throughout the site
   const initial = await loadQuery<HomeDocument>(HOME_QUERY).then((res) => ({
-    ...res,
-    data: res.data ? homeZ.parse(res.data) : null,
+    ...sanitizeStrings(res),
+    data: res.data ? homeZ.parse(sanitizeStrings(res.data)) : null,
   }))
 
   return json<RootLoaderData>(

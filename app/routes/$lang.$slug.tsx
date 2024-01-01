@@ -4,8 +4,9 @@ import type {
   MetaFunction,
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
+import { ExternalLink } from "lucide-react"
 
 import { client } from "~/sanity/client"
 import type { RootLoaderData as RootLoader } from "~/root"
@@ -20,7 +21,6 @@ import { HeroImage } from "~/components/HeroImage"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
-import { zeroWidthTrim } from "~/lib/zeroWidthTrim"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Image } from "~/components/Image"
@@ -83,27 +83,59 @@ export default function Slug() {
 
   const otherLanguage = post.language === "en" ? "fr" : "en"
 
-  const translationUrl = zeroWidthTrim(
-    `/${otherLanguage}/${post.slug[otherLanguage]}`
-  )
+  const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
 
   // TODO: move the components and PortableText to a separate file
   const myPortableTextComponents = {
     types: {
-      image: ({ value }: { value: { asset: { _ref: string } } }) => {
+      image: ({
+        value,
+      }: {
+        value: {
+          id: string
+          preview: string
+          attribution?: string
+          attributionUrl?: string
+          caption?: string
+          alt?: string
+        }
+      }) => {
         return (
-          // TODO: see if we can not have a <p> wrapped around these so the .full-bleed works
-          <span className="full-bleed">
-            <Image id={value.asset._ref} />
-          </span>
+          <figure className="full-bleed">
+            <Image
+              id={value.id}
+              width={640}
+              preview={value.preview}
+              loading="lazy"
+              className="w-full"
+              alt={value.alt ?? ""}
+            />
+            {value.attribution || value.caption ? (
+              <div className="holy-grail">
+                <figcaption className="flex justify-between">
+                  {value.caption ? (
+                    <span className="flex-1 italic">{value.caption}</span>
+                  ) : null}
+                  {value.attribution ? (
+                    <span className="flex-1 text-right">
+                      Photo by{" "}
+                      {value.attributionUrl ? (
+                        <a href={value.attributionUrl}>
+                          {value.attribution}{" "}
+                          <ExternalLink className="inline h-4 w-4" />
+                        </a>
+                      ) : (
+                        value.attribution
+                      )}
+                    </span>
+                  ) : null}
+                </figcaption>
+                <Separator className="my-8" />
+              </div>
+            ) : null}
+          </figure>
         )
       },
-      // callToAction: ({ value, isInline }) =>
-      //   isInline ? (
-      //     <a href={value.url}>{value.text}</a>
-      //   ) : (
-      //     <div className="callToAction">{value.text}</div>
-      //   ),
     },
 
     // marks: {
@@ -122,8 +154,8 @@ export default function Slug() {
 
   return (
     <Layout translationUrl={translationUrl}>
-      <article className="holy-grail">
-        <div className="full-bleed">
+      <article className="">
+        <div className="w-full">
           <HeroImage
             id={post.mainImage.id}
             title={post.title[post.language]}
@@ -131,8 +163,8 @@ export default function Slug() {
             preview={post.mainImage.preview}
           />
         </div>
-        <div className="mx-4 my-24">
-          <div className="mb-8 flex items-center">
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
+          <div className="not-prose mb-8 flex items-center">
             <Avatar>
               <AvatarImage
                 src={urlForImage(post.author.image)
@@ -160,25 +192,27 @@ export default function Slug() {
 
           <div className="mb-8">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="me-2 rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
+              <Link
+                key={tag.title[post.language]}
+                to={`/${post.language}/tag/${tag.slug[post.language]}`}
+                className="me-2 inline-block rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
               >
-                {tag}
-              </span>
+                {tag.title[post.language]}
+              </Link>
             ))}
           </div>
-
-          <Typography.Lead className="mb-24 italic">
-            {post.excerpt[post.language]}
-          </Typography.Lead>
-          <Separator />
-          <div className="prose prose-xl prose-slate my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
-            <PortableText
-              value={post.body}
-              components={myPortableTextComponents}
-            />
+          <div className="mb-24 w-full text-center">
+            <Typography.Lead className="italic">
+              {post.excerpt[post.language]}
+            </Typography.Lead>
           </div>
+          <Separator />
+        </div>
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
+          <PortableText
+            value={post.body}
+            components={myPortableTextComponents}
+          />
         </div>
       </article>
     </Layout>

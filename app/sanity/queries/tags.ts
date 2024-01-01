@@ -4,14 +4,14 @@ import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
 
-export type Category = {
+export type Tag = {
   title: LocalizedString
   slug: LocalizedString
   description: LocalizedString
   language: SupportedLanguages
 }
 
-export const categoriesQuery = groq`*[_type == "categoryType"] | order(_createdAt desc) {
+export const tagsQuery = groq`*[_type == "tagType"] | order(_createdAt desc) {
   "title": {
     "en": title.en,
     "fr": title.fr,
@@ -27,15 +27,12 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(_createdA
   "language": $language,
 }`
 
-export async function getCategories(
-  client: SanityStegaClient,
-  language: string
-) {
-  const result = await client.fetch(categoriesQuery, { language })
-  return Object.values(sanitizeStrings(result)) as Category[]
+export async function getTags(client: SanityStegaClient, language: string) {
+  const result = await client.fetch(tagsQuery, { language })
+  return Object.values(sanitizeStrings(result)) as Tag[]
 }
 
-export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$language].current == $slug][0]{
+export const tagBySlugQuery = groq`*[_type == "tagType" && slug[$language].current == $slug][0]{
   _id,
   "title": {
     "en": title.en,
@@ -52,14 +49,14 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
   "language": $language,
 }`
 
-export async function getCategory(
+export async function getTag(
   client: SanityStegaClient,
   slug: string,
   language: string
 ) {
-  const result = await client.fetch(categoryBySlugQuery, {
+  const result = await client.fetch(tagBySlugQuery, {
     slug,
     language,
   })
-  return sanitizeStrings(result) as Category
+  return sanitizeStrings(result) as Tag
 }

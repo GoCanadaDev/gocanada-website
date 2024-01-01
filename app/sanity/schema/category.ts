@@ -7,9 +7,14 @@ export const categoryType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "name",
-      title: "Name",
+      name: "title",
+      title: "Title",
       type: "localeString",
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "localeSlug",
     }),
     defineField({
       name: "description",
@@ -19,7 +24,7 @@ export const categoryType = defineType({
   ],
   preview: {
     select: {
-      title: `name.${baseLanguage.id}`,
+      title: `title.${baseLanguage.id}`,
     },
   },
 })

@@ -45,7 +45,33 @@ export const blockContentType = defineType({
           },
         ],
       },
-      of: [{ type: "image" }],
+      // of: [{ type: "image" }],
+    }),
+    defineArrayMember({
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        {
+          name: "caption",
+          type: "string",
+          title: "Caption",
+        },
+        {
+          name: "attribution",
+          type: "string",
+          title: "Attribution Name",
+        },
+        {
+          name: "attributionUrl",
+          type: "url",
+          title: "Attribution URL",
+        },
+        {
+          name: "alt",
+          type: "string",
+          title: "Alt text",
+        },
+      ],
     }),
   ],
 })
