@@ -3,12 +3,14 @@ import type { SanityStegaClient } from "@sanity/client/stega"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
+import { Post, PostPreview, postsProjection } from "~/sanity/queries/posts"
 
 export type Category = {
   title: LocalizedString
   slug: LocalizedString
   description: LocalizedString
   language: SupportedLanguages
+  posts?: PostPreview[]
 }
 
 export const categoriesQuery = groq`*[_type == "categoryType"] | order(_createdAt desc) {
@@ -50,6 +52,9 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
     "fr": description.fr,
   },
   "language": $language,
+  "posts": *[_type == "postType" && references(^._id)]{
+    ${postsProjection}
+  },
 }`
 
 export async function getCategory(

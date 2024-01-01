@@ -6,10 +6,10 @@ import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import type { RootLoaderData as RootLoader } from "~/root"
 import { PostPreview, getPosts } from "~/sanity/queries"
 import { client } from "~/sanity/client"
-import Card from "~/components/Card"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang";
+import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import { CardGrid } from "~/components/CardGrid"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -47,13 +47,7 @@ export default function Index() {
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <div className="full-bleed container grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-        {posts.length
-          ? posts.map((post) => (
-              <Card key={post.title[post.language]} post={post} />
-            ))
-          : null}
-      </div>
+      <CardGrid posts={posts} />
     </Layout>
   )
 }

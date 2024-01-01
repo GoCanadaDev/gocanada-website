@@ -31,6 +31,7 @@ export const HeroImage = ({ id, title, category, preview }: HeroImageProps) => {
       <div className="relative z-[3] mx-auto flex h-screen max-w-[100ch] flex-col items-center justify-center px-8 text-center">
         <Typography.H4 className="mb-8 text-white drop-shadow-lg">
           <Link
+            prefetch="intent"
             to={`/${params.lang}/category/${
               category.slug[params.lang as keyof typeof category.title]
             }`}

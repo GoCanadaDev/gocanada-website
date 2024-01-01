@@ -3,12 +3,14 @@ import type { SanityStegaClient } from "@sanity/client/stega"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
+import { PostPreview, postsProjection } from "./posts"
 
 export type Tag = {
   title: LocalizedString
   slug: LocalizedString
   description: LocalizedString
   language: SupportedLanguages
+  posts?: PostPreview[]
 }
 
 export const tagsQuery = groq`*[_type == "tagType"] | order(_createdAt desc) {
@@ -47,6 +49,9 @@ export const tagBySlugQuery = groq`*[_type == "tagType" && slug[$language].curre
     "fr": description.fr,
   },
   "language": $language,
+  "posts": *[_type == "postType" && references(^._id)]{
+    ${postsProjection}
+  },
 }`
 
 export async function getTag(

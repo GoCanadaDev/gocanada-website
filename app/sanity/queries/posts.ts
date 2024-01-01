@@ -7,8 +7,10 @@ import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { Category } from "./categories"
 import { Tag } from "./tags"
 
-export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
+export const postsProjection = `
   _id,
+  _createdAt,
+  "language": $language,
   "title": {
     "en": title.en,
     "fr": title.fr,
@@ -16,13 +18,6 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
   "slug": {
     "en": slug.en.current,
     "fr": slug.fr.current,
-  },
-  _createdAt,
-  body,
-  "author": {
-    "name": author->name,
-    "slug": author->slug.current,
-    "imageUrl": author->image.asset._ref,
   },
   "category": {
     "title": {
@@ -34,21 +29,14 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
       "fr": category->slug.fr.current,
     },
   },
-  "tags": tags[]->{
-    "title": {
-      "en": title.en,
-      "fr": title.fr,
-    },
-    "slug": {
-      "en": slug.en.current,
-      "fr": slug.fr.current,
-    },
-  },
-  "language": $language,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
   },
+`
+
+export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
+  ${postsProjection}
 }`
 
 export async function getPosts(client: SanityStegaClient, language: string) {
@@ -58,6 +46,7 @@ export async function getPosts(client: SanityStegaClient, language: string) {
 
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
   _id,
+  _createdAt,
   "title": {
     "en": title.en,
     "fr": title.fr,
@@ -66,7 +55,6 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "en": slug.en.current,
     "fr": slug.fr.current,
   },
-  _createdAt,
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
@@ -85,6 +73,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "name": author->name,
     "slug": author->slug.current,
     "image": author->image,
+    "bio": author->bio,
   },
   "category": {
     "title": {
@@ -151,6 +140,7 @@ export type Post = PostPreview & {
     name: string
     slug: Slug
     image: ImageAsset
+    bio: LocalizedString
   }
   tags: {
     title: Tag["title"]

@@ -3,9 +3,11 @@ import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
 import { MoveLeft } from "lucide-react"
 import invariant from "tiny-invariant"
+import { CardGrid } from "~/components/CardGrid"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
+import { Separator } from "~/components/ui/separator"
 import { client } from "~/sanity/client"
 import { Category, getCategory } from "~/sanity/queries"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
@@ -39,12 +41,14 @@ export default function CategoryByNameRoute() {
         to={`/${category.language}/category`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> Back to All Categories
+        <MoveLeft className="inline h-4 w-4" /> View All Categories
       </Link>
       <Typography.H1>{category.title[category.language]}</Typography.H1>
       <Typography.TextMuted>
         {category.description[category.language]}
       </Typography.TextMuted>
+      <Separator className="my-8" />
+      <CardGrid posts={category.posts ?? []} />
     </Layout>
   )
 }

@@ -6,7 +6,7 @@ import type {
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, MoveRight } from "lucide-react"
 
 import { client } from "~/sanity/client"
 import type { RootLoaderData as RootLoader } from "~/root"
@@ -24,6 +24,11 @@ import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Image } from "~/components/Image"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "~/components/ui/hover-card"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -163,27 +168,70 @@ export default function Slug() {
             preview={post.mainImage.preview}
           />
         </div>
-        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
-          <div className="not-prose mb-8 flex items-center">
-            <Avatar>
-              <AvatarImage
-                src={urlForImage(post.author.image)
-                  ?.width(100)
-                  .height(100)
-                  .url()}
-              />
-              <AvatarFallback>
-                {
-                  // fake out initials by grabbing capitalized letters
-                  post.author.name
-                    .match(/(\b\S)?/g)!
-                    .join("")
-                    .toUpperCase()
-                }
-              </AvatarFallback>
-            </Avatar>
-            <div className="ml-2">
-              <Typography.TextSmall>{post.author.name}</Typography.TextSmall>
+        <div className="holy-grail mx-4 my-24 max-w-none">
+          <div className="mb-8 flex items-center">
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <div className="">
+                  <Avatar>
+                    <AvatarImage
+                      src={urlForImage(post.author.image)
+                        ?.width(96)
+                        .height(96)
+                        .url()}
+                    />
+                    <AvatarFallback>
+                      {
+                        // fake out initials by grabbing capitalized letters
+                        post.author.name
+                          .match(/(\b\S)?/g)!
+                          .join("")
+                          .toUpperCase()
+                      }
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex space-x-4">
+                  <Avatar>
+                    <AvatarImage
+                      src={urlForImage(post.author.image)
+                        ?.width(96)
+                        .height(96)
+                        .url()}
+                    />
+                    <AvatarFallback>
+                      {
+                        // fake out initials by grabbing capitalized letters
+                        post.author.name
+                          .match(/(\b\S)?/g)!
+                          .join("")
+                          .toUpperCase()
+                      }
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-4">
+                    <Typography.H3>{post.author.name}</Typography.H3>
+                    <Typography.TextMuted>
+                      {post.author.bio[post.language]}
+                    </Typography.TextMuted>
+                    <Typography.TextSmall>
+                      <Link
+                        prefetch="intent"
+                        to={`/${post.language}/authors/${post.author.slug}`}
+                        className="text-red-600 hover:text-red-500"
+                      >
+                        See all posts by {post.author.name}{" "}
+                        <MoveRight className="inline h-4 w-4" />
+                      </Link>
+                    </Typography.TextSmall>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+            <div className="ml-4">
+              <Typography.Paragraph>{post.author.name}</Typography.Paragraph>
               <Typography.TextMuted>
                 {formatDate(post._createdAt, post.language)}
               </Typography.TextMuted>
@@ -193,6 +241,7 @@ export default function Slug() {
           <div className="mb-8">
             {post.tags.map((tag) => (
               <Link
+                prefetch="intent"
                 key={tag.title[post.language]}
                 to={`/${post.language}/tag/${tag.slug[post.language]}`}
                 className="me-2 inline-block rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"

@@ -9,6 +9,7 @@ export const authorType = defineType({
       name: "name",
       title: "Name",
       type: "string",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
@@ -18,6 +19,7 @@ export const authorType = defineType({
         source: "name",
         maxLength: 96,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "image",
@@ -26,10 +28,12 @@ export const authorType = defineType({
       options: {
         hotspot: true,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "bio",
       type: "localeString",
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {

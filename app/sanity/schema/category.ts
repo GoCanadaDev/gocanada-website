@@ -10,16 +10,19 @@ export const categoryType = defineType({
       name: "title",
       title: "Title",
       type: "localeString",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "localeSlug",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "description",
       title: "Description",
       type: "localeString",
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
