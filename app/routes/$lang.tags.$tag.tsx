@@ -72,7 +72,7 @@ export default function TagByNameRoute() {
         <MoveLeft className="inline h-4 w-4" /> {translate("viewAll")}
       </Link>
       <div className="holy-grail space-y-8 text-center">
-        <div className="mx-auto flex h-24 w-24 items-center rounded-full border bg-slate-50 dark:bg-slate-950">
+        <div className="mx-auto flex h-24 w-24 items-center rounded-full border-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
           <TagIcon className="mx-auto h-8 w-8" />
         </div>
         <Typography.H4>{translate("postsTagged")}</Typography.H4>
