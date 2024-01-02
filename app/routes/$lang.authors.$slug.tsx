@@ -1,6 +1,6 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { MetaFunction, useLoaderData } from "@remix-run/react"
+import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
@@ -9,9 +9,12 @@ import { Typography } from "~/components/Typography"
 import { Separator } from "~/components/ui/separator"
 import { client } from "~/sanity/client"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
-import { Author, getAuthor } from "~/sanity/queries/author"
+import { Author, getAuthor } from "~/sanity/queries"
 import type { RootLoaderData } from "~/root"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { useTranslate } from "~/lib/useTranslate"
+import { MoveLeft } from "lucide-react"
+import { Image } from "~/components/Image"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -58,13 +61,35 @@ export const loader: LoaderFunction = async ({
 
 export default function AuthorBySlugRoute() {
   const { author } = useLoaderData() as LoaderDataType
+  const { translate } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
 
   return (
     <Layout useMargins translationUrl={translationUrl}>
-      <Typography.H1>{author.name}</Typography.H1>
-      <Typography.TextMuted>{author.bio[author.language]}</Typography.TextMuted>
+      <Link
+        to={`/${author.language}/authors`}
+        className="text-red-600 hover:text-red-500"
+      >
+        <MoveLeft className="inline h-4 w-4" /> {translate("viewAll")}
+      </Link>
+      <div className="holy-grail space-y-8 text-center">
+        <div className="mx-auto h-24 w-24 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+          <Image
+            mode="cover"
+            id={author.image.id}
+            alt=""
+            width={96}
+            preview={author.image.preview ?? ""}
+            loading="eager"
+            className="transition-transform hover:scale-[1.05]"
+          />
+        </div>
+        <Typography.H1>{author.name}</Typography.H1>
+        <Typography.TextMuted>
+          {author.bio[author.language]}
+        </Typography.TextMuted>
+      </div>
       <Separator className="my-8" />
       <CardGrid posts={author.posts ?? []} />
     </Layout>

@@ -32,7 +32,7 @@ export const HeroImage = ({ id, title, category, preview }: HeroImageProps) => {
         <Typography.H4 className="mb-8 text-white drop-shadow-lg">
           <Link
             prefetch="intent"
-            to={`/${params.lang}/category/${
+            to={`/${params.lang}/categories/${
               category.slug[params.lang as keyof typeof category.title]
             }`}
           >

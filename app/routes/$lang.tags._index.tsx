@@ -8,6 +8,8 @@ import { Typography } from "~/components/Typography"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { Tag, getTags } from "~/sanity/queries"
 import { RootLoaderData } from "~/root"
+import { useTranslate } from "~/lib/useTranslate"
+import { MoveRight, Tag as TagIcon } from "lucide-react"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -19,7 +21,7 @@ export const meta: MetaFunction<
     ?.data as RootLoaderData
 
   const home = rootData ? rootData.initial.data : null
-  const title = ["Categories", home?.siteTitle].filter(Boolean).join(" | ")
+  const title = ["Tags", home?.siteTitle].filter(Boolean).join(" | ")
 
   return [
     { title },
@@ -45,22 +47,42 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function TagIndexRoute() {
   const { tags } = useLoaderData() as IndexLoaderData
   const params = useParams()
+  const { translate } = useTranslate()
   const lang = params.lang as SupportedLanguages
 
   return (
-    <Layout translationUrl={lang === "en" ? "/fr/tag" : "/en/tag"} useMargins>
-      <div>
+    <Layout translationUrl={lang === "en" ? "/fr/tags" : "/en/tags"} useMargins>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {tags?.map((tag) => {
-          const linkTo = `/${lang}/tag/${tag.slug[lang]}`
+          const linkTo = `/${lang}/tags/${tag.slug[lang]}`
 
           return (
-            <div key={tag.title[lang]}>
-              <Link prefetch="intent" to={linkTo}>
-                <Typography.H3>{tag.title[lang]}</Typography.H3>
-                <Typography.TextMuted key={tag.description[lang]}>
-                  {tag.description[lang]}
-                </Typography.TextMuted>
-              </Link>
+            <div
+              key={tag.title[lang]}
+              className="mb-4 overflow-hidden rounded-md bg-slate-50 p-4 dark:bg-slate-950"
+            >
+              <div className="flex items-start">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border bg-slate-50 dark:bg-slate-950">
+                  <TagIcon className="h-6 w-6 flex-shrink-0" />
+                </div>
+
+                <div className="ml-4 space-y-4">
+                  <Typography.H3>{tag.title[lang]}</Typography.H3>
+                  <Typography.TextMuted>
+                    {tag.description[lang]}
+                  </Typography.TextMuted>
+                  <Typography.TextSmall>
+                    <Link
+                      prefetch="intent"
+                      to={linkTo}
+                      className="text-red-600 hover:text-red-500"
+                    >
+                      {translate("viewAll")}{" "}
+                      <MoveRight className="inline h-4 w-4" />
+                    </Link>
+                  </Typography.TextSmall>
+                </div>
+              </div>
             </div>
           )
         })}

@@ -50,7 +50,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
               categories?.map((category, index) => (
                 <Fragment key={category.title[categoryTranslation]}>
                   <Link
-                    to={`/${lang}/category/${category.slug[categoryTranslation]}`}
+                    to={`/${lang}/categories/${category.slug[categoryTranslation]}`}
                     role="menuitem"
                     prefetch="intent"
                     className="block px-8 py-4 tracking-widest transition-colors duration-200 hover:text-red-500"

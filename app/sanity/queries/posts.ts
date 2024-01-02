@@ -141,7 +141,7 @@ export type Post = PostPreview & {
   body: PortableTextBlock[]
   author: {
     name: string
-    slug: Slug
+    slug: Slug["current"]
     image: ImageAsset
     bio: LocalizedString
   }

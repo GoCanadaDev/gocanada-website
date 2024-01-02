@@ -8,6 +8,8 @@ import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { RootLoaderData } from "~/root"
+import { useTranslate } from "~/lib/useTranslate"
+import { MoveRight, Tag as TagIcon } from "lucide-react"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -45,25 +47,45 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function CategoryIndexRoute() {
   const { categories } = useLoaderData() as IndexLoaderData
   const params = useParams()
+  const { translate } = useTranslate()
   const lang = params.lang as SupportedLanguages
 
   return (
     <Layout
-      translationUrl={lang === "en" ? "/fr/category" : "/en/category"}
+      translationUrl={lang === "en" ? "/fr/categories" : "/en/categories"}
       useMargins
     >
-      <div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {categories?.map((category) => {
-          const linkTo = `/${lang}/category/${category.slug[lang]}`
+          const linkTo = `/${lang}/categories/${category.slug[lang]}`
 
           return (
-            <div key={category.title[lang]}>
-              <Link prefetch="intent" to={linkTo}>
-                <Typography.H3>{category.title[lang]}</Typography.H3>
-                <Typography.TextMuted key={category.description[lang]}>
-                  {category.description[lang]}
-                </Typography.TextMuted>
-              </Link>
+            <div
+              key={category.title[lang]}
+              className="mb-4 overflow-hidden rounded-md bg-slate-50 p-4 dark:bg-slate-950"
+            >
+              <div className="flex items-start">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border bg-slate-50 dark:bg-slate-950">
+                  <TagIcon className="h-6 w-6 flex-shrink-0" />
+                </div>
+
+                <div className="ml-4 space-y-4">
+                  <Typography.H3>{category.title[lang]}</Typography.H3>
+                  <Typography.TextMuted>
+                    {category.description[lang]}
+                  </Typography.TextMuted>
+                  <Typography.TextSmall>
+                    <Link
+                      prefetch="intent"
+                      to={linkTo}
+                      className="text-red-600 hover:text-red-500"
+                    >
+                      {translate("viewAll")}{" "}
+                      <MoveRight className="inline h-4 w-4" />
+                    </Link>
+                  </Typography.TextSmall>
+                </div>
+              </div>
             </div>
           )
         })}

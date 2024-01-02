@@ -30,6 +30,8 @@ import {
   HoverCardTrigger,
 } from "~/components/ui/hover-card"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { UserMediaObject } from "~/components/UserMediaObject"
+import { useTranslate } from "~/lib/useTranslate"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -86,6 +88,7 @@ export const loader: LoaderFunction = async ({
 
 export default function Slug() {
   const { post } = useLoaderData() as LoaderDataType
+  const { translate } = useTranslate()
   const otherLanguage = useOtherLanguage()
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
@@ -169,89 +172,51 @@ export default function Slug() {
           />
         </div>
         <div className="holy-grail mx-4 my-24 max-w-none">
-          <div className="mb-8 flex items-center">
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <div className="">
-                  <Avatar>
-                    <AvatarImage
-                      src={urlForImage(post.author.image)
-                        ?.width(96)
-                        .height(96)
-                        .url()}
-                    />
-                    <AvatarFallback>
-                      {
-                        // fake out initials by grabbing capitalized letters
-                        post.author.name
-                          .match(/(\b\S)?/g)!
-                          .join("")
-                          .toUpperCase()
-                      }
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-80">
-                <div className="flex space-x-4">
-                  <Avatar>
-                    <AvatarImage
-                      src={urlForImage(post.author.image)
-                        ?.width(96)
-                        .height(96)
-                        .url()}
-                    />
-                    <AvatarFallback>
-                      {
-                        // fake out initials by grabbing capitalized letters
-                        post.author.name
-                          .match(/(\b\S)?/g)!
-                          .join("")
-                          .toUpperCase()
-                      }
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-4">
-                    <Typography.H3>{post.author.name}</Typography.H3>
-                    <Typography.TextMuted>
-                      {post.author.bio[post.language]}
-                    </Typography.TextMuted>
-                    <Typography.TextSmall>
-                      <Link
-                        prefetch="intent"
-                        to={`/${post.language}/authors/${post.author.slug}`}
-                        className="text-red-600 hover:text-red-500"
-                      >
-                        See all posts by {post.author.name}{" "}
-                        <MoveRight className="inline h-4 w-4" />
-                      </Link>
-                    </Typography.TextSmall>
-                  </div>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-            <div className="ml-4">
-              <Typography.Paragraph>
-                <Link
-                  prefetch="intent"
-                  to={`/${post.language}/authors/${post.author.slug}`}
-                  className=""
-                >
-                  {post.author.name}
-                </Link>
-              </Typography.Paragraph>
-              <Typography.TextMuted>
-                {formatDate(post._createdAt, post.language)}
-              </Typography.TextMuted>
-            </div>
-          </div>
+          <UserMediaObject
+            name={post.author.name}
+            image={post.author.image}
+            hoverCardContent={
+              <>
+                <Typography.TextMuted>
+                  {post.author.bio[post.language]}
+                </Typography.TextMuted>
+                <Typography.TextSmall>
+                  <Link
+                    prefetch="intent"
+                    to={`/${post.language}/authors/${post.author.slug}`}
+                    className="text-red-600 hover:text-red-500"
+                  >
+                    {translate("viewAll")}
+                    {""}
+                    <MoveRight className="inline h-4 w-4" />
+                  </Link>
+                </Typography.TextSmall>
+              </>
+            }
+            content={
+              <>
+                <Typography.Paragraph>
+                  <Link
+                    prefetch="intent"
+                    to={`/${post.language}/authors/${post.author.slug}`}
+                    className=""
+                  >
+                    {post.author.name}
+                  </Link>
+                </Typography.Paragraph>
+                <Typography.TextMuted>
+                  {formatDate(post._createdAt, post.language)}
+                </Typography.TextMuted>
+              </>
+            }
+          />
 
           <div className="mb-8">
             {post.tags.map((tag) => (
               <Link
                 prefetch="intent"
                 key={tag.title[post.language]}
-                to={`/${post.language}/tag/${tag.slug[post.language]}`}
+                to={`/${post.language}/tags/${tag.slug[post.language]}`}
                 className="me-2 inline-block rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
               >
                 {tag.title[post.language]}
