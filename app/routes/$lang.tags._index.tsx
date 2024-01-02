@@ -51,7 +51,7 @@ export default function TagIndexRoute() {
 
   return (
     <Layout translationUrl={lang === "en" ? "/fr/tags" : "/en/tags"} useMargins>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+      <div className="grid auto-rows-min grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {tags?.map((tag) => {
           const linkTo = `/${lang}/tags/${tag.slug[lang]}`
 

@@ -55,7 +55,7 @@ export default function AuthorsIndexRoute() {
       translationUrl={lang === "en" ? "/fr/authors" : "/en/authors"}
       useMargins
     >
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+      <div className="grid auto-rows-min grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {authors?.map((author) => {
           const linkTo = `/${lang}/authors/${author.slug}`
 

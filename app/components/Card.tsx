@@ -46,7 +46,14 @@ export default function Card({ post }: { post: PostPreview }) {
           </Link>
         </Typography.H3>
         <p>
-          <Link className="text-sm" prefetch="intent" to={linkTo}>
+          <Link
+            className="text-sm"
+            prefetch="intent"
+            to={linkTo}
+            aria-label={`${translate("readMore")}: ${
+              post.title[post.language]
+            }`}
+          >
             {translate("readMore")} <MoveRight className="inline h-4 w-4" />
           </Link>
         </p>

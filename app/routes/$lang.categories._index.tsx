@@ -54,7 +54,7 @@ export default function CategoryIndexRoute() {
       translationUrl={lang === "en" ? "/fr/categories" : "/en/categories"}
       useMargins
     >
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+      <div className="grid auto-rows-min grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {categories?.map((category) => {
           const linkTo = `/${lang}/categories/${
             category.slug[category.language]
