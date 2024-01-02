@@ -14,6 +14,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip"
 import { useTranslate } from "~/lib/useTranslate"
+import { toast } from "sonner"
 
 export function ThemeToggle() {
   const [switchOn] = useSound(onSound)
@@ -41,6 +42,9 @@ export function ThemeToggle() {
               aria-label={translate("toggleTheme")}
               onClick={() => {
                 isDarkMode ? switchOn() : switchOff()
+                toast.success(
+                  "Theme changed to " + (isDarkMode ? "dark" : "light") + "."
+                )
               }}
             >
               {isDarkMode ? <Sun /> : <Moon />}
