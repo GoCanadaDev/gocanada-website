@@ -11,13 +11,15 @@ type LayoutProps = {
 export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
   const classes = useMargins
     ? "container mx-auto grid grid-cols-1 gap-4 p-4 lg:gap-12 lg:p-12"
-    : ""
+    : undefined
   return (
     <>
       <Header translationUrl={translationUrl} />
-      <main className={classes}>{children}</main>
+      <main className={classes}>
+        {children}
+        <Toaster richColors closeButton />
+      </main>
       <Footer />
-      <Toaster richColors closeButton />
     </>
   )
 }

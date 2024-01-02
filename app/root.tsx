@@ -56,7 +56,7 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => [
   {
     charset: "utf-8",
-    title: "New Remix App",
+    title: "GoCanada",
     viewport: "width=device-width,initial-scale=1",
   },
 ]
@@ -137,7 +137,7 @@ export let handle = {
 }
 
 export default function App() {
-  const { locale, bodyClassNames, ENV, langPreference } =
+  const { locale, bodyClassNames, ENV, langPreference, isStudioRoute } =
     useLoaderData<typeof loader>()
 
   const { i18n } = useTranslation()
@@ -157,7 +157,7 @@ export default function App() {
         <link rel="icon" href="https://fav.farm/🇨🇦" />
         <Links />
       </head>
-      <body className={bodyClassNames}>
+      <body className={isStudioRoute ? undefined : bodyClassNames}>
         <Outlet />
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
@@ -178,15 +178,6 @@ export default function App() {
   )
 }
 
-export function ErrorBoundary({ error }: { error: string }) {
-  return (
-    <html>
-      <head>
-        <Links />
-      </head>
-      <body>
-        <ErrorBoundaryPage error={error?.toString()} />
-      </body>
-    </html>
-  )
+export function ErrorBoundary() {
+  return <ErrorBoundaryPage />
 }

@@ -5,7 +5,6 @@ import type {
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
-import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { ExternalLink, MoveRight } from "lucide-react"
 
 import { client } from "~/sanity/client"
@@ -18,17 +17,10 @@ import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { HeroImage } from "~/components/HeroImage"
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
-import { urlForImage } from "~/lib/sanity.image"
 import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Image } from "~/components/Image"
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "~/components/ui/hover-card"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { UserMediaObject } from "~/components/UserMediaObject"
 import { useTranslate } from "~/lib/useTranslate"
@@ -72,8 +64,12 @@ export const loader: LoaderFunction = async ({
   isLangSupportedLang(params.lang)
   const post = await getPost(client, params.slug!, params.lang!)
 
-  if (!post) {
-    throw new Response("Not found", { status: 404 })
+  // post returns an empty object if the slug is not found, so check for empty object with Object.keys
+  if (Object.keys(post).length === 0) {
+    throw new Response(null, {
+      status: 404,
+      statusText: "Not Found",
+    })
   }
 
   // Create social share image url
@@ -239,8 +235,4 @@ export default function Slug() {
       </article>
     </Layout>
   )
-}
-
-export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
 }

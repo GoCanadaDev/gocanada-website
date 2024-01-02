@@ -6,7 +6,6 @@ import { SupportedLanguages } from "~/i18n"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { RootLoaderData } from "~/root"
 import { useTranslate } from "~/lib/useTranslate"
 import { MoveRight, Tag as TagIcon } from "lucide-react"
@@ -57,7 +56,9 @@ export default function CategoryIndexRoute() {
     >
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {categories?.map((category) => {
-          const linkTo = `/${lang}/categories/${category.slug[lang]}`
+          const linkTo = `/${lang}/categories/${
+            category.slug[category.language]
+          }`
 
           return (
             <div
@@ -70,9 +71,11 @@ export default function CategoryIndexRoute() {
                 </div>
 
                 <div className="ml-4 space-y-4">
-                  <Typography.H3>{category.title[lang]}</Typography.H3>
+                  <Typography.H3>
+                    {category.title[category.language]}
+                  </Typography.H3>
                   <Typography.TextMuted>
-                    {category.description[lang]}
+                    {category.description[category.language]}
                   </Typography.TextMuted>
                   <Typography.TextSmall>
                     <Link
@@ -92,8 +95,4 @@ export default function CategoryIndexRoute() {
       </div>
     </Layout>
   )
-}
-
-export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
 }

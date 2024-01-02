@@ -3,7 +3,6 @@ import { json } from "@remix-run/node"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
-import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Separator } from "~/components/ui/separator"
@@ -94,8 +93,4 @@ export default function AuthorBySlugRoute() {
       <CardGrid posts={author.posts ?? []} />
     </Layout>
   )
-}
-
-export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
 }

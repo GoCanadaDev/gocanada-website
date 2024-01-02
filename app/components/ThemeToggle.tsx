@@ -38,6 +38,7 @@ export function ThemeToggle() {
               style={style}
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
+              aria-label={translate("toggleTheme")}
               onClick={() => {
                 isDarkMode ? switchOn() : switchOff()
               }}

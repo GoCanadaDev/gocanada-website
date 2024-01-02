@@ -17,7 +17,7 @@ export const HeroImage = ({ id, title, category, preview }: HeroImageProps) => {
   const params = useParams()
 
   return (
-    <section className="relative h-screen transition-all">
+    <section className="h-svh relative transition-all">
       <SanityImage
         id={id}
         baseUrl={baseUrl}

@@ -2,7 +2,6 @@ import type { MetaFunction, LoaderFunction } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
-import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import type { RootLoaderData } from "~/root"
 import { PostPreview, getPosts } from "~/sanity/queries"
 import { client } from "~/sanity/client"
@@ -30,8 +29,22 @@ type IndexLoaderData = {
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
+  if (!params.lang) {
+    throw new Response(null, {
+      status: 404,
+      statusText: "Not Found",
+    })
+  }
+
   isLangSupportedLang(params.lang)
   const posts = await getPosts(client, params.lang!)
+
+  if (posts.length === 0) {
+    throw new Response(null, {
+      status: 404,
+      statusText: "Not Found",
+    })
+  }
 
   return json<IndexLoaderData>({
     posts,
@@ -50,8 +63,4 @@ export default function Index() {
       <CardGrid posts={posts} />
     </Layout>
   )
-}
-
-export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
 }

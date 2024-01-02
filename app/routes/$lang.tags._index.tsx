@@ -5,7 +5,6 @@ import { SupportedLanguages } from "~/i18n"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { Tag, getTags } from "~/sanity/queries"
 import { RootLoaderData } from "~/root"
 import { useTranslate } from "~/lib/useTranslate"
@@ -89,8 +88,4 @@ export default function TagIndexRoute() {
       </div>
     </Layout>
   )
-}
-
-export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
 }

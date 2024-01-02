@@ -52,6 +52,7 @@ export function LanguageToggle({
             <button
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
+              aria-label={translate("currentLanguage")}
               onClick={() => {
                 play()
                 changeLanguageTo(languageToChangeTo)

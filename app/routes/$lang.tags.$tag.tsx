@@ -4,7 +4,6 @@ import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
 import { MoveLeft, Tag as TagIcon } from "lucide-react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
-import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Separator } from "~/components/ui/separator"
@@ -86,8 +85,4 @@ export default function TagByNameRoute() {
       <CardGrid posts={tag.posts ?? []} />
     </Layout>
   )
-}
-
-export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
 }

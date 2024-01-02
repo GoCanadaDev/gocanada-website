@@ -16,5 +16,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const currentLang = langPreference ?? locale
 
+  if (!currentLang) {
+    throw new Response(null, {
+      status: 404,
+      statusText: "Not Found",
+    })
+  }
+
   return redirect(`/${currentLang}`)
 }
