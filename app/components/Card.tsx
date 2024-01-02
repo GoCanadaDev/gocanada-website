@@ -5,6 +5,7 @@ import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { useTranslate } from "~/lib/useTranslate"
 import { MoveRight } from "lucide-react"
+import { AspectRatio } from "./ui/aspect-ratio"
 
 export default function Card({ post }: { post: PostPreview }) {
   const { translate } = useTranslate()
@@ -15,11 +16,15 @@ export default function Card({ post }: { post: PostPreview }) {
   }
 
   return (
-    <div className="max-w-screen-sm">
+    <article className="max-w-screen-sm">
       {post.mainImage && post.mainImage?.id ? (
-        <div className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800">
+        <AspectRatio
+          ratio={post.mainImage.aspectRatio > 1 ? 16 / 9 : 4 / 5}
+          className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+        >
           <Link prefetch="intent" to={linkTo}>
             <Image
+              mode="cover"
               id={post.mainImage.id}
               alt=""
               width={640}
@@ -28,7 +33,7 @@ export default function Card({ post }: { post: PostPreview }) {
               className="transition-transform hover:scale-[1.05]"
             />
           </Link>
-        </div>
+        </AspectRatio>
       ) : null}
       <div className="">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
@@ -43,6 +48,6 @@ export default function Card({ post }: { post: PostPreview }) {
           </Link>
         </p>
       </div>
-    </div>
+    </article>
   )
 }

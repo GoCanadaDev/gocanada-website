@@ -9,7 +9,7 @@ import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
 import { ExternalLink, MoveRight } from "lucide-react"
 
 import { client } from "~/sanity/client"
-import type { RootLoaderData as RootLoader } from "~/root"
+import type { RootLoaderData } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
 
@@ -29,15 +29,16 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/ui/hover-card"
+import { useOtherLanguage } from "~/lib/useOtherLanguage"
 
 export const meta: MetaFunction<
   typeof loader,
   {
-    root: RootLoader
+    root: RootLoaderData
   }
 > = ({ data, matches }) => {
   const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoader
+    ?.data as RootLoaderData
 
   const home = rootData ? rootData.initial.data : null
   const title = [data?.post?.title[data.post.language], home?.siteTitle]
@@ -85,8 +86,7 @@ export const loader: LoaderFunction = async ({
 
 export default function Slug() {
   const { post } = useLoaderData() as LoaderDataType
-
-  const otherLanguage = post.language === "en" ? "fr" : "en"
+  const otherLanguage = useOtherLanguage()
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
 
@@ -231,7 +231,15 @@ export default function Slug() {
               </HoverCardContent>
             </HoverCard>
             <div className="ml-4">
-              <Typography.Paragraph>{post.author.name}</Typography.Paragraph>
+              <Typography.Paragraph>
+                <Link
+                  prefetch="intent"
+                  to={`/${post.language}/authors/${post.author.slug}`}
+                  className=""
+                >
+                  {post.author.name}
+                </Link>
+              </Typography.Paragraph>
               <Typography.TextMuted>
                 {formatDate(post._createdAt, post.language)}
               </Typography.TextMuted>

@@ -10,10 +10,11 @@ export type Category = {
   slug: LocalizedString
   description: LocalizedString
   language: SupportedLanguages
+  displayOrder: number
   posts?: PostPreview[]
 }
 
-export const categoriesQuery = groq`*[_type == "categoryType"] | order(_createdAt desc) {
+export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOrder asc) {
   "title": {
     "en": title.en,
     "fr": title.fr,
@@ -27,6 +28,7 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(_createdA
     "fr": description.fr,
   },
   "language": $language,
+  displayOrder,
 }`
 
 export async function getCategories(

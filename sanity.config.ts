@@ -14,9 +14,9 @@ export const config = defineConfig({
   title: "GoCanada",
   plugins: [
     deskTool({ structure, defaultDocumentNode }),
-    presentationTool({
-      previewUrl: "http://localhost:3000",
-    }),
+    // presentationTool({
+    //   previewUrl: "http://localhost:3000",
+    // }),
     visionTool(),
   ],
   basePath: `/studio`,

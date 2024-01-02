@@ -3,7 +3,7 @@ import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
-import type { RootLoaderData as RootLoader } from "~/root"
+import type { RootLoaderData } from "~/root"
 import { PostPreview, getPosts } from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
@@ -14,11 +14,11 @@ import { CardGrid } from "~/components/CardGrid"
 export const meta: MetaFunction<
   typeof loader,
   {
-    root: RootLoader
+    root: RootLoaderData
   }
 > = ({ matches }) => {
   const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoader
+    ?.data as RootLoaderData
   const home = rootData ? rootData.initial.data : null
   const title = [home?.title, home?.siteTitle].filter(Boolean).join(" | ")
 

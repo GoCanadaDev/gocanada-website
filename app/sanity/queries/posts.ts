@@ -32,6 +32,7 @@ export const postsProjection = `
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
 `
 
@@ -99,6 +100,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
 }`
 
@@ -132,6 +134,7 @@ export type PostPreview = {
   mainImage: {
     id: string
     preview: string
+    aspectRatio: number
   }
 }
 export type Post = PostPreview & {

@@ -20,7 +20,7 @@ import { z } from "zod"
 import { themePreferenceCookie, langPreferenceCookie } from "~/cookies"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { loadQuery } from "~/sanity/loader.server"
-import { HOME_QUERY } from "~/sanity/queries"
+import { Category, HOME_QUERY, getCategories } from "~/sanity/queries"
 import styles from "~/tailwind.css"
 import type { HomeDocument } from "~/types/home"
 import { homeZ } from "~/types/home"
@@ -32,6 +32,7 @@ import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
 import setLanguageCookie from "~/lib/setLanguageCookie"
 import { SupportedLanguages } from "~/i18n"
 import { sanitizeStrings } from "./lib/sanitizeStrings"
+import { client } from "./sanity/client"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -62,6 +63,7 @@ export const meta: MetaFunction = () => [
 
 export type RootLoaderData = {
   bodyClassNames: string
+  categories: Category[]
   ENV: ReturnType<typeof getEnv>
   initial: any
   isStudioRoute: boolean
@@ -105,9 +107,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     data: res.data ? homeZ.parse(sanitizeStrings(res.data)) : null,
   }))
 
+  const categories = await getCategories(client, locale)
+
   return json<RootLoaderData>(
     {
       bodyClassNames,
+      categories,
       ENV: getEnv(),
       initial,
       isStudioRoute,

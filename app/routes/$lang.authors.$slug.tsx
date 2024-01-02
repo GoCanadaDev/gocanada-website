@@ -1,6 +1,6 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
+import { MetaFunction, useLoaderData } from "@remix-run/react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
 import ErrorBoundaryPage from "~/components/ErrorBoundaryPage"
@@ -10,6 +10,30 @@ import { Separator } from "~/components/ui/separator"
 import { client } from "~/sanity/client"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { Author, getAuthor } from "~/sanity/queries/author"
+import type { RootLoaderData } from "~/root"
+import { useOtherLanguage } from "~/lib/useOtherLanguage"
+
+export const meta: MetaFunction<
+  typeof loader,
+  {
+    root: RootLoaderData
+  }
+> = ({ data, matches }) => {
+  const rootData = matches.find((match) => match.id === `root`)
+    ?.data as RootLoaderData
+
+  const home = rootData ? rootData.initial.data : null
+  const title = [data?.author?.name, home?.siteTitle]
+    .filter(Boolean)
+    .join(" | ")
+
+  return [
+    { title },
+    { property: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:title", content: title },
+    { property: "og:title", content: title },
+  ]
+}
 
 type LoaderDataType = {
   author: Author
@@ -23,8 +47,6 @@ export const loader: LoaderFunction = async ({
 
   const author = await getAuthor(client, params.lang!, params.slug!)
 
-  console.log(author);
-
   if (!author) {
     throw new Response("Not found", { status: 404 })
   }
@@ -36,10 +58,11 @@ export const loader: LoaderFunction = async ({
 
 export default function AuthorBySlugRoute() {
   const { author } = useLoaderData() as LoaderDataType
-  console.log(author)
+  const otherLanguage = useOtherLanguage()
+  const translationUrl = `/${otherLanguage}/${author.slug}`
 
   return (
-    <Layout useMargins>
+    <Layout useMargins translationUrl={translationUrl}>
       <Typography.H1>{author.name}</Typography.H1>
       <Typography.TextMuted>{author.bio[author.language]}</Typography.TextMuted>
       <Separator className="my-8" />
