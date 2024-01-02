@@ -31,6 +31,9 @@ export default function Card({ post }: { post: PostPreview }) {
               preview={post.mainImage.preview ?? ""}
               loading="eager"
               className="transition-transform hover:scale-[1.05]"
+              aria-label={`${translate("readMore")}: ${
+                post.title[post.language]
+              }`}
             />
           </Link>
         </AspectRatio>
