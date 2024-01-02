@@ -1,8 +1,9 @@
 import type {
-  MetaFunction,
   LinksFunction,
   LoaderFunction,
+  MetaFunction,
 } from "@remix-run/node"
+import { json } from "@remix-run/node"
 import {
   Links,
   LiveReload,
@@ -12,15 +13,14 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react"
-import { json } from "@remix-run/node"
 import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
 
-import { themePreferenceCookie, langPreferenceCookie } from "~/cookies"
+import { langPreferenceCookie, themePreferenceCookie } from "~/cookies"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { loadQuery } from "~/sanity/loader.server"
-import { Category, HOME_QUERY, getCategories } from "~/sanity/queries"
+import { Category, getCategories, HOME_QUERY } from "~/sanity/queries"
 import styles from "~/tailwind.css"
 import type { HomeDocument } from "~/types/home"
 import { homeZ } from "~/types/home"
@@ -179,5 +179,14 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: { error: string }) {
-  return <ErrorBoundaryPage error={error?.toString()} />
+  return (
+    <html>
+      <head>
+        <Links />
+      </head>
+      <body>
+        <ErrorBoundaryPage error={error?.toString()} />
+      </body>
+    </html>
+  )
 }

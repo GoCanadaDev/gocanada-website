@@ -2,35 +2,38 @@ import { Link } from "@remix-run/react"
 import { Logo } from "~/components/Logo"
 import { Separator } from "~/components/ui/separator"
 import { Fragment } from "react"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 const navLinks = [
   {
     title: "About",
-    url: "/",
+    url: "/about",
   },
   {
     title: "Advertising",
-    url: "/",
+    url: "/advertising",
   },
   {
     title: "Contact",
-    url: "/",
+    url: "/contact",
   },
   {
     title: "Media",
-    url: "/",
+    url: "/media",
   },
   {
     title: "Privacy Policy",
-    url: "/",
+    url: "/privacy",
   },
   {
     title: "Terms of Use",
-    url: "/",
+    url: "/terms",
   },
 ]
 
 export function Footer() {
+  const { locale } = useRootLoaderData()
+
   return (
     <footer className="border-t-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
@@ -47,7 +50,7 @@ export function Footer() {
           {navLinks.map((link, index) => (
             <Fragment key={link.title}>
               <Link
-                to={link.url}
+                to={`/${locale}${link.url}`}
                 role="menuitem"
                 className="block px-8 py-4 tracking-widest"
               >
