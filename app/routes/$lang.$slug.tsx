@@ -20,10 +20,10 @@ import { HeroImage } from "~/components/HeroImage"
 import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
-import { Image } from "~/components/Image"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { UserMediaObject } from "~/components/UserMediaObject"
 import { useTranslate } from "~/lib/useTranslate"
+import PortableTextComponents from "~/components/PortableTextComponents"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -88,73 +88,6 @@ export default function Slug() {
   const otherLanguage = useOtherLanguage()
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
-
-  // TODO: move the components and PortableText to a separate file
-  const myPortableTextComponents = {
-    types: {
-      image: ({
-        value,
-      }: {
-        value: {
-          id: string
-          preview: string
-          attribution?: string
-          attributionUrl?: string
-          caption?: string
-          alt?: string
-        }
-      }) => {
-        return (
-          <figure className="full-bleed">
-            <Image
-              id={value.id}
-              width={640}
-              preview={value.preview}
-              loading="lazy"
-              className="w-full"
-              alt={value.alt ?? ""}
-            />
-            {value.attribution || value.caption ? (
-              <div className="holy-grail">
-                <figcaption className="flex justify-between">
-                  {value.caption ? (
-                    <span className="flex-1 italic">{value.caption}</span>
-                  ) : null}
-                  {value.attribution ? (
-                    <span className="flex-1 text-right">
-                      Photo by{" "}
-                      {value.attributionUrl ? (
-                        <a href={value.attributionUrl}>
-                          {value.attribution}{" "}
-                          <ExternalLink className="inline h-4 w-4" />
-                        </a>
-                      ) : (
-                        value.attribution
-                      )}
-                    </span>
-                  ) : null}
-                </figcaption>
-                <Separator className="my-8" />
-              </div>
-            ) : null}
-          </figure>
-        )
-      },
-    },
-
-    // marks: {
-    //   link: ({ children, value }) => {
-    //     const rel = !value.href.startsWith("/")
-    //       ? "noreferrer noopener"
-    //       : undefined
-    //     return (
-    //       <a href={value.href} rel={rel}>
-    //         {children}
-    //       </a>
-    //     )
-    //   },
-    // },
-  }
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -229,7 +162,7 @@ export default function Slug() {
         <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
           <PortableText
             value={post.body}
-            components={myPortableTextComponents}
+            components={PortableTextComponents}
           />
         </div>
       </article>

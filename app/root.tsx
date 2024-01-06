@@ -33,6 +33,7 @@ import setLanguageCookie from "~/lib/setLanguageCookie"
 import { SupportedLanguages } from "~/i18n"
 import { sanitizeStrings } from "./lib/sanitizeStrings"
 import { client } from "./sanity/client"
+import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -72,6 +73,7 @@ export type RootLoaderData = {
   query: string
   themePreference: string | undefined
   langPreference: SupportedLanguages | undefined
+  footerLinks: StaticPageRoute[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -108,6 +110,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }))
 
   const categories = await getCategories(client, locale)
+  const footerLinks = await getFooterLinks(client, locale)
 
   return json<RootLoaderData>(
     {
@@ -121,6 +124,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       query: HOME_QUERY,
       themePreference,
       langPreference,
+      footerLinks,
     },
     {
       headers,

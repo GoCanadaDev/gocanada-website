@@ -5,5 +5,11 @@
   "currentLanguage": "Français",
   "toggleTheme": "Changer le thème",
   "viewAll": "Voir tout",
-  "postsTagged": "Articles Tagués"
+  "postsTagged": "Articles Tagués",
+  "about": "À propos",
+  "advertising": "Publicité",
+  "contact": "Contact",
+  "media": "Médias",
+  "privacyPolicy": "Politique de Confidentialité",
+  "terms": "Conditions d'utilisation"
 }
