@@ -3,36 +3,15 @@ import { Logo } from "~/components/Logo"
 import { Separator } from "~/components/ui/separator"
 import { Fragment } from "react"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
-
-const navLinks = [
-  {
-    title: "About",
-    url: "/about",
-  },
-  {
-    title: "Advertising",
-    url: "/advertising",
-  },
-  {
-    title: "Contact",
-    url: "/contact",
-  },
-  {
-    title: "Media",
-    url: "/media",
-  },
-  {
-    title: "Privacy Policy",
-    url: "/privacy",
-  },
-  {
-    title: "Terms of Use",
-    url: "/terms",
-  },
-]
+import { SupportedLanguages } from "~/i18n"
+import { useTranslation } from "react-i18next"
 
 export function Footer() {
-  const { locale } = useRootLoaderData()
+  const { footerLinks } = useRootLoaderData()
+  const {
+    i18n: { language },
+  } = useTranslation()
+  const currentLang = language as SupportedLanguages
 
   return (
     <footer className="border-t-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
@@ -47,17 +26,17 @@ export function Footer() {
           className="flex flex-wrap items-center justify-center text-sm uppercase"
           role="menu"
         >
-          {navLinks.map((link, index) => (
-            <Fragment key={link.title}>
+          {footerLinks.map((link, index) => (
+            <Fragment key={link.title[currentLang]}>
               <Link
-                to={`/${locale}${link.url}`}
+                to={`/${currentLang}${link.route}`}
                 role="menuitem"
                 className="block px-8 py-4 tracking-widest"
               >
-                {link.title}
+                {link.title[currentLang]}
               </Link>
 
-              {index !== navLinks.length - 1 && (
+              {index !== footerLinks.length - 1 && (
                 <Separator orientation="vertical" className="h-6" />
               )}
             </Fragment>

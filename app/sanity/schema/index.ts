@@ -8,6 +8,8 @@ import { localeText } from "~/sanity/schema/localeText"
 import { postType } from "~/sanity/schema/post"
 import { recordType } from "~/sanity/schema/recordType"
 import { tagType } from "~/sanity/schema/tag"
+import { staticPageType } from "~/sanity/schema/staticPage"
+import { localeBlockContentType } from "~/sanity/schema/localeBlockContent";
 
 export default [
   authorType,
@@ -20,4 +22,6 @@ export default [
   postType,
   recordType,
   tagType,
+  staticPageType,
+  localeBlockContentType,
 ]

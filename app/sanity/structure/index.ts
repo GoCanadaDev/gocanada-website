@@ -28,6 +28,9 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("categoryType").title("Categories").icon(Folder),
       S.divider(),
       S.documentTypeListItem("tagType").title("Tags").icon(Tags),
+      S.divider(),
+      S.documentTypeListItem("staticPageType").title("Static Pages").icon(Folder),
+      S.divider(),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (

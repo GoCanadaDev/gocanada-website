@@ -5,5 +5,11 @@
   "currentLanguage": "English",
   "toggleTheme": "Change theme",
   "viewAll": "View all",
-  "postsTagged": "Posts Tagged"
+  "postsTagged": "Posts Tagged",
+  "about": "About",
+  "advertising": "Advertising",
+  "contact": "Contact",
+  "media": "Media",
+  "privacyPolicy": "Privacy Policy",
+  "terms": "Terms of Use"
 }
