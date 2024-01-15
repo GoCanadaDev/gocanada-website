@@ -27,9 +27,10 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const Privacy = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
+  const otherLanguage = useOtherLanguage()
 
   return (
-    <Layout useMargins translationUrl={`/${useOtherLanguage()}/advertising`}>
+    <Layout useMargins translationUrl={`/${otherLanguage}/advertising`}>
       <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
       <PortableText
         value={staticPage.body[staticPage.language]}

@@ -5,8 +5,8 @@ import { Separator } from "~/components/ui/separator"
 const PortableTextComponents = {
   types: {
     image: ({
-              value,
-            }: {
+      value,
+    }: {
       value: {
         id: string
         preview: string
@@ -34,7 +34,7 @@ const PortableTextComponents = {
                 ) : null}
                 {value.attribution ? (
                   <span className="flex-1 text-right">
-                      Photo by{" "}
+                    Photo by{" "}
                     {value.attributionUrl ? (
                       <a href={value.attributionUrl}>
                         {value.attribution}{" "}
@@ -43,7 +43,7 @@ const PortableTextComponents = {
                     ) : (
                       value.attribution
                     )}
-                    </span>
+                  </span>
                 ) : null}
               </figcaption>
               <Separator className="my-8" />
@@ -67,6 +67,5 @@ const PortableTextComponents = {
   //   },
   // },
 }
-
 
 export default PortableTextComponents

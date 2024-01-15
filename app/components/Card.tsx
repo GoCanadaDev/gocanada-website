@@ -19,7 +19,7 @@ export default function Card({ post }: { post: PostPreview }) {
     <article className="max-w-screen-sm">
       {post.mainImage && post.mainImage?.id ? (
         <AspectRatio
-          ratio={post.mainImage.aspectRatio > 1 ? 16 / 9 : 4 / 5}
+          ratio={3 / 2}
           className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
         >
           <Link prefetch="intent" to={linkTo}>

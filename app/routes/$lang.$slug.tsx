@@ -100,7 +100,7 @@ export default function Slug() {
             preview={post.mainImage.preview}
           />
         </div>
-        <div className="holy-grail mx-4 my-24 max-w-none">
+        <div className="holy-grail mx-4 my-24 max-w-none text-xl">
           <UserMediaObject
             name={post.author.name}
             image={post.author.image}
@@ -159,11 +159,8 @@ export default function Slug() {
           </div>
           <Separator />
         </div>
-        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none dark:prose-invert lg:prose-2xl prose-a:text-red-600 hover:prose-a:text-red-500">
-          <PortableText
-            value={post.body}
-            components={PortableTextComponents}
-          />
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none lg:prose-2xl dark:prose-invert prose-a:text-red-600 hover:prose-a:text-red-500">
+          <PortableText value={post.body} components={PortableTextComponents} />
         </div>
       </article>
     </Layout>

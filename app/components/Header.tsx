@@ -1,10 +1,10 @@
 import { Logo } from "~/components/Logo"
 import { ThemeToggle } from "~/components/ThemeToggle"
 import { LanguageToggle } from "~/components/LanguageToggle"
-import { Instagram } from "lucide-react"
+import { Instagram, Search } from "lucide-react"
 import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
-import { Fragment, MouseEventHandler } from "react"
+import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { Link, useParams } from "@remix-run/react"
@@ -41,29 +41,29 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
         </div>
       </div>
       <div className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
-        <div className="container mx-auto flex items-center justify-evenly lg:px-12">
+        <div className="container mx-auto flex items-center justify-between lg:px-12">
           <nav
-            className="flex flex-wrap items-center justify-center text-sm uppercase"
+            className="-ml-8 flex flex-wrap items-center justify-start text-sm uppercase"
             role="menu"
           >
             {typeof lang === "string" &&
-              categories?.map((category, index) => (
-                <Fragment key={category.title[categoryTranslation]}>
-                  <Link
-                    to={`/${lang}/categories/${category.slug[categoryTranslation]}`}
-                    role="menuitem"
-                    prefetch="intent"
-                    className="block px-8 py-4 tracking-widest transition-colors duration-200 hover:text-red-500"
-                  >
-                    {category.title[categoryTranslation]}
-                  </Link>
-
-                  {index !== categories.length - 1 && (
-                    <Separator orientation="vertical" className="h-6" />
-                  )}
-                </Fragment>
+              categories?.map((category) => (
+                <Link
+                  key={category.title[categoryTranslation]}
+                  to={`/${lang}/categories/${category.slug[categoryTranslation]}`}
+                  role="menuitem"
+                  prefetch="intent"
+                  className="block px-8 py-4 tracking-widest transition-colors duration-200 hover:text-red-500"
+                >
+                  {category.title[categoryTranslation]}
+                </Link>
               ))}
           </nav>
+          <div className="flex items-center gap-4">
+            <Search className="inline" />
+            <Separator orientation="vertical" className="h-6" />
+            Subscribe
+          </div>
         </div>
       </div>
     </header>
