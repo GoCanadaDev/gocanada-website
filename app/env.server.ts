@@ -27,12 +27,25 @@ export function getEnv() {
     "SANITY_STUDIO_USE_STEGA should be defined"
   )
 
+  invariant(
+    process.env.ALGOLIA_APPLICATION_ID,
+    "ALGOLIA_APPLICATION_ID should be defined"
+  )
+
+  invariant(
+    process.env.ALGOLIA_SEARCH_API_KEY,
+    "ALGOLIA_SEARCH_API_KEY should be defined"
+  )
+
   return {
     SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
     SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
     SANITY_STUDIO_API_VERSION: process.env.SANITY_STUDIO_API_VERSION,
     SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
     SANITY_STUDIO_USE_STEGA: process.env.SANITY_STUDIO_USE_STEGA,
+    ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
+    ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
+    ALGOLIA_ADMIN_API_KEY: '',
   }
 }
 
