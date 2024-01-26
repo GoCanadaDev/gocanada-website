@@ -7,6 +7,54 @@ import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { Category } from "./categories"
 import { Tag } from "./tags"
 
+export const algoliaPostsProjection = `{
+  "objectID": _id,
+  "title": {
+    "en": title.en,
+    "fr": title.fr,
+  },
+  "slug": {
+    "en": slug.en.current,
+    "fr": slug.fr.current,
+  },
+  "excerpt": {
+    "en": excerpt.en,
+    "fr": excerpt.fr,
+  },
+  "author": {
+    "name": author->name,
+    "slug": author->slug.current,
+  },
+  "category": {
+    "title": {
+      "en": category->title.en,
+      "fr": category->title.fr,
+    },
+    "slug": {
+      "en": category->slug.en.current,
+      "fr": category->slug.fr.current,
+    },
+  },
+  "tags": tags[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  }
+}`
+
+export const algoliaPostsQuery = groq`*[_type == "postType"] | order(_createdAt desc) ${algoliaPostsProjection}`
+
+export async function getAlgoliaPosts(client: SanityStegaClient) {
+  const result = await client.fetch(algoliaPostsQuery)
+
+  return Object.values(sanitizeStrings(result)) as Post[]
+}
+
 export const postsProjection = `
   _id,
   _createdAt,
