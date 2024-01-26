@@ -9,6 +9,7 @@ import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { CardGrid } from "~/components/CardGrid"
+import SearchModal from "~/components/SearchModal"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -60,6 +61,7 @@ export default function Index() {
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
+      <SearchModal />
       <CardGrid posts={posts} />
     </Layout>
   )
