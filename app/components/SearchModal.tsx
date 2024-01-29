@@ -3,7 +3,7 @@ import { SupportedLanguages } from "~/i18n"
 import { useTranslation } from "react-i18next"
 import { algoliaSearchClient } from "~/algolia"
 import { AlgoliaPost } from "~/sanity/queries"
-import { Hits, InstantSearch, SearchBox, PoweredBy } from "react-instantsearch"
+import { Hits, InstantSearch, PoweredBy, SearchBox } from "react-instantsearch"
 import { Typography } from "~/components/Typography"
 
 type Props = {
@@ -20,12 +20,10 @@ const HitComponent = ({ hit }: { hit: AlgoliaPost }) => {
   return (
     <a
       href={`/${currentLang}/${hit.slug[currentLang]}`}
-      className="text-xl font-semibold text-gray-900 dark:text-white"
+      className="flex flex-col p-2 text-xl font-semibold text-gray-900 dark:text-white"
     >
-      <div className="flex flex-col p-2">
-        <Typography.H4>{hit.title[currentLang]}</Typography.H4>
-        <Typography.TextMuted>{hit.excerpt[currentLang]}</Typography.TextMuted>
-      </div>
+      <Typography.H4>{hit.title[currentLang]}</Typography.H4>
+      <Typography.TextMuted>{hit.excerpt[currentLang]}</Typography.TextMuted>
     </a>
   )
 }
@@ -57,7 +55,7 @@ const SearchModal = ({ isOpen, setIsOpen }: Props) => {
 
         <Hits
           hitComponent={HitComponent}
-          className="!mt-0 max-h-80 overflow-y-auto overflow-x-hidden"
+          className="max-h-80 overflow-y-auto p-1 overflow-x-hidden"
         />
       </InstantSearch>
     </Modal>
