@@ -3,7 +3,7 @@ import { SupportedLanguages } from "~/i18n"
 import { useTranslation } from "react-i18next"
 import { algoliaSearchClient } from "~/algolia"
 import { AlgoliaPost } from "~/sanity/queries"
-import { Hits, InstantSearch, SearchBox } from "react-instantsearch"
+import { Hits, InstantSearch, SearchBox, PoweredBy } from "react-instantsearch"
 import { Typography } from "~/components/Typography"
 
 type Props = {
@@ -32,7 +32,16 @@ const HitComponent = ({ hit }: { hit: AlgoliaPost }) => {
 
 const SearchModal = ({ isOpen, setIsOpen }: Props) => {
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Search"}>
+    <Modal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title={
+        <div>
+          <Typography.H1>Search</Typography.H1>
+          <PoweredBy className="h-2" />
+        </div>
+      }
+    >
       <InstantSearch indexName="posts" searchClient={algoliaSearchClient}>
         <div className="p-3">
           <SearchBox

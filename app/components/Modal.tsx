@@ -3,7 +3,7 @@ import { useEffect } from "react"
 type Props = {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
-  title: string
+  title: React.ReactNode
   children: React.ReactNode
 }
 
