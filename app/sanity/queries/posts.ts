@@ -199,3 +199,13 @@ export type Post = PostPreview & {
   }[]
   excerpt: LocalizedString
 }
+
+export type AlgoliaPost = {
+  objectID: string
+  title: LocalizedString
+  slug: {
+    en: Slug
+    fr: Slug
+  }
+  excerpt: LocalizedString
+}
