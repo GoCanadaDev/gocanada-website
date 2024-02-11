@@ -1,21 +1,20 @@
 import { Logo } from "~/components/Logo"
 import { ThemeToggle } from "~/components/ThemeToggle"
 import { LanguageToggle } from "~/components/LanguageToggle"
-import { Instagram, Search } from "lucide-react"
+import { Instagram } from "lucide-react"
 import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
-import { MouseEventHandler, useState } from "react"
+import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { Link, useParams } from "@remix-run/react"
 import { SupportedLanguages } from "~/i18n"
-import SearchModal from "~/components/SearchModal";
+import SearchModal from "~/components/SearchModal"
 
 export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
   const { categories } = useRootLoaderData()
   const { lang } = useParams()
-  const [showSearch, setShowSearch] = useState(false)
 
   const categoryTranslation = lang as SupportedLanguages
 
@@ -62,8 +61,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
               ))}
           </nav>
           <div className="flex items-center gap-4">
-            <Search className="inline" onClick={() => setShowSearch(true)}/>
-            <SearchModal isOpen={showSearch} setIsOpen={setShowSearch} />
+            <SearchModal />
             <Separator orientation="vertical" className="h-6" />
             Subscribe
           </div>

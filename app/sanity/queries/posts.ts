@@ -17,6 +17,11 @@ export const algoliaPostsProjection = `{
     "en": slug.en.current,
     "fr": slug.fr.current,
   },
+  mainImage{
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  },
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
@@ -207,5 +212,12 @@ export type AlgoliaPost = {
     en: Slug
     fr: Slug
   }
+  mainImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+  }
   excerpt: LocalizedString
+  __position: number
+  __queryID?: string | undefined
 }
