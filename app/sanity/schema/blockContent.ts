@@ -48,6 +48,9 @@ export const blockContentType = defineType({
       // of: [{ type: "image" }],
     }),
     defineArrayMember({
+      type: "instagramPostType",
+    }),
+    defineArrayMember({
       type: "image",
       options: { hotspot: true },
       fields: [
@@ -71,7 +74,15 @@ export const blockContentType = defineType({
           type: "string",
           title: "Alt text",
         },
+        {
+          name: "fullBleed",
+          type: "boolean",
+          title: "Full Bleed",
+        },
       ],
+    }),
+    defineArrayMember({
+      type: "twoUpImageType",
     }),
   ],
 })

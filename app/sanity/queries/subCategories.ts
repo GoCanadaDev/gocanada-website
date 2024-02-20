@@ -5,7 +5,7 @@ import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
 import { PostPreview, postsProjection } from "~/sanity/queries/posts"
 
-export type Category = {
+export type SubCategory = {
   title: LocalizedString
   slug: LocalizedString
   description: LocalizedString
@@ -14,7 +14,7 @@ export type Category = {
   posts?: PostPreview[]
 }
 
-export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOrder asc) {
+export const subCategoriesQuery = groq`*[_type == "subCategoryType"] | order(displayOrder asc) {
   "title": {
     "en": title.en,
     "fr": title.fr,
@@ -28,18 +28,17 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOr
     "fr": description.fr,
   },
   "language": $language,
-  displayOrder,
 }`
 
-export async function getCategories(
+export async function getSubCategories(
   client: SanityStegaClient,
   language: string
 ) {
-  const result = await client.fetch(categoriesQuery, { language })
-  return Object.values(sanitizeStrings(result)) as Category[]
+  const result = await client.fetch(subCategoriesQuery, { language })
+  return Object.values(sanitizeStrings(result)) as SubCategory[]
 }
 
-export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$language].current == $slug][0]{
+export const subCategoryBySlugQuery = groq`*[_type == "subCategoryType" && slug[$language].current == $slug][0]{
   _id,
   "title": {
     "en": title.en,
@@ -59,14 +58,14 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
   },
 }`
 
-export async function getCategory(
+export async function getSubCategory(
   client: SanityStegaClient,
   slug: string,
   language: string
 ) {
-  const result = await client.fetch(categoryBySlugQuery, {
+  const result = await client.fetch(subCategoryBySlugQuery, {
     slug,
     language,
   })
-  return sanitizeStrings(result) as Category
+  return sanitizeStrings(result) as SubCategory
 }

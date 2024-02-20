@@ -9,6 +9,7 @@ import {
   InstantSearch,
   PoweredBy,
   SearchBox,
+  useInstantSearch,
 } from "react-instantsearch"
 import { Typography } from "~/components/Typography"
 import {
@@ -21,6 +22,8 @@ import {
 import { ScrollArea } from "~/components/ui/scroll-area"
 import { useTranslate } from "~/lib/useTranslate"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
+import { AspectRatio } from "~/components/ui/aspect-ratio"
+import { Image } from "./Image"
 
 const HitComponent = ({ hit }: { hit: AlgoliaPost }) => {
   const {
@@ -30,34 +33,94 @@ const HitComponent = ({ hit }: { hit: AlgoliaPost }) => {
   const { translate } = useTranslate()
 
   return (
-    <article>
+    <article className="border-b py-4">
       <a
         href={`/${currentLang}/${hit.slug[currentLang]}`}
-        className="flex flex-col border-b p-2"
+        className="flex gap-4"
       >
-        <Typography.H3 className="text-lg">
-          <Highlight
-            hit={hit}
-            attribute={`title.${currentLang}` as keyof AlgoliaPost}
-          />
-        </Typography.H3>
-        <Typography.TextMuted>
-          <Highlight
-            hit={hit}
-            attribute={`excerpt.${currentLang}` as keyof AlgoliaPost}
-          />
-        </Typography.TextMuted>
-        <Typography.TextMuted>
-          {translate("readMore")} <MoveRight className="inline h-4 w-4" />
-        </Typography.TextMuted>
+        <div className="w-32 flex-shrink-0">
+          <AspectRatio
+            ratio={3 / 2}
+            className="w-32 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+          >
+            <Image
+              mode="cover"
+              id={hit.mainImage.id ?? ""}
+              alt=""
+              width={120}
+              preview={hit.mainImage.preview ?? ""}
+              loading="eager"
+              className="w-32"
+            />
+          </AspectRatio>
+        </div>
+        <div className="space-y-2">
+          <Typography.H3 className="text-lg">
+            <Highlight
+              hit={hit}
+              attribute={`title.${currentLang}` as keyof AlgoliaPost}
+            />
+          </Typography.H3>
+          <Typography.TextMuted>
+            <Highlight
+              hit={hit}
+              attribute={`excerpt.${currentLang}` as keyof AlgoliaPost}
+            />
+          </Typography.TextMuted>
+          <Typography.TextMuted>
+            {translate("readMore")} <MoveRight className="inline h-4 w-4" />
+          </Typography.TextMuted>
+        </div>
       </a>
     </article>
+  )
+}
+
+const NoResultsBoundary = ({
+  children,
+  fallback,
+}: {
+  children: React.ReactNode
+  fallback: React.ReactNode
+}) => {
+  const { results } = useInstantSearch()
+
+  // The `__isArtificial` flag makes sure not to display the No Results message
+  // when no hits have been returned.
+  if (!results.__isArtificial && results.nbHits === 0) {
+    return (
+      <>
+        {fallback}
+        <div hidden>{children}</div>
+      </>
+    )
+  }
+
+  return children
+}
+
+function NoResults() {
+  const { indexUiState } = useInstantSearch()
+
+  return (
+    <div className="flex h-[calc(50vh-165px)] w-full items-center justify-center">
+      <Typography.TextMuted>
+        {indexUiState.query === undefined ? (
+          "Search by location, tag, or keyword."
+        ) : (
+          <>
+            No results for <q>{indexUiState.query}</q>.
+          </>
+        )}
+      </Typography.TextMuted>
+    </div>
   )
 }
 
 const SearchModal = () => {
   const { themePreference } = useRootLoaderData()
   const { translate } = useTranslate()
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -80,7 +143,9 @@ const SearchModal = () => {
               />
             </div>
             <ScrollArea className="max-h-[calc(50vh-165px)]">
-              <Hits hitComponent={HitComponent} />
+              <NoResultsBoundary fallback={<NoResults />}>
+                <Hits hitComponent={HitComponent} />
+              </NoResultsBoundary>
             </ScrollArea>
             <div className="absolute bottom-4 right-4">
               <PoweredBy
