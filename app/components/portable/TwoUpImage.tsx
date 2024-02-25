@@ -27,7 +27,7 @@ export type TwoUpImageProps = {
 }
 export const TwoUpImage = ({ value }: TwoUpImageProps) => {
   if (!value) return null
-  console.log(value)
+
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <div className="grid grid-cols-2 gap-4">

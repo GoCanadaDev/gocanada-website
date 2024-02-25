@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react"
-
 import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"

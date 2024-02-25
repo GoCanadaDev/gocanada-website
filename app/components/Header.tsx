@@ -6,17 +6,11 @@ import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
 import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
-import { Link, useParams } from "@remix-run/react"
-import { SupportedLanguages } from "~/i18n"
 import SearchModal from "~/components/SearchModal"
+import { Navigation } from "./Navigation"
 
 export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
-  const { categories } = useRootLoaderData()
-  const { lang } = useParams()
-
-  const categoryTranslation = lang as SupportedLanguages
 
   return (
     <header className="">
@@ -43,23 +37,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
       </div>
       <div className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
         <div className="container mx-auto flex items-center justify-between lg:px-12">
-          <nav
-            className="-ml-8 flex flex-wrap items-center justify-start text-sm uppercase"
-            role="menu"
-          >
-            {typeof lang === "string" &&
-              categories?.map((category) => (
-                <Link
-                  key={category.title[categoryTranslation]}
-                  to={`/${lang}/categories/${category.slug[categoryTranslation]}`}
-                  role="menuitem"
-                  prefetch="intent"
-                  className="block px-8 py-4 tracking-widest transition-colors duration-200 hover:text-red-500"
-                >
-                  {category.title[categoryTranslation]}
-                </Link>
-              ))}
-          </nav>
+          <Navigation />
           <div className="flex items-center gap-4">
             <SearchModal />
             <Separator orientation="vertical" className="h-6" />

@@ -6,12 +6,16 @@ import { SupportedLanguages } from "~/i18n"
 import { PostPreview, postsProjection } from "~/sanity/queries/posts"
 
 export type Category = {
-  title: LocalizedString
-  slug: LocalizedString
   description: LocalizedString
-  language: SupportedLanguages
   displayOrder: number
+  language: SupportedLanguages
   posts?: PostPreview[]
+  slug: LocalizedString
+  subCategories: {
+    title: LocalizedString
+    slug: LocalizedString
+  }[]
+  title: LocalizedString
 }
 
 export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOrder asc) {
@@ -29,6 +33,16 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOr
   },
   "language": $language,
   displayOrder,
+  "subCategories": subCategories[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  }
 }`
 
 export async function getCategories(

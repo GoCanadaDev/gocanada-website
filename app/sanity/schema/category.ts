@@ -63,6 +63,18 @@ export const categoryType = defineType({
           .error("Display order should be a positive number"),
       ],
     }),
+    defineField({
+      name: "subCategories",
+      title: "Sub Categories",
+      type: "array",
+      of: [{ type: "reference", to: { type: "subCategoryType" } }],
+    }),
+    defineField({
+      name: "relatedTags",
+      title: "Related Tags",
+      type: "array",
+      of: [{ type: "reference", to: { type: "tagType" } }],
+    }),
   ],
   preview: {
     select: {
