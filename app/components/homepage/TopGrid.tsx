@@ -3,20 +3,20 @@ import Card from "../Card"
 
 export const TopGrid = ({ posts }: { posts: PostPreview[] }) => {
   return (
-    <div className="mb-24 grid grid-cols-[repeat(4,_1fr)] grid-rows-[repeat(2,_1fr)] gap-8 pb-24">
-      <div className="row-span2 col-span-2 col-start-2 row-span-2">
+    <div className="mb-24 grid grid-cols-1 grid-rows-1 gap-8 pb-24 sm:grid-cols-2 md:grid-cols-[repeat(4,_1fr)] md:grid-rows-[repeat(2,_1fr)]">
+      <div className="sm:col-span-2 md:col-span-2 md:col-start-2 md:row-span-2">
         <Card post={posts[0]} showExcerpt />
       </div>
-      <div className="col-span-1 col-start-1 row-span-1 row-start-1">
+      <div className="col-span-1 md:col-start-1 md:row-span-1 md:row-start-1">
         <Card post={posts[1]} />
       </div>
-      <div className="col-span-1 col-start-1 row-span-1 row-start-2">
+      <div className="col-span-1 md:col-start-1 md:row-span-1 md:row-start-2">
         <Card post={posts[2]} />
       </div>
-      <div className="col-span-1 col-start-4 row-span-1 row-start-1">
+      <div className="col-span-1 md:col-start-4 md:row-span-1 md:row-start-1">
         <Card post={posts[3]} />
       </div>
-      <div className="col-span-1 col-start-4 row-span-1 row-start-2">
+      <div className="col-span-1 md:col-start-4 md:row-span-1 md:row-start-2">
         <Card post={posts[4]} />
       </div>
     </div>

@@ -21,31 +21,31 @@ export default function Card({
   }
 
   return (
-    <article className="relative max-w-screen-sm">
+    <article className=" max-w-screen-md">
       {post.mainImage && post.mainImage?.id ? (
         <AspectRatio
           ratio={3 / 2}
           className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
         >
-          <Image
-            mode="cover"
-            id={post.mainImage.id}
-            alt=""
-            width={640}
-            preview={post.mainImage.preview ?? ""}
-            loading="eager"
-            className="transition-transform hover:scale-[1.05]"
-            aria-label={`${translate("readMore")}: ${
-              post.title[post.language]
-            }`}
-          />
+          <Link prefetch="intent" to={linkTo}>
+            <Image
+              mode="cover"
+              id={post.mainImage.id}
+              alt=""
+              width={768}
+              preview={post.mainImage.preview ?? ""}
+              loading="eager"
+              className="transition-transform hover:scale-[1.05]"
+              aria-label={`${translate("readMore")}: ${
+                post.title[post.language]
+              }`}
+            />
+          </Link>
         </AspectRatio>
       ) : null}
-      <div className="">
+      <div className="relative space-y-4">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
-        <Typography.H3 className="my-4">
-          {post.title[post.language]}
-        </Typography.H3>
+        <Typography.H3>{post.title[post.language]}</Typography.H3>
         {showExcerpt ? (
           <Typography.Paragraph>
             {post.excerpt[post.language]}

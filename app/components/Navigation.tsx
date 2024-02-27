@@ -39,7 +39,7 @@ export function Navigation() {
   const categoryTranslation = lang as SupportedLanguages
 
   return (
-    <NavigationMenu>
+    <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
         {categories.map((category) => (
           <NavigationMenuItem key={category.title[categoryTranslation]}>
