@@ -87,6 +87,10 @@ export const postsProjection = `
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
+  "excerpt": {
+    "en": excerpt.en,
+    "fr": excerpt.fr,
+  },
 `
 
 export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
@@ -95,6 +99,30 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
 
 export async function getPosts(client: SanityStegaClient, language: string) {
   const result = await client.fetch(postsQuery, { language })
+  return Object.values(sanitizeStrings(result)) as Post[]
+}
+
+export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...5] | order(_createdAt desc){
+  ${postsProjection}
+}`
+
+export async function getLatestPosts(
+  client: SanityStegaClient,
+  language: string
+) {
+  const result = await client.fetch(postsQuery, { language })
+  return Object.values(sanitizeStrings(result)) as Post[]
+}
+
+export const trendingPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...3] | order(_createdAt desc){
+  ${postsProjection}
+}`
+
+export async function getTrendingPosts(
+  client: SanityStegaClient,
+  language: string
+) {
+  const result = await client.fetch(trendingPostsQuery, { language })
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
@@ -180,6 +208,7 @@ export type PostPreview = {
     en: Slug
     fr: Slug
   }
+  excerpt: LocalizedString
   category: {
     title: Category["title"]
     slug: Category["slug"]
@@ -202,7 +231,6 @@ export type Post = PostPreview & {
     title: Tag["title"]
     slug: Tag["slug"]
   }[]
-  excerpt: LocalizedString
 }
 
 export type AlgoliaPost = {

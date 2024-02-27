@@ -3,12 +3,19 @@ import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import type { RootLoaderData } from "~/root"
-import { PostPreview, getPosts } from "~/sanity/queries"
+import {
+  PostPreview,
+  getLatestPosts,
+  getPosts,
+  getTrendingPosts,
+} from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
 import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
 import { CardGrid } from "~/components/CardGrid"
+import { TopGrid } from "~/components/homepage/TopGrid"
+import { Trending } from "~/components/homepage/Trending"
 
 export const meta: MetaFunction<
   typeof loader,
@@ -26,6 +33,8 @@ export const meta: MetaFunction<
 
 type IndexLoaderData = {
   posts: PostPreview[]
+  latestPosts: PostPreview[]
+  trendingPosts: PostPreview[]
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -38,21 +47,33 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   isLangSupportedLang(params.lang)
   const posts = await getPosts(client, params.lang!)
+  const latestPosts = await getLatestPosts(client, params.lang!)
+  const trendingPosts = await getTrendingPosts(client, params.lang!)
 
   if (posts.length === 0) {
     throw new Response(null, {
       status: 404,
-      statusText: "Not Found",
+      statusText: "Posts Not Found",
+    })
+  }
+
+  if (latestPosts.length === 0) {
+    throw new Response(null, {
+      status: 404,
+      statusText: "Latest Posts Not Found",
     })
   }
 
   return json<IndexLoaderData>({
     posts,
+    latestPosts,
+    trendingPosts,
   })
 }
 
 export default function Index() {
-  const { posts } = useLoaderData() as IndexLoaderData
+  const { posts, latestPosts, trendingPosts } =
+    useLoaderData() as IndexLoaderData
   const {
     i18n: { language },
   } = useTranslation()
@@ -60,6 +81,8 @@ export default function Index() {
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
+      <TopGrid posts={latestPosts} />
+      <Trending posts={trendingPosts} />
       <CardGrid posts={posts} />
     </Layout>
   )
