@@ -8,6 +8,7 @@ import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
 import SearchModal from "~/components/SearchModal"
 import { Navigation } from "./Navigation"
+import { MobileNavigation } from "./MobileNavigation"
 
 export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
@@ -28,10 +29,25 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
               </animated.span>
               <span className="pl-2">@canada</span>
             </a>
-            <Separator orientation="vertical" className="h-6" />
-            <LanguageToggle translationUrl={translationUrl} />
-            <Separator orientation="vertical" className="h-6" />
-            <ThemeToggle />
+            <Separator
+              orientation="vertical"
+              className="hidden h-6 md:inline-flex"
+            />
+            <div className="hidden md:inline-flex">
+              <LanguageToggle translationUrl={translationUrl} />
+            </div>
+            <Separator
+              orientation="vertical"
+              className="hidden h-6 md:inline-flex"
+            />
+            <div className="hidden md:inline-flex">
+              <ThemeToggle />
+            </div>
+            <Separator
+              orientation="vertical"
+              className="inline-flex h-6 md:hidden"
+            />
+            <MobileNavigation />
           </div>
         </div>
       </div>
