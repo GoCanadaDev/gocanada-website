@@ -40,6 +40,11 @@ export function MobileNavigation() {
               className="w-full rounded-sm border-2 p-3"
             />
           </SheetHeader>
+          <Link to={`/${categoryTranslation}`} onClick={() => setOpen(false)}>
+            <h3 className="border-b py-4 font-medium transition-all hover:underline">
+              Home
+            </h3>
+          </Link>
           <Accordion type="single" collapsible>
             {categories.map((category) => (
               <AccordionItem
