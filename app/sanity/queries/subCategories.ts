@@ -10,8 +10,7 @@ export type SubCategory = {
   slug: LocalizedString
   description: LocalizedString
   language: SupportedLanguages
-  // displayOrder: number
-  // posts?: PostPreview[]
+  posts?: PostPreview[]
 }
 
 export const subCategoriesQuery = groq`*[_type == "subCategoryType"] | order(displayOrder asc) {
@@ -53,9 +52,9 @@ export const subCategoryBySlugQuery = groq`*[_type == "subCategoryType" && slug[
     "fr": description.fr,
   },
   "language": $language,
-  // "posts": *[_type == "postType" && references(^._id)]{
-  //   ${postsProjection}
-  // },
+  "posts": *[_type == "postType" && references(^._id)]{
+    ${postsProjection}
+  },
 }`
 
 export async function getSubCategory(

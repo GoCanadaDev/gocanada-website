@@ -2,26 +2,17 @@ import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react"
 import { json, LoaderFunction } from "@remix-run/node"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Author, getAuthors } from "~/sanity/queries"
-import { RootLoaderData } from "~/root"
 import UserMediaObject from "~/components/UserMediaObject"
 import { MoveRight } from "lucide-react"
 import { useTranslate } from "~/lib/useTranslate"
+import { SITE_META } from "~/lib/utils"
 
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    root: RootLoaderData
-  }
-> = ({ matches }) => {
-  const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoaderData
-
-  const home = rootData ? rootData.initial.data : null
-  const title = ["Authors", home?.siteTitle].filter(Boolean).join(" | ")
+export const meta: MetaFunction<typeof loader> = () => {
+  const title = ["Authors", SITE_META.siteTitle].filter(Boolean).join(" | ")
 
   return [
     { title },

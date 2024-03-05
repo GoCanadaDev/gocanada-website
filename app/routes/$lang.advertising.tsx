@@ -1,6 +1,6 @@
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { json, LoaderFunction } from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"

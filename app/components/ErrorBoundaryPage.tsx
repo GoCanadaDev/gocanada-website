@@ -15,7 +15,7 @@ export default function ErrorBoundaryPage() {
   const error = useRouteError()
   const bodyClassNames = getBodyClassNames("")
 
-  console.log("myError", isRouteErrorResponse(error))
+  console.error("isRouteErrorResponse", isRouteErrorResponse(error))
 
   return (
     <html>

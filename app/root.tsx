@@ -16,14 +16,10 @@ import {
 import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
-
 import { langPreferenceCookie, themePreferenceCookie } from "~/cookies"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
-import { loadQuery } from "~/sanity/loader.server"
-import { Category, getCategories, HOME_QUERY } from "~/sanity/queries"
+import { Category, Partner, getCategories, getPartners } from "~/sanity/queries"
 import styles from "~/tailwind.css"
-import type { HomeDocument } from "~/types/home"
-import { homeZ } from "~/types/home"
 import { getEnv } from "./env.server"
 import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
@@ -31,9 +27,8 @@ import { Hydrated } from "./components/Hydrated"
 import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
 import setLanguageCookie from "~/lib/setLanguageCookie"
 import { SupportedLanguages } from "~/i18n"
-import { sanitizeStrings } from "./lib/sanitizeStrings"
 import { client } from "./sanity/client"
-import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages";
+import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -66,14 +61,13 @@ export type RootLoaderData = {
   bodyClassNames: string
   categories: Category[]
   ENV: ReturnType<typeof getEnv>
-  initial: any
+  footerLinks: StaticPageRoute[]
   isStudioRoute: boolean
+  langPreference: SupportedLanguages | undefined
   locale: string
   params: {}
-  query: string
+  partners: Partner[]
   themePreference: string | undefined
-  langPreference: SupportedLanguages | undefined
-  footerLinks: StaticPageRoute[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -103,28 +97,22 @@ export const loader: LoaderFunction = async ({ request }) => {
   const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
   const bodyClassNames = getBodyClassNames(themePreference)
 
-  // Sanity content reused throughout the site
-  const initial = await loadQuery<HomeDocument>(HOME_QUERY).then((res) => ({
-    ...sanitizeStrings(res),
-    data: res.data ? homeZ.parse(sanitizeStrings(res.data)) : null,
-  }))
-
   const categories = await getCategories(client, locale)
   const footerLinks = await getFooterLinks(client, locale)
+  const partners = await getPartners(client)
 
   return json<RootLoaderData>(
     {
       bodyClassNames,
       categories,
       ENV: getEnv(),
-      initial,
+      footerLinks,
       isStudioRoute,
+      langPreference,
       locale,
       params: {},
-      query: HOME_QUERY,
+      partners,
       themePreference,
-      langPreference,
-      footerLinks,
     },
     {
       headers,

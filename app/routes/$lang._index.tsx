@@ -12,21 +12,16 @@ import {
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
 import { Layout } from "~/components/Layout"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { CardGrid } from "~/components/CardGrid"
 import { TopGrid } from "~/components/homepage/TopGrid"
 import { Trending } from "~/components/homepage/Trending"
+import { SITE_META } from "~/lib/utils"
 
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    root: RootLoaderData
-  }
-> = ({ matches }) => {
-  const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoaderData
-  const home = rootData ? rootData.initial.data : null
-  const title = [home?.title, home?.siteTitle].filter(Boolean).join(" | ")
+export const meta: MetaFunction<typeof loader> = () => {
+  const title = [SITE_META.title, SITE_META.siteTitle]
+    .filter(Boolean)
+    .join(" | ")
 
   return [{ title }]
 }

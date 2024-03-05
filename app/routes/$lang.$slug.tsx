@@ -5,13 +5,10 @@ import type {
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
-import { ExternalLink, MoveRight } from "lucide-react"
-
+import { MoveRight } from "lucide-react"
 import { client } from "~/sanity/client"
-import type { RootLoaderData } from "~/root"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
-
 import { formatDate } from "~/lib/formatDate"
 import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
@@ -19,23 +16,19 @@ import { Typography } from "~/components/Typography"
 import { HeroImage } from "~/components/HeroImage"
 import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { UserMediaObject } from "~/components/UserMediaObject"
 import { useTranslate } from "~/lib/useTranslate"
 import PortableTextComponents from "~/components/PortableTextComponents"
+import { SITE_META } from "~/lib/utils"
 
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    root: RootLoaderData
-  }
-> = ({ data, matches }) => {
-  const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoaderData
-
-  const home = rootData ? rootData.initial.data : null
-  const title = [data?.post?.title[data.post.language], home?.siteTitle]
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: LoaderDataType
+}) => {
+  const title = [data?.post?.title[data.post.language], SITE_META.siteTitle]
     .filter(Boolean)
     .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null

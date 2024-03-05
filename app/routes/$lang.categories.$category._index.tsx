@@ -10,21 +10,19 @@ import { Separator } from "~/components/ui/separator"
 import { useTranslate } from "~/lib/useTranslate"
 import { client } from "~/sanity/client"
 import { Category, getCategory } from "~/sanity/queries"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
-import type { RootLoaderData } from "~/root"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { SITE_META } from "~/lib/utils"
 
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    root: RootLoaderData
-  }
-> = ({ data, matches }) => {
-  const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoaderData
-
-  const home = rootData ? rootData.initial.data : null
-  const title = [data?.category?.title[data.category.language], home?.siteTitle]
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: LoaderDataType
+}) => {
+  const title = [
+    data?.category?.title[data.category.language],
+    SITE_META.siteTitle,
+  ]
     .filter(Boolean)
     .join(" | ")
 

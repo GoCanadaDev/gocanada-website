@@ -3,24 +3,15 @@ import { json, LoaderFunction } from "@remix-run/node"
 import { Category, getCategories } from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
-import isLangSupportedLang from "~/sanity/queries/isLangSupportedLang"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { RootLoaderData } from "~/root"
 import { useTranslate } from "~/lib/useTranslate"
 import { MoveRight, Tag as TagIcon } from "lucide-react"
+import { SITE_META } from "~/lib/utils"
 
-export const meta: MetaFunction<
-  typeof loader,
-  {
-    root: RootLoaderData
-  }
-> = ({ matches }) => {
-  const rootData = matches.find((match) => match.id === `root`)
-    ?.data as RootLoaderData
-
-  const home = rootData ? rootData.initial.data : null
-  const title = ["Categories", home?.siteTitle].filter(Boolean).join(" | ")
+export const meta: MetaFunction<typeof loader> = () => {
+  const title = ["Categories", SITE_META.siteTitle].filter(Boolean).join(" | ")
 
   return [
     { title },

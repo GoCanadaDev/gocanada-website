@@ -47,6 +47,13 @@ export const postType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "subCategory",
+      title: "Sub-Categories",
+      type: "array",
+      of: [{ type: "reference", to: { type: "subCategoryType" } }],
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
       name: "tags",
       title: "Tags",
       type: "array",
