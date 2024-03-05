@@ -84,6 +84,7 @@ export function Footer() {
               <Link
                 to={`/${currentLang}${link.route}`}
                 role="menuitem"
+                prefetch="intent"
                 className="block px-8 py-4 tracking-widest"
               >
                 {link.title[currentLang]}

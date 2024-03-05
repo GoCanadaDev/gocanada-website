@@ -16,13 +16,13 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
   return (
     <header className="">
       <div className=" border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
-        <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
+        <div className="container mx-auto flex items-center justify-between p-2 lg:px-12">
           <Logo />
           <div className="flex items-center gap-4">
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
               href="https://instagram.com/canada"
-              className="transition-colors duration-200 hover:text-red-500"
+              className="rounded-md p-2 transition-colors duration-200 hover:text-red-500 focus:bg-slate-100 focus:text-red-500 focus:outline-none dark:focus:bg-slate-800"
             >
               <animated.span style={style} className="inline-block">
                 <Instagram className="inline" />

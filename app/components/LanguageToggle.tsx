@@ -24,7 +24,7 @@ export function LanguageToggle({
   const [play] = useSound(clickSound)
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
   const {
-    i18n: { changeLanguage, language, resolvedLanguage },
+    i18n: { changeLanguage, resolvedLanguage },
     ready,
   } = useTranslation()
   const { translate } = useTranslate()
@@ -53,6 +53,7 @@ export function LanguageToggle({
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
               aria-label={translate("currentLanguage")}
+              className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
               onClick={() => {
                 play()
                 changeLanguageTo(languageToChangeTo)

@@ -17,13 +17,13 @@ export function Logo() {
   })
 
   return (
-    <animated.p className="text-lg font-bold tracking-tighter text-black lg:text-2xl dark:text-white">
+    <animated.p className="-ml-2 rounded-md p-2 text-lg font-bold tracking-tighter text-black focus-within:bg-slate-100 lg:text-2xl dark:text-white dark:focus-within:bg-slate-800">
       <Link
         to="/"
-        className="relative pl-8 focus:bg-slate-100 focus-visible:outline-none"
+        className="relative pl-8 focus-visible:outline-none"
         onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
       >
-        <animated.span style={style} className="absolute inset-0 h-8 w-8 ">
+        <animated.span style={style} className="absolute inset-0 size-8">
           <MapleLeaf className="rotate-45" />
         </animated.span>
         GoCanada

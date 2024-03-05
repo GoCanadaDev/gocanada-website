@@ -42,6 +42,7 @@ export function ThemeToggle() {
               onClick={() => {
                 isDarkMode ? switchOn() : switchOff()
               }}
+              className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
             >
               {isDarkMode ? <Sun /> : <Moon />}
             </animated.button>
