@@ -14,7 +14,13 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
 
   return (
-    <header className="">
+    <header>
+      <a
+        href="#main"
+        className="sr-only left-1/2 z-50 rounded-b-md focus:not-sr-only focus:fixed focus:bg-slate-100 focus:p-4 dark:focus:bg-slate-800"
+      >
+        Skip to main content
+      </a>
       <div className=" border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
         <div className="container mx-auto flex items-center justify-between p-2 lg:px-12">
           <Logo />
