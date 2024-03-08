@@ -1,5 +1,7 @@
 import { defineType, defineArrayMember } from "sanity"
 
+import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
+
 export const blockContentType = defineType({
   title: "Block Content",
   name: "blockContentType",
@@ -80,9 +82,31 @@ export const blockContentType = defineType({
           title: "Full Bleed",
         },
       ],
+      components: {
+        preview: SingleImage,
+      },
+      preview: {
+        select: {
+          asset: "asset",
+          caption: "caption",
+          alt: "alt",
+          fullBleed: "fullBleed",
+          attribution: "attribution",
+          attributionUrl: "attributionUrl",
+        },
+        prepare(value) {
+          return {
+            title: "Single Image",
+            value: value,
+          }
+        },
+      },
     }),
     defineArrayMember({
       type: "twoUpImageType",
+    }),
+    defineArrayMember({
+      type: "galleryType",
     }),
   ],
 })
