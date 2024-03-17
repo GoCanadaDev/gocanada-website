@@ -1,11 +1,9 @@
 import {
   DynamicWidgets,
   Hits,
-  HitsPerPage,
   InstantSearch,
   InstantSearchSSRProvider,
   InstantSearchServerState,
-  Pagination,
   PoweredBy,
   SearchBox,
 } from "react-instantsearch"
@@ -14,9 +12,11 @@ import { algoliaSearchClient } from "~/algolia"
 import {
   FallbackComponent,
   Hit,
+  HitsPerPage,
   NoResults,
   NoResultsBoundary,
   ScrollTo,
+  SearchPagination,
 } from "~/components/search"
 
 type SSRSearchProviderProps = {
@@ -81,13 +81,10 @@ export const SSRSearchProvider = ({
                   item: "p-2 w-full border-b",
                 }}
               />
-              <HitsPerPage
-                items={[
-                  { label: "2 hits per page", value: 2, default: true },
-                  { label: "16 hits per page", value: 16 },
-                ]}
-              />
-              <Pagination className="flex self-center" />
+              <div className="mt-4">
+                <HitsPerPage />
+              </div>
+              <SearchPagination />
             </NoResultsBoundary>
           </div>
         </ScrollTo>
