@@ -48,8 +48,8 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <SingleImage value={{ asset: assetOne, alt: altOne, preview: previewOne }} />
-        <SingleImage value={{ asset: assetTwo, alt: altTwo, preview: previewTwo }} />
+        <SingleImage value={{ asset: assetOne, alt: value.altOne || altOne, preview: previewOne }} />
+        <SingleImage value={{ asset: assetTwo, alt: value.altTwo || altTwo, preview: previewTwo }} />
       </div>
       {attribution || caption ? (
         <div className={fullBleed ? "holy-grail" : undefined}>
