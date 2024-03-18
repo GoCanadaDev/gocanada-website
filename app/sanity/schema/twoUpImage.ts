@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity"
-import { TwoUpImage } from "~/components/portable/TwoUpImage"
+import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
 
 export const twoUpImageType = defineType({
   name: "twoUpImageType",
@@ -58,6 +58,7 @@ export const twoUpImageType = defineType({
     prepare(selection) {
       return {
         title: "Two-up Image",
+        value: selection,
       }
     },
   },

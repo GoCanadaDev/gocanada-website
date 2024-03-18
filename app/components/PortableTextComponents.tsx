@@ -1,6 +1,15 @@
 import InstagramEmbed from "./portable/InstagramEmbed"
-import { SingleImage, SingleImageProps } from "./portable/SingleImage"
-import { TwoUpImage, TwoUpImageProps } from "./portable/TwoUpImage"
+import {
+  SingleImage,
+  SingleImageProps,
+} from "app/components/portable/GalleryImages/SingleImage"
+import {
+  TwoUpImage,
+  TwoUpImageProps,
+} from "app/components/portable/GalleryImages/TwoUpImage"
+import GalleryImages, {
+  GalleryImagesProps,
+} from "~/components/portable/GalleryImages"
 
 const PortableTextComponents = {
   types: {
@@ -15,20 +24,10 @@ const PortableTextComponents = {
     twoUpImageType: ({ value }: TwoUpImageProps) => {
       return <TwoUpImage value={value} />
     },
+    galleryType: ({ value }: GalleryImagesProps) => {
+      return <GalleryImages value={value} />
+    },
   },
-
-  // marks: {
-  //   link: ({ children, value }) => {
-  //     const rel = !value.href.startsWith("/")
-  //       ? "noreferrer noopener"
-  //       : undefined
-  //     return (
-  //       <a href={value.href} rel={rel}>
-  //         {children}
-  //       </a>
-  //     )
-  //   },
-  // },
 }
 
 export default PortableTextComponents

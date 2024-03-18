@@ -13,6 +13,7 @@ import { staticPageType } from "~/sanity/schema/staticPage"
 import { subCategoryType } from "~/sanity/schema/subCategory"
 import { tagType } from "~/sanity/schema/tag"
 import { twoUpImageType } from "~/sanity/schema/twoUpImage"
+import { galleryType } from "~/sanity/schema/gallery"
 
 export default [
   authorType,
@@ -30,4 +31,5 @@ export default [
   subCategoryType,
   tagType,
   twoUpImageType,
+  galleryType,
 ]
