@@ -1,10 +1,10 @@
-export {};
+export {}
 declare global {
   interface ProcessEnv {
-    NODE_ENV: "development" | "production" | "test";
+    NODE_ENV: "development" | "production" | "test"
   }
   interface Process {
-    env: ProcessEnv;
+    env: ProcessEnv
   }
-  let process: Process;
+  let process: Process
 }

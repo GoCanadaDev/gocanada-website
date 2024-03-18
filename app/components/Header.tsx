@@ -6,7 +6,7 @@ import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
 import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
-import SearchModal from "~/components/SearchModal"
+import SearchModal from "~/components/search/SearchModal"
 import { Navigation } from "./Navigation"
 import { MobileNavigation } from "./MobileNavigation"
 

@@ -1,9 +1,6 @@
 import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
-import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { SupportedLanguages } from "~/i18n"
-import { PostPreview, postsProjection } from "./posts"
 import { ImageAsset } from "sanity"
 
 export type Partner = {

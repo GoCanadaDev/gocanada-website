@@ -6,6 +6,7 @@ import {
   StickyNote,
   FolderInput,
   HeartHandshake,
+  Link,
 } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
@@ -22,6 +23,8 @@ export const structure: StructureResolver = (S) =>
     .title("Content")
     .items([
       S.documentTypeListItem("postType").title("Posts").icon(Newspaper),
+      S.divider(),
+      S.documentTypeListItem("linksPageType").title("Links").icon(Link),
       S.divider(),
       S.documentTypeListItem("authorType").title("Authors").icon(UserCircle),
       S.divider(),

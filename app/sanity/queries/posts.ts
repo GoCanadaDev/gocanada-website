@@ -246,6 +246,10 @@ export type AlgoliaPost = {
     aspectRatio: number
   }
   excerpt: LocalizedString
+  category: {
+    title: Category["title"]
+    slug: Category["slug"]
+  }
   __position: number
   __queryID?: string | undefined
 }
