@@ -44,13 +44,12 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
     value.attributionUrl || attributionUrlOne || attributionUrlTwo
   const caption = value.caption || captionOne || captionTwo
   const fullBleed = value.fullBleed || fullBleedOne || fullBleedTwo
-  const preview = value.preview || previewOne || previewTwo
 
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <SingleImage value={{ asset: assetOne }} />
-        <SingleImage value={{ asset: assetTwo }} />
+        <SingleImage value={{ asset: assetOne, alt: altOne, preview: previewOne }} />
+        <SingleImage value={{ asset: assetTwo, alt: altTwo, preview: previewTwo }} />
       </div>
       {attribution || caption ? (
         <div className={fullBleed ? "holy-grail" : undefined}>
