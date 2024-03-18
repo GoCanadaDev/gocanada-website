@@ -36,7 +36,8 @@ export function Navigation() {
   const { categories } = useRootLoaderData()
   const { lang } = useParams()
 
-  const categoryTranslation = lang as SupportedLanguages
+  // need to backup to "en" if lang is not there for pages like Links which doesn't have a lang in the url
+  const categoryTranslation = (lang || "en") as SupportedLanguages
 
   return (
     <NavigationMenu className="hidden md:block">

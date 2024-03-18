@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { Link, useParams } from "@remix-run/react"
 import { SupportedLanguages } from "~/i18n"
@@ -6,9 +6,7 @@ import { Menu } from "lucide-react"
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet"
 import {
@@ -24,7 +22,8 @@ export function MobileNavigation() {
 
   const [open, setOpen] = useState(false)
 
-  const categoryTranslation = lang as SupportedLanguages
+  // need to backup to "en" if lang is not there for pages like Links which doesn't have a lang in the url
+  const categoryTranslation = (lang || "en") as SupportedLanguages
 
   return (
     <div className="inline-flex md:hidden">

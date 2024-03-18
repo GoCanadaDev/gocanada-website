@@ -2,6 +2,7 @@ import { authorType } from "~/sanity/schema/author"
 import { blockContentType } from "~/sanity/schema/blockContent"
 import { categoryType } from "~/sanity/schema/category"
 import { instagramPostType } from "~/sanity/schema/instagramPost"
+import { linksPageType } from "./linksPage"
 import { localeBlockContentType } from "~/sanity/schema/localeBlockContent"
 import { localeSlug } from "~/sanity/schema/localeSlug"
 import { localeString } from "~/sanity/schema/localeString"
@@ -18,6 +19,7 @@ export default [
   blockContentType,
   categoryType,
   instagramPostType,
+  linksPageType,
   localeBlockContentType,
   localeSlug,
   localeString,

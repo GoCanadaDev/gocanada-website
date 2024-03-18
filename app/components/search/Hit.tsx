@@ -19,6 +19,7 @@ type HitProps = {
     }
     title: LocalizedString
     excerpt: LocalizedString
+    category: LocalizedString
   }>
 }
 
@@ -52,6 +53,12 @@ export const Hit = ({ hit }: HitProps) => {
           </AspectRatio>
         </div>
         <div className="space-y-2">
+          <Typography.H4>
+            <Highlight
+              hit={hit}
+              attribute={`category.title.${currentLang}` as keyof AlgoliaPost}
+            />
+          </Typography.H4>
           <Typography.H3 className="text-lg">
             <Highlight
               hit={hit}
