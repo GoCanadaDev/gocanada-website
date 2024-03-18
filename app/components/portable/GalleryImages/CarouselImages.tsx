@@ -39,6 +39,7 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
     >
       {value.images.map((image, index) => (
         <div
+          key={image.asset._ref}
           className={`relative h-56 overflow-hidden rounded-lg duration-700 ease-in-out md:h-96 ${
             index === currentSlide ? "" : "hidden"
           }`}

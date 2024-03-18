@@ -1,9 +1,10 @@
 import React from "react"
 
-import { CarouselImages } from "~/components/portable/GalleryImages/CarouselImages"
-import { InlineImages } from "~/components/portable/GalleryImages/InlineImages"
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
-import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage";
+import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
+import { CarouselImages } from "~/components/portable/GalleryImages/CarouselImages"
+import { GridImages } from "~/components/portable/GalleryImages/GridImages"
+import { InlineImages } from "~/components/portable/GalleryImages/InlineImages"
 
 export type ImageProps = {
   asset: {
@@ -40,11 +41,16 @@ const GalleryImages = ({ value }: GalleryImagesProps) => {
       return <SingleImage value={value.images[0]} />
     }
     case GalleryDisplay.TwoUp:
-      return <TwoUpImage value={{ imageOne: value.images[0], imageTwo:value.images[1] }} />
+      return (
+        <TwoUpImage
+          value={{ imageOne: value.images[0], imageTwo: value.images[1] }}
+        />
+      )
     case GalleryDisplay.Carousel:
       return <CarouselImages value={value} />
-    case GalleryDisplay.Inline:
     case GalleryDisplay.Grid:
+      return <GridImages value={value} />
+    case GalleryDisplay.Inline:
     default:
       return <InlineImages value={value} />
   }
