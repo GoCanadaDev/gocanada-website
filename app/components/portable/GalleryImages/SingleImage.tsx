@@ -1,53 +1,26 @@
 import { Image } from "~/components/Image"
 import { ExternalLink } from "lucide-react"
-import { Separator } from "~/components/ui/separator"
 
-export type TwoUpImageProps = {
-  value?: {
-    altOne?: string
-    altTwo?: string
-    attribution?: string
-    attributionUrl?: string
-    caption?: string
-    fullBleed?: boolean
-    imageOne: {
-      type: string
-      asset: {
-        _ref: string
-      }
-    }
-    imageTwo: {
-      type: string
-      asset: {
-        _ref: string
-      }
-    }
-    preview: string
-  }
+import { Separator } from "~/components/ui/separator"
+import { ImageProps } from "~/components/portable/GalleryImages/index"
+
+export type SingleImageProps = {
+  value: ImageProps
 }
-export const TwoUpImage = ({ value }: TwoUpImageProps) => {
-  if (!value) return null
+
+export const SingleImage = ({ value }: SingleImageProps) => {
+  if (!value || !value?.asset?._ref) return null
 
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Image
-          id={value.imageOne.asset._ref}
-          width={640}
-          preview={value.preview}
-          loading="lazy"
-          className="w-full"
-          alt={value.altOne ?? ""}
-        />
-        <Image
-          id={value.imageTwo.asset._ref}
-          width={640}
-          preview={value.preview}
-          loading="lazy"
-          className="w-full"
-          alt={value.altTwo ?? ""}
-        />
-      </div>
+      <Image
+        id={value?.asset?._ref}
+        width={640}
+        preview={value.preview}
+        loading="lazy"
+        className="w-full"
+        alt={value.alt ?? ""}
+      />
       {value.attribution || value.caption ? (
         <div className={value.fullBleed ? "holy-grail" : undefined}>
           <figcaption className="flex justify-between">
