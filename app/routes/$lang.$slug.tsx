@@ -5,7 +5,7 @@ import type {
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
-import { MoveRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react"
 import { client } from "~/sanity/client"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
@@ -22,6 +22,7 @@ import { UserMediaObject } from "~/components/UserMediaObject"
 import { useTranslate } from "~/lib/useTranslate"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
+import { MiniCard } from "~/components/MiniCard"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -81,6 +82,8 @@ export default function Slug() {
   const otherLanguage = useOtherLanguage()
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
+
+  console.log({ post })
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -156,6 +159,52 @@ export default function Slug() {
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
       </article>
+
+      <div className="my-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+        {[post.previousPost, post.nextPost].map((previousOrNextPost, index) => {
+          if (!previousOrNextPost || !previousOrNextPost.title)
+            return <div>&nbsp;</div>
+          return (
+            <div
+              className={`group relative flex items-center gap-4 ${
+                index === 1 ? "justify-end" : "justify-start"
+              }`}
+            >
+              {index === 0 && (
+                <Link
+                  className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
+                  prefetch="intent"
+                  to={`/${post.language}/${post.slug[post.language]}`}
+                  aria-label={`${translate("readMore")}: ${
+                    post.title[post.language]
+                  }`}
+                >
+                  <ChevronLeft className="size-8" />
+                </Link>
+              )}
+              <MiniCard
+                post={previousOrNextPost}
+                key={previousOrNextPost._id}
+                reverse={index === 1}
+              />
+              {index === 1 && (
+                <Link
+                  className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
+                  prefetch="intent"
+                  to={`/${previousOrNextPost.language}/${
+                    previousOrNextPost.slug[previousOrNextPost.language]
+                  }`}
+                  aria-label={`${translate("readMore")}: ${
+                    previousOrNextPost.title[previousOrNextPost.language]
+                  }`}
+                >
+                  <ChevronRight className="size-8" />
+                </Link>
+              )}
+            </div>
+          )
+        })}
+      </div>
     </Layout>
   )
 }

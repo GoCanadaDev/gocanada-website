@@ -126,6 +126,35 @@ export async function getTrendingPosts(
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
+const previousOrNextPostProjection = `
+"title": {
+    "en": title.en,
+    "fr": title.fr,
+  },
+  "slug": {
+    "en": slug.en.current,
+    "fr": slug.fr.current,
+  },
+  _id,
+  _createdAt,
+  "language": $language,
+  "category": {
+    "title": {
+      "en": category->title.en,
+      "fr": category->title.fr,
+    },
+    "slug": {
+      "en": category->slug.en.current,
+      "fr": category->slug.fr.current,
+    },
+  },
+  mainImage{
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  }
+`
+
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
   _id,
   _createdAt,
@@ -168,6 +197,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     },
   },
   "tags": tags[]->{
+    ...,
     "title": {
       "en": title.en,
       "fr": title.fr,
@@ -183,6 +213,12 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
+  "previousPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^._createdAt > _createdAt]|order(_createdAt desc)[0]{ 
+    ${previousOrNextPostProjection}
+  },
+  "nextPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^._createdAt < _createdAt]|order(_createdAt asc)[0]{ 
+    ${previousOrNextPostProjection}
+  },
 }`
 
 export async function getPost(
@@ -196,6 +232,26 @@ export async function getPost(
   })
 
   return sanitizeStrings(result) as Post
+}
+
+export type NextOrPreviousPostType = {
+  _id: string
+  _createdAt: string
+  language: "en" | "fr"
+  title: LocalizedString
+  slug: {
+    en: Slug
+    fr: Slug
+  }
+  category: {
+    title: Category["title"]
+    slug: Category["slug"]
+  }
+  mainImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+  }
 }
 
 export type PostPreview = {
@@ -231,6 +287,8 @@ export type Post = PostPreview & {
     title: Tag["title"]
     slug: Tag["slug"]
   }[]
+  previousPost?: NextOrPreviousPostType
+  nextPost?: NextOrPreviousPostType
 }
 
 export type AlgoliaPost = {
