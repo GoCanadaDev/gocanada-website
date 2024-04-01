@@ -5,7 +5,7 @@ import GalleryImages, {
 export const galleryType = {
   name: "galleryType",
   type: "object",
-  title: "Gallery",
+  title: "Image(s)",
   fields: [
     {
       name: "images",

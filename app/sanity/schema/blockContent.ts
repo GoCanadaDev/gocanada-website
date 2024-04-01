@@ -54,6 +54,7 @@ export const blockContentType = defineType({
     }),
     defineArrayMember({
       type: "image",
+      hidden: true,
       options: { hotspot: true },
       fields: [
         {
@@ -104,6 +105,7 @@ export const blockContentType = defineType({
     }),
     defineArrayMember({
       type: "twoUpImageType",
+      hidden: true,
     }),
     defineArrayMember({
       type: "galleryType",
