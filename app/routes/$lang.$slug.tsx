@@ -161,9 +161,10 @@ export default function Slug() {
       <div className="my-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
         {[post.previousPost, post.nextPost].map((previousOrNextPost, index) => {
           if (!previousOrNextPost || !previousOrNextPost.title)
-            return <div>&nbsp;</div>
+            return <div key="">&nbsp;</div>
           return (
             <div
+              key={previousOrNextPost._id}
               className={`group relative flex items-center gap-4 ${
                 index === 1 ? "justify-end" : "justify-start"
               }`}
@@ -180,11 +181,7 @@ export default function Slug() {
                   <ChevronLeft className="size-8" />
                 </Link>
               )}
-              <MiniCard
-                post={previousOrNextPost}
-                key={previousOrNextPost._id}
-                reverse={index === 1}
-              />
+              <MiniCard post={previousOrNextPost} reverse={index === 1} />
               {index === 1 && (
                 <Link
                   className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
