@@ -8,16 +8,16 @@ export const TopGrid = ({ posts }: { posts: PostPreview[] }) => {
         <Card post={posts[0]} showExcerpt />
       </div>
       <div className="col-span-1 md:col-start-1 md:row-span-1 md:row-start-1">
-        <Card post={posts[1]} />
+        <Card post={posts[1]} showExcerpt />
       </div>
       <div className="col-span-1 md:col-start-1 md:row-span-1 md:row-start-2">
-        <Card post={posts[2]} />
+        <Card post={posts[2]} showExcerpt />
       </div>
       <div className="col-span-1 md:col-start-4 md:row-span-1 md:row-start-1">
-        <Card post={posts[3]} />
+        <Card post={posts[3]} showExcerpt />
       </div>
       <div className="col-span-1 md:col-start-4 md:row-span-1 md:row-start-2">
-        <Card post={posts[4]} />
+        <Card post={posts[4]} showExcerpt />
       </div>
     </div>
   )

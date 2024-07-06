@@ -17,7 +17,9 @@ export const MiniCard = ({
 
   return (
     <article
-      className={`relative flex gap-8 ${reverse ? "text-right" : undefined}`}
+      className={`group relative flex gap-8 ${
+        reverse ? "text-right" : undefined
+      }`}
       key={post._id ?? post._createdAt}
     >
       <div
@@ -45,7 +47,7 @@ export const MiniCard = ({
       </div>
       <div className="space-y-4">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
-        <Typography.H3 className="text-xl">
+        <Typography.H3 className="text-lg uppercase tracking-wide transition-colors duration-700 group-hover:text-red-500">
           {post.title[post.language]}
         </Typography.H3>
 

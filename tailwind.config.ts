@@ -59,7 +59,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["Roboto Condensed", "Inter", "sans-serif"],
         serif: ["PT Serif", "serif"],
       },
       keyframes: {

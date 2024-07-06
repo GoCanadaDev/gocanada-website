@@ -83,8 +83,6 @@ export default function Slug() {
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
 
-  console.log({ post })
-
   return (
     <Layout translationUrl={translationUrl}>
       <article className="">

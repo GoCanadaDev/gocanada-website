@@ -21,7 +21,7 @@ export default function Card({
   }
 
   return (
-    <article className=" max-w-screen-md">
+    <article className="group max-w-screen-md">
       {post.mainImage && post.mainImage?.id ? (
         <AspectRatio
           ratio={3 / 2}
@@ -45,7 +45,9 @@ export default function Card({
       ) : null}
       <div className="relative space-y-4">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
-        <Typography.H3>{post.title[post.language]}</Typography.H3>
+        <Typography.H3 className="uppercase tracking-wide transition-colors duration-700 group-hover:text-red-500">
+          {post.title[post.language]}
+        </Typography.H3>
         {showExcerpt ? (
           <Typography.Paragraph>
             {post.excerpt[post.language]}
