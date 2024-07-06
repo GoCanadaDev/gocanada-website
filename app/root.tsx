@@ -1,9 +1,10 @@
 import type {
+  ActionFunction,
   LinksFunction,
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import { json, redirect } from "@remix-run/node"
 import {
   Links,
   LiveReload,
@@ -16,7 +17,11 @@ import {
 import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
-import { langPreferenceCookie, themePreferenceCookie } from "~/cookies"
+import {
+  langPreferenceCookie,
+  themePreferenceCookie,
+  gdprConsent,
+} from "~/cookies"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { Category, Partner, getCategories, getPartners } from "~/sanity/queries"
 import styles from "~/tailwind.css"
@@ -29,6 +34,7 @@ import setLanguageCookie from "~/lib/setLanguageCookie"
 import { SupportedLanguages } from "~/i18n"
 import { client } from "./sanity/client"
 import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages"
+import { CookieBanner } from "./components/CookieBanner"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -67,7 +73,24 @@ export type RootLoaderData = {
   locale: string
   params: {}
   partners: Partner[]
+  showCookieBanner: boolean
   themePreference: string | undefined
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData()
+  const cookieHeader = request.headers.get("Cookie")
+  const gdprCookie = (await gdprConsent.parse(cookieHeader)) || {}
+
+  if (formData.get("accept-gdpr") === "true") {
+    gdprCookie.gdprConsent = true
+  }
+
+  return redirect("/", {
+    headers: {
+      "Set-Cookie": await gdprConsent.serialize(gdprCookie),
+    },
+  })
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -86,6 +109,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     .union([z.literal("en"), z.literal("fr")])
     .optional()
     .parse(langCookie.langPreference)
+
+  // GDPR cookie
+  const gdprCookie = (await gdprConsent.parse(cookieHeader)) || {}
 
   let headers = {}
   if (!langPreference) {
@@ -112,6 +138,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       locale,
       params: {},
       partners,
+      showCookieBanner: !gdprCookie.gdprConsent,
       themePreference,
     },
     {
@@ -129,8 +156,14 @@ export let handle = {
 }
 
 export default function App() {
-  const { locale, bodyClassNames, ENV, langPreference, isStudioRoute } =
-    useLoaderData<typeof loader>()
+  const {
+    locale,
+    bodyClassNames,
+    ENV,
+    langPreference,
+    isStudioRoute,
+    showCookieBanner,
+  } = useLoaderData<typeof loader>()
 
   const { i18n } = useTranslation()
 
@@ -151,6 +184,7 @@ export default function App() {
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
         <Outlet />
+        {showCookieBanner && <CookieBanner />}
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
           <Hydrated>
