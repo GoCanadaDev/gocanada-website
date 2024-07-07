@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip"
 import { useTranslate } from "~/lib/useTranslate"
+import { useHasMounted } from "~/lib/useHasMounted"
 
 export function LanguageToggle({
   translationUrl,
@@ -29,6 +30,7 @@ export function LanguageToggle({
   } = useTranslation()
   const { translate } = useTranslate()
   const [defaultValue, setDefaultValue] = useState(translationUrl)
+  const hasMounted = useHasMounted()
 
   useEffect(() => {
     setDefaultValue(translationUrl)
@@ -43,6 +45,10 @@ export function LanguageToggle({
   }
 
   const languageToChangeTo = resolvedLanguage === "en" ? "fr" : "en"
+
+  if (!hasMounted) {
+    return null
+  }
 
   return (
     <Form method="post" action="/resource/toggle-lang">

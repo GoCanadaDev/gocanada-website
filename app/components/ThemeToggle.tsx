@@ -14,16 +14,22 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip"
 import { useTranslate } from "~/lib/useTranslate"
+import { useHasMounted } from "~/lib/useHasMounted"
 
 export function ThemeToggle() {
   const [switchOn] = useSound(onSound)
   const [switchOff] = useSound(offSound)
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
+  const hasMounted = useHasMounted()
 
   const { themePreference } = useRootLoaderData()
   const { translate } = useTranslate()
 
   const isDarkMode = themePreference === "dark"
+
+  if (!hasMounted) {
+    return null
+  }
 
   return (
     <Form
