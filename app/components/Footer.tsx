@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { Link } from "@remix-run/react"
 import { Logo } from "~/components/Logo"
 import { Separator } from "~/components/ui/separator"
@@ -24,6 +25,12 @@ export function Footer() {
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
+
+  const [year, setYear] = useState<number | null>(null)
+
+  useEffect(() => {
+    setYear(new Date().getFullYear())
+  }, [])
 
   return (
     <footer className="border-t-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
@@ -98,7 +105,7 @@ export function Footer() {
         </nav>
       </div>
       <div className="container mx-auto p-8 text-center text-xs lg:px-12">
-        &copy; 2024 GoCanada, a division of{" "}
+        &copy; {year} GoCanada, a division of{" "}
         <a href="https://www.stayandwander.com/" className="hover:underline">
           Stay &amp; Wander Media Inc.
         </a>{" "}
