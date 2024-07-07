@@ -19,7 +19,7 @@ import {
 
 export function Footer() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
-  const { footerLinks, partners, serverDateYear } = useRootLoaderData()
+  const { footerLinks, partners } = useRootLoaderData()
   const {
     i18n: { language },
   } = useTranslation()
@@ -98,7 +98,7 @@ export function Footer() {
         </nav>
       </div>
       <div className="container mx-auto p-8 text-center text-xs lg:px-12">
-        &copy; {serverDateYear} GoCanada, a division of{" "}
+        &copy; 2024 GoCanada, a division of{" "}
         <a href="https://www.stayandwander.com/" className="hover:underline">
           Stay &amp; Wander Media Inc.
         </a>{" "}
