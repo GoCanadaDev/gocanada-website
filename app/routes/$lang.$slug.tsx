@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react"
 import { client } from "~/sanity/client"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
-import { formatDate } from "~/lib/formatDate"
+import useFormattedDate from "~/lib/useFormattedDate"
 import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
@@ -80,6 +80,7 @@ export default function Slug() {
   const { post } = useLoaderData() as LoaderDataType
   const { translate } = useTranslate()
   const otherLanguage = useOtherLanguage()
+  const formattedDate = useFormattedDate(post._createdAt, post.language)
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
 
@@ -127,9 +128,7 @@ export default function Slug() {
                     {post.author.name}
                   </Link>
                 </Typography.Paragraph>
-                <Typography.TextMuted>
-                  {formatDate(post._createdAt, post.language)}
-                </Typography.TextMuted>
+                <Typography.TextMuted>{formattedDate}</Typography.TextMuted>
               </>
             }
           />
