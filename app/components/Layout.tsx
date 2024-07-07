@@ -14,12 +14,12 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
     : undefined
   return (
     <>
-      {/* <Header translationUrl={translationUrl} /> */}
+      <Header translationUrl={translationUrl} />
       <main className={classes} id="main">
         {children}
         <Toaster richColors closeButton />
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }
