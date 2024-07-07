@@ -73,6 +73,7 @@ export type RootLoaderData = {
   locale: string
   params: {}
   partners: Partner[]
+  serverDate: Date
   showCookieBanner: boolean
   themePreference: string | undefined
 }
@@ -127,6 +128,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const footerLinks = await getFooterLinks(client, locale)
   const partners = await getPartners(client)
 
+  const preferredLocale =
+    request.headers.get("accept-language")?.split(",")[0] || "en-US"
+  const serverDate = new Date()
+
   return json<RootLoaderData>(
     {
       bodyClassNames,
@@ -138,6 +143,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       locale,
       params: {},
       partners,
+      serverDate,
       showCookieBanner: !gdprCookie.gdprConsent,
       themePreference,
     },
