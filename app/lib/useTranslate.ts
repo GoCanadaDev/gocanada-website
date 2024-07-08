@@ -7,8 +7,8 @@ import { type TranslationKey } from "./flattenMessages"
  * @returns {translate} A function that takes in a key of type TranslationKey and returns a string
  */
 export const useTranslate = () => {
-  const { t } = useTranslation()
+  const { t, ready } = useTranslation()
   const translate = useCallback((key: TranslationKey) => t(key), [t])
 
-  return { translate }
+  return { translate, ready }
 }

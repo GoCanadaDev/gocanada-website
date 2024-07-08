@@ -71,7 +71,7 @@ export const loader: LoaderFunction = async ({
 
 export default function SubCategoryByNameRoute() {
   const { category, subCategory } = useLoaderData() as LoaderDataType
-  const { translate } = useTranslate()
+  const { translate, ready } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/categories/${subCategory.slug[otherLanguage]}`
 
@@ -83,7 +83,8 @@ export default function SubCategoryByNameRoute() {
         }`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> {translate("viewAll")}{" "}
+        <MoveLeft className="inline h-4 w-4" />{" "}
+        {ready ? translate("viewAll") : "View all"}{" "}
         {`"${category.title[category.language]}"`}
       </Link>
       <div className="holy-grail space-y-8 text-center">

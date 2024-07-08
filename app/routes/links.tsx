@@ -46,7 +46,7 @@ export const loader: LoaderFunction = async () => {
 
 export default function Links() {
   const { linksPageData } = useLoaderData() as LoaderDataType
-  const { translate } = useTranslate()
+  const { translate, ready } = useTranslate()
 
   return (
     <Layout>
@@ -88,12 +88,16 @@ export default function Links() {
                     <Image
                       mode="cover"
                       id={link.image.id}
-                      alt={`${translate("readMore")}: ${link.title}`}
+                      alt={
+                        ready ? `${translate("readMore")}: ${link.title}` : ""
+                      }
                       width={500}
                       preview={link.image.preview ?? ""}
                       loading="eager"
                       className="transition-transform hover:scale-[1.02]"
-                      aria-label={`${translate("readMore")}: ${link.title}`}
+                      aria-label={
+                        ready ? `${translate("readMore")}: ${link.title}` : ""
+                      }
                     />
                   </a>
                 </div>

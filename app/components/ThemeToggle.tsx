@@ -21,7 +21,7 @@ export function ThemeToggle() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
 
   const { themePreference } = useRootLoaderData()
-  const { translate } = useTranslate()
+  const { translate, ready } = useTranslate()
 
   const isDarkMode = themePreference === "dark"
 
@@ -38,7 +38,7 @@ export function ThemeToggle() {
               style={style}
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
-              aria-label={translate("toggleTheme")}
+              aria-label={ready ? translate("currentLanguage") : undefined}
               onClick={() => {
                 isDarkMode ? switchOn() : switchOff()
               }}
@@ -47,7 +47,9 @@ export function ThemeToggle() {
               {isDarkMode ? <Sun /> : <Moon />}
             </animated.button>
           </TooltipTrigger>
-          <TooltipContent>{translate("toggleTheme")}</TooltipContent>
+          <TooltipContent>
+            {ready ? translate("toggleTheme") : "Change Theme"}
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </Form>

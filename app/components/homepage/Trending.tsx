@@ -1,15 +1,8 @@
-import { Link } from "@remix-run/react"
 import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "../Typography"
-import { Image } from "../Image"
-import { useTranslate } from "~/lib/useTranslate"
-import { MoveRight } from "lucide-react"
-import { AspectRatio } from "../ui/aspect-ratio"
 import { MiniCard } from "../MiniCard"
 
 export const Trending = ({ posts }: { posts: PostPreview[] }) => {
-  const { translate } = useTranslate()
-
   if (!posts) {
     return null
   }

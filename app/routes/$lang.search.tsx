@@ -59,11 +59,11 @@ type SearchProps = {
 }
 
 function Search({ serverState, serverUrl, themePreference }: SearchProps) {
-  const { translate } = useTranslate()
+  const { translate, ready } = useTranslate()
 
   return (
     <div>
-      <Typography.H1>{translate("search")}</Typography.H1>
+      <Typography.H1>{ready ? translate("search") : "Search"}</Typography.H1>
       <SSRSearchProvider
         themePreference={themePreference}
         serverState={serverState}
