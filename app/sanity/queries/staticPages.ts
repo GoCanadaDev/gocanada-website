@@ -2,6 +2,7 @@ import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export async function getStaticPageByRoute(
   client: SanityStegaClient,
@@ -45,9 +46,13 @@ export async function getFooterLinks(
   client: SanityStegaClient,
   language: string | undefined
 ): Promise<StaticPageRoute[]> {
-  return await client.fetch<StaticPage[]>(footerLinksQuery, {
+  const result = await client.fetch(footerLinksQuery, {
     language,
   })
+
+  console.log("result", result)
+
+  return Object.values(sanitizeStrings(result)) as StaticPageRoute[]
 }
 
 export type StaticPageRoute = {

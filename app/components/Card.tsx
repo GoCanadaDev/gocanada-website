@@ -13,7 +13,7 @@ export default function Card({
   post: PostPreview
   showExcerpt?: boolean
 }) {
-  const { translate, ready } = useTranslate()
+  const { translate } = useTranslate()
 
   const linkTo = `/${post.language}/${post.slug[post.language]}`
   if (!post) {
@@ -36,11 +36,9 @@ export default function Card({
               preview={post.mainImage.preview ?? ""}
               loading="eager"
               className="transition-transform hover:scale-[1.05]"
-              aria-label={
-                ready
-                  ? `${translate("readMore")}: ${post.title[post.language]}`
-                  : undefined
-              }
+              aria-label={`${translate("readMore")}: ${
+                post.title[post.language]
+              }`}
             />
           </Link>
         </AspectRatio>
@@ -60,14 +58,11 @@ export default function Card({
             className="text-sm before:absolute before:inset-0"
             prefetch="intent"
             to={linkTo}
-            aria-label={
-              ready
-                ? `${translate("readMore")}: ${post.title[post.language]}`
-                : undefined
-            }
+            aria-label={`${translate("readMore")}: ${
+              post.title[post.language]
+            }`}
           >
-            {ready ? translate("readMore") : null}{" "}
-            <MoveRight className="inline h-4 w-4" />
+            {translate("readMore")} <MoveRight className="inline h-4 w-4" />
           </Link>
         </p>
       </div>

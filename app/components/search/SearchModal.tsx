@@ -11,7 +11,7 @@ import { useTranslate } from "~/lib/useTranslate"
 import { useState } from "react"
 
 const SearchModal = () => {
-  const { translate, ready } = useTranslate()
+  const { translate } = useTranslate()
   const [modalOpen, setModalOpen] = useState(false)
 
   return (
@@ -21,7 +21,7 @@ const SearchModal = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{ready ? translate("search") : "Search"}</DialogTitle>
+          <DialogTitle>{translate("search")}</DialogTitle>
 
           <Form
             className="flex gap-4"
@@ -44,7 +44,7 @@ const SearchModal = () => {
                 }}
                 className="flex w-full items-center justify-center gap-1 rounded-md bg-slate-100 p-4 text-center dark:bg-slate-800"
               >
-                <Search size={16} /> {ready ? translate("search") : "Search"}
+                <Search size={16} /> {translate("search")}
               </button>
             </div>
           </Form>

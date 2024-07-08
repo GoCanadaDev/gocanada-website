@@ -52,7 +52,7 @@ export function LanguageToggle({
             <button
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
-              aria-label={ready ? translate("currentLanguage") : undefined}
+              aria-label={translate("currentLanguage")}
               className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
               onClick={() => {
                 play()
