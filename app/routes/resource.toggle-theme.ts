@@ -1,7 +1,7 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node"
 import { redirect } from "@remix-run/node"
 
-import { themePreferenceCookie, langPreferenceCookie } from "~/cookies"
+import { themePreferenceCookie, langPreferenceCookie } from "~/cookies.server"
 
 export const action: ActionFunction = async ({ request }) => {
   const cookieHeader = request.headers.get("Cookie")

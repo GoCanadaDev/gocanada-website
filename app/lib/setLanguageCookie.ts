@@ -1,5 +1,5 @@
 import { SupportedLanguages } from "~/i18n"
-import { langPreferenceCookie } from "~/cookies"
+import { langPreferenceCookie } from "~/cookies.server"
 
 const setLanguageCookie = async (langPreference: SupportedLanguages) => {
   return {

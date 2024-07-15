@@ -9,5 +9,6 @@ export const langPreferenceCookie = createCookie(`langPreference`, {
 })
 
 export const gdprConsent = createCookie("gdpr-consent", {
+  path: "/",
   maxAge: 31536000, // One Year
 })

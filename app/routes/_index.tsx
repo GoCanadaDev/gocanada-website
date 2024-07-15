@@ -1,7 +1,7 @@
 import { LoaderFunction, redirect } from "@remix-run/node"
 import i18next from "~/i18next.server"
 import { SupportedLanguages } from "~/i18n"
-import { langPreferenceCookie } from "~/cookies"
+import { langPreferenceCookie } from "~/cookies.server"
 import { z } from "zod"
 
 export const loader: LoaderFunction = async ({ request }) => {

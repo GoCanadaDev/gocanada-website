@@ -21,7 +21,7 @@ import {
   langPreferenceCookie,
   themePreferenceCookie,
   gdprConsent,
-} from "~/cookies"
+} from "~/cookies.server"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { Category, Partner, getCategories, getPartners } from "~/sanity/queries"
 import styles from "~/tailwind.css"

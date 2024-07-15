@@ -50,8 +50,6 @@ export async function getFooterLinks(
     language,
   })
 
-  console.log("result", result)
-
   return Object.values(sanitizeStrings(result)) as StaticPageRoute[]
 }
 

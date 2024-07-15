@@ -11,7 +11,7 @@ import i18n from "./i18n" // your i18n configuration file
 import { resolve } from "node:path"
 
 import { getEnv } from "./env.server"
-import { langPreferenceCookie } from "./cookies"
+import { langPreferenceCookie } from "./cookies.server"
 import { z } from "zod"
 
 const ABORT_DELAY = 5000
