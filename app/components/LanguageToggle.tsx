@@ -26,8 +26,9 @@ export function LanguageToggle({
   const {
     i18n: { changeLanguage, resolvedLanguage },
     ready,
+    t,
   } = useTranslation()
-  const { translate } = useTranslate()
+  // const { translate } = useTranslation()
   const [defaultValue, setDefaultValue] = useState(translationUrl)
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export function LanguageToggle({
 
   const changeLanguageTo = async (language: SupportedLanguages) => {
     if (ready) {
-      const message = translate("languageChanged")
+      const message = t("languageChanged")
       toast.success(message)
     }
     changeLanguage(language)
@@ -52,7 +53,7 @@ export function LanguageToggle({
             <button
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
-              aria-label={translate("currentLanguage")}
+              aria-label={t("currentLanguage")}
               className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
               onClick={() => {
                 play()
@@ -65,7 +66,7 @@ export function LanguageToggle({
               </animated.div>
             </button>
           </TooltipTrigger>
-          <TooltipContent>{translate("currentLanguage")}</TooltipContent>
+          <TooltipContent>{t("currentLanguage")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </Form>
