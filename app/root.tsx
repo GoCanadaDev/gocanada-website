@@ -35,6 +35,8 @@ import { SupportedLanguages } from "~/i18n"
 import { client } from "./sanity/client"
 import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages"
 import { CookieBanner } from "./components/CookieBanner"
+import { useTranslations } from "./lib/useTranslations"
+import { TranslationKey } from "./lib/flattenMessages"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -95,6 +97,7 @@ export type RootLoaderData = {
   partners: Partner[]
   showCookieBanner: boolean
   themePreference: string | undefined
+  translations: Record<TranslationKey, string>
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -147,6 +150,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const footerLinks = await getFooterLinks(client, locale)
   const partners = await getPartners(client)
 
+  const translations = await useTranslations(request)
+
   return json<RootLoaderData>(
     {
       bodyClassNames,
@@ -160,6 +165,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       partners,
       showCookieBanner: !gdprCookie.gdprConsent,
       themePreference,
+      translations,
     },
     {
       headers,

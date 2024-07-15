@@ -55,7 +55,7 @@ export const loader: LoaderFunction = async ({
 
 export default function AuthorBySlugRoute() {
   const { author } = useLoaderData() as LoaderDataType
-  const { translate } = useTranslate()
+  const { translations } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
 
@@ -65,7 +65,7 @@ export default function AuthorBySlugRoute() {
         to={`/${author.language}/authors`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> {translate("viewAll")}
+        <MoveLeft className="inline h-4 w-4" /> {translations.viewAll}
       </Link>
       <div className="holy-grail space-y-8 text-center">
         <div className="mx-auto h-24 w-24 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">

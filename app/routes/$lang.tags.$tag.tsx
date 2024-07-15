@@ -53,7 +53,7 @@ export const loader: LoaderFunction = async ({
 
 export default function TagByNameRoute() {
   const { tag } = useLoaderData() as LoaderDataType
-  const { translate } = useTranslate()
+  const { translations } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/tags/${tag.slug[otherLanguage]}`
 
@@ -63,13 +63,13 @@ export default function TagByNameRoute() {
         to={`/${tag.language}/tags`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> {translate("viewAll")}
+        <MoveLeft className="inline h-4 w-4" /> {translations.viewAll}
       </Link>
       <div className="holy-grail space-y-8 text-center">
         <div className="mx-auto flex h-24 w-24 items-center rounded-full border-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
           <TagIcon className="mx-auto h-8 w-8" />
         </div>
-        <Typography.H4>{translate("postsTagged")}</Typography.H4>
+        <Typography.H4>{translations.postsTagged}</Typography.H4>
         <Typography.H1>{tag.title[tag.language]}</Typography.H1>
         <Typography.TextMuted>
           {tag.description[tag.language]}

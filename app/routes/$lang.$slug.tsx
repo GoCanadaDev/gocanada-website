@@ -78,7 +78,7 @@ export const loader: LoaderFunction = async ({
 
 export default function Slug() {
   const { post } = useLoaderData() as LoaderDataType
-  const { translate } = useTranslate()
+  const { translations } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const formattedDate = useFormattedDate(post._createdAt, post.language)
 
@@ -110,7 +110,7 @@ export default function Slug() {
                     to={`/${post.language}/authors/${post.author.slug}`}
                     className="text-red-600 hover:text-red-500"
                   >
-                    {translate("viewAll")}
+                    {translations.viewAll}
                     {""}
                     <MoveRight className="inline h-4 w-4" />
                   </Link>
@@ -173,7 +173,7 @@ export default function Slug() {
                   className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
                   prefetch="intent"
                   to={`/${post.language}/${post.slug[post.language]}`}
-                  aria-label={`${translate("readMore")}: ${
+                  aria-label={`${translations.readMore}: ${
                     post.title[post.language]
                   }`}
                 >
@@ -188,7 +188,7 @@ export default function Slug() {
                   to={`/${previousOrNextPost.language}/${
                     previousOrNextPost.slug[previousOrNextPost.language]
                   }`}
-                  aria-label={`${translate("readMore")}: ${
+                  aria-label={`${translations.readMore}: ${
                     previousOrNextPost.title[previousOrNextPost.language]
                   }`}
                 >

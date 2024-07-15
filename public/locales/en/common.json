@@ -1,16 +1,16 @@
 {
-  "greeting": "Hello",
-  "readMore": "Read more",
-  "languageChanged": "Langue changée en Français",
-  "currentLanguage": "English",
-  "toggleTheme": "Change theme",
-  "viewAll": "View all",
-  "postsTagged": "Posts Tagged",
   "about": "About",
   "advertising": "Advertising",
   "contact": "Contact",
+  "currentLanguage": "English",
+  "greeting": "Hello",
+  "languageChanged": "Langue changée en Français",
   "media": "Media",
+  "postsTagged": "Posts Tagged",
   "privacyPolicy": "Privacy Policy",
+  "readMore": "Read more",
+  "search": "Search",
   "terms": "Terms of Use",
-  "search": "Search"
+  "toggleTheme": "Change theme",
+  "viewAll": "View all"
 }

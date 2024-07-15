@@ -28,7 +28,7 @@ export const Hit = ({ hit }: HitProps) => {
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
-  const { translate } = useTranslate()
+  const { translations } = useTranslate()
 
   return (
     <article className="">
@@ -72,7 +72,7 @@ export const Hit = ({ hit }: HitProps) => {
             />
           </Typography.TextMuted>
           <Typography.TextMuted>
-            {translate("readMore")} <MoveRight className="inline h-4 w-4" />
+            {translations.readMore} <MoveRight className="inline h-4 w-4" />
           </Typography.TextMuted>
         </div>
       </a>

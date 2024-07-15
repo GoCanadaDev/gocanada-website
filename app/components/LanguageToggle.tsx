@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "@remix-run/react"
+import { Form } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import { SupportedLanguages } from "~/i18n"
 import useSound from "use-sound"
@@ -15,21 +15,12 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip"
 import { useTranslate } from "~/lib/useTranslate"
-import i18next from "../i18next.server"
-import { LoaderFunction, json } from "@remix-run/node"
-
-export const loader: LoaderFunction = async ({ request }) => {
-  let t = await i18next.getFixedT(request)
-  let currentLanguage = t("currentLanguage")
-  return json({ currentLanguage })
-}
 
 export function LanguageToggle({
   translationUrl,
 }: {
   translationUrl?: string
 }) {
-  const { currentLanguage } = useLoaderData<typeof loader>()
   const [play] = useSound(clickSound)
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
   const {
@@ -37,8 +28,8 @@ export function LanguageToggle({
     ready,
     t,
   } = useTranslation()
-  // const { translate } = useTranslation()
   const [defaultValue, setDefaultValue] = useState(translationUrl)
+  const { translations } = useTranslate()
 
   useEffect(() => {
     setDefaultValue(translationUrl)
@@ -63,7 +54,7 @@ export function LanguageToggle({
               <button
                 onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
                 type="submit"
-                aria-label={currentLanguage}
+                aria-label={translations.currentLanguage}
                 className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
                 onClick={() => {
                   play()
@@ -81,7 +72,7 @@ export function LanguageToggle({
               </button>
             )}
           </TooltipTrigger>
-          <TooltipContent>{currentLanguage}</TooltipContent>
+          <TooltipContent>{translations.currentLanguage}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </Form>

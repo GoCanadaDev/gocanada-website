@@ -13,7 +13,7 @@ export default function Card({
   post: PostPreview
   showExcerpt?: boolean
 }) {
-  const { translate } = useTranslate()
+  const { translations } = useTranslate()
 
   const linkTo = `/${post.language}/${post.slug[post.language]}`
   if (!post) {
@@ -36,7 +36,7 @@ export default function Card({
               preview={post.mainImage.preview ?? ""}
               loading="eager"
               className="transition-transform hover:scale-[1.05]"
-              aria-label={`${translate("readMore")}: ${
+              aria-label={`${translations.readMore}: ${
                 post.title[post.language]
               }`}
             />
@@ -58,11 +58,11 @@ export default function Card({
             className="text-sm before:absolute before:inset-0"
             prefetch="intent"
             to={linkTo}
-            aria-label={`${translate("readMore")}: ${
+            aria-label={`${translations.readMore}: ${
               post.title[post.language]
             }`}
           >
-            {translate("readMore")} <MoveRight className="inline h-4 w-4" />
+            {translations.readMore} <MoveRight className="inline h-4 w-4" />
           </Link>
         </p>
       </div>

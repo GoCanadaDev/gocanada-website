@@ -13,7 +13,7 @@ export const MiniCard = ({
   post: Post | PostPreview | NextOrPreviousPostType
   reverse?: boolean
 }) => {
-  const { translate } = useTranslate()
+  const { translations } = useTranslate()
 
   return (
     <article
@@ -38,7 +38,7 @@ export const MiniCard = ({
               height={300}
               preview={post.mainImage.preview ?? ""}
               loading="lazy"
-              aria-label={`${translate("readMore")}: ${
+              aria-label={`${translations.readMore}: ${
                 post.title[post.language]
               }`}
             />
@@ -56,11 +56,11 @@ export const MiniCard = ({
             className="text-sm before:absolute before:inset-0"
             prefetch="intent"
             to={`/${post.language}/${post.slug[post.language]}`}
-            aria-label={`${translate("readMore")}: ${
+            aria-label={`${translations.readMore}: ${
               post.title[post.language]
             }`}
           >
-            {translate("readMore")} <MoveRight className="inline h-4 w-4" />
+            {translations.readMore} <MoveRight className="inline h-4 w-4" />
           </Link>
         </p>
       </div>
