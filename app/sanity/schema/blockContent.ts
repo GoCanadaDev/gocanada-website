@@ -1,3 +1,13 @@
+import {
+  FacebookIcon,
+  ImagePlusIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  Music2,
+  PinIcon,
+  TwitterIcon,
+  YoutubeIcon,
+} from "lucide-react"
 import { defineType, defineArrayMember } from "sanity"
 
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
@@ -10,27 +20,15 @@ export const blockContentType = defineType({
     defineArrayMember({
       title: "Block",
       type: "block",
-      // Styles let you set what your user can mark up blocks with. These
-      // correspond with HTML tags, but you can set any title or value
-      // you want and decide how you want to deal with it where you want to
-      // use your content.
-      styles: [
-        { title: "Normal", value: "normal" },
-        { title: "H1", value: "h1" },
-        { title: "H2", value: "h2" },
-        { title: "H3", value: "h3" },
-        { title: "H4", value: "h4" },
-        { title: "Quote", value: "blockquote" },
-      ],
-      lists: [{ title: "Bullet", value: "bullet" }],
       // Marks let you mark up inline text in the block editor.
       marks: {
-        // Decorators usually describe a single property – e.g. a typographic
-        // preference or highlighting by editors.
-        decorators: [
-          { title: "Strong", value: "strong" },
-          { title: "Emphasis", value: "em" },
-        ],
+        // // Decorators usually describe a single property – e.g. a typographic
+        // // preference or highlighting by editors.
+        // decorators: [
+        //   { title: "Strong", value: "strong" },
+        //   { title: "Emphasis", value: "em" },
+        //   { title: "Code", value: "code" },
+        // ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
           {
@@ -48,9 +46,6 @@ export const blockContentType = defineType({
         ],
       },
       // of: [{ type: "image" }],
-    }),
-    defineArrayMember({
-      type: "instagramPostType",
     }),
     defineArrayMember({
       type: "image",
@@ -109,6 +104,35 @@ export const blockContentType = defineType({
     }),
     defineArrayMember({
       type: "galleryType",
+      icon: ImagePlusIcon,
+    }),
+    defineArrayMember({
+      type: "facebookPostType",
+      icon: FacebookIcon,
+    }),
+    defineArrayMember({
+      type: "instagramPostType",
+      icon: InstagramIcon,
+    }),
+    defineArrayMember({
+      type: "linkedinPostType",
+      icon: LinkedinIcon,
+    }),
+    defineArrayMember({
+      type: "pinterestPostType",
+      icon: PinIcon,
+    }),
+    defineArrayMember({
+      type: "tiktokPostType",
+      icon: Music2,
+    }),
+    defineArrayMember({
+      type: "twitterPostType",
+      icon: TwitterIcon,
+    }),
+    defineArrayMember({
+      type: "youTubePostType",
+      icon: YoutubeIcon,
     }),
   ],
 })

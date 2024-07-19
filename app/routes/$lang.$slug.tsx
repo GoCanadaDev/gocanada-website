@@ -152,7 +152,7 @@ export default function Slug() {
           </div>
           <Separator />
         </div>
-        <div className="holy-grail prose prose-xl prose-slate mx-4 my-12 max-w-none lg:prose-2xl dark:prose-invert prose-p:my-4 prose-a:text-red-600 hover:prose-a:text-red-500 prose-figure:my-4 prose-ul:my-0">
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-12 max-w-none lg:prose-2xl dark:prose-invert prose-p:my-4 prose-a:text-red-600 hover:prose-a:text-red-500 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
       </article>
