@@ -95,7 +95,7 @@ export default function Slug() {
             preview={post.mainImage.preview}
           />
         </div>
-        <div className="holy-grail mx-4 my-24 max-w-none text-xl">
+        <div className="holy-grail mx-4 my-12 max-w-none text-xl">
           <UserMediaObject
             name={post.author.name}
             image={post.author.image}
@@ -145,14 +145,14 @@ export default function Slug() {
               </Link>
             ))}
           </div>
-          <div className="mb-24 w-full text-center">
+          <div className="mb-12 w-full text-center">
             <Typography.Lead className="italic">
               {post.excerpt[post.language]}
             </Typography.Lead>
           </div>
           <Separator />
         </div>
-        <div className="holy-grail prose prose-xl prose-slate mx-4 my-24 max-w-none lg:prose-2xl dark:prose-invert prose-a:text-red-600 hover:prose-a:text-red-500">
+        <div className="holy-grail prose prose-xl prose-slate mx-4 my-12 max-w-none lg:prose-2xl dark:prose-invert prose-p:my-4 prose-a:text-red-600 hover:prose-a:text-red-500 prose-figure:my-4 prose-ul:my-0">
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
       </article>
