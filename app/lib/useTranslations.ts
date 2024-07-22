@@ -1,8 +1,6 @@
-import i18next from "../i18next.server"
+import { Namespace, TFunction } from "i18next"
 
-export const useTranslations = async (request: Request) => {
-  let t = await i18next.getFixedT(request)
-
+export const useTranslations = async (t: TFunction<Namespace, undefined>) => {
   // for each key in the translation file, we can call t(key) to get the translation
   // and then save it to a variable to use in our components for SSR and client-side rendering
   const about = t("about")

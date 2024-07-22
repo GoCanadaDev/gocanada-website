@@ -150,7 +150,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const footerLinks = await getFooterLinks(client, locale)
   const partners = await getPartners(client)
 
-  const translations = await useTranslations(request)
+  let t = await i18next.getFixedT(request)
+  const translations = await useTranslations(t)
 
   return json<RootLoaderData>(
     {
