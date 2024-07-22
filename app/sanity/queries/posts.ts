@@ -152,7 +152,11 @@ const previousOrNextPostProjection = `
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
-  }
+  },
+  "excerpt": {
+    "en": excerpt.en,
+    "fr": excerpt.fr,
+  },
 `
 
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
@@ -252,6 +256,7 @@ export type NextOrPreviousPostType = {
     preview: string
     aspectRatio: number
   }
+  excerpt: LocalizedString
 }
 
 export type PostPreview = {

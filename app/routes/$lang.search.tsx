@@ -11,6 +11,7 @@ import { themePreferenceCookie } from "~/cookies.server"
 import { z } from "zod"
 import { SSRSearchProvider } from "~/components/search"
 import { SITE_META } from "~/lib/utils"
+import { useTranslation } from "react-i18next"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -59,11 +60,12 @@ type SearchProps = {
 }
 
 function Search({ serverState, serverUrl, themePreference }: SearchProps) {
-  const { translations } = useTranslate()
+  // can't use useTranslate here because it's not a child of the root loader
+  const { t } = useTranslation()
 
   return (
     <div>
-      <Typography.H1>{translations.search}</Typography.H1>
+      <Typography.H1>{t("search")}</Typography.H1>
       <SSRSearchProvider
         themePreference={themePreference}
         serverState={serverState}

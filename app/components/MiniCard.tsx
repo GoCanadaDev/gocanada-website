@@ -3,7 +3,6 @@ import { PostPreview, Post, NextOrPreviousPostType } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { useTranslate } from "~/lib/useTranslate"
-import { MoveRight } from "lucide-react"
 import { AspectRatio } from "./ui/aspect-ratio"
 
 export const MiniCard = ({
@@ -17,18 +16,14 @@ export const MiniCard = ({
 
   return (
     <article
-      className={`group relative flex gap-8 ${
-        reverse ? "text-right" : undefined
-      }`}
+      className={`group relative flex gap-8 ${reverse ? "text-right" : ""}`}
       key={post._id ?? post._createdAt}
     >
-      <div
-        className={`size-24 flex-shrink-0 ${reverse ? "order-1" : undefined}`}
-      >
+      <div className={`size-24 flex-shrink-0 ${reverse ? "order-1" : ""}`}>
         {post.mainImage && post.mainImage?.id ? (
           <AspectRatio
             ratio={1}
-            className="overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+            className="overflow-hidden bg-slate-200 dark:bg-slate-800"
           >
             <Image
               mode="cover"
@@ -45,11 +40,14 @@ export const MiniCard = ({
           </AspectRatio>
         ) : null}
       </div>
-      <div className="space-y-4">
+      <div className="space-y-1">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
         <Typography.H3 className="text-lg uppercase tracking-wide transition-colors duration-700 group-hover:text-red-500">
           {post.title[post.language]}
         </Typography.H3>
+        <Typography.Paragraph className="line-clamp-2">
+          {post.excerpt[post.language]}
+        </Typography.Paragraph>
 
         <p>
           <Link
@@ -60,7 +58,7 @@ export const MiniCard = ({
               post.title[post.language]
             }`}
           >
-            {translations.readMore} <MoveRight className="inline h-4 w-4" />
+            <span className="sr-only">{translations.readMore}</span>
           </Link>
         </p>
       </div>

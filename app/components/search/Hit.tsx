@@ -26,9 +26,11 @@ type HitProps = {
 export const Hit = ({ hit }: HitProps) => {
   const {
     i18n: { language },
+    // can't use useTranslate here because it's not a child of the root loader,
+    // so grab the t() function directly
+    t,
   } = useTranslation()
   const currentLang = language as SupportedLanguages
-  const { translations } = useTranslate()
 
   return (
     <article className="">
@@ -39,7 +41,7 @@ export const Hit = ({ hit }: HitProps) => {
         <div className="w-32 flex-shrink-0">
           <AspectRatio
             ratio={3 / 2}
-            className="w-32 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+            className="w-32 overflow-hidden bg-slate-200 dark:bg-slate-800"
           >
             <Image
               mode="cover"
@@ -72,7 +74,7 @@ export const Hit = ({ hit }: HitProps) => {
             />
           </Typography.TextMuted>
           <Typography.TextMuted>
-            {translations.readMore} <MoveRight className="inline h-4 w-4" />
+            {t("readMore")} <MoveRight className="inline h-4 w-4" />
           </Typography.TextMuted>
         </div>
       </a>

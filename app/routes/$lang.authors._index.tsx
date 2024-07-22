@@ -53,7 +53,7 @@ export default function AuthorsIndexRoute() {
           return (
             <div
               key={author.name}
-              className="mb-4 overflow-hidden rounded-md bg-slate-50 p-4 dark:bg-slate-800"
+              className="relative mb-4 overflow-hidden rounded-md bg-slate-50 p-4 dark:bg-slate-800"
             >
               <UserMediaObject
                 name={author.name}
@@ -61,16 +61,19 @@ export default function AuthorsIndexRoute() {
                 content={
                   <div className="space-y-4">
                     <Typography.H3>{author.name}</Typography.H3>
-                    <Typography.TextMuted>
+                    {typeof author.title === "string" && (
+                      <Typography.H4>{author.title}</Typography.H4>
+                    )}
+                    <Typography.TextMuted className="line-clamp-3">
                       {author.bio[lang]}
                     </Typography.TextMuted>
                     <Typography.TextSmall>
                       <Link
                         prefetch="intent"
                         to={linkTo}
-                        className="text-red-600 hover:text-red-500"
+                        className="text-red-600 before:absolute before:inset-0 hover:text-red-500"
                       >
-                        {translations.viewAll}{" "}
+                        {translations.readMore}{" "}
                         <MoveRight className="inline h-4 w-4" />
                       </Link>
                     </Typography.TextSmall>

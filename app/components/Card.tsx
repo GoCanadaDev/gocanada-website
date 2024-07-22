@@ -3,15 +3,16 @@ import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { useTranslate } from "~/lib/useTranslate"
-import { MoveRight } from "lucide-react"
 import { AspectRatio } from "./ui/aspect-ratio"
 
 export default function Card({
   post,
   showExcerpt,
+  isLarge,
 }: {
   post: PostPreview
   showExcerpt?: boolean
+  isLarge?: boolean
 }) {
   const { translations } = useTranslate()
 
@@ -25,7 +26,7 @@ export default function Card({
       {post.mainImage && post.mainImage?.id ? (
         <AspectRatio
           ratio={3 / 2}
-          className="mb-4 overflow-hidden rounded-md bg-slate-200 dark:bg-slate-800"
+          className="mb-4 overflow-hidden bg-slate-200 dark:bg-slate-800"
         >
           <Link prefetch="intent" to={linkTo}>
             <Image
@@ -49,7 +50,7 @@ export default function Card({
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (
-          <Typography.Paragraph>
+          <Typography.Paragraph className={isLarge ? "" : "line-clamp-3"}>
             {post.excerpt[post.language]}
           </Typography.Paragraph>
         ) : null}
@@ -62,7 +63,7 @@ export default function Card({
               post.title[post.language]
             }`}
           >
-            {translations.readMore} <MoveRight className="inline h-4 w-4" />
+            <span className="sr-only">{translations.readMore}</span>
           </Link>
         </p>
       </div>

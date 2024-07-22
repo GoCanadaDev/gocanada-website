@@ -157,7 +157,7 @@ export default function Slug() {
         </div>
       </article>
 
-      <div className="my-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="mx-auto my-12 grid max-w-screen-xl grid-cols-1 gap-8 lg:grid-cols-2">
         {[post.previousPost, post.nextPost].map((previousOrNextPost, index) => {
           if (!previousOrNextPost || !previousOrNextPost.title)
             return <div key="">&nbsp;</div>

@@ -10,6 +10,14 @@ export type Author = {
   name: string
   slug: Slug["current"]
   bio: LocalizedString
+  title: string
+  website?: string
+  instagram?: string
+  threads?: string
+  twitter?: string
+  youtube?: string
+  facebook?: string
+  email?: string
   language: SupportedLanguages
   image: {
     id: string
@@ -26,6 +34,14 @@ export const authorsProjection = `
     "en": bio.en,
     "fr": bio.fr,
   },
+  "title": title,
+  "website": website,
+  "instagram": instagram,
+  "threads": threads,
+  "twitter": twitter,
+  "youtube": youtube,
+  "facebook": facebook,
+  "email": email,
   "language": $language,
   image{
     ...,

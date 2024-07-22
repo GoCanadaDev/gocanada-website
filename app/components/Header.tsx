@@ -1,6 +1,5 @@
 import { Logo } from "~/components/Logo"
 import { ThemeToggle } from "~/components/ThemeToggle"
-import { LanguageToggle } from "~/components/LanguageToggle"
 import { Instagram } from "lucide-react"
 import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
@@ -35,13 +34,13 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
               </animated.span>
               <span className="pl-2">@canada</span>
             </a>
-            <Separator
+            {/* <Separator
               orientation="vertical"
               className="hidden h-6 md:inline-flex"
-            />
-            <div className="hidden md:inline-flex">
+            /> */}
+            {/* <div className="hidden md:inline-flex">
               <LanguageToggle translationUrl={translationUrl} />
-            </div>
+            </div> */}
             <Separator
               orientation="vertical"
               className="hidden h-6 md:inline-flex"

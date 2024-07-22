@@ -22,6 +22,11 @@ export const authorType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+    }),
+    defineField({
       name: "image",
       title: "Image",
       type: "image",
@@ -32,8 +37,48 @@ export const authorType = defineType({
     }),
     defineField({
       name: "bio",
-      type: "localeString",
+      type: "localeText",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "website",
+      title: "Website",
+      type: "url",
+    }),
+    defineField({
+      name: "instagram",
+      title: "Instagram",
+      description: "Instagram username, without the @",
+      type: "string",
+    }),
+    defineField({
+      name: "threads",
+      title: "Threads",
+      description: "Threads username, without the @",
+      type: "string",
+    }),
+    defineField({
+      name: "twitter",
+      title: "Twitter",
+      description: "Twitter username, without the @",
+      type: "string",
+    }),
+    defineField({
+      name: "youtube",
+      title: "YouTube",
+      description: "YouTube channel URL",
+      type: "url",
+    }),
+    defineField({
+      name: "facebook",
+      title: "Facebook",
+      description: "Facebook page URL",
+      type: "url",
+    }),
+    defineField({
+      name: "email",
+      title: "Email",
+      type: "string",
     }),
   ],
   preview: {
