@@ -16,7 +16,7 @@ export const useTranslations = async (t: TFunction<Namespace, undefined>) => {
   const search = t("search")
   const terms = t("terms")
   const toggleTheme = t("toggleTheme")
-  const viewAll = t("viewAll")
+  const viewAll = t("viewAll", { lng: "en" })
 
   return {
     about,
