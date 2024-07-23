@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog"
-import { useTranslate } from "~/lib/useTranslate"
 import { useState } from "react"
 import {
   Tooltip,
@@ -17,7 +16,6 @@ import {
 } from "~/components/ui/tooltip"
 
 const SearchModal = () => {
-  const { translations } = useTranslate()
   const [modalOpen, setModalOpen] = useState(false)
 
   return (
@@ -30,13 +28,13 @@ const SearchModal = () => {
                 <Search className="inline" />
               </div>
             </TooltipTrigger>
-            <TooltipContent>{translations.search}</TooltipContent>
+            <TooltipContent>Search</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{translations.search}</DialogTitle>
+          <DialogTitle>Search</DialogTitle>
 
           <Form
             className="flex gap-4"
@@ -59,7 +57,7 @@ const SearchModal = () => {
                 }}
                 className="flex w-full items-center justify-center gap-1 rounded-md bg-slate-100 p-4 text-center dark:bg-slate-800"
               >
-                <Search size={16} /> {translations.search}
+                <Search size={16} /> Search
               </button>
             </div>
           </Form>

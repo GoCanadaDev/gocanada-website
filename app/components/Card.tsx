@@ -2,7 +2,6 @@ import { Link } from "@remix-run/react"
 import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
-import { useTranslate } from "~/lib/useTranslate"
 import { AspectRatio } from "./ui/aspect-ratio"
 
 export default function Card({
@@ -14,8 +13,6 @@ export default function Card({
   showExcerpt?: boolean
   isLarge?: boolean
 }) {
-  const { translations } = useTranslate()
-
   const linkTo = `/${post.language}/${post.slug[post.language]}`
   if (!post) {
     return null
@@ -37,9 +34,7 @@ export default function Card({
               preview={post.mainImage.preview ?? ""}
               loading="eager"
               className="transition-transform hover:scale-[1.05]"
-              aria-label={`${translations.readMore}: ${
-                post.title[post.language]
-              }`}
+              aria-label={`Read more: ${post.title[post.language]}`}
             />
           </Link>
         </AspectRatio>
@@ -59,11 +54,9 @@ export default function Card({
             className="text-sm before:absolute before:inset-0"
             prefetch="intent"
             to={linkTo}
-            aria-label={`${translations.readMore}: ${
-              post.title[post.language]
-            }`}
+            aria-label={`Read more: ${post.title[post.language]}`}
           >
-            <span className="sr-only">{translations.readMore}</span>
+            <span className="sr-only">Read more</span>
           </Link>
         </p>
       </div>

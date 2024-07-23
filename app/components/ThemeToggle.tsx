@@ -13,7 +13,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
-import { useTranslate } from "~/lib/useTranslate"
 
 export function ThemeToggle() {
   const [switchOn] = useSound(onSound)
@@ -21,7 +20,6 @@ export function ThemeToggle() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
 
   const { themePreference } = useRootLoaderData()
-  const { translations } = useTranslate()
 
   const isDarkMode = themePreference === "dark"
 
@@ -38,7 +36,7 @@ export function ThemeToggle() {
               style={style}
               onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
               type="submit"
-              aria-label={translations.toggleTheme}
+              aria-label={"Toggle theme"}
               onClick={() => {
                 isDarkMode ? switchOn() : switchOff()
               }}
@@ -47,7 +45,7 @@ export function ThemeToggle() {
               {isDarkMode ? <Sun /> : <Moon />}
             </animated.button>
           </TooltipTrigger>
-          <TooltipContent>{translations.toggleTheme}</TooltipContent>
+          <TooltipContent>Toggle theme</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </Form>

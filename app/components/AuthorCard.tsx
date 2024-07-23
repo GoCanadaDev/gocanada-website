@@ -13,7 +13,6 @@ import {
 } from "lucide-react"
 import { Image } from "~/components/Image"
 import { Link } from "@remix-run/react"
-import { useTranslate } from "~/lib/useTranslate"
 
 enum AuthorLinksKeys {
   Website = "website",
@@ -32,8 +31,6 @@ export default function AuthorCard({
   author: Author
   showLinkToAuthorPage?: boolean
 }) {
-  const { translations } = useTranslate()
-
   const getUrl = (key: AuthorLinksKeys) => {
     switch (key) {
       case AuthorLinksKeys.Website:
@@ -146,7 +143,7 @@ export default function AuthorCard({
             className="text-red-600 hover:text-red-500"
             prefetch="intent"
           >
-            {translations.viewAll} posts by {author.name}{" "}
+            View all posts by {author.name}{" "}
             <MoveRight className="inline h-4 w-4" />
           </Link>
         </div>

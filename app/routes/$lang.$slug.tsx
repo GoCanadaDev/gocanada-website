@@ -18,7 +18,6 @@ import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { useTranslate } from "~/lib/useTranslate"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
@@ -78,7 +77,6 @@ export const loader: LoaderFunction = async ({
 
 export default function Slug() {
   const { post } = useLoaderData() as LoaderDataType
-  const { translations } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const formattedDate = useFormattedDate(post._createdAt, post.language)
 
@@ -156,9 +154,7 @@ export default function Slug() {
                   className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
                   prefetch="intent"
                   to={`/${post.language}/${post.slug[post.language]}`}
-                  aria-label={`${translations.readMore}: ${
-                    post.title[post.language]
-                  }`}
+                  aria-label={`Read more: ${post.title[post.language]}`}
                 >
                   <ChevronLeft className="size-8" />
                 </Link>
@@ -171,7 +167,7 @@ export default function Slug() {
                   to={`/${previousOrNextPost.language}/${
                     previousOrNextPost.slug[previousOrNextPost.language]
                   }`}
-                  aria-label={`${translations.readMore}: ${
+                  aria-label={`Read more: ${
                     previousOrNextPost.title[previousOrNextPost.language]
                   }`}
                 >

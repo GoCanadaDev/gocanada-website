@@ -6,7 +6,6 @@ import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Tag, getTags } from "~/sanity/queries"
-import { useTranslate } from "~/lib/useTranslate"
 import { MoveRight, Tag as TagIcon } from "lucide-react"
 import { SITE_META } from "~/lib/utils"
 
@@ -37,7 +36,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function TagIndexRoute() {
   const { tags } = useLoaderData() as IndexLoaderData
   const params = useParams()
-  const { translations } = useTranslate()
   const lang = params.lang as SupportedLanguages
 
   return (
@@ -67,8 +65,7 @@ export default function TagIndexRoute() {
                       to={linkTo}
                       className="text-red-600 hover:text-red-500"
                     >
-                      {translations.viewAll}{" "}
-                      <MoveRight className="inline h-4 w-4" />
+                      View all <MoveRight className="inline h-4 w-4" />
                     </Link>
                   </Typography.TextSmall>
                 </div>

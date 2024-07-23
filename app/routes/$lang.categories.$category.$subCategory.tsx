@@ -7,7 +7,6 @@ import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Separator } from "~/components/ui/separator"
-import { useTranslate } from "~/lib/useTranslate"
 import { client } from "~/sanity/client"
 import {
   Category,
@@ -71,7 +70,6 @@ export const loader: LoaderFunction = async ({
 
 export default function SubCategoryByNameRoute() {
   const { category, subCategory } = useLoaderData() as LoaderDataType
-  const { translations } = useTranslate()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/categories/${subCategory.slug[otherLanguage]}`
 
@@ -83,7 +81,7 @@ export default function SubCategoryByNameRoute() {
         }`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> {translations.viewAll}{" "}
+        <MoveLeft className="inline h-4 w-4" /> View all{" "}
         {`"${category.title[category.language]}"`}
       </Link>
       <div className="holy-grail space-y-8 text-center">

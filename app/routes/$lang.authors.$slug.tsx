@@ -13,7 +13,6 @@ import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { MoveLeft, Search } from "lucide-react"
 import { SITE_META } from "~/lib/utils"
 import AuthorCard from "~/components/AuthorCard"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -55,7 +54,6 @@ export const loader: LoaderFunction = async ({
 
 export default function AuthorBySlugRoute() {
   const { author } = useLoaderData() as LoaderDataType
-  const { viewAll } = useRootLoaderData()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
 
@@ -65,7 +63,7 @@ export default function AuthorBySlugRoute() {
         to={`/${author.language}/authors`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> {viewAll}
+        <MoveLeft className="inline h-4 w-4" /> View all
       </Link>
       <AuthorCard author={author} />
       <Separator className="my-8" />

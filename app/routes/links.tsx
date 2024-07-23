@@ -5,7 +5,6 @@ import { client } from "~/sanity/client"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Image } from "~/components/Image"
-import { useTranslate } from "~/lib/useTranslate"
 import { SITE_META } from "~/lib/utils"
 import { LinksPageType, getLinks } from "~/sanity/queries/links"
 import { urlForImage } from "~/lib/sanity.image"
@@ -46,7 +45,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function Links() {
   const { linksPageData } = useLoaderData() as LoaderDataType
-  const { translations } = useTranslate()
 
   return (
     <Layout>
@@ -88,12 +86,12 @@ export default function Links() {
                     <Image
                       mode="cover"
                       id={link.image.id}
-                      alt={`${translations.readMore}: ${link.title}`}
+                      alt={`Read more: ${link.title}`}
                       width={500}
                       preview={link.image.preview ?? ""}
                       loading="eager"
                       className="transition-transform hover:scale-[1.02]"
-                      aria-label={`${translations.readMore}: ${link.title}`}
+                      aria-label={`Read more: ${link.title}`}
                     />
                   </a>
                 </div>

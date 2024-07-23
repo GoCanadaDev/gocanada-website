@@ -8,7 +8,6 @@ import { Typography } from "~/components/Typography"
 import { Author, getAuthors } from "~/sanity/queries"
 import UserMediaObject from "~/components/UserMediaObject"
 import { MoveRight } from "lucide-react"
-import { useTranslate } from "~/lib/useTranslate"
 import { SITE_META } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = () => {
@@ -38,7 +37,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 export default function AuthorsIndexRoute() {
   const { authors } = useLoaderData() as IndexLoaderData
   const params = useParams()
-  const { translations } = useTranslate()
   const lang = params.lang as SupportedLanguages
 
   return (
@@ -73,8 +71,7 @@ export default function AuthorsIndexRoute() {
                         to={linkTo}
                         className="text-red-600 before:absolute before:inset-0 hover:text-red-500"
                       >
-                        {translations.readMore}{" "}
-                        <MoveRight className="inline h-4 w-4" />
+                        Read more <MoveRight className="inline h-4 w-4" />
                       </Link>
                     </Typography.TextSmall>
                   </div>

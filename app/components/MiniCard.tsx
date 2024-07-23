@@ -2,7 +2,6 @@ import { Link } from "@remix-run/react"
 import { PostPreview, Post, NextOrPreviousPostType } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
-import { useTranslate } from "~/lib/useTranslate"
 import { AspectRatio } from "./ui/aspect-ratio"
 
 export const MiniCard = ({
@@ -12,8 +11,6 @@ export const MiniCard = ({
   post: Post | PostPreview | NextOrPreviousPostType
   reverse?: boolean
 }) => {
-  const { translations } = useTranslate()
-
   return (
     <article
       className={`group relative flex gap-8 ${reverse ? "text-right" : ""}`}
@@ -33,9 +30,7 @@ export const MiniCard = ({
               height={300}
               preview={post.mainImage.preview ?? ""}
               loading="lazy"
-              aria-label={`${translations.readMore}: ${
-                post.title[post.language]
-              }`}
+              aria-label={`Read more: ${post.title[post.language]}`}
             />
           </AspectRatio>
         ) : null}
@@ -54,11 +49,9 @@ export const MiniCard = ({
             className="text-sm before:absolute before:inset-0"
             prefetch="intent"
             to={`/${post.language}/${post.slug[post.language]}`}
-            aria-label={`${translations.readMore}: ${
-              post.title[post.language]
-            }`}
+            aria-label={`Read more: ${post.title[post.language]}`}
           >
-            <span className="sr-only">{translations.readMore}</span>
+            <span className="sr-only">Read more</span>
           </Link>
         </p>
       </div>

@@ -14,7 +14,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
-import { useTranslate } from "~/lib/useTranslate"
 
 export function LanguageToggle({
   translationUrl,
@@ -29,7 +28,6 @@ export function LanguageToggle({
     t,
   } = useTranslation()
   const [defaultValue, setDefaultValue] = useState(translationUrl)
-  const { translations } = useTranslate()
 
   useEffect(() => {
     setDefaultValue(translationUrl)
@@ -54,7 +52,7 @@ export function LanguageToggle({
               <button
                 onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
                 type="submit"
-                aria-label={translations.currentLanguage}
+                aria-label={t("currentLanguage")}
                 className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
                 onClick={() => {
                   play()
@@ -72,7 +70,7 @@ export function LanguageToggle({
               </button>
             )}
           </TooltipTrigger>
-          <TooltipContent>{translations.currentLanguage}</TooltipContent>
+          <TooltipContent>{t("currentLanguage")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </Form>
