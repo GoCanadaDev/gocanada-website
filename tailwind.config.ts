@@ -59,8 +59,9 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Roboto Condensed", "Inter", "sans-serif"],
-        serif: ["PT Serif", "serif"],
+        sans: ["Open Sans", "Roboto", "Inter", "sans-serif"],
+        serif: ["Rasa", "PT Serif", "serif"],
+        lead: ["Roboto", "Open Sans", "Inter", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

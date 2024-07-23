@@ -46,7 +46,7 @@ export default function Card({
       ) : null}
       <div className="relative space-y-4">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
-        <Typography.H3 className="uppercase tracking-wide transition-colors duration-700 group-hover:text-red-500">
+        <Typography.H3 className="transition-colors duration-700 group-hover:text-red-500">
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (

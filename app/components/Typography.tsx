@@ -9,7 +9,7 @@ type TypographyProps = {
 const H1 = ({ children, className }: TypographyProps) => (
   <h1
     className={cn(
-      "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+      "scroll-m-20 font-serif text-4xl font-extrabold tracking-tight lg:text-5xl",
       className
     )}
   >
@@ -20,7 +20,7 @@ const H1 = ({ children, className }: TypographyProps) => (
 const H2 = ({ children, className }: TypographyProps) => (
   <h2
     className={cn(
-      "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+      "scroll-m-20 border-b pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
       className
     )}
   >
@@ -31,7 +31,7 @@ const H2 = ({ children, className }: TypographyProps) => (
 const H3 = ({ children, className }: TypographyProps) => (
   <h3
     className={cn(
-      "scroll-m-20 text-2xl font-semibold tracking-tight",
+      "scroll-m-20 font-serif text-2xl font-semibold tracking-tight",
       className
     )}
   >
@@ -71,7 +71,7 @@ const UL = ({ children, className }: TypographyProps) => (
 const InlineCode = ({ children, className }: TypographyProps) => (
   <code
     className={cn(
-      "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+      "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
       className
     )}
   >
@@ -80,7 +80,7 @@ const InlineCode = ({ children, className }: TypographyProps) => (
 )
 
 const Lead = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-2xl lg:text-3xl", className)}>{children}</p>
+  <p className={cn("font-lead text-xl lg:text-2xl", className)}>{children}</p>
 )
 
 const TextLarge = ({ children, className }: TypographyProps) => (
