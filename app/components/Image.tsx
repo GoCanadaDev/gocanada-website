@@ -1,4 +1,5 @@
 import { SanityImage } from "sanity-image"
+import { cn } from "~/lib/utils"
 
 import { dataset, projectId } from "~/sanity/projectDetails"
 const baseUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
@@ -9,4 +10,11 @@ export const Image = (
     React.ComponentProps<typeof SanityImage>,
     "baseUrl" | "dataset" | "projectId"
   >
-) => <SanityImage baseUrl={baseUrl} id={props.id} {...props} />
+) => (
+  <SanityImage
+    baseUrl={baseUrl}
+    id={props.id}
+    {...props}
+    className={cn("pointer-events-none", props.className)}
+  />
+)

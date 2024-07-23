@@ -22,7 +22,7 @@ export function UserMediaObject({
   hoverCardContent,
 }: UserMediaObjectProps) {
   const renderAvatar = () => (
-    <Avatar>
+    <Avatar className="border">
       <AvatarImage src={urlForImage(image)?.width(96).height(96).url()} />
       <AvatarFallback>
         {

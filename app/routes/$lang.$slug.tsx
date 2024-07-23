@@ -23,6 +23,7 @@ import { useTranslate } from "~/lib/useTranslate"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
+import AuthorCard from "~/components/AuthorCard"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -86,7 +87,7 @@ export default function Slug() {
 
   return (
     <Layout translationUrl={translationUrl}>
-      <article className="">
+      <article className="mb-24">
         <div className="w-full">
           <HeroImage
             id={post.mainImage.id}
@@ -101,7 +102,7 @@ export default function Slug() {
             image={post.author.image}
             hoverCardContent={
               <>
-                <Typography.TextMuted>
+                <Typography.TextMuted className="line-clamp-2">
                   {post.author.bio[post.language]}
                 </Typography.TextMuted>
                 <Typography.TextSmall>
@@ -110,7 +111,7 @@ export default function Slug() {
                     to={`/${post.language}/authors/${post.author.slug}`}
                     className="text-red-600 hover:text-red-500"
                   >
-                    {translations.viewAll}
+                    {translations.readMore}
                     {""}
                     <MoveRight className="inline h-4 w-4" />
                   </Link>
@@ -155,6 +156,11 @@ export default function Slug() {
         <div className="holy-grail prose prose-xl prose-slate mx-4 my-12 max-w-none lg:prose-2xl dark:prose-invert prose-p:my-4 prose-a:text-red-600 hover:prose-a:text-red-500 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
+        <div className="space-y-24">
+          <Separator />
+          <AuthorCard author={post.author} showLinkToAuthorPage />
+          <Separator />
+        </div>
       </article>
 
       <div className="mx-auto my-12 grid max-w-screen-xl grid-cols-1 gap-8 lg:grid-cols-2">
@@ -164,7 +170,7 @@ export default function Slug() {
           return (
             <div
               key={previousOrNextPost._id}
-              className={`group relative flex items-center gap-4 ${
+              className={`group relative flex items-center gap-4 px-8 ${
                 index === 1 ? "justify-end" : "justify-start"
               }`}
             >

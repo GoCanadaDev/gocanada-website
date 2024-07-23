@@ -34,6 +34,11 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
               </animated.span>
               <span className="pl-2">@canada</span>
             </a>
+            <Separator
+              orientation="vertical"
+              className="hidden h-6 md:inline-flex"
+            />
+            <SearchModal />
             {/* <Separator
               orientation="vertical"
               className="hidden h-6 md:inline-flex"
@@ -59,11 +64,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
       <div className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
         <div className="container mx-auto flex items-center justify-between lg:px-12">
           <Navigation />
-          <div className="flex items-center gap-4">
-            <SearchModal />
-            <Separator orientation="vertical" className="h-6" />
-            Subscribe
-          </div>
+          {/* <div className="flex items-center gap-4">Subscribe</div> */}
         </div>
       </div>
     </header>

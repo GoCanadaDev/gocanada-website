@@ -6,6 +6,7 @@ import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { Category } from "./categories"
 import { Tag } from "./tags"
+import { Author, authorsProjection } from "./authors"
 
 export const algoliaPostsProjection = `{
   "objectID": _id,
@@ -184,11 +185,29 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
       } 
     )
   },
-  "author": {
-    "name": author->name,
-    "slug": author->slug.current,
-    "image": author->image,
-    "bio": author->bio,
+  // not sure why authorsProjection wont work here 😢
+  "author": author->{
+    _id,
+    name,
+    "slug": slug.current,
+    "bio": {
+      "en": bio.en,
+      "fr": bio.fr,
+    },
+    "title": title,
+    "website": website,
+    "instagram": instagram,
+    "threads": threads,
+    "twitter": twitter,
+    "youtube": youtube,
+    "facebook": facebook,
+    "email": email,
+    "language": $language,
+    image{
+      ...,
+      "id": asset._ref,
+      "preview": asset->metadata.lqip,
+    },
   },
   "category": {
     "title": {
@@ -282,12 +301,7 @@ export type PostPreview = {
 }
 export type Post = PostPreview & {
   body: PortableTextBlock[]
-  author: {
-    name: string
-    slug: Slug["current"]
-    image: ImageAsset
-    bio: LocalizedString
-  }
+  author: Author
   tags: {
     title: Tag["title"]
     slug: Tag["slug"]
