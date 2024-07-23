@@ -9,12 +9,15 @@ export const Image = (
   props: Omit<
     React.ComponentProps<typeof SanityImage>,
     "baseUrl" | "dataset" | "projectId"
-  >
+  > & { disablePointerEvents?: boolean }
 ) => (
   <SanityImage
     baseUrl={baseUrl}
     id={props.id}
     {...props}
-    className={cn("pointer-events-none", props.className)}
+    className={cn(
+      props.disablePointerEvents ? "pointer-events-none" : "",
+      props.className
+    )}
   />
 )

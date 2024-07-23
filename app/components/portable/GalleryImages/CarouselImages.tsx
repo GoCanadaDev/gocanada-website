@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Image } from "~/components/Image"
 import { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
@@ -49,6 +49,7 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
             loading="lazy"
             className="left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2"
             alt={image.alt ?? ""}
+            disablePointerEvents
           />
         </div>
       ))}

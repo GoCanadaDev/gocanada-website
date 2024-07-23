@@ -1,5 +1,4 @@
 import { Search } from "lucide-react"
-import { MouseEventHandler } from "react"
 import { Form } from "@remix-run/react"
 import {
   Dialog,
@@ -10,8 +9,6 @@ import {
 } from "~/components/ui/dialog"
 import { useTranslate } from "~/lib/useTranslate"
 import { useState } from "react"
-import useBoop from "~/lib/useBoop"
-import { animated } from "react-spring"
 import {
   Tooltip,
   TooltipContent,
@@ -20,7 +17,6 @@ import {
 } from "~/components/ui/tooltip"
 
 const SearchModal = () => {
-  const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
   const { translations } = useTranslate()
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -30,15 +26,9 @@ const SearchModal = () => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <animated.button
-                style={style}
-                onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
-                type="button"
-                aria-label={translations.search}
-                className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
-              >
+              <div>
                 <Search className="inline" />
-              </animated.button>
+              </div>
             </TooltipTrigger>
             <TooltipContent>{translations.search}</TooltipContent>
           </Tooltip>

@@ -20,6 +20,7 @@ export const SingleImage = ({ value }: SingleImageProps) => {
         loading="lazy"
         className="w-full"
         alt={value.alt ?? ""}
+        disablePointerEvents
       />
       {value.attribution || value.caption ? (
         <div className={value.fullBleed ? "holy-grail" : undefined}>

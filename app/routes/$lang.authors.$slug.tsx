@@ -59,6 +59,8 @@ export default function AuthorBySlugRoute() {
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
 
+  console.log({ translations })
+
   return (
     <Layout useMargins translationUrl={translationUrl}>
       <Link
