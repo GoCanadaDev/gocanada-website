@@ -7,10 +7,11 @@ import {
 import { Typography } from "~/components/Typography"
 import { ImageAsset } from "sanity"
 import { urlForImage } from "~/lib/sanity.image"
+import { UserSquare2 } from "lucide-react"
 
 type UserMediaObjectProps = {
   name: string
-  image: ImageAsset
+  image?: ImageAsset
   content: React.ReactNode
   hoverCardContent?: React.ReactNode
 }
@@ -23,15 +24,11 @@ export function UserMediaObject({
 }: UserMediaObjectProps) {
   const renderAvatar = () => (
     <Avatar className="border">
-      <AvatarImage src={urlForImage(image)?.width(96).height(96).url()} />
-      <AvatarFallback>
-        {
-          // fake out initials by grabbing capitalized letters
-          name
-            .match(/(\b\S)?/g)!
-            .join("")
-            .toUpperCase()
-        }
+      {image && (
+        <AvatarImage src={urlForImage(image)?.width(96).height(96).url()} />
+      )}
+      <AvatarFallback className="text-slate-400">
+        <UserSquare2 className="size-8" />
       </AvatarFallback>
     </Avatar>
   )

@@ -103,9 +103,12 @@ export default function AuthorCard({
             id={author.image?.id}
             alt=""
             width={96}
+            height={96}
             preview={author.image.preview}
             loading="eager"
             className="transition-transform hover:scale-[1.05]"
+            hotspot={author.image.hotspot}
+            crop={author.image.crop}
           />
         ) : (
           <UserSquare2 className="size-16" />

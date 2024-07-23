@@ -4,7 +4,7 @@ import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
 import { PostPreview, postsProjection } from "./posts"
-import { ImageAsset, Slug } from "sanity"
+import { ImageAsset, ImageCrop, ImageHotspot, Slug } from "sanity"
 
 export type Author = {
   name: string
@@ -22,6 +22,8 @@ export type Author = {
   image?: {
     id: string
     preview: string
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
   } & ImageAsset
   posts?: PostPreview[]
 }
