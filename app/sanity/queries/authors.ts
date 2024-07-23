@@ -19,7 +19,7 @@ export type Author = {
   facebook?: string
   email?: string
   language: SupportedLanguages
-  image: {
+  image?: {
     id: string
     preview: string
   } & ImageAsset

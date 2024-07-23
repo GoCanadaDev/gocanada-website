@@ -8,6 +8,7 @@ import {
   Mail,
   MoveRight,
   Twitter,
+  UserSquare2,
   Youtube,
 } from "lucide-react"
 import { Image } from "~/components/Image"
@@ -95,16 +96,20 @@ export default function AuthorCard({
   })
   return (
     <div className="space-y-8 text-center">
-      <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border bg-slate-200 dark:bg-slate-800">
-        <Image
-          mode="cover"
-          id={author.image.id}
-          alt=""
-          width={96}
-          preview={author.image.preview ?? ""}
-          loading="eager"
-          className="transition-transform hover:scale-[1.05]"
-        />
+      <div className="mx-auto flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border bg-slate-200 text-slate-300 dark:bg-slate-800">
+        {author.image?.id ? (
+          <Image
+            mode="cover"
+            id={author.image?.id}
+            alt=""
+            width={96}
+            preview={author.image.preview}
+            loading="eager"
+            className="transition-transform hover:scale-[1.05]"
+          />
+        ) : (
+          <UserSquare2 className="size-16" />
+        )}
       </div>
       <Typography.H1>{author.name}</Typography.H1>
       {typeof author.title === "string" && (

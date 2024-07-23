@@ -33,7 +33,6 @@ export const authorType = defineType({
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "bio",
