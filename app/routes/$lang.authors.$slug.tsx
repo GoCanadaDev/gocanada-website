@@ -55,7 +55,7 @@ export const loader: LoaderFunction = async ({
 
 export default function AuthorBySlugRoute() {
   const { author } = useLoaderData() as LoaderDataType
-  const { translations } = useRootLoaderData()
+  const { viewAll } = useRootLoaderData()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
 
@@ -65,7 +65,7 @@ export default function AuthorBySlugRoute() {
         to={`/${author.language}/authors`}
         className="text-red-600 hover:text-red-500"
       >
-        <MoveLeft className="inline h-4 w-4" /> {translations.viewAll}
+        <MoveLeft className="inline h-4 w-4" /> {viewAll}
       </Link>
       <AuthorCard author={author} />
       <Separator className="my-8" />

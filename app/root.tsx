@@ -98,6 +98,7 @@ export type RootLoaderData = {
   showCookieBanner: boolean
   themePreference: string | undefined
   translations: Record<TranslationKey, string>
+  viewAll: string
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -151,6 +152,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const partners = await getPartners(client)
 
   let t = await i18next.getFixedT(request)
+  let viewAll = t("viewAll")
   const translations = await useTranslations(t)
 
   return json<RootLoaderData>(
@@ -167,6 +169,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       showCookieBanner: !gdprCookie.gdprConsent,
       themePreference,
       translations,
+      viewAll,
     },
     {
       headers,
