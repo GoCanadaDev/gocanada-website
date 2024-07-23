@@ -103,7 +103,7 @@ export async function getPosts(client: SanityStegaClient, language: string) {
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
-export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...5] | order(_createdAt desc){
+export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...6] | order(_createdAt desc){
   ${postsProjection}
 }`
 

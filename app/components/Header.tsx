@@ -27,12 +27,17 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
               href="https://instagram.com/canada"
-              className="rounded-md p-2 transition-colors duration-200 hover:text-red-500 focus:bg-slate-100 focus:text-red-500 focus:outline-none dark:focus:bg-slate-800"
+              className="flex flex-col items-center justify-center rounded-md p-2 transition-colors duration-200 hover:text-red-500 focus:bg-slate-100 focus:text-red-500 focus:outline-none dark:focus:bg-slate-800"
             >
-              <animated.span style={style} className="inline-block">
-                <Instagram className="inline" />
-              </animated.span>
-              <span className="pl-2">@canada</span>
+              <span className="text-xs font-light uppercase tracking-[6px]">
+                Follow Us
+              </span>
+              <span>
+                <animated.span style={style} className="inline-block">
+                  <Instagram className="inline" />
+                </animated.span>
+                <span className="pl-2">@canada</span>
+              </span>
             </a>
             <Separator
               orientation="vertical"
