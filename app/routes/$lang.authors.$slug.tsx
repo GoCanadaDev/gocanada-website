@@ -10,10 +10,10 @@ import { client } from "~/sanity/client"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Author, getAuthor } from "~/sanity/queries"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { useTranslate } from "~/lib/useTranslate"
 import { MoveLeft, Search } from "lucide-react"
 import { SITE_META } from "~/lib/utils"
 import AuthorCard from "~/components/AuthorCard"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -55,11 +55,9 @@ export const loader: LoaderFunction = async ({
 
 export default function AuthorBySlugRoute() {
   const { author } = useLoaderData() as LoaderDataType
-  const { translations } = useTranslate()
+  const { translations } = useRootLoaderData()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
-
-  console.log({ translations })
 
   return (
     <Layout useMargins translationUrl={translationUrl}>
