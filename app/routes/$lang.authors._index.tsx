@@ -65,15 +65,14 @@ export default function AuthorsIndexRoute() {
                     <Typography.TextMuted className="line-clamp-3">
                       {author.bio[lang]}
                     </Typography.TextMuted>
-                    <Typography.TextSmall>
-                      <Link
-                        prefetch="intent"
-                        to={linkTo}
-                        className="text-red-600 before:absolute before:inset-0 hover:text-red-500"
-                      >
-                        Read more <MoveRight className="inline h-4 w-4" />
-                      </Link>
-                    </Typography.TextSmall>
+
+                    <Link
+                      prefetch="intent"
+                      to={linkTo}
+                      className="text-red-600 before:absolute before:inset-0 hover:text-red-500"
+                    >
+                      <span className="sr-only">Read more</span>
+                    </Link>
                   </div>
                 }
               />

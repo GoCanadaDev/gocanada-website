@@ -43,7 +43,7 @@ const GalleryImages = ({ value }: GalleryImagesProps) => {
     case GalleryDisplay.TwoUp:
       return (
         <TwoUpImage
-          value={{ imageOne: value.images[0], imageTwo: value.images[1] }}
+          value={{ imageOne: value.images[0], imageTwo: value.images[1] ?? "" }}
         />
       )
     case GalleryDisplay.Carousel:

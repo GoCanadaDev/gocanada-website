@@ -33,7 +33,7 @@ export function UserMediaObject({
     </Avatar>
   )
   return (
-    <div className="mb-8 flex items-start">
+    <div className="flex items-start">
       {hoverCardContent ? (
         <HoverCard>
           <HoverCardTrigger asChild>
