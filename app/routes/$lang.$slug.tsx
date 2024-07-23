@@ -18,7 +18,6 @@ import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { UserMediaObject } from "~/components/UserMediaObject"
 import { useTranslate } from "~/lib/useTranslate"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
@@ -97,55 +96,20 @@ export default function Slug() {
           />
         </div>
         <div className="holy-grail mx-4 my-12 max-w-none text-xl">
-          <UserMediaObject
-            name={post.author.name}
-            image={post.author.image}
-            hoverCardContent={
-              <>
-                <Typography.TextMuted className="line-clamp-2">
-                  {post.author.bio[post.language]}
-                </Typography.TextMuted>
-                <Typography.TextSmall>
-                  <Link
-                    prefetch="intent"
-                    to={`/${post.language}/authors/${post.author.slug}`}
-                    className="text-red-600 hover:text-red-500"
-                  >
-                    {translations.readMore}
-                    {""}
-                    <MoveRight className="inline h-4 w-4" />
-                  </Link>
-                </Typography.TextSmall>
-              </>
-            }
-            content={
-              <>
-                <Typography.Paragraph>
-                  <Link
-                    prefetch="intent"
-                    to={`/${post.language}/authors/${post.author.slug}`}
-                    className=""
-                  >
-                    {post.author.name}
-                  </Link>
-                </Typography.Paragraph>
-                <Typography.TextMuted>{formattedDate}</Typography.TextMuted>
-              </>
-            }
-          />
+          <Typography.Paragraph className="text-center">
+            By{" "}
+            <Link
+              prefetch="intent"
+              to={`/${post.language}/authors/${post.author.slug}`}
+              className=""
+            >
+              {post.author.name}
+            </Link>
+          </Typography.Paragraph>
+          <Typography.TextMuted className="mb-16 text-center">
+            {formattedDate}
+          </Typography.TextMuted>
 
-          <div className="mb-8">
-            {post.tags.map((tag) => (
-              <Link
-                prefetch="intent"
-                key={tag.title[post.language]}
-                to={`/${post.language}/tags/${tag.slug[post.language]}`}
-                className="me-2 inline-block rounded bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
-              >
-                {tag.title[post.language]}
-              </Link>
-            ))}
-          </div>
           <div className="mb-12 w-full text-center">
             <Typography.Lead className="italic">
               {post.excerpt[post.language]}
@@ -155,6 +119,19 @@ export default function Slug() {
         </div>
         <div className="holy-grail prose prose-xl prose-slate mx-4 my-12 max-w-none lg:prose-2xl dark:prose-invert prose-p:my-4 prose-a:text-red-600 hover:prose-a:text-red-500 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
           <PortableText value={post.body} components={PortableTextComponents} />
+        </div>
+        <div className="mx-auto my-16 flex max-w-lg justify-center gap-4">
+          {post.tags.map((tag) => (
+            <div key={tag.title[post.language]} className="">
+              <Link
+                prefetch="intent"
+                to={`/${post.language}/tags/${tag.slug[post.language]}`}
+                className="rounded bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
+              >
+                {tag.title[post.language]}
+              </Link>
+            </div>
+          ))}
         </div>
         <div className="space-y-24">
           <Separator />
