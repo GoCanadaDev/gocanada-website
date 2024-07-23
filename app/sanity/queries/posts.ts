@@ -231,6 +231,8 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     },
   },
   "language": $language,
+  "showDate": showDate,
+  "mainImageFullBleed": mainImageFullBleed,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
@@ -270,6 +272,8 @@ export type NextOrPreviousPostType = {
     title: Category["title"]
     slug: Category["slug"]
   }
+  showDate: boolean
+  mainImageFullBleed: boolean
   mainImage: {
     id: string
     preview: string
@@ -293,6 +297,8 @@ export type PostPreview = {
     title: Category["title"]
     slug: Category["slug"]
   }
+  showDate: boolean
+  mainImageFullBleed: boolean
   mainImage: {
     id: string
     preview: string

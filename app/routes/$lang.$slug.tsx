@@ -3,6 +3,8 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node"
+import { SanityImage } from "sanity-image"
+import { baseUrl } from "~/sanity/projectDetails"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
 import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react"
@@ -22,6 +24,7 @@ import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
+import { Image } from "~/components/Image"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -86,27 +89,69 @@ export default function Slug() {
     <Layout translationUrl={translationUrl}>
       <article className="mb-24">
         <div className="w-full">
-          <HeroImage
-            id={post.mainImage.id}
-            title={post.title[post.language]}
-            category={post.category}
-            preview={post.mainImage.preview}
-          />
+          {post.mainImageFullBleed ? (
+            <HeroImage
+              id={post.mainImage.id}
+              title={post.title[post.language]}
+              category={post.category}
+              preview={post.mainImage.preview}
+            />
+          ) : (
+            <div>
+              <SanityImage
+                id={post.mainImage.id}
+                baseUrl={baseUrl}
+                preview={post.mainImage.preview}
+                width={1440}
+                loading="eager"
+                className="mx-auto mb-8 w-10/12 max-w-7xl select-none object-cover"
+                alt=""
+              />
+              {/* <Image
+                id={post.mainImage.id}
+                preview={post.mainImage.preview}
+                className="max-w-10/12 mx-auto"
+              /> */}
+              <div className="mx-auto flex max-w-[100ch] flex-col items-center justify-center px-8 text-center">
+                <Typography.H4 className="mb-2">
+                  <Link
+                    prefetch="intent"
+                    to={`/${post.language}/categories/${
+                      post.category.slug[
+                        post.language as keyof typeof post.category.title
+                      ]
+                    }`}
+                  >
+                    {
+                      post.category.title[
+                        post.language as keyof typeof post.category.title
+                      ]
+                    }
+                  </Link>
+                </Typography.H4>
+                <Typography.H1 className="">
+                  {post.title[post.language]}
+                </Typography.H1>
+              </div>
+            </div>
+          )}
         </div>
         <div className="holy-grail mx-4 my-12 max-w-none text-xl">
-          <Typography.Paragraph className="text-center">
-            By{" "}
-            <Link
-              prefetch="intent"
-              to={`/${post.language}/authors/${post.author.slug}`}
-              className=""
-            >
-              {post.author.name}
-            </Link>
-          </Typography.Paragraph>
-          <Typography.TextMuted className="mb-16 text-center">
-            {formattedDate}
-          </Typography.TextMuted>
+          <div className="mb-16 text-center">
+            <Typography.Paragraph>
+              By{" "}
+              <Link
+                prefetch="intent"
+                to={`/${post.language}/authors/${post.author.slug}`}
+                className="hover:text-red-500"
+              >
+                {post.author.name}
+              </Link>
+            </Typography.Paragraph>
+            {post.showDate && (
+              <Typography.TextMuted>{formattedDate}</Typography.TextMuted>
+            )}
+          </div>
 
           <div className="mb-12 w-full text-center">
             <Typography.Lead className="italic">

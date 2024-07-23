@@ -1,10 +1,9 @@
 import { SanityImage } from "sanity-image"
 
-import { dataset, projectId } from "~/sanity/projectDetails"
+import { baseUrl } from "~/sanity/projectDetails"
 import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
 import { Post } from "~/sanity/queries"
-const baseUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
 
 type HeroImageProps = {
   id: string
@@ -17,7 +16,7 @@ export const HeroImage = ({ id, title, category, preview }: HeroImageProps) => {
   const params = useParams()
 
   return (
-    <section className="h-svh relative transition-all">
+    <section className="relative h-svh transition-all">
       <SanityImage
         id={id}
         baseUrl={baseUrl}

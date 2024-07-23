@@ -40,6 +40,18 @@ export const postType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "mainImageFullBleed",
+      title: "Full Bleed Main Image & Title",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
+      name: "showDate",
+      title: "Show Date",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "reference",

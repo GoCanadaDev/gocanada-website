@@ -29,6 +29,7 @@ export const dataset = SANITY_STUDIO_DATASET!
 export const apiVersion = SANITY_STUDIO_API_VERSION!
 export const studioUrl = SANITY_STUDIO_URL!
 export const useStega = SANITY_STUDIO_USE_STEGA === "true"
+export const baseUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
 
 export const algoliaApplicationId = ALGOLIA_APPLICATION_ID!
 
