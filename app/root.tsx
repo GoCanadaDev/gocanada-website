@@ -37,6 +37,7 @@ import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages"
 import { CookieBanner } from "./components/CookieBanner"
 import { useTranslations } from "./lib/useTranslations"
 import { TranslationKey } from "./lib/flattenMessages"
+import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -77,14 +78,6 @@ export const links: LinksFunction = () => [
   },
 ]
 
-export const meta: MetaFunction = () => [
-  {
-    charset: "utf-8",
-    title: "GoCanada",
-    viewport: "width=device-width,initial-scale=1",
-  },
-]
-
 export type RootLoaderData = {
   bodyClassNames: string
   categories: Category[]
@@ -96,6 +89,7 @@ export type RootLoaderData = {
   params: {}
   partners: Partner[]
   showCookieBanner: boolean
+  siteConfig: SiteConfigType
   themePreference: string | undefined
   translations: Record<TranslationKey, string>
 }
@@ -149,6 +143,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const categories = await getCategories(client, locale)
   const footerLinks = await getFooterLinks(client, locale)
   const partners = await getPartners(client)
+  const siteConfig = await getSiteConfig(client)
 
   let t = await i18next.getFixedT(request)
   const translations = await useTranslations(t)
@@ -165,6 +160,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       params: {},
       partners,
       showCookieBanner: !gdprCookie.gdprConsent,
+      siteConfig,
       themePreference,
       translations,
     },
@@ -190,7 +186,8 @@ export default function App() {
     langPreference,
     isStudioRoute,
     showCookieBanner,
-  } = useLoaderData<typeof loader>()
+    siteConfig,
+  } = useLoaderData<RootLoaderData>()
 
   const { i18n } = useTranslation()
 
@@ -206,6 +203,7 @@ export default function App() {
         <Meta />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>{siteConfig.siteTitle}</title>
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>

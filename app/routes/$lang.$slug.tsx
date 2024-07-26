@@ -3,8 +3,6 @@ import type {
   LoaderFunctionArgs,
   MetaFunction,
 } from "@remix-run/node"
-import { SanityImage } from "sanity-image"
-import { baseUrl } from "~/sanity/projectDetails"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
 import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react"
@@ -24,7 +22,6 @@ import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
-import { Image } from "~/components/Image"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

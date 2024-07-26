@@ -7,6 +7,7 @@ import {
   FolderInput,
   HeartHandshake,
   Link,
+  Cog,
 } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
@@ -44,6 +45,7 @@ export const structure: StructureResolver = (S) =>
         .title("Partners")
         .icon(HeartHandshake),
       S.divider(),
+      S.documentTypeListItem("siteConfigType").title("Site Config").icon(Cog),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (

@@ -13,6 +13,7 @@ import { localeText } from "~/sanity/schema/localeText"
 import { partnerType } from "~/sanity/schema/partners"
 import { pinterestPostType } from "./pinterestPost"
 import { postType } from "~/sanity/schema/post"
+import { siteConfigType } from "~/sanity/schema/siteConfig"
 import { staticPageType } from "~/sanity/schema/staticPage"
 import { subCategoryType } from "~/sanity/schema/subCategory"
 import { tagType } from "~/sanity/schema/tag"
@@ -37,6 +38,7 @@ export default [
   partnerType,
   pinterestPostType,
   postType,
+  siteConfigType,
   staticPageType,
   subCategoryType,
   tagType,

@@ -15,19 +15,26 @@ import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { CardGrid } from "~/components/CardGrid"
 import { TopGrid } from "~/components/homepage/TopGrid"
 import { Trending } from "~/components/homepage/Trending"
-import { SITE_META } from "~/lib/utils"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 
-export const meta: MetaFunction<typeof loader> = () => {
-  const title = [SITE_META.title, SITE_META.siteTitle]
-    .filter(Boolean)
-    .join(" | ")
-
-  return [{ title }]
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: IndexLoaderData
+}) => {
+  return [
+    { title: data.siteConfig.siteTitle },
+    {
+      name: "description",
+      content: data.siteConfig.siteDescription,
+    },
+  ]
 }
 
 type IndexLoaderData = {
   posts: PostPreview[]
   latestPosts: PostPreview[]
+  siteConfig: SiteConfigType
   trendingPosts: PostPreview[]
 }
 
@@ -43,6 +50,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const posts = await getPosts(client, params.lang!)
   const latestPosts = await getLatestPosts(client, params.lang!)
   const trendingPosts = await getTrendingPosts(client, params.lang!)
+  const siteConfig = await getSiteConfig(client)
 
   if (posts.length === 0) {
     throw new Response(null, {
@@ -61,6 +69,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<IndexLoaderData>({
     posts,
     latestPosts,
+    siteConfig,
     trendingPosts,
   })
 }

@@ -63,9 +63,9 @@ export default function TagIndexRoute() {
                     <Link
                       prefetch="intent"
                       to={linkTo}
-                      className="text-red-600 hover:text-red-500"
+                      className="before:absolute before:inset-0"
                     >
-                      View all <MoveRight className="inline h-4 w-4" />
+                      <span className="sr-only">View all</span>
                     </Link>
                   </Typography.TextSmall>
                 </div>
