@@ -20,7 +20,7 @@ import {
 
 export function Footer() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
-  const { footerLinks, partners } = useRootLoaderData()
+  const { footerLinks, partners, siteConfig } = useRootLoaderData()
   const {
     i18n: { language },
   } = useTranslation()
@@ -37,8 +37,8 @@ export function Footer() {
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
         <Logo />
       </div>
-      <div className="container mx-auto flex flex-wrap gap-8 p-4 md:flex-nowrap lg:px-12">
-        <div className="w-full space-y-8 text-center md:w-3/4">
+      {siteConfig.enablePartners && (
+        <div className="container mx-auto flex flex-col items-center justify-center gap-4 p-4 lg:px-12">
           <Typography.H4>Partners</Typography.H4>
           <ul className="flex justify-center gap-8" role="list">
             {partners.length > 0 &&
@@ -64,6 +64,27 @@ export function Footer() {
                 </li>
               ))}
           </ul>
+        </div>
+      )}
+      <div className="container mx-auto flex flex-wrap gap-8 p-4 md:flex-nowrap lg:px-12">
+        <div className="w-full space-y-8 text-center md:w-3/4">
+          <div className="max-w-prose text-left">
+            <Typography.Paragraph>
+              {siteConfig.siteDescription}
+            </Typography.Paragraph>
+            <Typography.TextMuted>
+              {siteConfig.siteTitle} dives into longer form, immersive content
+              (photo essays, interviews, cinematic video and long form stories)
+              beyond the world of social media as established by our companion
+              Instagram account @CANADA - the most followed and engaged
+              Instagram account dedicated to showcasing our country. With over 2
+              Million followers and growing by 30K users per month, our
+              passionate fans and followers look to us for lifestyle and travel
+              inspiration as well as tips, advice, and recommendations from top
+              Canadian creators and influencers. We also love to showcase
+              submissions from our community of passionate fans and travelers.
+            </Typography.TextMuted>
+          </div>
         </div>
         <div className="w-full space-y-8 text-center md:w-1/4">
           <Typography.H4>Follow Us</Typography.H4>
