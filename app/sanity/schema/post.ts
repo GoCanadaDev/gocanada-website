@@ -40,6 +40,21 @@ export const postType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "mainImageCaption",
+      title: "Main Image Caption",
+      type: "string",
+    }),
+    defineField({
+      name: "mainImageAttribution",
+      type: "string",
+      title: "Attribution Name",
+    }),
+    defineField({
+      name: "mainImageAttributionUrl",
+      type: "url",
+      title: "Attribution URL",
+    }),
+    defineField({
       name: "mainImageFullBleed",
       title: "Full Bleed Main Image & Title",
       type: "boolean",

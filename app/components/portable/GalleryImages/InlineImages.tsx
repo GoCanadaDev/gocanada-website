@@ -16,8 +16,7 @@ export const InlineImages = ({ value }: GalleryImagesProps) => {
               alt={image.alt ?? ""}
               width={640}
               loading="lazy"
-              className="w-full"
-              disablePointerEvents
+              className="pointer-events-none w-full"
             />
           </div>
         ))}

@@ -23,6 +23,9 @@ export const algoliaPostsProjection = `{
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
+  mainImageCaption,
+  mainImageAttribution,
+  mainImageAttributionUrl,
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
@@ -233,6 +236,9 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
   "language": $language,
   "showDate": showDate,
   "mainImageFullBleed": mainImageFullBleed,
+  mainImageCaption,
+  mainImageAttribution,
+  mainImageAttributionUrl,
   mainImage{
     "id": asset._ref,
     "preview": asset->metadata.lqip,
@@ -298,6 +304,9 @@ export type PostPreview = {
     slug: Category["slug"]
   }
   showDate: boolean
+  mainImageCaption: string
+  mainImageAttribution: string
+  mainImageAttributionUrl: string
   mainImageFullBleed: boolean
   mainImage: {
     id: string

@@ -45,7 +45,12 @@ export function Navigation() {
         {categories.map((category) => (
           <NavigationMenuItem key={category.title[categoryTranslation]}>
             <NavigationMenuTrigger>
-              {category.title[categoryTranslation]}
+              <Link
+                to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
+                prefetch="intent"
+              >
+                {category.title[categoryTranslation]}
+              </Link>
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] ">

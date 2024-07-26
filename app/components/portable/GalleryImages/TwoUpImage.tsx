@@ -1,6 +1,4 @@
 import { ExternalLink } from "lucide-react"
-
-import { Separator } from "~/components/ui/separator"
 import { ImageProps } from "~/components/portable/GalleryImages/index"
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 
@@ -48,8 +46,20 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <SingleImage value={{ asset: assetOne, alt: value.altOne || altOne, preview: previewOne }} />
-        <SingleImage value={{ asset: assetTwo, alt: value.altTwo || altTwo, preview: previewTwo }} />
+        <SingleImage
+          value={{
+            asset: assetOne,
+            alt: value.altOne || altOne,
+            preview: previewOne,
+          }}
+        />
+        <SingleImage
+          value={{
+            asset: assetTwo,
+            alt: value.altTwo || altTwo,
+            preview: previewTwo,
+          }}
+        />
       </div>
       {attribution || caption ? (
         <div className={fullBleed ? "holy-grail" : undefined}>
@@ -68,7 +78,6 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
               </span>
             ) : null}
           </figcaption>
-          <Separator className="my-8" />
         </div>
       ) : null}
     </figure>

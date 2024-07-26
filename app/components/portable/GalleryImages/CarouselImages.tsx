@@ -47,9 +47,8 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
           <Image
             id={image.asset._ref}
             loading="lazy"
-            className="left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2"
             alt={image.alt ?? ""}
-            disablePointerEvents
           />
         </div>
       ))}

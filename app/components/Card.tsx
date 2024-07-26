@@ -8,10 +8,12 @@ export default function Card({
   post,
   showExcerpt,
   isLarge,
+  hideImage,
 }: {
   post: PostPreview
   showExcerpt?: boolean
   isLarge?: boolean
+  hideImage?: boolean
 }) {
   const linkTo = `/${post.language}/${post.slug[post.language]}`
   if (!post) {
@@ -20,7 +22,7 @@ export default function Card({
 
   return (
     <article className="group max-w-screen-md">
-      {post.mainImage && post.mainImage?.id ? (
+      {!hideImage && post.mainImage && post.mainImage?.id ? (
         <AspectRatio
           ratio={3 / 2}
           className="mb-4 overflow-hidden bg-slate-200 dark:bg-slate-800"
@@ -39,7 +41,7 @@ export default function Card({
           </Link>
         </AspectRatio>
       ) : null}
-      <div className="relative space-y-4">
+      <div className="relative space-y-0">
         <Typography.H4>{post.category.title[post.language]}</Typography.H4>
         <Typography.H3 className="transition-colors duration-700 group-hover:text-red-500">
           {post.title[post.language]}

@@ -89,52 +89,16 @@ export default function Slug() {
     <Layout translationUrl={translationUrl}>
       <article className="mb-24">
         <div className="w-full">
-          {post.mainImageFullBleed ? (
-            <HeroImage
-              id={post.mainImage.id}
-              title={post.title[post.language]}
-              category={post.category}
-              preview={post.mainImage.preview}
-            />
-          ) : (
-            <div>
-              <SanityImage
-                id={post.mainImage.id}
-                baseUrl={baseUrl}
-                preview={post.mainImage.preview}
-                width={1440}
-                loading="eager"
-                className="mx-auto mb-8 w-10/12 max-w-7xl select-none object-cover"
-                alt=""
-              />
-              {/* <Image
-                id={post.mainImage.id}
-                preview={post.mainImage.preview}
-                className="max-w-10/12 mx-auto"
-              /> */}
-              <div className="mx-auto flex max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-                <Typography.H4 className="mb-2">
-                  <Link
-                    prefetch="intent"
-                    to={`/${post.language}/categories/${
-                      post.category.slug[
-                        post.language as keyof typeof post.category.title
-                      ]
-                    }`}
-                  >
-                    {
-                      post.category.title[
-                        post.language as keyof typeof post.category.title
-                      ]
-                    }
-                  </Link>
-                </Typography.H4>
-                <Typography.H1 className="">
-                  {post.title[post.language]}
-                </Typography.H1>
-              </div>
-            </div>
-          )}
+          <HeroImage
+            fullBleed={post.mainImageFullBleed}
+            id={post.mainImage.id}
+            title={post.title[post.language]}
+            category={post.category}
+            preview={post.mainImage.preview}
+            mainImageCaption={post.mainImageCaption}
+            mainImageAttribution={post.mainImageAttribution}
+            mainImageAttributionUrl={post.mainImageAttributionUrl}
+          />
         </div>
         <div className="holy-grail mx-4 my-12 max-w-none text-xl">
           <div className="mb-16 text-center">

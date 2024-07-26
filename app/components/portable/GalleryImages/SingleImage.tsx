@@ -1,7 +1,5 @@
 import { Image } from "~/components/Image"
 import { ExternalLink } from "lucide-react"
-
-import { Separator } from "~/components/ui/separator"
 import { ImageProps } from "~/components/portable/GalleryImages/index"
 
 export type SingleImageProps = {
@@ -18,9 +16,8 @@ export const SingleImage = ({ value }: SingleImageProps) => {
         width={640}
         preview={value.preview}
         loading="lazy"
-        className="w-full"
+        className="pointer-events-none w-full"
         alt={value.alt ?? ""}
-        disablePointerEvents
       />
       {value.attribution || value.caption ? (
         <div className={value.fullBleed ? "holy-grail" : undefined}>
@@ -42,7 +39,6 @@ export const SingleImage = ({ value }: SingleImageProps) => {
               </span>
             ) : null}
           </figcaption>
-          <Separator className="my-8" />
         </div>
       ) : null}
     </figure>
