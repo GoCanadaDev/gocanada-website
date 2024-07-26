@@ -6,7 +6,7 @@ import { SupportedLanguages } from "~/i18n"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { MoveRight, Tag as TagIcon } from "lucide-react"
+import { Tag as TagIcon } from "lucide-react"
 import { SITE_META } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = () => {
@@ -70,9 +70,9 @@ export default function CategoryIndexRoute() {
                     <Link
                       prefetch="intent"
                       to={linkTo}
-                      className="text-red-600 hover:text-red-500"
+                      className="before:absolute before:inset-0"
                     >
-                      View all <MoveRight className="inline h-4 w-4" />
+                      <span className="sr-only">View category</span>
                     </Link>
                   </Typography.TextSmall>
                 </div>

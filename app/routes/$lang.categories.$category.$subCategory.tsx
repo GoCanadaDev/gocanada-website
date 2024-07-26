@@ -82,7 +82,7 @@ export default function SubCategoryByNameRoute() {
         className="text-red-600 hover:text-red-500"
       >
         <MoveLeft className="inline h-4 w-4" /> View all{" "}
-        {`"${category.title[category.language]}"`}
+        {category.title[category.language]}
       </Link>
       <div className="holy-grail space-y-8 text-center">
         <div className="mx-auto flex h-24 w-24 items-center rounded-full border-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">

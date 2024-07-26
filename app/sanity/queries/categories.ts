@@ -71,6 +71,16 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
   "posts": *[_type == "postType" && references(^._id)]{
     ${postsProjection}
   },
+  "subCategories": subCategories[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  }
 }`
 
 export async function getCategory(
