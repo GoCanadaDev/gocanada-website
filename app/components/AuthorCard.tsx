@@ -128,7 +128,7 @@ export default function AuthorCard({
               <a
                 href={link.url}
                 key={link.key}
-                className="flex gap-2 rounded-md p-2 transition-colors duration-200  hover:text-red-500 focus:bg-slate-100 focus:text-red-500 focus:outline-none dark:focus:bg-slate-800"
+                className="hover:text-brand focus:text-brand flex gap-2 rounded-md p-2  transition-colors duration-200 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
               >
                 {link.icon} {link.label}
               </a>
@@ -140,7 +140,7 @@ export default function AuthorCard({
         <div className="my-8">
           <Link
             to={`/${author.language}/authors/${author.slug}`}
-            className="text-red-600 hover:text-red-500"
+            className="text-brand hover:text-brandHover"
             prefetch="intent"
           >
             View all posts by {author.name}{" "}

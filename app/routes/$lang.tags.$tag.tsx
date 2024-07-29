@@ -59,7 +59,7 @@ export default function TagByNameRoute() {
     <Layout useMargins translationUrl={translationUrl}>
       <Link
         to={`/${tag.language}/tags`}
-        className="text-red-600 hover:text-red-500"
+        className="hover:text-brandHover text-brand"
       >
         <MoveLeft className="inline h-4 w-4" /> View all
       </Link>

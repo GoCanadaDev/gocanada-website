@@ -79,7 +79,7 @@ export default function SubCategoryByNameRoute() {
         to={`/${subCategory.language}/categories/${
           category.slug[category.language]
         }`}
-        className="text-red-600 hover:text-red-500"
+        className="hover:text-brandHover text-brand"
       >
         <MoveLeft className="inline h-4 w-4" /> View all{" "}
         {category.title[category.language]}

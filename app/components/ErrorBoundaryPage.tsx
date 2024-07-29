@@ -49,7 +49,7 @@ export default function ErrorBoundaryPage() {
           <div className="flex items-center justify-center">
             <div className="flex w-5/6 max-w-[800px] flex-col space-y-8 rounded-lg bg-slate-100 p-8 shadow dark:bg-slate-800">
               <div className="flex w-full items-center justify-center">
-                <AlertTriangle size={72} className="text-red-500" />
+                <AlertTriangle size={72} className="text-brand" />
               </div>
               <Typography.H1 className="w-full text-center">
                 {isRouteErrorResponse(error)
@@ -61,7 +61,7 @@ export default function ErrorBoundaryPage() {
                   Please refresh the page and try again, or start over at the{" "}
                   <Link
                     to="/"
-                    className="text-red-600 underline hover:text-red-500"
+                    className="hover:text-brandHover text-brand underline"
                   >
                     home page
                   </Link>

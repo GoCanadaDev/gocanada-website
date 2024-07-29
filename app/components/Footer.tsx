@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link } from "@remix-run/react"
-import { Logo } from "~/components/Logo"
+import { LogoIcon } from "~/components/LogoIcon"
 import { Separator } from "~/components/ui/separator"
 import { Fragment, MouseEventHandler } from "react"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
@@ -35,7 +35,7 @@ export function Footer() {
   return (
     <footer className="border-t-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
-        <Logo />
+        <LogoIcon />
       </div>
       {siteConfig.enablePartners && (
         <div className="container mx-auto flex flex-col items-center justify-center gap-4 p-4 lg:px-12">
@@ -92,7 +92,7 @@ export function Footer() {
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
               href="https://instagram.com/canada"
-              className="text-red-600 transition-colors duration-200 hover:text-red-500"
+              className="text-brand hover:text-brandHover transition-colors duration-200"
             >
               <animated.span style={style} className="inline-block">
                 <Instagram className="inline" size={48} />
@@ -113,7 +113,7 @@ export function Footer() {
                 to={`/${currentLang}${link.route}`}
                 role="menuitem"
                 prefetch="intent"
-                className="block px-8 py-4 tracking-widest"
+                className="hover:text-brandHover block px-8 py-4 tracking-widest transition-colors duration-200"
               >
                 {link.title[currentLang]}
               </Link>
@@ -127,7 +127,7 @@ export function Footer() {
       </div>
       <div className="container mx-auto p-8 text-center text-xs lg:px-12">
         &copy; {year} GoCanada, a division of{" "}
-        <a href="https://www.stayandwander.com/" className="hover:underline">
+        <a href="https://www.stayandwander.com/" className="underline">
           Stay &amp; Wander Media Inc.
         </a>{" "}
         All Rights Reserved.

@@ -62,7 +62,7 @@ export default function CategoryByNameRoute() {
     <Layout useMargins translationUrl={translationUrl}>
       <Link
         to={`/${category.language}/categories`}
-        className="text-red-600 hover:text-red-500"
+        className="hover:text-brandHover text-brand"
       >
         <MoveLeft className="inline h-4 w-4" /> View all categories
       </Link>

@@ -69,7 +69,7 @@ export default function AuthorsIndexRoute() {
                     <Link
                       prefetch="intent"
                       to={linkTo}
-                      className="text-red-600 before:absolute before:inset-0 hover:text-red-500"
+                      className="hover:text-brandHover text-brand before:absolute before:inset-0"
                     >
                       <span className="sr-only">Read more</span>
                     </Link>

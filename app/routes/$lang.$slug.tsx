@@ -104,7 +104,7 @@ export default function Slug() {
               <Link
                 prefetch="intent"
                 to={`/${post.language}/authors/${post.author.slug}`}
-                className="hover:text-red-500"
+                className="hover:text-brand"
               >
                 {post.author.name}
               </Link>
@@ -121,7 +121,7 @@ export default function Slug() {
           </div>
           <Separator />
         </div>
-        <div className="holy-grail prose prose-slate mx-4 my-12 max-w-none lg:prose-lg dark:prose-invert prose-p:my-4 prose-a:text-red-600 hover:prose-a:text-red-500 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
+        <div className="holy-grail hover:prose-a:text-brandHover prose-a:text-brand prose prose-slate mx-4 my-12 max-w-none lg:prose-lg dark:prose-invert prose-h1:font-serif  prose-h2:font-serif prose-p:my-4 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
         <div className="mx-auto my-16 flex max-w-lg justify-center gap-4">
@@ -157,7 +157,7 @@ export default function Slug() {
             >
               {index === 0 && (
                 <Link
-                  className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
+                  className="group-hover:text-brandHover text-sm before:absolute before:inset-0"
                   prefetch="intent"
                   to={`/${post.language}/${post.slug[post.language]}`}
                   aria-label={`Read more: ${post.title[post.language]}`}
@@ -168,7 +168,7 @@ export default function Slug() {
               <MiniCard post={previousOrNextPost} reverse={index === 1} />
               {index === 1 && (
                 <Link
-                  className="text-sm before:absolute before:inset-0 group-hover:text-red-600"
+                  className="group-hover:text-brandHover text-sm before:absolute before:inset-0"
                   prefetch="intent"
                   to={`/${previousOrNextPost.language}/${
                     previousOrNextPost.slug[previousOrNextPost.language]

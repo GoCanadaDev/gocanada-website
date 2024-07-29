@@ -49,7 +49,7 @@ export const HeroImage = ({
                 {typeof mainImageAttributionUrl === "string" ? (
                   <a
                     href={mainImageAttributionUrl}
-                    className="text-red-600 transition-colors duration-200 hover:text-red-500"
+                    className="hover:text-brandHover text-brand transition-colors duration-200"
                   >
                     {mainImageAttribution}{" "}
                     <ExternalLink className="inline h-4 w-4" />
