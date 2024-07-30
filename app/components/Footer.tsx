@@ -87,6 +87,7 @@ export function Footer() {
           </div>
         </div>
         <div className="w-full space-y-8 text-center md:w-1/4">
+          <Typography.H4>Follow Us</Typography.H4>
           <div>
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
@@ -96,7 +97,7 @@ export function Footer() {
               <animated.span style={style} className="inline-block">
                 <Instagram className="inline" size={48} />
               </animated.span>
-              <span className="pl-2 text-2xl uppercase">@canada</span>
+              <span className="pl-2 text-2xl">@canada</span>
             </a>
           </div>
         </div>

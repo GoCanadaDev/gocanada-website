@@ -41,9 +41,11 @@ export default function Card({
           </Link>
         </AspectRatio>
       ) : null}
-      <div className="relative space-y-0">
-        <Typography.H4>{post.category.title[post.language]}</Typography.H4>
-        <Typography.H3 className="group-hover:text-brand transition-colors duration-700">
+      <div className="relative space-y-2">
+        <Typography.H4 className="text-brand font-normal">
+          {post.category.title[post.language]}
+        </Typography.H4>
+        <Typography.H3 className="group-hover:text-brand leading-[1] transition-colors duration-700">
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (
