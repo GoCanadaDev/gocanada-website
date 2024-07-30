@@ -6,7 +6,9 @@ export const InlineImages = ({ value }: GalleryImagesProps) => {
   if (!value) return null
 
   return (
-    <div>
+    <div
+      className={`grid grid-cols-1 gap-4 md:grid-cols-${value.images.length}`}
+    >
       {value?.images
         .filter((image) => image?.asset?._ref)
         .map((image) => (

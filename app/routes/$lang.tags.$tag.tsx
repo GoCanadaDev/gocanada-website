@@ -67,7 +67,9 @@ export default function TagByNameRoute() {
         <Typography.H4>Posts Tagged</Typography.H4>
         <Typography.H1>{tag.title[tag.language]}</Typography.H1>
         <Typography.TextMuted>
-          {tag.description[tag.language]}
+          {typeof tag.description[tag.language] === "string"
+            ? tag.description[tag.language]
+            : "No description available."}
         </Typography.TextMuted>
       </div>
       <Separator className="my-2" />
