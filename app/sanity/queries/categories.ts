@@ -8,6 +8,7 @@ import { PostPreview, postsProjection } from "~/sanity/queries/posts"
 export type Category = {
   description: LocalizedString
   displayOrder: number
+  enabled?: boolean
   language: SupportedLanguages
   posts?: PostPreview[]
   slug: LocalizedString
@@ -33,6 +34,7 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOr
   },
   "language": $language,
   displayOrder,
+  enabled,
   "subCategories": subCategories[]->{
     "title": {
       "en": title.en,

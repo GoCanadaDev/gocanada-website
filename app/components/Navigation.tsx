@@ -42,31 +42,36 @@ export function Navigation() {
   return (
     <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
-        {categories.map((category) => (
-          <NavigationMenuItem key={category.title[categoryTranslation]}>
-            <NavigationMenuTrigger>
-              <Link
-                to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
-                prefetch="intent"
-              >
-                {category.title[categoryTranslation]}
-              </Link>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] ">
-                {category.subCategories &&
-                  Array.isArray(category.subCategories) &&
-                  category.subCategories?.map((subCategory) => (
-                    <ListItem
-                      key={subCategory.title[categoryTranslation]}
-                      title={subCategory.title[categoryTranslation]}
-                      href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                    />
-                  ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        ))}
+        {categories.map((category) => {
+          if (!category.enabled) {
+            return null
+          }
+          return (
+            <NavigationMenuItem key={category.title[categoryTranslation]}>
+              <NavigationMenuTrigger>
+                <Link
+                  to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
+                  prefetch="intent"
+                >
+                  {category.title[categoryTranslation]}
+                </Link>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] ">
+                  {category.subCategories &&
+                    Array.isArray(category.subCategories) &&
+                    category.subCategories?.map((subCategory) => (
+                      <ListItem
+                        key={subCategory.title[categoryTranslation]}
+                        title={subCategory.title[categoryTranslation]}
+                        href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                      />
+                    ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          )
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   )
