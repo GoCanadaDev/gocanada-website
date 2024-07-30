@@ -9,7 +9,11 @@ export const GridImages = ({ value }: GalleryImagesProps) => {
   return (
     <div className="grid grid-cols-2 gap-4 [&>figure]:m-0">
       {value.images.map((image) => (
-          <SingleImage value={image} key={image.asset._ref} />
+        <SingleImage
+          value={image}
+          key={image.asset._ref}
+          className="aspect-square object-cover"
+        />
       ))}
     </div>
   )
