@@ -1,7 +1,7 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
-import { MoveLeft, Tag as TagIcon } from "lucide-react"
+import { MoveLeft } from "lucide-react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
@@ -63,19 +63,19 @@ export default function TagByNameRoute() {
       >
         <MoveLeft className="inline h-4 w-4" /> View all
       </Link>
-      <div className="holy-grail space-y-8 text-center">
-        <div className="mx-auto flex h-24 w-24 items-center rounded-full border-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
-          <TagIcon className="mx-auto h-8 w-8" />
-        </div>
+      <div className="holy-grail space-y-2 text-center">
         <Typography.H4>Posts Tagged</Typography.H4>
         <Typography.H1>{tag.title[tag.language]}</Typography.H1>
         <Typography.TextMuted>
           {tag.description[tag.language]}
         </Typography.TextMuted>
       </div>
-      <Separator className="my-8" />
-
-      <CardGrid posts={tag.posts ?? []} />
+      <Separator className="my-2" />
+      {tag.posts?.length ? (
+        <CardGrid posts={tag.posts} />
+      ) : (
+        <Typography.Lead>No posts to display.</Typography.Lead>
+      )}
     </Layout>
   )
 }
