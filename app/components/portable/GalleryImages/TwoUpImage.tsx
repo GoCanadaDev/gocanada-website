@@ -52,6 +52,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
             alt: value.altOne || altOne,
             preview: previewOne,
           }}
+          className="aspect-square object-cover"
         />
         <SingleImage
           value={{
@@ -59,6 +60,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
             alt: value.altTwo || altTwo,
             preview: previewTwo,
           }}
+          className="aspect-square object-cover"
         />
       </div>
       {attribution || caption ? (

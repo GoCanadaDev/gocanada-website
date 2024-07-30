@@ -8,7 +8,7 @@ export function Logo() {
       className="rounded-md p-2 hover:opacity-90 focus:opacity-90 focus-visible:outline-none active:bg-transparent "
     >
       <span className="sr-only">GoCanada</span>
-      <img src={GoCanadaLogoRed} alt="GoCanada Logo" className="w-40" />
+      <img src={GoCanadaLogoRed} alt="GoCanada Logo" className="w-24 md:w-40" />
     </Link>
   )
 }

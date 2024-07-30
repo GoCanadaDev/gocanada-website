@@ -73,7 +73,7 @@ export default function CategoryByNameRoute() {
           {category.description[category.language]}
         </Typography.TextMuted>
       </div>
-      <div className="mx-auto flex justify-center gap-4">
+      <div className="mx-auto flex flex-wrap justify-center gap-4">
         {category.subCategories?.length > 0 &&
           category.subCategories.map((subCat) => (
             <Link

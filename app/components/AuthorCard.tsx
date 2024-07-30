@@ -121,7 +121,7 @@ export default function AuthorCard({
       </Typography.Paragraph>
 
       {links && links.length > 0 && (
-        <div className="m-auto flex max-w-4xl justify-center gap-8">
+        <div className="m-auto flex max-w-4xl flex-wrap justify-center gap-8">
           {links.map((link) => {
             if (!link || !link.url) return null
             return (

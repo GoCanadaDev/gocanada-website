@@ -1,12 +1,14 @@
 import { Image } from "~/components/Image"
 import { ExternalLink } from "lucide-react"
 import { ImageProps } from "~/components/portable/GalleryImages/index"
+import { cn } from "~/lib/utils"
 
 export type SingleImageProps = {
   value: ImageProps
+  className?: string
 }
 
-export const SingleImage = ({ value }: SingleImageProps) => {
+export const SingleImage = ({ value, className }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
   return (
@@ -16,7 +18,7 @@ export const SingleImage = ({ value }: SingleImageProps) => {
         width={640}
         preview={value.preview}
         loading="lazy"
-        className="pointer-events-none w-full"
+        className={cn("pointer-events-none w-full", className)}
         alt={value.alt ?? ""}
       />
       {value.attribution || value.caption ? (

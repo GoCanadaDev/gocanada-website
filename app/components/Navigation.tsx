@@ -40,7 +40,7 @@ export function Navigation() {
   const categoryTranslation = (lang || "en") as SupportedLanguages
 
   return (
-    <NavigationMenu className="hidden md:block">
+    <NavigationMenu className="">
       <NavigationMenuList>
         {categories.map((category) => {
           if (!category.enabled) {
@@ -57,7 +57,7 @@ export function Navigation() {
                 </Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] ">
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
                   {category.subCategories &&
                     Array.isArray(category.subCategories) &&
                     category.subCategories?.map((subCategory) => (

@@ -36,10 +36,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
                 <span className="pl-2 uppercase">@canada</span>
               </span>
             </a>
-            <Separator
-              orientation="vertical"
-              className="hidden h-6 md:inline-flex"
-            />
+            <Separator orientation="vertical" className="inline-flex h-6" />
             <SearchModal />
             {/* <Separator
               orientation="vertical"
@@ -55,16 +52,11 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
             <div className="hidden md:inline-flex">
               <ThemeToggle />
             </div>
-            <Separator
-              orientation="vertical"
-              className="inline-flex h-6 md:hidden"
-            />
-            <MobileNavigation />
           </div>
         </div>
       </div>
       <div className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
-        <div className="container mx-auto flex items-center justify-between lg:px-12">
+        <div className="flex w-screen items-center justify-between lg:container lg:px-12">
           <Navigation />
           {/* <div className="flex items-center gap-4">Subscribe</div> */}
         </div>
