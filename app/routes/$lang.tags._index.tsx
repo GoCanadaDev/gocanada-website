@@ -57,7 +57,9 @@ export default function TagIndexRoute() {
                 <div className="ml-4 space-y-4">
                   <Typography.H3>{tag.title[lang]}</Typography.H3>
                   <Typography.TextMuted>
-                    {tag.description[lang]}
+                    {typeof tag.description[lang] === "string"
+                      ? tag.description[lang]
+                      : "No description"}
                   </Typography.TextMuted>
                   <Typography.TextSmall>
                     <Link

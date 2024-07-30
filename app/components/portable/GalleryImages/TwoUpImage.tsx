@@ -67,7 +67,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
             {caption ? <span className="flex-1 italic">{caption}</span> : null}
             {attribution ? (
               <span className="flex-1 text-right">
-                Photo by{" "}
+                Photos by{" "}
                 {attributionUrl ? (
                   <a href={attributionUrl}>
                     {attribution} <ExternalLink className="inline h-4 w-4" />
