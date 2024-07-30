@@ -75,6 +75,13 @@ export const categoryType = defineType({
       type: "array",
       of: [{ type: "reference", to: { type: "tagType" } }],
     }),
+    defineField({
+      name: "enabled",
+      title: "Enabled in Navigation",
+      description:
+        "Enable or disable this category to control whether or not it appears in the navigation",
+      type: "boolean",
+    }),
   ],
   preview: {
     select: {
