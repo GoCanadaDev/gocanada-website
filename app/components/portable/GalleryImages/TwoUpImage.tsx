@@ -1,4 +1,3 @@
-import { ExternalLink } from "lucide-react"
 import { ImageProps } from "~/components/portable/GalleryImages/index"
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 
@@ -71,9 +70,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
               <span className="flex-1 text-right">
                 Photos by{" "}
                 {attributionUrl ? (
-                  <a href={attributionUrl}>
-                    {attribution} <ExternalLink className="inline h-4 w-4" />
-                  </a>
+                  <a href={attributionUrl}>{attribution}</a>
                 ) : (
                   attribution
                 )}

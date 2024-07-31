@@ -1,5 +1,4 @@
 import { Image } from "~/components/Image"
-import { ExternalLink } from "lucide-react"
 import { ImageProps } from "~/components/portable/GalleryImages/index"
 import { cn } from "~/lib/utils"
 
@@ -31,10 +30,7 @@ export const SingleImage = ({ value, className }: SingleImageProps) => {
               <span className="flex-1 text-right">
                 Photo by{" "}
                 {value.attributionUrl ? (
-                  <a href={value.attributionUrl}>
-                    {value.attribution}{" "}
-                    <ExternalLink className="inline h-4 w-4" />
-                  </a>
+                  <a href={value.attributionUrl}>{value.attribution}</a>
                 ) : (
                   value.attribution
                 )}

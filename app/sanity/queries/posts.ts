@@ -6,7 +6,7 @@ import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { Category } from "./categories"
 import { Tag } from "./tags"
-import { Author, authorsProjection } from "./authors"
+import { Author } from "./authors"
 
 export const algoliaPostsProjection = `{
   "objectID": _id,
@@ -94,6 +94,10 @@ export const postsProjection = `
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
+  },
+  "author": {
+    "name": author->name,
+    "slug": author->slug.current,
   },
 `
 
@@ -294,6 +298,7 @@ export type PostPreview = {
   _createdAt: string
   language: "en" | "fr"
   title: LocalizedString
+  author: Author
   slug: {
     en: Slug
     fr: Slug
@@ -316,7 +321,6 @@ export type PostPreview = {
 }
 export type Post = PostPreview & {
   body: PortableTextBlock[]
-  author: Author
   tags: {
     title: Tag["title"]
     slug: Tag["slug"]

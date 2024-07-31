@@ -39,7 +39,7 @@ export const HeroImage = ({
               : "mx-auto mb-8 w-10/12 max-w-7xl"
           }`}
         >
-          <figcaption className="container flex justify-between text-slate-500 dark:text-slate-400">
+          <figcaption className="flex justify-between px-4 text-slate-500 dark:text-slate-400">
             {typeof mainImageCaption === "string" ? (
               <span className="flex-1 italic">{mainImageCaption}</span>
             ) : null}
@@ -51,8 +51,7 @@ export const HeroImage = ({
                     href={mainImageAttributionUrl}
                     className="hover:text-brandHover text-brand transition-colors duration-200"
                   >
-                    {mainImageAttribution}{" "}
-                    <ExternalLink className="inline h-4 w-4" />
+                    {mainImageAttribution}
                   </a>
                 ) : (
                   mainImageAttribution
@@ -111,7 +110,7 @@ export const HeroImage = ({
         {renderFigCaption()}
       </figure>
       <div className="mx-auto flex max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        <Typography.H4 className="mb-2">
+        <Typography.H4 className="mb-8">
           <Link
             prefetch="intent"
             to={`/${params.lang}/categories/${

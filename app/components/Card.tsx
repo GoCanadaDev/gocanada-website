@@ -45,14 +45,23 @@ export default function Card({
         <Typography.H4 className="text-brand font-normal">
           {post.category.title[post.language]}
         </Typography.H4>
-        <Typography.H3 className="group-hover:text-brand leading-[1] transition-colors duration-700">
+        <Typography.H3 className="group-hover:text-brand mt-[11px] leading-[1] transition-colors duration-700">
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (
-          <Typography.Paragraph className={isLarge ? "" : "line-clamp-3"}>
+          <Typography.Paragraph
+            className={
+              isLarge
+                ? "text-sm leading-snug text-slate-500"
+                : "line-clamp-3 text-sm leading-snug text-slate-500"
+            }
+          >
             {post.excerpt[post.language]}
           </Typography.Paragraph>
         ) : null}
+        <Typography.Paragraph className="text-xs uppercase tracking-widest text-slate-400">
+          By {post.author.name}
+        </Typography.Paragraph>
         <p>
           <Link
             className="text-sm before:absolute before:inset-0"

@@ -97,8 +97,8 @@ export default function Slug() {
             mainImageAttributionUrl={post.mainImageAttributionUrl}
           />
         </div>
-        <div className="holy-grail mx-4 my-12 max-w-none text-xl">
-          <div className="mb-16 text-center">
+        <div className="holy-grail mx-4 mb-12 mt-4 max-w-none text-xl">
+          <div className="my-12 text-center">
             <Typography.Paragraph>
               By{" "}
               <Link
@@ -121,7 +121,7 @@ export default function Slug() {
           </div>
           <Separator />
         </div>
-        <div className="holy-grail hover:prose-a:text-brandHover prose-a:text-brand prose prose-slate mx-4 my-12 max-w-none lg:prose-lg dark:prose-invert prose-h1:font-serif prose-h2:font-serif prose-h3:font-serif prose-p:my-4 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
+        <div className="holy-grail hover:prose-a:text-brandHover prose-a:text-brand prose prose-slate mx-4 my-12 max-w-none lg:prose-lg dark:prose-invert prose-h1:font-serif prose-h2:mb-0 prose-h2:font-serif prose-h3:font-serif prose-p:my-4 prose-figure:my-4 prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
           <PortableText value={post.body} components={PortableTextComponents} />
         </div>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
