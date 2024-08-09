@@ -4,7 +4,7 @@ import { baseUrl } from "~/sanity/projectDetails"
 import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
 import { Post } from "~/sanity/queries"
-import { ExternalLink } from "lucide-react"
+import { ImageCrop, ImageHotspot } from "sanity"
 
 type HeroImageProps = {
   id: string
@@ -15,6 +15,8 @@ type HeroImageProps = {
   mainImageAttribution?: string
   mainImageAttributionUrl?: string
   fullBleed?: boolean
+  hotspot?: ImageHotspot
+  crop?: ImageCrop
 }
 
 export const HeroImage = ({
@@ -26,6 +28,8 @@ export const HeroImage = ({
   mainImageAttribution,
   mainImageAttributionUrl,
   fullBleed,
+  hotspot,
+  crop,
 }: HeroImageProps) => {
   const params = useParams()
 
@@ -49,7 +53,7 @@ export const HeroImage = ({
                 {typeof mainImageAttributionUrl === "string" ? (
                   <a
                     href={mainImageAttributionUrl}
-                    className="hover:text-brandHover text-brand transition-colors duration-200"
+                    className="text-brand transition-colors duration-200 hover:text-brandHover"
                   >
                     {mainImageAttribution}
                   </a>
@@ -75,6 +79,8 @@ export const HeroImage = ({
           loading="eager"
           className="absolute inset-0 z-[1] h-full w-full select-none object-cover"
           alt=""
+          hotspot={hotspot}
+          crop={crop}
         />
         {renderFigCaption()}
       </figure>
@@ -106,6 +112,8 @@ export const HeroImage = ({
           loading="eager"
           className="mx-auto mb-2 w-10/12 max-w-7xl select-none object-cover"
           alt=""
+          hotspot={hotspot}
+          crop={crop}
         />
         {renderFigCaption()}
       </figure>

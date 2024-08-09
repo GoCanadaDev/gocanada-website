@@ -33,19 +33,22 @@ export default function Card({
               id={post.mainImage.id}
               alt=""
               width={768}
+              height={512}
               preview={post.mainImage.preview ?? ""}
               loading="eager"
               className="transition-transform hover:scale-[1.05]"
               aria-label={`Read more: ${post.title[post.language]}`}
+              hotspot={post.mainImage.hotspot}
+              crop={post.mainImage.crop}
             />
           </Link>
         </AspectRatio>
       ) : null}
       <div className="relative space-y-2">
-        <Typography.H4 className="text-brand font-normal">
+        <Typography.H4 className="font-normal text-brand">
           {post.category.title[post.language]}
         </Typography.H4>
-        <Typography.H3 className="group-hover:text-brand mt-[11px] leading-[1] transition-colors duration-700">
+        <Typography.H3 className="mt-[11px] leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (

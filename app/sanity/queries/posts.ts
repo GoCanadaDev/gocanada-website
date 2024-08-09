@@ -1,6 +1,6 @@
 import groq from "groq"
 import type { SanityStegaClient } from "@sanity/client/stega"
-import type { ImageAsset, Slug } from "sanity"
+import type { ImageAsset, ImageCrop, ImageHotspot, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
@@ -19,6 +19,7 @@ export const algoliaPostsProjection = `{
     "fr": slug.fr.current,
   },
   mainImage{
+    ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
@@ -87,6 +88,7 @@ export const postsProjection = `
     },
   },
   mainImage{
+    ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
@@ -157,6 +159,7 @@ const previousOrNextPostProjection = `
     },
   },
   mainImage{
+    ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
@@ -244,6 +247,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
   mainImageAttribution,
   mainImageAttributionUrl,
   mainImage{
+    ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
@@ -288,6 +292,8 @@ export type NextOrPreviousPostType = {
     id: string
     preview: string
     aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
   }
   excerpt: LocalizedString
 }
@@ -317,6 +323,8 @@ export type PostPreview = {
     id: string
     preview: string
     aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
   }
 }
 export type Post = PostPreview & {
@@ -340,6 +348,8 @@ export type AlgoliaPost = {
     id: string
     preview: string
     aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
   }
   excerpt: LocalizedString
   category: {
