@@ -24,7 +24,7 @@ const SearchModal = () => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div>
+              <div className="p-2">
                 <Search className="inline" />
               </div>
             </TooltipTrigger>

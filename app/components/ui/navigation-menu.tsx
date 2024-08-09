@@ -30,7 +30,7 @@ const NavigationMenuList = React.forwardRef<
   <NavigationMenuPrimitive.List
     ref={ref}
     className={cn(
-      "no-scrollbar scroll-shadows group flex max-w-[100vw] flex-1 list-none items-center justify-start space-x-1 overflow-x-auto",
+      "group flex max-w-[100vw] flex-1 list-none flex-wrap items-center justify-start space-x-1 overflow-x-auto",
       className
     )}
     {...props}

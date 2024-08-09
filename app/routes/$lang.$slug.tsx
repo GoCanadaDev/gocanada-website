@@ -22,6 +22,7 @@ import PortableTextComponents from "~/components/PortableTextComponents"
 import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
+import Share from "~/components/Share"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -114,6 +115,16 @@ export default function Slug() {
             {post.showDate && (
               <Typography.TextMuted>{formattedDate}</Typography.TextMuted>
             )}
+          </div>
+          <div className="mb-12 w-full text-center">
+            <Typography.H4>Share</Typography.H4>
+            <Share
+              url={`/${post.language}/${post.slug[post.language]}`}
+              title={post.title[post.language]}
+              tags={post.tags.map((tag) => tag.title[post.language])}
+              description={post.excerpt[post.language]}
+              media={post.mainImage.id}
+            />
           </div>
 
           <div className="mb-12 w-full text-center">
