@@ -13,6 +13,7 @@ import {
   TwitterIcon,
   TwitterShareButton,
 } from "react-share"
+import { toast } from "sonner"
 import { dataset, projectId } from "~/sanity/projectDetails"
 const baseImageUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
 
@@ -32,11 +33,16 @@ export default function Share({
   description,
 }: ShareProps) {
   // TODO: update URL to production URL
-  const shareUrl = `https://gocanada-website.netlify.app/${url}`
+  const shareUrl = `https://gocanada-website.netlify.app${url}`
 
   const hashtags =
     (tags && tags.length > 0 && tags.map((tag) => tag.split(" ").join(""))) ||
     []
+
+  const copy = () => {
+    navigator.clipboard.writeText(shareUrl)
+    toast.success("Link copied to clipboard!")
+  }
 
   return (
     <div className="mt-2 flex justify-center gap-1">
@@ -75,7 +81,10 @@ export default function Share({
       >
         <EmailIcon size={32} round />
       </EmailShareButton>
-      <div className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-brand">
+      <div
+        className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-brand"
+        onClick={() => copy()}
+      >
         <Link className="text-white" size={16} />
       </div>
     </div>

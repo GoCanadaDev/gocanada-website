@@ -5,7 +5,7 @@ import type {
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
-import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { client } from "~/sanity/client"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 import { getPost, Post } from "~/sanity/queries"
@@ -126,8 +126,8 @@ export default function Slug() {
               media={post.mainImage.id}
             />
           </div>
-
-          <div className="mb-12 w-full text-center">
+          <Separator />
+          <div className="my-12 w-full text-center">
             <Typography.Lead className="italic">
               {post.excerpt[post.language]}
             </Typography.Lead>
