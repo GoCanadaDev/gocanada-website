@@ -35,15 +35,21 @@ export const MiniCard = ({
           </AspectRatio>
         ) : null}
       </div>
-      <div className="space-y-0">
-        <Typography.H4>{post.category.title[post.language]}</Typography.H4>
-        <Typography.H3 className="group-hover:text-brand text-lg transition-colors duration-700">
+      <div className="space-y-2">
+        <Typography.H4 className="text-brand">
+          {post.category.title[post.language]}
+        </Typography.H4>
+        <Typography.H3 className="text-2xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
         <Typography.Paragraph className="line-clamp-2">
           {post.excerpt[post.language]}
         </Typography.Paragraph>
-
+        {"author" in post && post.author && post.author.name && (
+          <Typography.Paragraph className="text-xs uppercase tracking-widest text-slate-400">
+            By {post.author.name}
+          </Typography.Paragraph>
+        )}
         <p>
           <Link
             className="text-sm before:absolute before:inset-0"
