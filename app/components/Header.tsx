@@ -20,8 +20,8 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
       >
         Skip to main content
       </a>
-      <div className=" border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
-        <div className="container mx-auto flex items-center justify-between p-2 lg:px-12">
+      <div className="border-b-2 border-slate-200 transition-colors duration-1000 ease-in-out dark:border-slate-800">
+        <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
           <Logo />
           <div className="flex items-center gap-2 md:gap-4">
             <a
@@ -52,7 +52,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
           </div>
         </div>
       </div>
-      <div className="border-b-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
+      <div className="border-b-2 border-slate-200 transition-colors duration-1000 ease-in-out dark:border-slate-800">
         <div className="flex w-screen items-center justify-between lg:container lg:px-12">
           <Navigation />
           {/* <div className="flex items-center gap-4">Subscribe</div> */}

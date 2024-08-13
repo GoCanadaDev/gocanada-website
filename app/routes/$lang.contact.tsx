@@ -27,7 +27,7 @@ const Privacy = () => {
 
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
-      <article className="holy-grail prose prose-slate mx-4 my-12 max-w-none lg:prose-lg dark:prose-invert prose-h1:font-serif prose-h2:font-serif prose-p:my-4  prose-a:text-brand hover:prose-a:text-brandHover prose-figure:my-4 prose-ol:my-0 prose-ol:ml-8 prose-ol:list-[lower-alpha] prose-ul:my-0 prose-li:my-0">
+      <article className="holy-grail prose prose-lg prose-slate mx-4 my-12 max-w-none lg:prose-xl dark:prose-invert prose-h1:font-serif prose-h2:font-serif prose-p:my-4  prose-a:text-brand hover:prose-a:text-brandHover prose-figure:my-4 prose-ol:my-0 prose-ol:ml-8 prose-ol:list-[lower-alpha] prose-ul:my-0 prose-li:my-0">
         <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
         <PortableText
           value={staticPage.body[staticPage.language]}

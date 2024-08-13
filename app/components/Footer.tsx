@@ -33,7 +33,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="border-t-4 border-slate-100 transition-colors duration-1000 ease-in-out dark:border-slate-800">
+    <footer className="border-t-2 border-slate-200 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
         <LogoIcon />
       </div>
@@ -92,7 +92,7 @@ export function Footer() {
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
               href="https://instagram.com/canada"
-              className="text-brand hover:text-brandHover transition-colors duration-200"
+              className="text-brand transition-colors duration-200 hover:text-brandHover"
             >
               <animated.span style={style} className="inline-block">
                 <Instagram className="inline" size={48} />
@@ -113,7 +113,7 @@ export function Footer() {
                 to={`/${currentLang}${link.route}`}
                 role="menuitem"
                 prefetch="intent"
-                className="hover:text-brandHover block px-8 py-4 tracking-widest transition-colors duration-200"
+                className="block px-8 py-4 tracking-widest transition-colors duration-200 hover:text-brandHover"
               >
                 {link.title[currentLang]}
               </Link>
