@@ -6,7 +6,7 @@ export const InlineImages = ({ value }: GalleryImagesProps) => {
   if (!value) return null
 
   return (
-    <div
+    <figure
       className={`grid grid-cols-1 gap-4 md:grid-cols-${value.images.length}`}
     >
       {value?.images
@@ -18,10 +18,10 @@ export const InlineImages = ({ value }: GalleryImagesProps) => {
               alt={image.alt ?? ""}
               width={640}
               loading="lazy"
-              className="pointer-events-none w-full"
+              className="pointer-events-none !m-0 w-full"
             />
           </div>
         ))}
-    </div>
+    </figure>
   )
 }
