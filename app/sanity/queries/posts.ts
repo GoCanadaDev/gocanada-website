@@ -57,7 +57,7 @@ export const algoliaPostsProjection = `{
   }
 }`
 
-export const algoliaPostsQuery = groq`*[_type == "postType"] | order(_createdAt desc) ${algoliaPostsProjection}`
+export const algoliaPostsQuery = groq`*[_type == "postType"] | order(publishedAt desc) ${algoliaPostsProjection}`
 
 export async function getAlgoliaPosts(client: SanityStegaClient) {
   const result = await client.fetch(algoliaPostsQuery)
@@ -103,7 +103,7 @@ export const postsProjection = `
   },
 `
 
-export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(_createdAt desc){
+export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(publishedAt desc){
   ${postsProjection}
 }`
 
@@ -112,7 +112,7 @@ export async function getPosts(client: SanityStegaClient, language: string) {
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
-export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...6] | order(_createdAt desc){
+export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...6] | order(publishedAt desc){
   ${postsProjection}
 }`
 
@@ -124,7 +124,7 @@ export async function getLatestPosts(
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
-export const trendingPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...3] | order(_createdAt desc){
+export const trendingPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...3] | order(publishedAt desc){
   ${postsProjection}
 }`
 
@@ -252,10 +252,10 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
-  "previousPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^._createdAt > _createdAt]|order(_createdAt desc)[0]{ 
+  "previousPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^.publishedAt > publishedAt]|order(publishedAt desc)[0]{ 
     ${previousOrNextPostProjection}
   },
-  "nextPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^._createdAt < _createdAt]|order(_createdAt asc)[0]{ 
+  "nextPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^.publishedAt < publishedAt]|order(publishedAt asc)[0]{ 
     ${previousOrNextPostProjection}
   },
 }`
