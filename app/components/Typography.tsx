@@ -20,7 +20,7 @@ const H1 = ({ children, className }: TypographyProps) => (
 const H2 = ({ children, className }: TypographyProps) => (
   <h2
     className={cn(
-      "scroll-m-20 border-b pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
+      "scroll-m-20 border-b-2 pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
       className
     )}
   >

@@ -45,18 +45,18 @@ export default function Card({
         </AspectRatio>
       ) : null}
       <div className="relative space-y-2">
-        <Typography.H4 className="font-normal text-brand">
+        <Typography.H4 className="text-sm font-normal text-brand">
           {post.category.title[post.language]}
         </Typography.H4>
-        <Typography.H3 className="mt-[11px] leading-[1] transition-colors duration-700 group-hover:text-brand">
+        <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (
           <Typography.Paragraph
             className={
               isLarge
-                ? "text-sm leading-snug text-slate-500"
-                : "line-clamp-3 text-sm leading-snug text-slate-500"
+                ? "text-base leading-snug text-slate-500"
+                : "line-clamp-3 text-base leading-snug text-slate-500"
             }
           >
             {post.excerpt[post.language]}

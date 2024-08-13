@@ -8,7 +8,7 @@ export const TopGrid = ({ posts }: { posts: PostPreview[] }) => {
       <div className="gap-8 sm:col-span-2 md:col-span-2 md:col-start-2 md:row-span-2">
         <div className="flex flex-col gap-8">
           <Card post={posts[0]} showExcerpt isLarge />
-          <Separator orientation="horizontal" className="my-2" />
+          <Separator orientation="horizontal" className="my-2 h-0.5" />
           <Card post={posts[5]} showExcerpt hideImage />
         </div>
       </div>
