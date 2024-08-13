@@ -1,3 +1,4 @@
+import { Cog } from "lucide-react"
 import { defineField, defineType } from "sanity"
 
 export const linksPageType = defineType({
@@ -66,4 +67,13 @@ export const linksPageType = defineType({
       ],
     }),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: "Link In Bio Page",
+        subtitle: "Only create one of these!",
+        media: Cog,
+      }
+    },
+  },
 })

@@ -25,7 +25,9 @@ export const structure: StructureResolver = (S) =>
     .items([
       S.documentTypeListItem("postType").title("Posts").icon(Newspaper),
       S.divider(),
-      S.documentTypeListItem("linksPageType").title("Links").icon(Link),
+      S.documentTypeListItem("linksPageType")
+        .title(`"Link in Bio" Links`)
+        .icon(Link),
       S.divider(),
       S.documentTypeListItem("authorType").title("Authors").icon(UserCircle),
       S.divider(),

@@ -2,6 +2,7 @@ import { presentationTool } from "@sanity/presentation"
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
 import { deskTool } from "sanity/desk"
+import { media } from "sanity-plugin-media"
 
 import { dataset, projectId } from "~/sanity/projectDetails"
 import schema from "~/sanity/schema"
@@ -18,6 +19,7 @@ export const config = defineConfig({
     //   previewUrl: "http://localhost:3000",
     // }),
     visionTool(),
+    media(),
   ],
   basePath: `/studio`,
   schema: {
