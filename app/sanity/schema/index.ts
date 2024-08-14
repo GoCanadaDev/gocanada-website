@@ -1,3 +1,4 @@
+import { adConfigType } from "~/sanity/schema/adConfig"
 import { authorType } from "~/sanity/schema/author"
 import { blockContentType } from "~/sanity/schema/blockContent"
 import { categoryType } from "~/sanity/schema/category"
@@ -23,6 +24,7 @@ import { twoUpImageType } from "~/sanity/schema/twoUpImage"
 import { youTubePostType } from "~/sanity/schema/youTubePost"
 
 export default [
+  adConfigType,
   authorType,
   blockContentType,
   categoryType,

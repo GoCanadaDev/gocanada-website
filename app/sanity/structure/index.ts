@@ -8,11 +8,12 @@ import {
   HeartHandshake,
   Link,
   Cog,
+  Megaphone,
 } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
   StructureResolver,
-} from "sanity/desk"
+} from "sanity/structure"
 
 import OGPreview from "~/sanity/components/OGPreview"
 
@@ -48,6 +49,8 @@ export const structure: StructureResolver = (S) =>
         .icon(HeartHandshake),
       S.divider(),
       S.documentTypeListItem("siteConfigType").title("Site Config").icon(Cog),
+      S.divider(),
+      S.documentTypeListItem("adConfigType").title("Ad Config").icon(Megaphone),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (

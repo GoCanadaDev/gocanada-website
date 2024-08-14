@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
@@ -29,10 +29,7 @@ export const subCategoriesQuery = groq`*[_type == "subCategoryType"] | order(dis
   "language": $language,
 }`
 
-export async function getSubCategories(
-  client: SanityStegaClient,
-  language: string
-) {
+export async function getSubCategories(client: SanityClient, language: string) {
   const result = await client.fetch(subCategoriesQuery, { language })
   return Object.values(sanitizeStrings(result)) as SubCategory[]
 }
@@ -58,7 +55,7 @@ export const subCategoryBySlugQuery = groq`*[_type == "subCategoryType" && slug[
 }`
 
 export async function getSubCategory(
-  client: SanityStegaClient,
+  client: SanityClient,
   slug: string,
   language: string
 ) {

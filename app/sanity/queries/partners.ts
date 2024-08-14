@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { ImageAsset } from "sanity"
 
@@ -25,7 +25,7 @@ export const partnersQuery = groq`*[_type == "partnerType"] | order(displayOrder
   },
 }`
 
-export async function getPartners(client: SanityStegaClient) {
+export async function getPartners(client: SanityClient) {
   const result = await client.fetch(partnersQuery)
   return Object.values(sanitizeStrings(result)) as Partner[]
 }

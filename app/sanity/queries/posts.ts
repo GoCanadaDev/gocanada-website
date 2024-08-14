@@ -1,6 +1,6 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
-import type { ImageAsset, ImageCrop, ImageHotspot, Slug } from "sanity"
+import type { SanityClient } from "@sanity/client"
+import type { ImageCrop, ImageHotspot, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
@@ -59,7 +59,7 @@ export const algoliaPostsProjection = `{
 
 export const algoliaPostsQuery = groq`*[_type == "postType"] | order(publishedAt desc) ${algoliaPostsProjection}`
 
-export async function getAlgoliaPosts(client: SanityStegaClient) {
+export async function getAlgoliaPosts(client: SanityClient) {
   const result = await client.fetch(algoliaPostsQuery)
 
   return Object.values(sanitizeStrings(result)) as Post[]
@@ -107,7 +107,7 @@ export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].
   ${postsProjection}
 }`
 
-export async function getPosts(client: SanityStegaClient, language: string) {
+export async function getPosts(client: SanityClient, language: string) {
   const result = await client.fetch(postsQuery, { language })
   return Object.values(sanitizeStrings(result)) as Post[]
 }
@@ -116,10 +116,7 @@ export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$lang
   ${postsProjection}
 }`
 
-export async function getLatestPosts(
-  client: SanityStegaClient,
-  language: string
-) {
+export async function getLatestPosts(client: SanityClient, language: string) {
   const result = await client.fetch(postsQuery, { language })
   return Object.values(sanitizeStrings(result)) as Post[]
 }
@@ -128,10 +125,7 @@ export const trendingPostsQuery = groq`*[_type == "postType" && defined(slug[$la
   ${postsProjection}
 }`
 
-export async function getTrendingPosts(
-  client: SanityStegaClient,
-  language: string
-) {
+export async function getTrendingPosts(client: SanityClient, language: string) {
   const result = await client.fetch(trendingPostsQuery, { language })
   return Object.values(sanitizeStrings(result)) as Post[]
 }
@@ -261,7 +255,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
 }`
 
 export async function getPost(
-  client: SanityStegaClient,
+  client: SanityClient,
   slug: string,
   language: string
 ) {

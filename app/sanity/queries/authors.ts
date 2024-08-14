@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
@@ -56,7 +56,7 @@ export const authorsQuery = groq`*[_type == "authorType"] | order(_createdAt des
   ${authorsProjection}
 }`
 
-export async function getAuthors(client: SanityStegaClient, language: string) {
+export async function getAuthors(client: SanityClient, language: string) {
   const result = await client.fetch(authorsQuery, { language })
   return Object.values(sanitizeStrings(result)) as Author[]
 }
@@ -69,7 +69,7 @@ export const authorBySlugQuery = groq`*[_type == "authorType" && slug.current ==
 }`
 
 export async function getAuthor(
-  client: SanityStegaClient,
+  client: SanityClient,
   language: string,
   slug: string
 ) {

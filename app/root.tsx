@@ -38,6 +38,7 @@ import { CookieBanner } from "./components/CookieBanner"
 import { useTranslations } from "./lib/useTranslations"
 import { TranslationKey } from "./lib/flattenMessages"
 import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
+import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -79,6 +80,7 @@ export const links: LinksFunction = () => [
 ]
 
 export type RootLoaderData = {
+  adConfig: AdConfigType
   bodyClassNames: string
   categories: Category[]
   ENV: ReturnType<typeof getEnv>
@@ -144,12 +146,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   const footerLinks = await getFooterLinks(client, locale)
   const partners = await getPartners(client)
   const siteConfig = await getSiteConfig(client)
+  const adConfig = await getAdConfig(client)
 
   let t = await i18next.getFixedT(request)
   const translations = await useTranslations(t)
 
   return json<RootLoaderData>(
     {
+      adConfig,
       bodyClassNames,
       categories,
       ENV: getEnv(),

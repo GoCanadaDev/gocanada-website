@@ -7,7 +7,7 @@ import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
 import SearchModal from "~/components/search/SearchModal"
 import { Navigation } from "./Navigation"
-import { MobileNavigation } from "./MobileNavigation"
+import TopAdBanner from "./TopAdBanner"
 
 export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
@@ -20,6 +20,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
       >
         Skip to main content
       </a>
+      <TopAdBanner />
       <div className="border-b-2 border-slate-200 transition-colors duration-1000 ease-in-out dark:border-slate-800">
         <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
           <Logo />

@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { ImageAsset } from "sanity"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
@@ -45,7 +45,7 @@ export const linksQuery = groq`*[_type == "linksPageType"] {
   }
 }`
 
-export async function getLinks(client: SanityStegaClient) {
+export async function getLinks(client: SanityClient) {
   const result = await client.fetch(linksQuery)
 
   return sanitizeStrings(result[0]) as LinksPageType

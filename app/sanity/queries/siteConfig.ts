@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export type SiteConfigType = {
@@ -16,7 +16,7 @@ export const siteConfigQuery = groq`*[_type == "siteConfigType"] {
   siteTitle,
 }`
 
-export async function getSiteConfig(client: SanityStegaClient) {
+export async function getSiteConfig(client: SanityClient) {
   const result = await client.fetch(siteConfigQuery)
 
   return sanitizeStrings(result[0]) as SiteConfigType

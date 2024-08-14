@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
@@ -29,7 +29,7 @@ export const tagsQuery = groq`*[_type == "tagType"] | order(_createdAt desc) {
   "language": $language,
 }`
 
-export async function getTags(client: SanityStegaClient, language: string) {
+export async function getTags(client: SanityClient, language: string) {
   const result = await client.fetch(tagsQuery, { language })
   return Object.values(sanitizeStrings(result)) as Tag[]
 }
@@ -55,7 +55,7 @@ export const tagBySlugQuery = groq`*[_type == "tagType" && slug[$language].curre
 }`
 
 export async function getTag(
-  client: SanityStegaClient,
+  client: SanityClient,
   slug: string,
   language: string
 ) {

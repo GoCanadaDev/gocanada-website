@@ -1,5 +1,5 @@
 import groq from "groq"
-import type { SanityStegaClient } from "@sanity/client/stega"
+import type { SanityClient } from "@sanity/client"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { SupportedLanguages } from "~/i18n"
@@ -47,10 +47,7 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOr
   }
 }`
 
-export async function getCategories(
-  client: SanityStegaClient,
-  language: string
-) {
+export async function getCategories(client: SanityClient, language: string) {
   const result = await client.fetch(categoriesQuery, { language })
   return Object.values(sanitizeStrings(result)) as Category[]
 }
@@ -86,7 +83,7 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
 }`
 
 export async function getCategory(
-  client: SanityStegaClient,
+  client: SanityClient,
   slug: string,
   language: string
 ) {
