@@ -60,7 +60,7 @@ export default function AuthorCard({
         return (
           <svg
             aria-label="Threads"
-            fill="var(--barcelona-primary-icon)"
+            fill="currentColor"
             className="size-6"
             height="100%"
             role="img"

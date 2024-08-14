@@ -55,7 +55,7 @@ export default function Share({
   return (
     <div className="mt-2 flex justify-center gap-1">
       <div
-        className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-black"
+        className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-black hover:opacity-80"
         onClick={() => shareToThreads()}
       >
         <svg
@@ -74,7 +74,7 @@ export default function Share({
       <FacebookShareButton
         url={shareUrl}
         hashtag={tags && tags.length > 0 ? hashtags[0] : undefined}
-        className="hover:opacity-90"
+        className="hover:opacity-80"
       >
         <FacebookIcon size={32} round />
       </FacebookShareButton>
@@ -82,21 +82,21 @@ export default function Share({
         url={shareUrl}
         title={title}
         hashtags={tags && tags.length > 0 ? hashtags : undefined}
-        className="hover:opacity-90"
+        className="hover:opacity-80"
       >
         <XIcon size={32} round />
       </TwitterShareButton>{" "}
       <TelegramShareButton
         url={shareUrl}
         title={title}
-        className="hover:opacity-90"
+        className="hover:opacity-80"
       >
         <TelegramIcon size={32} round />
       </TelegramShareButton>
       <RedditShareButton
         url={shareUrl}
         title={title}
-        className="hover:opacity-90"
+        className="hover:opacity-80"
       >
         <RedditIcon size={32} round bgStyle={{ fill: "#FF4500" }} />
       </RedditShareButton>
@@ -106,7 +106,7 @@ export default function Share({
           .replace("image-", "")
           .replace("-jpg", ".jpg")}`}
         description={description}
-        className="hover:opacity-90"
+        className="hover:opacity-80"
       >
         <PinterestIcon size={32} round />
       </PinterestShareButton>
@@ -114,7 +114,7 @@ export default function Share({
         url={shareUrl}
         subject={`Check out this article on Go Canada: ${title}`}
         body="Hey, I thought you might be interested in this article on Go Canada that I found!"
-        className="hover:opacity-90"
+        className="hover:opacity-80"
       >
         <EmailIcon size={32} round />
       </EmailShareButton>

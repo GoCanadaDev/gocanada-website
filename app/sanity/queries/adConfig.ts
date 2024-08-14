@@ -18,7 +18,6 @@ export const adConfigQuery = groq`*[_type == "adConfigType"] {
 
 export async function getAdConfig(client: SanityClient) {
   const result = await client.fetch(adConfigQuery)
-  console.log(result)
 
   return sanitizeStrings(result[0]) as AdConfigType
 }

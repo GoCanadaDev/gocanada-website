@@ -25,7 +25,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ staticPage }, { status: 200 })
 }
 
-const Privacy = () => {
+const Advertising = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
 
@@ -42,4 +42,4 @@ const Privacy = () => {
   )
 }
 
-export default Privacy
+export default Advertising

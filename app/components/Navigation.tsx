@@ -22,7 +22,7 @@ const ListItem = React.forwardRef<
           to={props.href!}
           ref={ref}
           prefetch="intent"
-          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:text-brandHover  focus:text-brandHover  focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-slate-100/50 data-[state=open]:bg-slate-100/50  dark:bg-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:focus:bg-slate-800 dark:focus:text-slate-50 dark:data-[active]:bg-slate-800/50 dark:data-[state=open]:bg-slate-800/50"
+          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:text-brandHover  focus:text-brandHover  focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:text-brandHover data-[state=open]:text-brandHover dark:hover:text-brandHover dark:focus:text-brandHover  dark:data-[active]:text-brandHover dark:data-[state=open]:text-brandHover"
           {...props}
         >
           <span className="text-sm font-medium leading-none">{title}</span>

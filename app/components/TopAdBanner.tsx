@@ -4,8 +4,6 @@ import { AspectRatio } from "./ui/aspect-ratio"
 export default function TopAdBanner({}) {
   const { adConfig } = useRootLoaderData()
 
-  console.log(adConfig)
-
   if (!adConfig.featuredAdsEnabled) {
     return null
   }

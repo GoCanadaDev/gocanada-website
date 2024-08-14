@@ -33,7 +33,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="border-t-2 border-slate-200 transition-colors duration-1000 ease-in-out dark:border-slate-800">
+    <footer className="border-t-2 border-slate-900 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
         <LogoIcon />
       </div>

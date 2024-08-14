@@ -36,7 +36,7 @@ export const MiniCard = ({
         ) : null}
       </div>
       <div className="space-y-2">
-        <Typography.H4 className="text-brand">
+        <Typography.H4 className="font-normal text-brand">
           {post.category.title[post.language]}
         </Typography.H4>
         <Typography.H3 className="text-2xl leading-[1] transition-colors duration-700 group-hover:text-brand">

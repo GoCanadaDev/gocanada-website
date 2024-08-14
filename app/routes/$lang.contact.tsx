@@ -1,3 +1,6 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
@@ -8,6 +11,19 @@ import { useLoaderData } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
+
+import { Button } from "~/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
+import { Textarea } from "~/components/ui/textarea"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
@@ -21,9 +37,38 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ staticPage }, { status: 200 })
 }
 
-const Privacy = () => {
+const RequiredText = () => (
+  <span className="ml-2 text-sm text-slate-400">(required)</span>
+)
+
+const Contact = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
+
+  const formSchema = z.object({
+    firstName: z.string().min(2).max(50),
+    lastName: z.string().min(2).max(50),
+    email: z.string().email(),
+    subject: z.string().min(2).max(100),
+    message: z.string().min(2).max(500),
+  })
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values)
+  }
 
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
@@ -33,9 +78,111 @@ const Privacy = () => {
           value={staticPage.body[staticPage.language]}
           components={PortableTextComponents}
         />
+        <div className="mt-8 flex gap-4">
+          <div className="w-1/3">
+            <img src="/images/contact.jpg" alt="Contact" className="w-full" />
+          </div>
+          <div className="w-2/3">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-2"
+              >
+                <div className="columns-2">
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          First Name
+                          <RequiredText />
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Last Name
+                          <RequiredText />
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Email
+                        <RequiredText />
+                      </FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Subject
+                        <RequiredText />
+                      </FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Message
+                        <RequiredText />
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+                >
+                  Submit
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </div>
       </article>
     </Layout>
   )
 }
 
-export default Privacy
+export default Contact

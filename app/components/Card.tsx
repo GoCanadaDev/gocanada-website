@@ -3,6 +3,7 @@ import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { AspectRatio } from "./ui/aspect-ratio"
+import { cn } from "~/lib/utils"
 
 export default function Card({
   post,
@@ -44,30 +45,44 @@ export default function Card({
           </Link>
         </AspectRatio>
       ) : null}
-      <div className="relative space-y-2">
-        <Typography.H4 className="text-sm font-normal text-brand">
+      <div className={cn("relative space-y-2", { "space-y-3": isLarge })}>
+        <Typography.H4
+          className={cn("text-sm font-normal text-brand", {
+            "text-base": isLarge,
+          })}
+        >
           {post.category.title[post.language]}
         </Typography.H4>
-        <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
+        <Typography.H3
+          className={cn(
+            "mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand",
+            { "text-5xl": isLarge }
+          )}
+        >
           {post.title[post.language]}
         </Typography.H3>
         {showExcerpt ? (
           <Typography.Paragraph
-            className={
-              isLarge
-                ? "text-base leading-snug text-slate-500"
-                : "line-clamp-3 text-base leading-snug text-slate-500"
-            }
+            className={cn(
+              "text-base leading-snug text-slate-500 dark:text-slate-300",
+              {
+                "leading line-clamp-3 text-lg": isLarge,
+              }
+            )}
           >
             {post.excerpt[post.language]}
           </Typography.Paragraph>
         ) : null}
-        <Typography.Paragraph className="text-xs uppercase tracking-widest text-slate-400">
+        <Typography.Paragraph
+          className={cn("text-xs uppercase tracking-widest text-slate-400", {
+            "text-sm": isLarge,
+          })}
+        >
           By {post.author.name}
         </Typography.Paragraph>
         <p>
           <Link
-            className="text-sm before:absolute before:inset-0"
+            className="before:absolute before:inset-0"
             prefetch="intent"
             to={linkTo}
             aria-label={`Read more: ${post.title[post.language]}`}
