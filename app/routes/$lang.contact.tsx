@@ -80,8 +80,8 @@ const Contact = () => {
           value={staticPage.body[staticPage.language]}
           components={PortableTextComponents}
         />
-        <div className="mt-8 flex flex-nowrap gap-12">
-          <div className="sm:w-1/2">
+        <div className="mt-8 flex flex-wrap gap-12 sm:flex-nowrap">
+          <div className="w-full sm:w-1/2">
             <Image
               id={staticPage.mainImage.id}
               alt={staticPage.mainImageCaption ?? ""}
@@ -90,7 +90,7 @@ const Contact = () => {
               className="pointer-events-none !m-0 w-full"
             />
           </div>
-          <div className="sm:w-1/2">
+          <div className="w-full sm:w-1/2">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
