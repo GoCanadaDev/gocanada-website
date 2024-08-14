@@ -3,6 +3,7 @@ import type { SanityClient } from "@sanity/client"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { ImageCrop, ImageHotspot } from "sanity"
 
 export async function getStaticPageByRoute(
   client: SanityClient,
@@ -28,6 +29,15 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
     "fr": body.fr,
   },
   "language": $language,
+  mainImage{
+    ...,
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  },
+  mainImageCaption,
+  mainImageAttribution,
+  mainImageAttributionUrl,
 }`
 
 // get all staticPages where isFooterLink is true
@@ -60,6 +70,17 @@ export type StaticPageRoute = {
   route: string
   language: "en" | "fr"
   title: LocalizedString
+  mainImageCaption: string
+  mainImageAttribution: string
+  mainImageAttributionUrl: string
+  mainImageFullBleed: boolean
+  mainImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
+  }
 }
 
 export type StaticPage = {

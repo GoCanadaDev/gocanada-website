@@ -32,10 +32,8 @@ export function Footer() {
     setYear(new Date().getFullYear())
   }, [])
 
-  console.log({ siteConfig })
-
   return (
-    <footer className="border-t-2 border-slate-900 transition-colors duration-1000 ease-in-out dark:border-slate-800">
+    <footer className="border-t border-slate-900 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
         <LogoIcon />
       </div>
@@ -88,7 +86,7 @@ export function Footer() {
               <animated.span style={style} className="inline-block">
                 <Instagram className="inline" size={48} />
               </animated.span>
-              <span className="pl-2 text-2xl">@canada</span>
+              <span className="pl-2 text-2xl uppercase">@canada</span>
             </a>
           </div>
         </div>

@@ -43,7 +43,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
   const fullBleed = value.fullBleed || fullBleedOne || fullBleedTwo
 
   return (
-    <figure className={value.fullBleed ? "full-bleed" : undefined}>
+    <div className={value.fullBleed ? "full-bleed" : undefined}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <SingleImage
           value={{
@@ -64,7 +64,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
       </div>
       {attribution || caption ? (
         <div className={fullBleed ? "holy-grail" : undefined}>
-          <figcaption className="flex justify-between">
+          <figcaption className="!-mt-2 flex justify-between">
             {caption ? <span className="flex-1">{caption}</span> : null}
             {attribution ? (
               <span className="flex-1 text-right">
@@ -79,6 +79,6 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
           </figcaption>
         </div>
       ) : null}
-    </figure>
+    </div>
   )
 }

@@ -24,6 +24,35 @@ export const staticPageType = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "mainImage",
+      title: "Main image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: "mainImageCaption",
+      title: "Main Image Caption",
+      type: "string",
+    }),
+    defineField({
+      name: "mainImageAttribution",
+      type: "string",
+      title: "Attribution Name",
+    }),
+    defineField({
+      name: "mainImageAttributionUrl",
+      type: "url",
+      title: "Attribution URL",
+    }),
+    defineField({
+      name: "mainImageFullBleed",
+      title: "Full Bleed Main Image & Title",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "localeBlockContentType",

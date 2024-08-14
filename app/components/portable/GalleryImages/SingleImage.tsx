@@ -5,9 +5,14 @@ import { cn } from "~/lib/utils"
 export type SingleImageProps = {
   value: ImageProps
   className?: string
+  isInGrid?: boolean
 }
 
-export const SingleImage = ({ value, className }: SingleImageProps) => {
+export const SingleImage = ({
+  value,
+  className,
+  isInGrid,
+}: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
   return (
@@ -28,7 +33,7 @@ export const SingleImage = ({ value, className }: SingleImageProps) => {
             ) : null}
             {value.attribution ? (
               <span className="flex-1 text-right">
-                Photo by{" "}
+                {isInGrid ? "Photos" : "Photo"} by{" "}
                 {value.attributionUrl ? (
                   <a href={value.attributionUrl}>{value.attribution}</a>
                 ) : (

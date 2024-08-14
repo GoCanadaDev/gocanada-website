@@ -11,6 +11,7 @@ import { useLoaderData } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { Image } from "~/components/Image"
 
 import { Button } from "~/components/ui/button"
 import {
@@ -24,6 +25,7 @@ import {
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
+import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
@@ -78,11 +80,17 @@ const Contact = () => {
           value={staticPage.body[staticPage.language]}
           components={PortableTextComponents}
         />
-        <div className="mt-8 flex gap-4">
-          <div className="w-1/3">
-            <img src="/images/contact.jpg" alt="Contact" className="w-full" />
+        <div className="mt-8 flex flex-nowrap gap-12">
+          <div className="sm:w-1/2">
+            <Image
+              id={staticPage.mainImage.id}
+              alt={staticPage.mainImageCaption ?? ""}
+              width={640}
+              loading="lazy"
+              className="pointer-events-none !m-0 w-full"
+            />
           </div>
-          <div className="w-2/3">
+          <div className="sm:w-1/2">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}

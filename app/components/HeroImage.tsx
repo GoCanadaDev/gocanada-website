@@ -43,7 +43,7 @@ export const HeroImage = ({
               : "mx-auto mb-8 w-10/12 max-w-7xl"
           }`}
         >
-          <figcaption className="flex justify-between px-4 text-slate-500 dark:text-slate-400">
+          <figcaption className="flex justify-between text-slate-500 dark:text-slate-400">
             {typeof mainImageCaption === "string" ? (
               <span className="flex-1 italic">{mainImageCaption}</span>
             ) : null}
