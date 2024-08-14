@@ -86,7 +86,7 @@ export const HeroImage = ({
       </figure>
       <div className="absolute inset-0 z-[2] h-full w-full select-none bg-[radial-gradient(rgba(0,_0,_0,_0.3),_rgba(0,_0,_0,_0))]" />
       <div className="relative z-[3] mx-auto flex h-screen max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        <Typography.H4 className="mb-12 text-white drop-shadow-lg">
+        <Typography.H4 className="mb-6 text-white drop-shadow-lg">
           <Link
             prefetch="intent"
             to={`/${params.lang}/categories/${
@@ -118,7 +118,7 @@ export const HeroImage = ({
         {renderFigCaption()}
       </figure>
       <div className="mx-auto flex max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        <Typography.H4 className="mb-12">
+        <Typography.H4 className="mb-6">
           <Link
             prefetch="intent"
             to={`/${params.lang}/categories/${

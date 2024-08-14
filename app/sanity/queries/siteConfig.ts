@@ -7,6 +7,7 @@ export type SiteConfigType = {
   keywords: string[]
   siteDescription: string
   siteTitle: string
+  footerText: string
 }
 
 export const siteConfigQuery = groq`*[_type == "siteConfigType"] {
@@ -14,6 +15,7 @@ export const siteConfigQuery = groq`*[_type == "siteConfigType"] {
   keywords,
   siteDescription,
   siteTitle,
+  footerText,
 }`
 
 export async function getSiteConfig(client: SanityClient) {

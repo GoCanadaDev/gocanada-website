@@ -56,7 +56,7 @@ export default function Card({
         <Typography.H3
           className={cn(
             "mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand",
-            { "text-5xl": isLarge }
+            { "text-4xl": isLarge }
           )}
         >
           {post.title[post.language]}

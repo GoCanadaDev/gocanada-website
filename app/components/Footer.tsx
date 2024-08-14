@@ -32,6 +32,8 @@ export function Footer() {
     setYear(new Date().getFullYear())
   }, [])
 
+  console.log({ siteConfig })
+
   return (
     <footer className="border-t-2 border-slate-900 transition-colors duration-1000 ease-in-out dark:border-slate-800">
       <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
@@ -72,18 +74,7 @@ export function Footer() {
             <Typography.Paragraph>
               {siteConfig.siteDescription}
             </Typography.Paragraph>
-            <Typography.TextMuted>
-              {siteConfig.siteTitle} dives into longer form, immersive content
-              (photo essays, interviews, cinematic video and long form stories)
-              beyond the world of social media as established by our companion
-              Instagram account @CANADA - the most followed and engaged
-              Instagram account dedicated to showcasing our country. With over 2
-              Million followers and growing by 30K users per month, our
-              passionate fans and followers look to us for lifestyle and travel
-              inspiration as well as tips, advice, and recommendations from top
-              Canadian creators and influencers. We also love to showcase
-              submissions from our community of passionate fans and travelers.
-            </Typography.TextMuted>
+            <Typography.TextMuted>{siteConfig.footerText}</Typography.TextMuted>
           </div>
         </div>
         <div className="w-full space-y-8 text-center md:w-1/4">

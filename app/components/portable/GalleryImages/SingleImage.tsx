@@ -24,7 +24,7 @@ export const SingleImage = ({ value, className }: SingleImageProps) => {
         <div className={value.fullBleed ? "holy-grail" : undefined}>
           <figcaption className="flex justify-between">
             {value.caption ? (
-              <span className="flex-1 italic">{value.caption}</span>
+              <span className="flex-1">{value.caption}</span>
             ) : null}
             {value.attribution ? (
               <span className="flex-1 text-right">

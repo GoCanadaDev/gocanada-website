@@ -17,7 +17,7 @@ const Form = FormProvider
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
   name: TName
 }
@@ -28,7 +28,7 @@ const FormFieldContext = React.createContext<FormFieldContextValue>(
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -78,7 +78,7 @@ const FormItem = React.forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      <div ref={ref} className={cn("space-y-1", className)} {...props} />
     </FormItemContext.Provider>
   )
 })
@@ -93,7 +93,7 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-red-500 dark:text-red-900", className)}
+      className={cn(error && "text-brand dark:text-brand", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -155,7 +155,10 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-sm font-medium text-red-500 dark:text-red-900", className)}
+      className={cn(
+        "text-sm font-medium text-brand dark:text-brand",
+        className
+      )}
       {...props}
     >
       {body}

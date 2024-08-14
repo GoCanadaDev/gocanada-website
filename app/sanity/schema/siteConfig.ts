@@ -35,6 +35,11 @@ export const siteConfigType = defineType({
       title: "Show/Hide Partners",
       type: "boolean",
     }),
+    defineField({
+      name: "footerText",
+      title: "Footer text",
+      type: "text",
+    }),
   ],
   preview: {
     prepare() {

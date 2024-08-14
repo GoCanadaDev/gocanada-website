@@ -9,7 +9,7 @@ type TypographyProps = {
 const H1 = ({ children, className }: TypographyProps) => (
   <h1
     className={cn(
-      "scroll-m-20 font-serif text-4xl font-extrabold tracking-tight lg:text-5xl",
+      "scroll-m-20 font-serif text-4xl tracking-tight lg:text-5xl",
       className
     )}
   >
@@ -20,7 +20,7 @@ const H1 = ({ children, className }: TypographyProps) => (
 const H2 = ({ children, className }: TypographyProps) => (
   <h2
     className={cn(
-      "scroll-m-20 border-b-2 border-slate-900 pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0 dark:border-slate-800",
+      "scroll-m-20 border-b-2 border-slate-900 pb-2 font-serif text-3xl tracking-tight first:mt-0 dark:border-slate-800",
       className
     )}
   >
@@ -30,10 +30,7 @@ const H2 = ({ children, className }: TypographyProps) => (
 
 const H3 = ({ children, className }: TypographyProps) => (
   <h3
-    className={cn(
-      "scroll-m-20 font-serif text-2xl font-semibold tracking-tight",
-      className
-    )}
+    className={cn("scroll-m-20 font-serif text-2xl tracking-tight", className)}
   >
     {children}
   </h3>
