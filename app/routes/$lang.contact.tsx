@@ -105,7 +105,7 @@ const Contact = () => {
                 data-netlify-recaptcha="true"
                 name="contact-form"
                 method="POST"
-                action="/?index"
+                action="/"
               >
                 <input type="hidden" name="form-name" value="contact-form" />
                 <p className="hidden">
