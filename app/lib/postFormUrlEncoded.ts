@@ -7,9 +7,7 @@ const encode = (data: { [key: string]: unknown }) =>
     .join("&")
 
 function postFormUrlEncoded<T>(formName: string, values: T) {
-  // Netlify will accept form submissions to any valid URL
-  // by submitting to a static file we skip Remix's POST catcher
-  fetch("/favicon.ico", {
+  fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
