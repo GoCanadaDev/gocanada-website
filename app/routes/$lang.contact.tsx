@@ -68,6 +68,7 @@ const Contact = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     postFormUrlEncoded<z.infer<typeof formSchema>>("contact", values)
     toast.success("Form has been successfully submitted")
+    form.reset()
   }
 
   return (

@@ -7,7 +7,7 @@ const encode = (data: { [key: string]: unknown }) =>
     .join("&")
 
 function postFormUrlEncoded<T>(formName: string, values: T) {
-  fetch("/", {
+  fetch("https://gocanada-website.netlify.app/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
