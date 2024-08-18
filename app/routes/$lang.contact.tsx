@@ -40,7 +40,6 @@ const formSchema = z.object({
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  console.log({ reqUrl: request.url })
   await postFormUrlEncoded(request.url, formData)
 
   return null
@@ -99,14 +98,13 @@ const Contact = () => {
           <div className="w-full sm:w-1/2">
             <Form {...form}>
               <RemixForm
-                // onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-2"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 data-netlify-recaptcha="true"
                 name="contact-form"
                 method="POST"
-                navigate={false}
               >
                 <input type="hidden" name="form-name" value="contact-form" />
                 <p className="hidden">
