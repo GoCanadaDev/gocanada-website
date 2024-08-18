@@ -97,22 +97,19 @@ const Contact = () => {
           </div>
           <div className="w-full sm:w-1/2">
             <Form {...form}>
-              <RemixForm
+              <form
                 // onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-2"
                 data-netlify="true"
-                netlify-honeypot="bot-field"
-                data-netlify-recaptcha="true"
-                name="contact-form"
                 method="POST"
               >
                 <input type="hidden" name="form-name" value="contact-form" />
-                <p className="hidden">
+                {/* <p className="hidden">
                   <label>
                     Don't fill this out if you're human:{" "}
                     <input name="bot-field" />
                   </label>
-                </p>
+                </p> */}
                 <div className="columns-2">
                   <FormField
                     control={form.control}
@@ -195,14 +192,14 @@ const Contact = () => {
                     </FormItem>
                   )}
                 />
-                <div data-netlify-recaptcha="true"></div>
+                {/* <div data-netlify-recaptcha="true"></div> */}
                 <Button
                   type="submit"
                   className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
                 >
                   Submit
                 </Button>
-              </RemixForm>
+              </form>
             </Form>
           </div>
         </div>

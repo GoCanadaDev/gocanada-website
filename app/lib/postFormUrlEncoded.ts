@@ -12,10 +12,8 @@ async function postFormUrlEncoded<T>(baseUrl: string, values: T) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({ values }),
   })
-    .then(() => {
-      // window.location.href = "/thanks/"
-    })
-    .catch((error) => alert(error))
+
+  console.log({ values })
 }
 
 export default postFormUrlEncoded
