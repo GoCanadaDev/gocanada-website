@@ -12,12 +12,11 @@ import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { Image } from "~/components/Image"
-
+import { toast } from "sonner"
 import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,7 +24,7 @@ import {
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
-import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
+import postFormUrlEncoded from "~/lib/postFormUrlEncoded"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
@@ -67,9 +66,8 @@ const Contact = () => {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    postFormUrlEncoded<z.infer<typeof formSchema>>("contact", values)
+    toast.success("Form has been successfully submitted")
   }
 
   return (
