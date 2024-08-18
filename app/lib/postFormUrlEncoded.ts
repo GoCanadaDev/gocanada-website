@@ -6,14 +6,11 @@ const encode = (data: { [key: string]: unknown }) =>
     )
     .join("&")
 
-function postFormUrlEncoded<T>(formName: string, values: T) {
-  fetch("/", {
+async function postFormUrlEncoded<T>(values: T) {
+  fetch("/?index", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: encode({
-      "form-name": formName,
-      ...values,
-    }),
+    body: encode({ values }),
   })
     .then(() => {
       // window.location.href = "/thanks/"

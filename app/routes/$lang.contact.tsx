@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json, LoaderFunction } from "@remix-run/node"
+import { json, LoaderFunction, ActionFunction } from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
-import { useLoaderData } from "@remix-run/react"
+import { useLoaderData, Form as RemixForm } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
@@ -30,6 +30,21 @@ type StaticPageLoaderData = {
   staticPage: StaticPage
 }
 
+const formSchema = z.object({
+  firstName: z.string().min(2).max(50),
+  lastName: z.string().min(2).max(50),
+  email: z.string().email(),
+  subject: z.string().min(2).max(100),
+  message: z.string().min(2).max(500),
+})
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData()
+  await postFormUrlEncoded(formData)
+
+  return null
+}
+
 export const loader: LoaderFunction = async ({ params }) => {
   isLangSupportedLang(params.lang)
 
@@ -46,14 +61,6 @@ const Contact = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
 
-  const formSchema = z.object({
-    firstName: z.string().min(2).max(50),
-    lastName: z.string().min(2).max(50),
-    email: z.string().email(),
-    subject: z.string().min(2).max(100),
-    message: z.string().min(2).max(500),
-  })
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,7 +73,6 @@ const Contact = () => {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    postFormUrlEncoded<z.infer<typeof formSchema>>("contact", values)
     toast.success("Form has been successfully submitted")
     form.reset()
   }
@@ -91,7 +97,7 @@ const Contact = () => {
           </div>
           <div className="w-full sm:w-1/2">
             <Form {...form}>
-              <form
+              <RemixForm
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-2"
                 data-netlify="true"
@@ -99,8 +105,9 @@ const Contact = () => {
                 data-netlify-recaptcha="true"
                 name="contact"
                 method="POST"
-                action="/contact/"
+                action="/?index"
               >
+                <input type="hidden" name="form-name" value="contact-form" />
                 <p className="hidden">
                   <label>
                     Don't fill this out if you're human:{" "}
@@ -196,7 +203,7 @@ const Contact = () => {
                 >
                   Submit
                 </Button>
-              </form>
+              </RemixForm>
             </Form>
           </div>
         </div>
