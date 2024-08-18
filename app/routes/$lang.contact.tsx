@@ -97,13 +97,13 @@ const Contact = () => {
           </div>
           <div className="w-full sm:w-1/2">
             <Form {...form}>
-              <RemixForm
-                onSubmit={form.handleSubmit(onSubmit)}
+              <form
+                // onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-2"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 data-netlify-recaptcha="true"
-                name="contact"
+                name="contact-form"
                 method="POST"
                 action="/?index"
               >
@@ -203,7 +203,7 @@ const Contact = () => {
                 >
                   Submit
                 </Button>
-              </RemixForm>
+              </form>
             </Form>
           </div>
         </div>
