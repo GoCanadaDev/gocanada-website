@@ -13,7 +13,7 @@ async function postFormUrlEncoded<T>(baseUrl: string, values: T) {
     body: encode({ values }),
   })
 
-  console.log({ values })
+  console.log({ values: encode({ values }) })
 }
 
 export default postFormUrlEncoded
