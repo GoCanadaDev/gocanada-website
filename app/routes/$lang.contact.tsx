@@ -98,6 +98,7 @@ const Contact = () => {
                 netlify-honeypot="bot-field"
                 data-netlify-recaptcha="true"
                 name="contact"
+                method="POST"
               >
                 <p className="hidden">
                   <label>
