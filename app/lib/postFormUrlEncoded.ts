@@ -6,8 +6,8 @@ const encode = (data: { [key: string]: unknown }) =>
     )
     .join("&")
 
-async function postFormUrlEncoded<T>(values: T) {
-  fetch("/?index", {
+async function postFormUrlEncoded<T>(baseUrl: string, values: T) {
+  fetch(`${baseUrl}/contact-form`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({ values }),
