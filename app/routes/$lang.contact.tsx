@@ -40,6 +40,7 @@ const formSchema = z.object({
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
+  console.log({ reqUrl: request.url })
   await postFormUrlEncoded(request.url, formData)
 
   return null
