@@ -7,7 +7,9 @@ const encode = (data: { [key: string]: unknown }) =>
     .join("&")
 
 function postFormUrlEncoded<T>(formName: string, values: T) {
-  fetch("https://gocanada-website.netlify.app/", {
+  // Netlify will accept form submissions to any valid URL
+  // by submitting to a static file we skip Remix's POST catcher
+  fetch("/favicon.ico", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
@@ -15,6 +17,10 @@ function postFormUrlEncoded<T>(formName: string, values: T) {
       ...values,
     }),
   })
+    .then(() => {
+      // window.location.href = "/thanks/"
+    })
+    .catch((error) => alert(error))
 }
 
 export default postFormUrlEncoded

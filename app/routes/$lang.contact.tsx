@@ -99,6 +99,7 @@ const Contact = () => {
                 data-netlify-recaptcha="true"
                 name="contact"
                 method="POST"
+                action="/contact/"
               >
                 <p className="hidden">
                   <label>
