@@ -12,7 +12,7 @@ export const config = defineConfig({
   projectId,
   dataset,
   name: "go-canada",
-  title: "GoCanada",
+  title: "Go Canada",
   plugins: [
     structureTool({ structure, defaultDocumentNode }),
     // presentationTool({

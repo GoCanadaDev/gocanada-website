@@ -1,5 +1,5 @@
 import { SanityImage } from "sanity-image"
-
+import { cn } from "~/lib/utils"
 import { baseUrl } from "~/sanity/projectDetails"
 import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
@@ -37,18 +37,24 @@ export const HeroImage = ({
     <>
       {mainImageAttribution || mainImageCaption ? (
         <div
-          className={`${
-            fullBleed
-              ? "absolute -bottom-8 left-0 right-0"
-              : "mx-auto mb-8 w-10/12 max-w-7xl"
-          }`}
+          className={cn("", {
+            "mx-auto mb-8 w-10/12 max-w-7xl": !fullBleed,
+            "absolute left-0 right-0 top-full": fullBleed,
+          })}
         >
-          <figcaption className="flex justify-between text-slate-500 dark:text-slate-400">
+          <figcaption
+            className={cn(
+              "flex justify-between text-slate-500 dark:text-slate-400",
+              {
+                "px-4 pt-2": fullBleed,
+              }
+            )}
+          >
             {typeof mainImageCaption === "string" ? (
-              <span className="flex-1 italic">{mainImageCaption}</span>
+              <span className="flex-1 text-sm">{mainImageCaption}</span>
             ) : null}
             {typeof mainImageAttribution === "string" ? (
-              <span className="flex-1 text-right">
+              <span className="flex-1 text-right text-sm">
                 Photo by{" "}
                 {typeof mainImageAttributionUrl === "string" ? (
                   <a
@@ -69,7 +75,11 @@ export const HeroImage = ({
   )
 
   return fullBleed ? (
-    <section className="relative h-svh transition-all">
+    <section
+      className={cn("relative h-svh transition-all", {
+        "mb-12": mainImageAttribution || mainImageCaption,
+      })}
+    >
       <figure>
         <SanityImage
           id={id}

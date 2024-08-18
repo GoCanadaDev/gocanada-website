@@ -15,7 +15,7 @@ export function Logo() {
         src={
           themePreference === "dark" ? GoCanadaLogoReverse : GoCanadaLogoColour
         }
-        alt="GoCanada Logo"
+        alt="Go Canada Logo"
         className="w-32 md:w-48"
       />
     </Link>

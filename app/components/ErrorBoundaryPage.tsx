@@ -20,7 +20,7 @@ export default function ErrorBoundaryPage() {
   return (
     <html>
       <head>
-        <title>Something went wrong | GoCanada</title>
+        <title>Something went wrong | Go Canada</title>
         <Meta />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -61,7 +61,7 @@ export default function ErrorBoundaryPage() {
                   Please refresh the page and try again, or start over at the{" "}
                   <Link
                     to="/"
-                    className="hover:text-brandHover text-brand underline"
+                    className="text-brand underline hover:text-brandHover"
                   >
                     home page
                   </Link>

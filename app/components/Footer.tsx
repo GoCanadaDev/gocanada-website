@@ -115,7 +115,7 @@ export function Footer() {
         </nav>
       </div>
       <div className="container mx-auto p-8 text-center text-xs lg:px-12">
-        &copy; {year} GoCanada, a division of{" "}
+        &copy; {year} Go Canada, a division of{" "}
         <a href="https://www.stayandwander.com/" className="underline">
           Stay &amp; Wander Media Inc.
         </a>{" "}

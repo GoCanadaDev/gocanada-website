@@ -33,7 +33,7 @@ export default function Share({
   description,
 }: ShareProps) {
   // TODO: update URL to production URL
-  const shareUrl = `https://gocanada-website.netlify.app${url}`
+  const shareUrl = `https://gocanada.com${url}`
 
   const hashtags =
     (tags && tags.length > 0 && tags.map((tag) => tag.split(" ").join(""))) ||

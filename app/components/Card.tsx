@@ -66,7 +66,7 @@ export default function Card({
             className={cn(
               "text-base leading-snug text-slate-500 dark:text-slate-300",
               {
-                "leading line-clamp-3 text-lg": isLarge,
+                "leading line-clamp-2 text-lg": isLarge,
               }
             )}
           >

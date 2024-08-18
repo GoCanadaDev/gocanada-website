@@ -95,7 +95,17 @@ const Contact = () => {
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-2"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                data-netlify-recaptcha="true"
+                name="contact"
               >
+                <p className="hidden">
+                  <label>
+                    Don't fill this out if you're human:{" "}
+                    <input name="bot-field" />
+                  </label>
+                </p>
                 <div className="columns-2">
                   <FormField
                     control={form.control}
@@ -178,6 +188,7 @@ const Contact = () => {
                     </FormItem>
                   )}
                 />
+                <div data-netlify-recaptcha="true"></div>
                 <Button
                   type="submit"
                   className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"

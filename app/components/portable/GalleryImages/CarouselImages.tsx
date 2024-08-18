@@ -117,7 +117,7 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
         </AspectRatio>
         {attribution || caption ? (
           <figcaption className="flex justify-between">
-            {caption ? <span className="flex-1 italic">{caption}</span> : null}
+            {caption ? <span className="flex-1">{caption}</span> : null}
             {attribution ? (
               <span className="flex-1 text-right">
                 Photos by{" "}

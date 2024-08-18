@@ -6,6 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const SITE_META = {
-  title: "GoCanada",
-  siteTitle: "GoCanada",
+  title: "Go Canada",
+  siteTitle: "Go Canada",
 }
