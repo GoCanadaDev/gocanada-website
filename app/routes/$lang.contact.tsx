@@ -98,7 +98,7 @@ const Contact = () => {
           <div className="w-full sm:w-1/2">
             <Form {...form}>
               <RemixForm
-                onSubmit={form.handleSubmit(onSubmit)}
+                // onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-2"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
