@@ -75,7 +75,7 @@ const RequiredText = () => (
 const Contact = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
-  const actionData = useActionData<typeof action>()
+  const actionData = useActionData<{ firstName?: string }>()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,7 +89,7 @@ const Contact = () => {
   })
 
   useEffect(() => {
-    if (actionData.firstName && actionData.status === 200) {
+    if (actionData?.firstName) {
       toast.success(
         `Thanks ${actionData.firstName}. We've received your message.`
       )

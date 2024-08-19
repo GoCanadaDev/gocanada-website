@@ -13,8 +13,6 @@ async function postFormUrlEncoded<T extends Record<string, string>>(values: T) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode(values),
   })
-
-  console.log({ values: encode(values) })
 }
 
 export default postFormUrlEncoded

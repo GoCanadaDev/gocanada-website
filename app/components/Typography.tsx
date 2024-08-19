@@ -84,13 +84,11 @@ const Lead = ({ children, className }: TypographyProps) => (
 )
 
 const TextLarge = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-lg font-semibold lg:text-xl", className)}>
-    {children}
-  </p>
+  <p className={cn("text-lg font-normal lg:text-xl", className)}>{children}</p>
 )
 
 const TextSmall = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm font-medium leading-none", className)}>
+  <p className={cn("text-sm font-normal leading-none", className)}>
     {children}
   </p>
 )
