@@ -13,6 +13,19 @@ export const adConfigType = defineType({
       description: "Enable or disable the featured ads section",
     },
     {
+      name: "topBannerAdUrl",
+      title: "Top Banner Ad Url",
+      type: "url",
+      description: "Paste your URL here",
+    },
+    {
+      name: "topBannerAdImage",
+      title: "Top Banner Ad Image",
+      type: "image",
+      description:
+        "Used in conjunction with the URL when you dont want to use the Code section below",
+    },
+    {
       name: "topBannerAdCode",
       title: "Top Banner Ad Code",
       type: "text",

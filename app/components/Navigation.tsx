@@ -43,10 +43,9 @@ export function Navigation() {
     <NavigationMenu className="">
       <NavigationMenuList>
         {categories.map((category) => {
-          if (!category.enabled) {
+          if (!category.enabled || !category.title[categoryTranslation]) {
             return null
           }
-          console.log(category.title[categoryTranslation])
           return (
             <NavigationMenuItem key={category.title[categoryTranslation]}>
               <NavigationMenuTrigger>
