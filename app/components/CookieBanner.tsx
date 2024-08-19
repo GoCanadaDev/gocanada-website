@@ -19,6 +19,8 @@ export const CookieBanner = () => {
         onClick: () => {
           toast.dismiss()
           submit(formData, { method: "post" })
+          // Once affirmative consent has been granted
+          window.fbq("consent", "grant")
         },
       },
       duration: Infinity,

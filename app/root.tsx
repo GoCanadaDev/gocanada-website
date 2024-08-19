@@ -12,6 +12,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useLocation,
 } from "@remix-run/react"
 import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
@@ -38,6 +39,7 @@ import { useTranslations } from "./lib/useTranslations"
 import { TranslationKey } from "./lib/flattenMessages"
 import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
 import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
+import { useEffect } from "react"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -208,6 +210,19 @@ export default function App() {
   // translation files
   useChangeLanguage(langPreference || locale)
 
+  const location = useLocation()
+
+  useEffect(() => {
+    if (
+      ENV.FACEBOOK_PIXEL_ID?.length &&
+      process.env.NODE_ENV !== "development"
+    ) {
+      window.fbq("consent", "revoke")
+      window.fbq("init", ENV.FACEBOOK_PIXEL_ID)
+      window.fbq("track", "PageView")
+    }
+  }, [location, ENV.FACEBOOK_PIXEL_ID])
+
   return (
     <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
       <head>
@@ -234,7 +249,6 @@ export default function App() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', ${ENV.FACEBOOK_PIXEL_ID});
           `,
               }}
             />
