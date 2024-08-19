@@ -221,7 +221,7 @@ export default function App() {
       window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
       window.fbq("track", "PageView")
     }
-  }, [location, window.ENV.FACEBOOK_PIXEL_ID])
+  }, [location])
 
   return (
     <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
@@ -233,8 +233,7 @@ export default function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        {typeof window === "undefined" ||
-        process.env.NODE_ENV === "development" ||
+        {process.env.NODE_ENV === "development" ||
         !ENV.FACEBOOK_PIXEL_ID ? null : (
           <>
             <script
