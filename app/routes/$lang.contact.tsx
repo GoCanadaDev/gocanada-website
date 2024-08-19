@@ -42,14 +42,14 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const values = {
     "form-name": "contact-form",
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
-    email: formData.get("email"),
-    subject: formData.get("subject"),
-    message: formData.get("message"),
+    firstName: String(formData.get("firstName")) ?? "",
+    lastName: String(formData.get("lastName")) ?? "",
+    email: String(formData.get("email")) ?? "",
+    subject: String(formData.get("subject")) ?? "",
+    message: String(formData.get("message")) ?? "",
   }
 
-  await postFormUrlEncoded(request.url, values)
+  await postFormUrlEncoded<typeof values>(values)
 
   return null
 }
