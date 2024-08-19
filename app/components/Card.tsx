@@ -51,7 +51,7 @@ export default function Card({
             "text-base": isLarge,
           })}
         >
-          {post.category.title[post.language]}
+          {post.categories[0].title[post.language]}
         </Typography.H4>
         <Typography.H3
           className={cn(

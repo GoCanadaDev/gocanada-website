@@ -9,7 +9,7 @@ import { ImageCrop, ImageHotspot } from "sanity"
 type HeroImageProps = {
   id: string
   title: string
-  category: Post["category"]
+  category: Post["categories"][0]
   preview: string
   mainImageCaption?: string
   mainImageAttribution?: string

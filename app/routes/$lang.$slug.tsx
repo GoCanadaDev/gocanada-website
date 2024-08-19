@@ -91,7 +91,7 @@ export default function Slug() {
             fullBleed={post.mainImageFullBleed}
             id={post.mainImage.id}
             title={post.title[post.language]}
-            category={post.category}
+            category={post.categories[0]}
             preview={post.mainImage.preview}
             mainImageCaption={post.mainImageCaption}
             mainImageAttribution={post.mainImageAttribution}

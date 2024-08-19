@@ -36,14 +36,14 @@ export const algoliaPostsProjection = `{
     "name": author->name,
     "slug": author->slug.current,
   },
-  "category": {
+  "categories": categories[]->{
     "title": {
-      "en": category->title.en,
-      "fr": category->title.fr,
+      "en": title.en,
+      "fr": title.fr,
     },
     "slug": {
-      "en": category->slug.en.current,
-      "fr": category->slug.fr.current,
+      "en": slug.en.current,
+      "fr": slug.fr.current,
     },
   },
   "tags": tags[]->{
@@ -78,14 +78,14 @@ export const postsProjection = `
     "en": slug.en.current,
     "fr": slug.fr.current,
   },
-  "category": {
+  "categories": categories[]->{
     "title": {
-      "en": category->title.en,
-      "fr": category->title.fr,
+      "en": title.en,
+      "fr": title.fr,
     },
     "slug": {
-      "en": category->slug.en.current,
-      "fr": category->slug.fr.current,
+      "en": slug.en.current,
+      "fr": slug.fr.current,
     },
   },
   mainImage{
@@ -144,14 +144,14 @@ const previousOrNextPostProjection = `
   _id,
   _createdAt,
   "language": $language,
-  "category": {
+  "categories": categories[]->{
     "title": {
-      "en": category->title.en,
-      "fr": category->title.fr,
+      "en": title.en,
+      "fr": title.fr,
     },
     "slug": {
-      "en": category->slug.en.current,
-      "fr": category->slug.fr.current,
+      "en": slug.en.current,
+      "fr": slug.fr.current,
     },
   },
   mainImage{
@@ -217,14 +217,14 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
       "preview": asset->metadata.lqip,
     },
   },
-  "category": {
+  "categories": categories[]->{
     "title": {
-      "en": category->title.en,
-      "fr": category->title.fr,
+      "en": title.en,
+      "fr": title.fr,
     },
     "slug": {
-      "en": category->slug.en.current,
-      "fr": category->slug.fr.current,
+      "en": slug.en.current,
+      "fr": slug.fr.current,
     },
   },
   "tags": tags[]->{
@@ -280,10 +280,10 @@ export type NextOrPreviousPostType = {
     en: Slug
     fr: Slug
   }
-  category: {
+  categories: {
     title: Category["title"]
     slug: Category["slug"]
-  }
+  }[]
   showDate: boolean
   mainImageFullBleed: boolean
   mainImage: {
@@ -310,10 +310,10 @@ export type PostPreview = {
   }
   excerpt: LocalizedString
   byline?: string
-  category: {
+  categories: {
     title: Category["title"]
     slug: Category["slug"]
-  }
+  }[]
   showDate: boolean
   mainImageCaption: string
   mainImageAttribution: string
@@ -353,10 +353,10 @@ export type AlgoliaPost = {
   }
   excerpt: LocalizedString
   byline?: string
-  category: {
+  categories: {
     title: Category["title"]
     slug: Category["slug"]
-  }
+  }[]
   __position: number
   __queryID?: string | undefined
 }
