@@ -220,13 +220,14 @@ export default function App() {
   useEffect(() => {
     if (
       window?.ENV.FACEBOOK_PIXEL_ID?.length &&
-      process.env.NODE_ENV !== "development"
+      process.env.NODE_ENV !== "development" &&
+      typeof window.fbq === "function"
     ) {
       window.fbq("consent", "revoke")
       window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
       window.fbq("track", "PageView")
     }
-  }, [location])
+  }, [location, window.fbq])
 
   return (
     <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
