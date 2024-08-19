@@ -62,7 +62,7 @@ export default function CategoryByNameRoute() {
     <Layout useMargins translationUrl={translationUrl}>
       <Link
         to={`/${category.language}/categories`}
-        className="hover:text-brandHover text-brand"
+        className="text-brand hover:text-brandHover"
       >
         <MoveLeft className="inline h-4 w-4" /> View all categories
       </Link>
@@ -91,7 +91,7 @@ export default function CategoryByNameRoute() {
 
       <Separator className="my-2" />
       {category.posts?.length ? (
-        <CardGrid posts={category.posts} />
+        <CardGrid posts={category.posts} categoryToUse={category} />
       ) : (
         <Typography.Lead>No posts to display.</Typography.Lead>
       )}

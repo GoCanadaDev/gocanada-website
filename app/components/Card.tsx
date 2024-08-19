@@ -10,11 +10,13 @@ export default function Card({
   showExcerpt,
   isLarge,
   hideImage,
+  categoryToUse,
 }: {
   post: PostPreview
   showExcerpt?: boolean
   isLarge?: boolean
   hideImage?: boolean
+  categoryToUse?: PostPreview["categories"][0]
 }) {
   const linkTo = `/${post.language}/${post.slug[post.language]}`
   if (!post) {
@@ -51,7 +53,9 @@ export default function Card({
             "text-base": isLarge,
           })}
         >
-          {post.categories[0].title[post.language]}
+          {categoryToUse
+            ? categoryToUse.title[post.language]
+            : post.categories[0].title[post.language]}
         </Typography.H4>
         <Typography.H3
           className={cn(

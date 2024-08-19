@@ -32,6 +32,22 @@ const ListItem = React.forwardRef<
   )
 })
 
+const provincesAndTerritories = [
+  "Alberta",
+  "British Columbia (BC)",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Northwest Territories",
+  "Nova Scotia",
+  "Nunavut",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Yukon",
+]
+
 export function Navigation() {
   const { categories } = useRootLoaderData()
   const { lang } = useParams()
@@ -60,13 +76,22 @@ export function Navigation() {
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
                   {category.subCategories &&
                     Array.isArray(category.subCategories) &&
-                    category.subCategories?.map((subCategory) => (
-                      <ListItem
-                        key={subCategory.title[categoryTranslation]}
-                        title={subCategory.title[categoryTranslation]}
-                        href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                      />
-                    ))}
+                    category.subCategories?.map((subCategory) => {
+                      // if (
+                      //   provincesAndTerritories.includes(
+                      //     subCategory.title[categoryTranslation]
+                      //   )
+                      // ) {
+                      //   return null
+                      // }
+                      return (
+                        <ListItem
+                          key={subCategory.title[categoryTranslation]}
+                          title={subCategory.title[categoryTranslation]}
+                          href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                        />
+                      )
+                    })}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>

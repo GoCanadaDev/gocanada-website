@@ -4,11 +4,12 @@ import {
   Tags,
   UserCircle,
   StickyNote,
-  FolderInput,
+  // FolderInput,
   HeartHandshake,
   Link,
   Cog,
   Megaphone,
+  List,
 } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
@@ -34,9 +35,9 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem("categoryType").title("Categories").icon(Folder),
       S.divider(),
-      S.documentTypeListItem("subCategoryType")
-        .title("Sub Categories")
-        .icon(FolderInput),
+      // S.documentTypeListItem("subCategoryType")
+      //   .title("Sub Categories")
+      //   .icon(FolderInput),
       S.divider(),
       S.documentTypeListItem("tagType").title("Tags").icon(Tags),
       S.divider(),

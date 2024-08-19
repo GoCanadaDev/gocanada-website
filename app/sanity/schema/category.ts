@@ -48,7 +48,7 @@ export const categoryType = defineType({
     }),
     defineField({
       name: "displayOrder",
-      title: "Display Order",
+      title: "Navigation Display Order",
       type: "number",
       validation: (Rule) => [
         Rule.custom(async (value, context) => {
@@ -65,15 +65,9 @@ export const categoryType = defineType({
     }),
     defineField({
       name: "subCategories",
-      title: "Sub Categories",
+      title: "Sub Categories for Navigation",
       type: "array",
       of: [{ type: "reference", to: { type: "subCategoryType" } }],
-    }),
-    defineField({
-      name: "relatedTags",
-      title: "Related Tags",
-      type: "array",
-      of: [{ type: "reference", to: { type: "tagType" } }],
     }),
     defineField({
       name: "enabled",

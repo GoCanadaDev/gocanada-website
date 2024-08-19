@@ -4,8 +4,8 @@ import { blockContentType } from "~/sanity/schema/blockContent"
 import { categoryType } from "~/sanity/schema/category"
 import { facebookPostType } from "~/sanity/schema/facebookPost"
 import { galleryType } from "~/sanity/schema/gallery"
-import { instagramPostType } from "~/sanity/schema/instagramPost"
 import { horizontalRuleType } from "~/sanity/schema/horizontalRule"
+import { instagramPostType } from "~/sanity/schema/instagramPost"
 import { linkedinPostType } from "~/sanity/schema/linkedinPost"
 import { linksPageType } from "~/sanity/schema/linksPage"
 import { localeBlockContentType } from "~/sanity/schema/localeBlockContent"
@@ -31,8 +31,8 @@ export default [
   categoryType,
   facebookPostType,
   galleryType,
-  instagramPostType,
   horizontalRuleType,
+  instagramPostType,
   linkedinPostType,
   linksPageType,
   localeBlockContentType,

@@ -1,7 +1,7 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
-import { MoveLeft } from "lucide-react"
+import { MoveLeft, Search } from "lucide-react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
@@ -79,13 +79,15 @@ export default function SubCategoryByNameRoute() {
         to={`/${subCategory.language}/categories/${
           category.slug[category.language]
         }`}
-        className="hover:text-brandHover text-brand"
+        className="text-brand hover:text-brandHover"
       >
         <MoveLeft className="inline h-4 w-4" /> View all{" "}
         {category.title[category.language]}
       </Link>
       <div className="holy-grail space-y-2 text-center">
-        <Typography.H4>{category.title[category.language]}</Typography.H4>
+        <Typography.H4 className="text-brand">
+          {category.title[category.language]}
+        </Typography.H4>
         <Typography.H1>{subCategory.title[subCategory.language]}</Typography.H1>
         <Typography.TextMuted>
           {subCategory.description[subCategory.language]}
@@ -95,7 +97,14 @@ export default function SubCategoryByNameRoute() {
       {subCategory.posts?.length ? (
         <CardGrid posts={subCategory.posts} />
       ) : (
-        <Typography.Lead>No posts to display.</Typography.Lead>
+        <div className="text-center">
+          <Search className="mb-4 inline h-12 w-12" />
+          <Typography.H3>No Posts Found</Typography.H3>
+          <Typography.Paragraph>
+            No posts have been categorized{" "}
+            {subCategory.title[subCategory.language]} yet.
+          </Typography.Paragraph>
+        </div>
       )}
     </Layout>
   )
