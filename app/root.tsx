@@ -38,7 +38,6 @@ import { useTranslations } from "./lib/useTranslations"
 import { TranslationKey } from "./lib/flattenMessages"
 import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
 import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
-import { FB_PIXEL_ID } from "~/lib/fbpixel"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -222,7 +221,7 @@ export default function App() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', ${FB_PIXEL_ID});
+            fbq('init', ${ENV.FACEBOOK_PIXEL_ID});
           `,
           }}
         />
@@ -231,7 +230,7 @@ export default function App() {
             height="1"
             width="1"
             style={{ display: "none" }}
-            src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
+            src={`https://www.facebook.com/tr?id=${ENV.FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
       </head>
@@ -244,13 +243,13 @@ export default function App() {
             <VisualEditing />
           </Hydrated>
         ) : null}
-        <Scripts />
         {/* Add ENV variables on window so they are available client-side */}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,
           }}
         />
+        <Scripts />
         <LiveReload />
       </body>
     </html>
