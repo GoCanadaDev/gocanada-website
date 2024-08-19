@@ -64,19 +64,14 @@ export default function Card({
         {showExcerpt ? (
           <Typography.Paragraph
             className={cn(
-              " line-clamp-2 text-base leading-snug text-slate-500 dark:text-slate-300",
-              {
-                "leading text-lg": isLarge,
-              }
+              "line-clamp-2 text-sm leading-snug text-slate-500 dark:text-slate-300"
             )}
           >
             {post.excerpt[post.language]}
           </Typography.Paragraph>
         ) : null}
         <Typography.Paragraph
-          className={cn("text-xs uppercase tracking-widest text-slate-400", {
-            "text-sm": isLarge,
-          })}
+          className={cn("text-xs uppercase tracking-widest text-slate-400")}
         >
           By {post.author.name}
         </Typography.Paragraph>

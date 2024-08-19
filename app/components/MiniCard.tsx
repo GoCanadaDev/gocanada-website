@@ -36,13 +36,13 @@ export const MiniCard = ({
         ) : null}
       </div>
       <div className="space-y-2">
-        <Typography.H4 className="font-normal text-brand">
+        <Typography.H4 className="text-sm font-normal text-brand">
           {post.category.title[post.language]}
         </Typography.H4>
-        <Typography.H3 className="text-2xl leading-[1] transition-colors duration-700 group-hover:text-brand">
+        <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
-        <Typography.Paragraph className="line-clamp-2 text-base leading-snug text-slate-500 dark:text-slate-300">
+        <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-slate-500 dark:text-slate-300">
           {post.excerpt[post.language]}
         </Typography.Paragraph>
         {"author" in post && post.author && post.author.name && (
@@ -52,7 +52,7 @@ export const MiniCard = ({
         )}
         <p>
           <Link
-            className="text-sm before:absolute before:inset-0"
+            className="before:absolute before:inset-0"
             prefetch="intent"
             to={`/${post.language}/${post.slug[post.language]}`}
             aria-label={`Read more: ${post.title[post.language]}`}
