@@ -7,7 +7,11 @@ import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { json, LoaderFunction, ActionFunction } from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
-import { useLoaderData, Form as RemixForm } from "@remix-run/react"
+import {
+  useLoaderData,
+  Form as RemixForm,
+  useActionData,
+} from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
@@ -25,6 +29,7 @@ import {
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
 import postFormUrlEncoded from "~/lib/postFormUrlEncoded"
+import { useEffect } from "react"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
@@ -42,6 +47,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const values = {
     "form-name": "contact-form",
+    "bot-field": String(formData.get("bot-field")) ?? "",
     firstName: String(formData.get("firstName")) ?? "",
     lastName: String(formData.get("lastName")) ?? "",
     email: String(formData.get("email")) ?? "",
@@ -51,7 +57,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   await postFormUrlEncoded<typeof values>(values)
 
-  return null
+  return json({ firstName: values.firstName }, { status: 200 })
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -69,6 +75,7 @@ const RequiredText = () => (
 const Contact = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
+  const actionData = useActionData<typeof action>()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -81,10 +88,14 @@ const Contact = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    toast.success("Form has been successfully submitted")
-    form.reset()
-  }
+  useEffect(() => {
+    if (actionData.firstName && actionData.status === 200) {
+      toast.success(
+        `Thanks ${actionData.firstName}. We've received your message.`
+      )
+      form.reset()
+    }
+  }, [actionData])
 
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
@@ -106,19 +117,19 @@ const Contact = () => {
           </div>
           <div className="w-full sm:w-1/2">
             <Form {...form}>
-              <form
-                // onSubmit={form.handleSubmit(onSubmit)}
+              <RemixForm
                 className="space-y-2"
                 data-netlify="true"
                 method="POST"
+                navigate={false}
               >
                 <input type="hidden" name="form-name" value="contact-form" />
-                {/* <p className="hidden">
+                <p className="hidden">
                   <label>
                     Don't fill this out if you're human:{" "}
                     <input name="bot-field" />
                   </label>
-                </p> */}
+                </p>
                 <div className="columns-2">
                   <FormField
                     control={form.control}
@@ -201,14 +212,14 @@ const Contact = () => {
                     </FormItem>
                   )}
                 />
-                {/* <div data-netlify-recaptcha="true"></div> */}
+                <div data-netlify-recaptcha="true"></div>
                 <Button
                   type="submit"
                   className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
                 >
                   Submit
                 </Button>
-              </form>
+              </RemixForm>
             </Form>
           </div>
         </div>
