@@ -10,7 +10,8 @@ import { client } from "~/sanity/client"
 import {
   useLoaderData,
   Form as RemixForm,
-  useActionData,
+  redirect,
+  useSearchParams,
 } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
@@ -57,7 +58,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   await postFormUrlEncoded<typeof values>(values)
 
-  return json({ firstName: values.firstName }, { status: 200 })
+  return redirect(`/contact?submitted`)
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -75,7 +76,7 @@ const RequiredText = () => (
 const Contact = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
-  const actionData = useActionData<{ firstName?: string }>()
+  const [searchParams] = useSearchParams()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,13 +90,11 @@ const Contact = () => {
   })
 
   useEffect(() => {
-    if (actionData?.firstName) {
-      toast.success(
-        `Thanks ${actionData.firstName}. We've received your message.`
-      )
+    if (searchParams.get("submitted") !== null) {
+      toast.success(`Thanks, we've received your message.`)
       form.reset()
     }
-  }, [actionData])
+  }, [searchParams])
 
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
@@ -121,7 +120,6 @@ const Contact = () => {
                 className="space-y-2"
                 data-netlify="true"
                 method="POST"
-                navigate={false}
               >
                 <input type="hidden" name="form-name" value="contact-form" />
                 <p className="hidden">
