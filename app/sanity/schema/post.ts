@@ -24,6 +24,11 @@ export const postType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "byline",
+      title: "Byline/Ad Disclosure",
+      type: "text",
+    }),
+    defineField({
       name: "author",
       title: "Author",
       type: "reference",

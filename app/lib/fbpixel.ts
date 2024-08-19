@@ -1,4 +1,4 @@
-export const FB_PIXEL_ID = process.env.FACEBOOK_PIXEL_ID
+export const FB_PIXEL_ID = window.ENV.FACEBOOK_PIXEL_ID
 
 export const pageview = () => {
   window.fbq("track", "PageView")

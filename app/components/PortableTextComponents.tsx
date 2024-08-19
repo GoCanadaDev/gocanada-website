@@ -16,6 +16,7 @@ import {
 import GalleryImages, {
   GalleryImagesProps,
 } from "~/components/portable/GalleryImages"
+import HorizontalRule from "./portable/HorizontalRule"
 
 const PortableTextComponents = {
   types: {
@@ -62,6 +63,9 @@ const PortableTextComponents = {
     },
     galleryType: ({ value }: GalleryImagesProps) => {
       return <GalleryImages value={value} />
+    },
+    horizontalRuleType: ({ value }: { value: any }) => {
+      return <HorizontalRule value={value} />
     },
   },
 }

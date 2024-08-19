@@ -64,9 +64,9 @@ export default function Card({
         {showExcerpt ? (
           <Typography.Paragraph
             className={cn(
-              "text-base leading-snug text-slate-500 dark:text-slate-300",
+              " line-clamp-2 text-base leading-snug text-slate-500 dark:text-slate-300",
               {
-                "leading line-clamp-2 text-lg": isLarge,
+                "leading text-lg": isLarge,
               }
             )}
           >

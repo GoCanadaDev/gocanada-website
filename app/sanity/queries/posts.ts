@@ -31,6 +31,7 @@ export const algoliaPostsProjection = `{
     "en": excerpt.en,
     "fr": excerpt.fr,
   },
+  byline,
   "author": {
     "name": author->name,
     "slug": author->slug.current,
@@ -96,7 +97,8 @@ export const postsProjection = `
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
-  },
+    },
+  byline,
   "author": {
     "name": author->name,
     "slug": author->slug.current,
@@ -162,6 +164,7 @@ const previousOrNextPostProjection = `
     "en": excerpt.en,
     "fr": excerpt.fr,
   },
+  byline,
 `
 
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
@@ -179,6 +182,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "en": excerpt.en,
     "fr": excerpt.fr,
   },
+  byline,
   "body": body[] {
     ...,
     ...select(
@@ -290,6 +294,7 @@ export type NextOrPreviousPostType = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
+  byline?: string
 }
 
 export type PostPreview = {
@@ -304,6 +309,7 @@ export type PostPreview = {
     fr: Slug
   }
   excerpt: LocalizedString
+  byline?: string
   category: {
     title: Category["title"]
     slug: Category["slug"]
@@ -346,6 +352,7 @@ export type AlgoliaPost = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
+  byline?: string
   category: {
     title: Category["title"]
     slug: Category["slug"]

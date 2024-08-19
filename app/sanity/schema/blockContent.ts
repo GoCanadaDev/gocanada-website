@@ -48,6 +48,10 @@ export const blockContentType = defineType({
       // of: [{ type: "image" }],
     }),
     defineArrayMember({
+      type: "horizontalRuleType",
+      icon: "—",
+    }),
+    defineArrayMember({
       type: "image",
       hidden: true,
       options: { hotspot: true },

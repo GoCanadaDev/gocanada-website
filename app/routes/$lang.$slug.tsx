@@ -101,6 +101,11 @@ export default function Slug() {
           />
         </div>
         <div className="holy-grail mx-4 mb-12 mt-4 max-w-none text-xl">
+          <div className="w-full text-center">
+            <Typography.Paragraph>
+              {post.excerpt[post.language]}
+            </Typography.Paragraph>
+          </div>
           <div className="mb-12 mt-4 text-center">
             <Typography.Paragraph>
               By{" "}
@@ -126,12 +131,17 @@ export default function Slug() {
               media={post.mainImage.id}
             />
           </div>
-          <Separator className="h-0.5" />
-          <div className="my-12 w-full text-center">
-            <Typography.Lead className="italic">
-              {post.excerpt[post.language]}
-            </Typography.Lead>
-          </div>
+          {typeof post.byline === "string" && (
+            <>
+              <Separator className="h-0.5" />
+              <div className="my-12 w-full text-center">
+                <Typography.Lead className="italic text-slate-400">
+                  {post.byline}
+                </Typography.Lead>
+              </div>
+            </>
+          )}
+
           <Separator className="h-0.5" />
         </div>
         <div className="holy-grail prose prose-lg prose-slate mx-4 my-12 max-w-none lg:prose-xl dark:prose-invert prose-h1:font-serif prose-h1:font-normal prose-h2:mb-0 prose-h2:font-serif prose-h2:font-normal prose-h3:font-serif prose-h3:font-normal prose-p:my-4 prose-a:text-brand hover:prose-a:text-brandHover prose-figure:my-4 prose-figcaption:mt-2 prose-figcaption:text-sm prose-ol:my-0 prose-ul:my-0 prose-li:my-0">

@@ -42,7 +42,7 @@ export const MiniCard = ({
         <Typography.H3 className="text-2xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
-        <Typography.Paragraph className="line-clamp-2">
+        <Typography.Paragraph className="line-clamp-2 text-base leading-snug text-slate-500 dark:text-slate-300">
           {post.excerpt[post.language]}
         </Typography.Paragraph>
         {"author" in post && post.author && post.author.name && (
