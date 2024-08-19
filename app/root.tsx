@@ -218,7 +218,8 @@ export default function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        {ENV.FACEBOOK_PIXEL_ID !== null && (
+        {process.env.NODE_ENV === "development" ||
+        !ENV.FACEBOOK_PIXEL_ID ? null : (
           <>
             <script
               id="fb-pixel"
