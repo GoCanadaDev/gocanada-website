@@ -39,7 +39,7 @@ import { useTranslations } from "./lib/useTranslations"
 import { TranslationKey } from "./lib/flattenMessages"
 import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
 import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -211,6 +211,11 @@ export default function App() {
   useChangeLanguage(langPreference || locale)
 
   const location = useLocation()
+  const [initFacebookPixel, setInitFacebookPixel] = useState(false)
+
+  useEffect(() => {
+    setInitFacebookPixel(true)
+  }, [])
 
   useEffect(() => {
     if (
@@ -233,7 +238,8 @@ export default function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        {process.env.NODE_ENV === "development" ||
+        {!initFacebookPixel ||
+        process.env.NODE_ENV === "development" ||
         !ENV.FACEBOOK_PIXEL_ID ? null : (
           <>
             <script
