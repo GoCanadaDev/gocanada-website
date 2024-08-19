@@ -227,7 +227,7 @@ export default function App() {
       window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
       window.fbq("track", "PageView")
     }
-  }, [location, window?.fbq])
+  }, [location])
 
   return (
     <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
