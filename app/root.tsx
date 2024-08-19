@@ -214,14 +214,14 @@ export default function App() {
 
   useEffect(() => {
     if (
-      ENV.FACEBOOK_PIXEL_ID?.length &&
+      window?.ENV.FACEBOOK_PIXEL_ID?.length &&
       process.env.NODE_ENV !== "development"
     ) {
       window.fbq("consent", "revoke")
-      window.fbq("init", ENV.FACEBOOK_PIXEL_ID)
+      window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
       window.fbq("track", "PageView")
     }
-  }, [location, ENV.FACEBOOK_PIXEL_ID])
+  }, [location, window.ENV.FACEBOOK_PIXEL_ID])
 
   return (
     <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
@@ -233,7 +233,8 @@ export default function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        {process.env.NODE_ENV === "development" ||
+        {typeof window === "undefined" ||
+        process.env.NODE_ENV === "development" ||
         !ENV.FACEBOOK_PIXEL_ID ? null : (
           <>
             <script
@@ -241,15 +242,15 @@ export default function App() {
               strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-          `,
+                  !function(f,b,e,v,n,t,s)
+                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                  n.queue=[];t=b.createElement(e);t.async=!0;
+                  t.src=v;s=b.getElementsByTagName(e)[0];
+                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  'https://connect.facebook.net/en_US/fbevents.js');
+                `,
               }}
             />
             <noscript>
