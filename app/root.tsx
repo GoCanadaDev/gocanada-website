@@ -78,6 +78,14 @@ export const links: LinksFunction = () => [
   },
 ]
 
+export const scripts = () => {
+  return [
+    {
+      src: "",
+    },
+  ]
+}
+
 export type RootLoaderData = {
   adConfig: AdConfigType
   bodyClassNames: string
@@ -208,11 +216,15 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>{siteConfig.siteTitle}</title>
         <Links />
-        <script
-          id="fb-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+      </head>
+      <body className={isStudioRoute ? undefined : bodyClassNames}>
+        {ENV.FACEBOOK_PIXEL_ID !== null && (
+          <>
+            <script
+              id="fb-pixel"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -223,18 +235,18 @@ export default function App() {
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', ${ENV.FACEBOOK_PIXEL_ID});
           `,
-          }}
-        />
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src={`https://www.facebook.com/tr?id=${ENV.FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1`}
-          />
-        </noscript>
-      </head>
-      <body className={isStudioRoute ? undefined : bodyClassNames}>
+              }}
+            />
+            <noscript>
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                src={`https://www.facebook.com/tr?id=${ENV.FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1`}
+              />
+            </noscript>
+          </>
+        )}
         <Outlet />
         {showCookieBanner && <CookieBanner />}
         <ScrollRestoration />

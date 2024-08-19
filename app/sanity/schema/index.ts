@@ -5,21 +5,22 @@ import { categoryType } from "~/sanity/schema/category"
 import { facebookPostType } from "~/sanity/schema/facebookPost"
 import { galleryType } from "~/sanity/schema/gallery"
 import { instagramPostType } from "~/sanity/schema/instagramPost"
-import { linkedinPostType } from "./linkedinPost"
-import { linksPageType } from "./linksPage"
+import { horizontalRuleType } from "~/sanity/schema/horizontalRule"
+import { linkedinPostType } from "~/sanity/schema/linkedinPost"
+import { linksPageType } from "~/sanity/schema/linksPage"
 import { localeBlockContentType } from "~/sanity/schema/localeBlockContent"
 import { localeSlug } from "~/sanity/schema/localeSlug"
 import { localeString } from "~/sanity/schema/localeString"
 import { localeText } from "~/sanity/schema/localeText"
 import { partnerType } from "~/sanity/schema/partners"
-import { pinterestPostType } from "./pinterestPost"
+import { pinterestPostType } from "~/sanity/schema/pinterestPost"
 import { postType } from "~/sanity/schema/post"
 import { siteConfigType } from "~/sanity/schema/siteConfig"
 import { staticPageType } from "~/sanity/schema/staticPage"
 import { subCategoryType } from "~/sanity/schema/subCategory"
 import { tagType } from "~/sanity/schema/tag"
-import { tiktokPostType } from "./tiktokPost"
-import { twitterPostType } from "./twitterPost"
+import { tiktokPostType } from "~/sanity/schema/tiktokPost"
+import { twitterPostType } from "~/sanity/schema/twitterPost"
 import { twoUpImageType } from "~/sanity/schema/twoUpImage"
 import { youTubePostType } from "~/sanity/schema/youTubePost"
 
@@ -31,6 +32,7 @@ export default [
   facebookPostType,
   galleryType,
   instagramPostType,
+  horizontalRuleType,
   linkedinPostType,
   linksPageType,
   localeBlockContentType,

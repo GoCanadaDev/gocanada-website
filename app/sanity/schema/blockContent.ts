@@ -3,6 +3,7 @@ import {
   ImagePlusIcon,
   InstagramIcon,
   LinkedinIcon,
+  Minus,
   Music2,
   PinIcon,
   TwitterIcon,
@@ -49,7 +50,7 @@ export const blockContentType = defineType({
     }),
     defineArrayMember({
       type: "horizontalRuleType",
-      icon: "—",
+      icon: Minus,
     }),
     defineArrayMember({
       type: "image",
