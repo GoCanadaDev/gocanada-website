@@ -7,4 +7,8 @@ declare global {
     env: ProcessEnv
   }
   let process: Process
+
+  interface Window {
+    fbq: any
+  }
 }
