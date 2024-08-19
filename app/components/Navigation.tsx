@@ -46,6 +46,7 @@ export function Navigation() {
           if (!category.enabled) {
             return null
           }
+          console.log(category.title[categoryTranslation])
           return (
             <NavigationMenuItem key={category.title[categoryTranslation]}>
               <NavigationMenuTrigger>

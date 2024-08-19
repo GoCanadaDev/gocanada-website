@@ -58,7 +58,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   await postFormUrlEncoded<typeof values>(values)
 
-  return redirect(`/contact?submitted`)
+  return redirect(`${request.url}?submitted`)
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
