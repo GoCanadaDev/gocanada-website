@@ -99,6 +99,7 @@ export const postsProjection = `
     "fr": excerpt.fr,
     },
   byline,
+  isSponsored,
   "author": {
     "name": author->name,
     "slug": author->slug.current,
@@ -168,7 +169,6 @@ const previousOrNextPostProjection = `
     "en": excerpt.en,
     "fr": excerpt.fr,
   },
-  byline,
 `
 
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
@@ -186,6 +186,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "en": excerpt.en,
     "fr": excerpt.fr,
   },
+  isSponsored,
   byline,
   "body": body[] {
     ...,
@@ -298,7 +299,6 @@ export type NextOrPreviousPostType = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
-  byline?: PortableTextBlock[]
 }
 
 export type PostPreview = {
@@ -313,6 +313,7 @@ export type PostPreview = {
     fr: Slug
   }
   excerpt: LocalizedString
+  isSponsored?: boolean
   byline?: PortableTextBlock[]
   categories: {
     title: Category["title"]
@@ -356,6 +357,7 @@ export type AlgoliaPost = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
+  isSponsored?: boolean
   byline?: PortableTextBlock[]
   categories: {
     title: Category["title"]

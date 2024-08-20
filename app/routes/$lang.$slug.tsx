@@ -101,6 +101,7 @@ export default function Slug() {
             hotspot={post.mainImage.hotspot}
             crop={post.mainImage.crop}
             aspectRatio={post.mainImage.aspectRatio}
+            isSponsored={post.isSponsored}
           />
         </div>
         <div

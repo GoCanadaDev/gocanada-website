@@ -5,6 +5,13 @@ import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
 import { Post } from "~/sanity/queries"
 import { ImageCrop, ImageHotspot } from "sanity"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip"
+import { HelpCircle } from "lucide-react"
 
 type HeroImageProps = {
   id: string
@@ -18,6 +25,7 @@ type HeroImageProps = {
   hotspot?: ImageHotspot
   crop?: ImageCrop
   aspectRatio?: number
+  isSponsored?: boolean
 }
 
 export const HeroImage = ({
@@ -32,6 +40,7 @@ export const HeroImage = ({
   hotspot,
   crop,
   aspectRatio,
+  isSponsored,
 }: HeroImageProps) => {
   const params = useParams()
 
@@ -112,6 +121,20 @@ export const HeroImage = ({
         <Typography.H1 className="text-white drop-shadow-lg">
           {title}
         </Typography.H1>
+        {typeof isSponsored === "boolean" && isSponsored === true && (
+          <div className="my-6">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Typography.H4 className="flex items-center text-white drop-shadow-lg">
+                    Sponsored <HelpCircle className="size-3 text-white" />
+                  </Typography.H4>
+                </TooltipTrigger>
+                <TooltipContent>This post is sponsored</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        )}
       </div>
     </section>
   ) : (
@@ -147,6 +170,20 @@ export const HeroImage = ({
           </Link>
         </Typography.H4>
         <Typography.H1 className="">{title}</Typography.H1>
+        {typeof isSponsored === "boolean" && isSponsored === true && (
+          <div className="my-6">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Typography.H4 className="flex items-center">
+                    Sponsored <HelpCircle className="size-3 text-slate-400" />
+                  </Typography.H4>
+                </TooltipTrigger>
+                <TooltipContent>This post is sponsored</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        )}
       </div>
     </section>
   )
