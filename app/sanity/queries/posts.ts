@@ -114,22 +114,26 @@ export async function getPosts(client: SanityClient, language: string) {
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
-export const latestPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...6] | order(publishedAt desc){
-  ${postsProjection}
+export const featuredPostsQuery = groq`*[_type == "featuredPostsConfig"][0]{
+  "featuredPosts": featuredPosts[]->{
+    ${postsProjection}
+  },
 }`
 
-export async function getLatestPosts(client: SanityClient, language: string) {
-  const result = await client.fetch(postsQuery, { language })
-  return Object.values(sanitizeStrings(result)) as Post[]
+export async function getFeaturedPosts(client: SanityClient, language: string) {
+  const result = await client.fetch(featuredPostsQuery, { language })
+  return Object.values(sanitizeStrings(result.featuredPosts)) as Post[]
 }
 
-export const trendingPostsQuery = groq`*[_type == "postType" && defined(slug[$language].current)][0...3] | order(publishedAt desc){
-  ${postsProjection}
+export const trendingPostsQuery = groq`*[_type == "featuredPostsConfig"][0]{
+  "trendingPosts": trendingPosts[]->{
+    ${postsProjection}
+  }
 }`
 
 export async function getTrendingPosts(client: SanityClient, language: string) {
   const result = await client.fetch(trendingPostsQuery, { language })
-  return Object.values(sanitizeStrings(result)) as Post[]
+  return Object.values(sanitizeStrings(result.trendingPosts)) as Post[]
 }
 
 const previousOrNextPostProjection = `

@@ -4,7 +4,7 @@ import { useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import {
   PostPreview,
-  getLatestPosts,
+  getFeaturedPosts,
   getPosts,
   getTrendingPosts,
 } from "~/sanity/queries"
@@ -33,7 +33,7 @@ export const meta: MetaFunction<typeof loader> = ({
 
 type IndexLoaderData = {
   posts: PostPreview[]
-  latestPosts: PostPreview[]
+  featuredPosts: PostPreview[]
   siteConfig: SiteConfigType
   trendingPosts: PostPreview[]
 }
@@ -48,7 +48,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   isLangSupportedLang(params.lang)
   const posts = await getPosts(client, params.lang!)
-  const latestPosts = await getLatestPosts(client, params.lang!)
+  const featuredPosts = await getFeaturedPosts(client, params.lang!)
   const trendingPosts = await getTrendingPosts(client, params.lang!)
   const siteConfig = await getSiteConfig(client)
 
@@ -59,34 +59,40 @@ export const loader: LoaderFunction = async ({ params }) => {
     })
   }
 
-  if (latestPosts.length === 0) {
+  if (featuredPosts.length === 0) {
     throw new Response(null, {
       status: 404,
-      statusText: "Latest Posts Not Found",
+      statusText: "Featured Posts Not Found",
     })
   }
 
   return json<IndexLoaderData>({
     posts,
-    latestPosts,
+    featuredPosts,
     siteConfig,
     trendingPosts,
   })
 }
 
 export default function Index() {
-  const { posts, latestPosts, trendingPosts } =
+  const { posts, featuredPosts, trendingPosts } =
     useLoaderData() as IndexLoaderData
   const {
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
 
+  const remainingPosts = posts.filter(
+    (post) =>
+      !featuredPosts.some((featured) => featured._id === post._id) &&
+      !trendingPosts.some((trending) => trending._id === post._id)
+  )
+
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <TopGrid posts={latestPosts} />
+      <TopGrid posts={featuredPosts} />
       <Trending posts={trendingPosts} />
-      <CardGrid posts={posts} />
+      <CardGrid posts={remainingPosts} />
     </Layout>
   )
 }

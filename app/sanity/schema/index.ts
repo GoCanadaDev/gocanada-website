@@ -3,6 +3,7 @@ import { authorType } from "~/sanity/schema/author"
 import { blockContentType } from "~/sanity/schema/blockContent"
 import { categoryType } from "~/sanity/schema/category"
 import { facebookPostType } from "~/sanity/schema/facebookPost"
+import { featuredPostsConfig } from "~/sanity/schema/featuredPostsConfig"
 import { galleryType } from "~/sanity/schema/gallery"
 import { horizontalRuleType } from "~/sanity/schema/horizontalRule"
 import { instagramPostType } from "~/sanity/schema/instagramPost"
@@ -30,6 +31,7 @@ export default [
   blockContentType,
   categoryType,
   facebookPostType,
+  featuredPostsConfig,
   galleryType,
   horizontalRuleType,
   instagramPostType,

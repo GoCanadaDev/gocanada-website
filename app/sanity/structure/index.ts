@@ -52,6 +52,10 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("siteConfigType").title("Site Config").icon(Cog),
       S.divider(),
       S.documentTypeListItem("adConfigType").title("Ad Config").icon(Megaphone),
+      S.divider(),
+      S.documentTypeListItem("featuredPostsConfig")
+        .title("Featured Posts Config")
+        .icon(List),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
