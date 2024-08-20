@@ -142,6 +142,8 @@ export default function AuthorCard({
                 href={link.url}
                 key={link.key}
                 className="flex gap-2 rounded-md p-2 transition-colors duration-200  hover:text-brand focus:bg-slate-100 focus:text-brand focus:outline-none dark:focus:bg-slate-800"
+                target="_blank"
+                rel="noopener"
               >
                 {link.icon} {link.label}
               </a>

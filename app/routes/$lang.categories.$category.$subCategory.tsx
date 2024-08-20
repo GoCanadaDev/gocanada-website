@@ -97,7 +97,7 @@ export default function SubCategoryByNameRoute() {
       </div>
       <Separator className="my-2" />
       {subCategory.posts?.length ? (
-        <CardGrid posts={subCategory.posts} />
+        <CardGrid posts={subCategory.posts} categoryToUse={category} />
       ) : (
         <div className="text-center">
           <Search className="mb-4 inline h-12 w-12" />
