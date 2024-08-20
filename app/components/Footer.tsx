@@ -48,7 +48,7 @@ export function Footer() {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <a href={partner.link} target="_blank" rel="noreferrer">
+                        <a href={partner.link} target="_blank" rel="noopener">
                           <Image
                             id={partner.logo.id}
                             width={120}
@@ -86,6 +86,7 @@ export function Footer() {
               href="https://instagram.com/canada"
               className="flex items-center text-brand transition-colors duration-200 hover:text-brandHover"
               target="_blank"
+              rel="noopener"
             >
               <animated.span style={style} className="inline-block">
                 <Instagram className="inline" size={48} />
@@ -97,6 +98,7 @@ export function Footer() {
               href="https://threads.net/canada"
               className="flex items-center text-brand transition-colors duration-200 hover:text-brandHover"
               target="_blank"
+              rel="noopener"
             >
               <animated.span style={style2} className="inline-block">
                 <svg

@@ -30,6 +30,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
               href="https://instagram.com/canada"
               className="flex flex-col items-center justify-center rounded-md p-1 transition-colors duration-200 hover:text-brand focus:bg-slate-100 focus:text-brand focus:outline-none dark:focus:bg-slate-800"
               target="_blank"
+              rel="noopener"
             >
               <span>
                 <animated.span style={style} className="inline-block">
