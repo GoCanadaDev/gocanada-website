@@ -10,7 +10,7 @@ export function Logo() {
       to="/"
       className="rounded-md hover:opacity-90 focus:opacity-90 focus-visible:outline-none active:bg-transparent "
     >
-      <span className="sr-only">GoCanada</span>
+      <span className="sr-only">Go Canada</span>
       <img
         src={
           themePreference === "dark" ? GoCanadaLogoReverse : GoCanadaLogoColour

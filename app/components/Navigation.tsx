@@ -65,7 +65,10 @@ export function Navigation() {
             return null
           }
           return (
-            <NavigationMenuItem key={category.title[categoryTranslation]}>
+            <NavigationMenuItem
+              key={category.title[categoryTranslation]}
+              className="w-1/2 md:w-auto"
+            >
               <NavigationMenuTrigger>
                 <Link
                   to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}

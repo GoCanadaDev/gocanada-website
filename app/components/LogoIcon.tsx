@@ -7,10 +7,10 @@ export function LogoIcon() {
       to="/"
       className="rounded-md p-2 hover:opacity-90 focus:bg-slate-100 focus-visible:outline-none dark:focus:bg-slate-800"
     >
-      <span className="sr-only">GoCanada</span>
+      <span className="sr-only">Go Canada</span>
       <img
         src={GoCanadaLogoRed}
-        alt="GoCanada Logo"
+        alt="Go Canada Logo"
         className="w-24"
         width={96}
         height={55}
