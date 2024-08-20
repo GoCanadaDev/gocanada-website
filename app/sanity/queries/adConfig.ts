@@ -16,6 +16,17 @@ export type AdConfigType = {
   topBannerAdCode: string
   topBannerAdWidth: number
   topBannerAdHeight: number
+  midBannerAdUrl: string
+  midBannerAdImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
+  }
+  midBannerAdCode: string
+  midBannerAdWidth: number
+  midBannerAdHeight: number
 }
 
 export const adConfigQuery = groq`*[_type == "adConfigType"] {
@@ -30,6 +41,16 @@ export const adConfigQuery = groq`*[_type == "adConfigType"] {
   topBannerAdCode,
   topBannerAdWidth,
   topBannerAdHeight,
+  midBannerAdUrl,
+  midBannerAdImage{
+    ...,
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  },
+  midBannerAdCode,
+  midBannerAdWidth,
+  midBannerAdHeight,
 }`
 
 export async function getAdConfig(client: SanityClient) {

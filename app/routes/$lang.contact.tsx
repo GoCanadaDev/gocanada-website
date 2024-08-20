@@ -71,7 +71,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 const RequiredText = () => (
-  <span className="ml-2 text-sm font-normal text-slate-400">(required)</span>
+  <span className="ml-2 text-sm font-normal text-slate-500">(required)</span>
 )
 
 const Contact = () => {

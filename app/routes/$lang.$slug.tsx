@@ -24,6 +24,7 @@ import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
 import Share from "~/components/Share"
 import Prose from "~/components/portable/Prose"
+import { cn } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -102,7 +103,11 @@ export default function Slug() {
             aspectRatio={post.mainImage.aspectRatio}
           />
         </div>
-        <div className="holy-grail mx-4 mb-12 mt-4 max-w-none text-xl">
+        <div
+          className={cn("holy-grail mx-4 mb-12 mt-4 max-w-none text-xl", {
+            "mt-20": post.mainImageFullBleed,
+          })}
+        >
           <div className="w-full text-center">
             <Typography.Paragraph>
               {post.excerpt[post.language]}

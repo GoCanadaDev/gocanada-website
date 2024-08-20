@@ -94,7 +94,7 @@ const TextSmall = ({ children, className }: TypographyProps) => (
 )
 
 const TextMuted = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm text-slate-400", className)}>{children}</p>
+  <p className={cn("text-sm text-slate-500", className)}>{children}</p>
 )
 
 export const Typography = ({ children }: TypographyProps) => children

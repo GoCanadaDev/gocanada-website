@@ -71,7 +71,9 @@ export default function AuthorsIndexRoute() {
                       to={linkTo}
                       className="text-brand before:absolute before:inset-0 hover:text-brandHover"
                     >
-                      <span className="sr-only">Read more</span>
+                      <span className="sr-only">
+                        Read more about {author.name}
+                      </span>
                     </Link>
                   </div>
                 }

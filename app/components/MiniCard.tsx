@@ -49,11 +49,11 @@ export const MiniCard = ({
         <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
-        <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-slate-500 dark:text-slate-300">
+        <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-slate-600 dark:text-slate-300">
           {post.excerpt[post.language]}
         </Typography.Paragraph>
         {"author" in post && post.author && post.author.name && (
-          <Typography.Paragraph className="text-xs uppercase tracking-widest text-slate-400">
+          <Typography.Paragraph className="text-xs uppercase tracking-widest text-slate-500">
             By {post.author.name}
           </Typography.Paragraph>
         )}
@@ -64,7 +64,9 @@ export const MiniCard = ({
             to={`/${post.language}/${post.slug[post.language]}`}
             aria-label={`Read more: ${post.title[post.language]}`}
           >
-            <span className="sr-only">Read more</span>
+            <span className="sr-only">
+              Continue reading about {post.title[post.language]}
+            </span>
           </Link>
         </p>
       </div>

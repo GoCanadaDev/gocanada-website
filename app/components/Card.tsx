@@ -68,14 +68,14 @@ export default function Card({
         {showExcerpt ? (
           <Typography.Paragraph
             className={cn(
-              "line-clamp-2 text-sm leading-snug text-slate-500 dark:text-slate-300"
+              "line-clamp-2 text-sm leading-snug text-slate-600  dark:text-slate-300"
             )}
           >
             {post.excerpt[post.language]}
           </Typography.Paragraph>
         ) : null}
         <Typography.Paragraph
-          className={cn("text-xs uppercase tracking-widest text-slate-400")}
+          className={cn("text-xs uppercase tracking-widest text-slate-500 ")}
         >
           By {post.author.name}
         </Typography.Paragraph>
@@ -86,7 +86,9 @@ export default function Card({
             to={linkTo}
             aria-label={`Read more: ${post.title[post.language]}`}
           >
-            <span className="sr-only">Read more</span>
+            <span className="sr-only">
+              Continuing reading about {post.title[post.language]}
+            </span>
           </Link>
         </p>
       </div>

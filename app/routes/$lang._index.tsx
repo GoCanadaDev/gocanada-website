@@ -16,6 +16,7 @@ import { CardGrid } from "~/components/CardGrid"
 import { TopGrid } from "~/components/homepage/TopGrid"
 import { Trending } from "~/components/homepage/Trending"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import MidRollBannerAd from "~/components/MidRollBannerAd"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -91,6 +92,7 @@ export default function Index() {
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
       <TopGrid posts={featuredPosts} />
+      <MidRollBannerAd />
       <Trending posts={trendingPosts} />
       <CardGrid posts={remainingPosts} />
     </Layout>

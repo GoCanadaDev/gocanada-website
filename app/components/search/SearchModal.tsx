@@ -20,7 +20,7 @@ const SearchModal = () => {
 
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-      <DialogTrigger className="focus:outline-none">
+      <DialogTrigger className="focus:outline-none" aria-label="Search">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
