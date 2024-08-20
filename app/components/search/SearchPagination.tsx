@@ -2,7 +2,6 @@ import { usePagination } from "react-instantsearch"
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -13,13 +12,10 @@ export const SearchPagination = () => {
   const {
     pages,
     currentRefinement,
-    nbHits,
-    nbPages,
     isFirstPage,
     isLastPage,
     canRefine,
     refine,
-    createURL,
   } = usePagination()
 
   if (!canRefine) {

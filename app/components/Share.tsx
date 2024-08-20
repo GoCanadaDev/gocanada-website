@@ -53,7 +53,7 @@ export default function Share({
   }
 
   return (
-    <div className="mt-2 flex justify-center gap-1">
+    <div className="mt-2 flex flex-wrap justify-center gap-2">
       <div
         className="flex size-8 cursor-pointer items-center justify-center rounded-full bg-black hover:opacity-80"
         onClick={() => shareToThreads()}

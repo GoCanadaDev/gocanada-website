@@ -33,6 +33,14 @@
   grid-template-columns: 1fr min(82ch, calc(100% - 64px)) 1fr;
   grid-column-gap: 32px;
 }
+
+@media not all and (min-width: 768px) {
+  .holy-grail {
+    grid-template-columns: 1fr min(82ch, calc(100% - 32px)) 1fr;
+    grid-column-gap: 16px;
+  }
+}
+
 .holy-grail > * {
   grid-column: 2;
 }

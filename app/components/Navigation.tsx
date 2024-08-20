@@ -82,28 +82,34 @@ export function Navigation() {
                   <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
                     <div>
                       <Typography.H4 className="px-3 text-base font-bold text-brand">
-                        By Region
+                        By Province
                       </Typography.H4>
                       <ul>
                         {category.subCategories &&
                           Array.isArray(category.subCategories) &&
-                          category.subCategories?.map((subCategory) => {
-                            if (
-                              !provincesAndTerritories.includes(
-                                subCategory.title[categoryTranslation]
-                              ) ||
-                              subCategory.enabledInNav === false
-                            ) {
-                              return null
-                            }
-                            return (
-                              <ListItem
-                                key={subCategory.title[categoryTranslation]}
-                                title={subCategory.title[categoryTranslation]}
-                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                              />
+                          category.subCategories
+                            ?.sort((a, b) =>
+                              a.title[categoryTranslation].localeCompare(
+                                b.title[categoryTranslation]
+                              )
                             )
-                          })}
+                            .map((subCategory) => {
+                              if (
+                                !provincesAndTerritories.includes(
+                                  subCategory.title[categoryTranslation]
+                                ) ||
+                                subCategory.enabledInNav === false
+                              ) {
+                                return null
+                              }
+                              return (
+                                <ListItem
+                                  key={subCategory.title[categoryTranslation]}
+                                  title={subCategory.title[categoryTranslation]}
+                                  href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                                />
+                              )
+                            })}
                       </ul>
                       <Separator
                         orientation="horizontal"
@@ -117,23 +123,29 @@ export function Navigation() {
                       <ul>
                         {category.subCategories &&
                           Array.isArray(category.subCategories) &&
-                          category.subCategories?.map((subCategory) => {
-                            if (
-                              provincesAndTerritories.includes(
-                                subCategory.title[categoryTranslation]
-                              ) ||
-                              subCategory.enabledInNav === false
-                            ) {
-                              return null
-                            }
-                            return (
-                              <ListItem
-                                key={subCategory.title[categoryTranslation]}
-                                title={subCategory.title[categoryTranslation]}
-                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                              />
+                          category.subCategories
+                            ?.sort((a, b) =>
+                              a.title[categoryTranslation].localeCompare(
+                                b.title[categoryTranslation]
+                              )
                             )
-                          })}
+                            .map((subCategory) => {
+                              if (
+                                provincesAndTerritories.includes(
+                                  subCategory.title[categoryTranslation]
+                                ) ||
+                                subCategory.enabledInNav === false
+                              ) {
+                                return null
+                              }
+                              return (
+                                <ListItem
+                                  key={subCategory.title[categoryTranslation]}
+                                  title={subCategory.title[categoryTranslation]}
+                                  href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                                />
+                              )
+                            })}
                       </ul>
                       <Separator
                         orientation="horizontal"
@@ -155,13 +167,6 @@ export function Navigation() {
                     {category.subCategories &&
                       Array.isArray(category.subCategories) &&
                       category.subCategories?.map((subCategory) => {
-                        // if (
-                        //   provincesAndTerritories.includes(
-                        //     subCategory.title[categoryTranslation]
-                        //   )
-                        // ) {
-                        //   return null
-                        // }
                         return (
                           <ListItem
                             key={subCategory.title[categoryTranslation]}

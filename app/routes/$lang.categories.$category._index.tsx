@@ -67,7 +67,7 @@ export default function CategoryByNameRoute() {
         <MoveLeft className="inline h-4 w-4" /> View all categories
       </Link>
       <div className="holy-grail space-y-2 text-center">
-        <Typography.H4>Category</Typography.H4>
+        <Typography.H4 className="text-brand">Category</Typography.H4>
         <Typography.H1>{category.title[category.language]}</Typography.H1>
         {typeof category.description[category.language] === "string" && (
           <Typography.TextMuted className="mb-4">

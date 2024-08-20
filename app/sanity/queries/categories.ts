@@ -69,7 +69,7 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
     "fr": description.fr,
   },
   "language": $language,
-  "posts": *[_type == "postType" && references(^._id)]{
+  "posts": *[_type == "postType" && references(^._id)] | order(publishedAt desc){
     ${postsProjection}
   },
   "subCategories": subCategories[]->{

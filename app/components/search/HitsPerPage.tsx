@@ -10,9 +10,8 @@ import {
 export const HitsPerPage = () => {
   const { items, refine } = useHitsPerPage({
     items: [
-      // TODO remove the 1 per page option, just so i can see pagination working
-      { label: "Show 1 per page", value: 1, default: true },
-      { label: "Show 10 per page", value: 10 },
+      { label: "Show 1 per page", value: 1 },
+      { label: "Show 10 per page", value: 10, default: true },
       { label: "Show 25 per page", value: 25 },
       { label: "Show 50 per page", value: 50 },
     ],

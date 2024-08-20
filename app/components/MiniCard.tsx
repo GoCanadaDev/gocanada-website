@@ -3,6 +3,7 @@ import { PostPreview, Post, NextOrPreviousPostType } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { AspectRatio } from "./ui/aspect-ratio"
+import { cn } from "~/lib/utils"
 
 export const MiniCard = ({
   post,
@@ -13,10 +14,16 @@ export const MiniCard = ({
 }) => {
   return (
     <article
-      className={`group relative flex gap-8 ${reverse ? "text-right" : ""}`}
+      className={cn("group relative flex gap-8", {
+        "md:text-right": reverse,
+      })}
       key={post._id ?? post._createdAt}
     >
-      <div className={`size-24 flex-shrink-0 ${reverse ? "order-1" : ""}`}>
+      <div
+        className={cn("size-24 flex-shrink-0", {
+          "md:order-1": reverse,
+        })}
+      >
         {post.mainImage && post.mainImage?.id ? (
           <AspectRatio
             ratio={1}

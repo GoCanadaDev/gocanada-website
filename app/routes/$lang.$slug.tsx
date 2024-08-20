@@ -133,7 +133,7 @@ export default function Slug() {
               media={post.mainImage.id}
             />
           </div>
-          {post.byline && (
+          {post.byline && Object.entries(post.byline || {}).length > 0 && (
             <>
               <Separator className="h-0.5" />
               <div className="w-full">
@@ -179,13 +179,11 @@ export default function Slug() {
           return (
             <div
               key={previousOrNextPost._id}
-              className={`group relative flex items-center gap-4 px-8 ${
-                index === 1 ? "justify-end" : "justify-start"
-              }`}
+              className="group relative flex items-center gap-4 px-8"
             >
               {index === 0 && (
                 <Link
-                  className="text-sm before:absolute before:inset-0 group-hover:text-brandHover"
+                  className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
                   prefetch="intent"
                   to={`/${post.language}/${post.slug[post.language]}`}
                   aria-label={`Read more: ${post.title[post.language]}`}
@@ -196,7 +194,7 @@ export default function Slug() {
               <MiniCard post={previousOrNextPost} reverse={index === 1} />
               {index === 1 && (
                 <Link
-                  className="text-sm before:absolute before:inset-0 group-hover:text-brandHover"
+                  className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
                   prefetch="intent"
                   to={`/${previousOrNextPost.language}/${
                     previousOrNextPost.slug[previousOrNextPost.language]
