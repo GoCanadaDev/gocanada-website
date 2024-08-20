@@ -136,8 +136,8 @@ export default function Slug() {
           {post.byline && (
             <>
               <Separator className="h-0.5" />
-              <div className="my-12 w-full text-center">
-                <Prose>
+              <div className="w-full">
+                <Prose className="!text-base text-slate-500">
                   <PortableText
                     value={post.byline}
                     components={PortableTextComponents}
