@@ -100,130 +100,131 @@ const Contact = () => {
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
       <article>
-        <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
         <Prose>
+          <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
           <PortableText
             value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}
           />
-        </Prose>
-        <div className="mt-8 flex flex-wrap gap-12 sm:flex-nowrap">
-          <div className="w-full sm:w-1/2">
-            <Image
-              id={staticPage.mainImage.id}
-              alt={staticPage.mainImageCaption ?? ""}
-              width={640}
-              loading="lazy"
-              className="pointer-events-none !m-0 w-full"
-            />
-          </div>
-          <div className="w-full sm:w-1/2">
-            <Form {...form}>
-              <RemixForm
-                className="space-y-2"
-                data-netlify="true"
-                method="POST"
-              >
-                <input type="hidden" name="form-name" value="contact-form" />
-                <p className="hidden">
-                  <label>
-                    Don't fill this out if you're human:{" "}
-                    <input name="bot-field" />
-                  </label>
-                </p>
-                <div className="columns-2">
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          First Name
-                          <RequiredText />
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Last Name
-                          <RequiredText />
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Email
-                        <RequiredText />
-                      </FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="subject"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Subject
-                        <RequiredText />
-                      </FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Message
-                        <RequiredText />
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div data-netlify-recaptcha="true"></div>
-                <Button
-                  type="submit"
-                  className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+
+          <div className="mt-8 flex flex-wrap gap-12 sm:flex-nowrap">
+            <div className="w-full sm:w-1/2">
+              <Image
+                id={staticPage.mainImage.id}
+                alt={staticPage.mainImageCaption ?? ""}
+                width={640}
+                loading="lazy"
+                className="pointer-events-none !m-0 w-full"
+              />
+            </div>
+            <div className="w-full sm:w-1/2">
+              <Form {...form}>
+                <RemixForm
+                  className="space-y-2"
+                  data-netlify="true"
+                  method="POST"
                 >
-                  Submit
-                </Button>
-              </RemixForm>
-            </Form>
+                  <input type="hidden" name="form-name" value="contact-form" />
+                  <p className="hidden">
+                    <label>
+                      Don't fill this out if you're human:{" "}
+                      <input name="bot-field" />
+                    </label>
+                  </p>
+                  <div className="columns-2">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            First Name
+                            <RequiredText />
+                          </FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            Last Name
+                            <RequiredText />
+                          </FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Email
+                          <RequiredText />
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Subject
+                          <RequiredText />
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Message
+                          <RequiredText />
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div data-netlify-recaptcha="true"></div>
+                  <Button
+                    type="submit"
+                    className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+                  >
+                    Submit
+                  </Button>
+                </RemixForm>
+              </Form>
+            </div>
           </div>
-        </div>
+        </Prose>
       </article>
     </Layout>
   )

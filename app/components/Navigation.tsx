@@ -24,7 +24,7 @@ const ListItem = React.forwardRef<
           to={props.href!}
           ref={ref}
           prefetch="intent"
-          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:text-brandHover  focus:text-brandHover  focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:text-brandHover data-[state=open]:text-brandHover dark:hover:text-brandHover dark:focus:text-brandHover  dark:data-[active]:text-brandHover dark:data-[state=open]:text-brandHover"
+          className="block select-none space-y-1 rounded-md p-3 uppercase leading-none no-underline outline-none transition-colors  hover:text-brandHover  focus:text-brandHover focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:text-brandHover data-[state=open]:text-brandHover dark:hover:text-brandHover  dark:focus:text-brandHover dark:data-[active]:text-brandHover dark:data-[state=open]:text-brandHover"
           {...props}
         >
           <span className="text-sm font-medium leading-none">{title}</span>
@@ -67,12 +67,13 @@ export function Navigation() {
           return (
             <NavigationMenuItem
               key={category.title[categoryTranslation]}
-              className="w-1/2 md:w-auto"
+              className="w-full md:w-auto"
             >
               <NavigationMenuTrigger>
                 <Link
                   to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
                   prefetch="intent"
+                  className="uppercase tracking-widest"
                 >
                   {category.title[categoryTranslation]}
                 </Link>

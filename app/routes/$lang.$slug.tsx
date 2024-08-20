@@ -110,7 +110,7 @@ export default function Slug() {
           })}
         >
           <div className="w-full text-center">
-            <Typography.Paragraph>
+            <Typography.Paragraph className="font-serif text-3xl">
               {post.excerpt[post.language]}
             </Typography.Paragraph>
           </div>

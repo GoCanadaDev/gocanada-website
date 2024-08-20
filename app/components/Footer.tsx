@@ -35,7 +35,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-slate-900 transition-colors duration-1000 ease-in-out dark:border-slate-800">
-      <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
+      <div className="container mx-auto flex items-center justify-between pb-4 pt-8 lg:px-12">
         <LogoIcon />
       </div>
       {siteConfig.enablePartners && (
@@ -70,7 +70,7 @@ export function Footer() {
       <div className="container mx-auto flex flex-wrap gap-8 p-4 md:flex-nowrap lg:px-12">
         <div className="w-full space-y-8 text-center md:w-1/2">
           <div className="max-w-prose text-left">
-            <Typography.Paragraph className="text-pretty">
+            <Typography.Paragraph className="mb-2 text-pretty">
               {siteConfig.siteDescription}
             </Typography.Paragraph>
             <Typography.TextMuted className="text-pretty">
@@ -89,7 +89,7 @@ export function Footer() {
               rel="noopener"
             >
               <animated.span style={style} className="inline-block">
-                <Instagram className="inline" size={48} />
+                <Instagram className="inline" size={44} />
               </animated.span>
               <span className="pl-2 text-2xl uppercase">@canada</span>
             </a>
@@ -104,7 +104,7 @@ export function Footer() {
                 <svg
                   aria-label="Threads"
                   fill="#bf2327"
-                  className="size-12 text-brand"
+                  className="size-[44px] text-brand"
                   height="100%"
                   role="img"
                   viewBox="0 0 192 192"
@@ -142,12 +142,9 @@ export function Footer() {
           ))}
         </nav>
       </div>
-      <div className="container mx-auto p-8 text-center text-xs lg:px-12">
-        &copy; {year} Go Canada, a division of{" "}
-        <a href="https://www.stayandwander.com/" className="underline">
-          Stay &amp; Wander Media Inc.
-        </a>{" "}
-        All Rights Reserved.
+      <div className="container mx-auto pb-8 pt-4 text-center text-xs lg:px-12">
+        &copy; {year} Go Canada, a division of Stay &amp; Wander Media Inc. All
+        Rights Reserved.
       </div>
     </footer>
   )

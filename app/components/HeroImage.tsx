@@ -11,7 +11,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
-import { HelpCircle } from "lucide-react"
 
 type HeroImageProps = {
   id: string
@@ -122,12 +121,12 @@ export const HeroImage = ({
           {title}
         </Typography.H1>
         {typeof isSponsored === "boolean" && isSponsored === true && (
-          <div className="my-6">
+          <div className="mb-6 mt-4">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
                   <Typography.H4 className="flex items-center text-white drop-shadow-lg">
-                    Sponsored <HelpCircle className="size-3 text-white" />
+                    Sponsored
                   </Typography.H4>
                 </TooltipTrigger>
                 <TooltipContent>This post is sponsored</TooltipContent>
@@ -171,12 +170,12 @@ export const HeroImage = ({
         </Typography.H4>
         <Typography.H1 className="">{title}</Typography.H1>
         {typeof isSponsored === "boolean" && isSponsored === true && (
-          <div className="my-6">
+          <div className="mb-6 mt-4">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
                   <Typography.H4 className="flex items-center">
-                    Sponsored <HelpCircle className="size-3 text-slate-400" />
+                    Sponsored
                   </Typography.H4>
                 </TooltipTrigger>
                 <TooltipContent>This post is sponsored</TooltipContent>

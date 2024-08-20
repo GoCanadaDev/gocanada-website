@@ -29,8 +29,8 @@ const Media = () => {
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/media`}>
       <article>
-        <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
         <Prose>
+          <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
           <PortableText
             value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}

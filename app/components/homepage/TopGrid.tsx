@@ -4,7 +4,7 @@ import { Separator } from "../ui/separator"
 
 export const TopGrid = ({ posts }: { posts: PostPreview[] }) => {
   return (
-    <div className="grid grid-cols-1 grid-rows-1 gap-8 pb-8 sm:grid-cols-2 md:grid-cols-[repeat(4,_1fr)] md:grid-rows-[repeat(1,_1fr)]">
+    <div className="grid grid-cols-1 grid-rows-1 gap-8 sm:grid-cols-2 md:grid-cols-[repeat(4,_1fr)] md:grid-rows-[repeat(1,_1fr)]">
       <div className="gap-8 sm:col-span-2 md:col-span-2 md:col-start-2 md:row-span-2">
         <div className="flex flex-col gap-8">
           <Card post={posts[0]} showExcerpt isLarge />

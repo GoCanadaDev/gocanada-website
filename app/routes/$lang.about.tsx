@@ -29,8 +29,8 @@ const About = () => {
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/about`}>
       <article>
-        <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
         <Prose>
+          <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
           <PortableText
             value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}
