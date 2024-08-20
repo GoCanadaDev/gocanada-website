@@ -19,6 +19,21 @@ import GalleryImages, {
 import HorizontalRule from "./portable/HorizontalRule"
 
 const PortableTextComponents = {
+  marks: {
+    link: ({
+      value,
+      children,
+    }: {
+      value: { href: string }
+      children: string
+    }) => {
+      return (
+        <a href={value.href} target="_blank" rel="noopener">
+          {children}
+        </a>
+      )
+    },
+  },
   types: {
     facebookPostType: ({ value }: { value: { url: string } }) => (
       <div className="flex justify-center">

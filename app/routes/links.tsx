@@ -69,7 +69,7 @@ export default function Links() {
                   <a
                     href={link.url}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener"
                     className="block rounded-md border-2 border-slate-200 p-4 text-center transition-transform hover:scale-[1.05] dark:border-slate-800"
                   >
                     {link.title}

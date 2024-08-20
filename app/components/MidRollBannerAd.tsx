@@ -29,7 +29,11 @@ export default function MidRollBannerAd({}) {
                   dangerouslySetInnerHTML={{ __html: adConfig.midBannerAdCode }}
                 />
               ) : (
-                <a href={adConfig.midBannerAdUrl} target="_blank">
+                <a
+                  href={adConfig.midBannerAdUrl}
+                  target="_blank"
+                  rel="noopener"
+                >
                   <SanityImage
                     id={adConfig.midBannerAdImage.id}
                     baseUrl={baseUrl}

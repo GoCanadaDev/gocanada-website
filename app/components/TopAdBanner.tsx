@@ -29,7 +29,11 @@ export default function TopAdBanner({}) {
                   dangerouslySetInnerHTML={{ __html: adConfig.topBannerAdCode }}
                 />
               ) : (
-                <a href={adConfig.topBannerAdUrl} target="_blank">
+                <a
+                  href={adConfig.topBannerAdUrl}
+                  target="_blank"
+                  rel="noopener"
+                >
                   <SanityImage
                     id={adConfig.topBannerAdImage.id}
                     baseUrl={baseUrl}
