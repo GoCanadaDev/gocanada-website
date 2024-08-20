@@ -15,6 +15,7 @@ export type Category = {
   subCategories: {
     title: LocalizedString
     slug: LocalizedString
+    enabledInNav?: boolean
   }[]
   title: LocalizedString
 }
@@ -44,6 +45,7 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOr
       "en": slug.en.current,
       "fr": slug.fr.current,
     },
+    enabledInNav,
   }
 }`
 
@@ -79,6 +81,7 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
       "en": slug.en.current,
       "fr": slug.fr.current,
     },
+    enabledInNav,
   }
 }`
 

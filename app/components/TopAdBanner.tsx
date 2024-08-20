@@ -1,5 +1,4 @@
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
-import { AspectRatio } from "./ui/aspect-ratio"
 import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
 
@@ -9,31 +8,40 @@ export default function TopAdBanner({}) {
   if (!adConfig.featuredAdsEnabled) {
     return null
   }
+
   return (
     <div className="py-4">
       <div className="px-[3.5vw]">
         <div className="m-auto max-w-4xl">
-          <AspectRatio
-            ratio={adConfig.topBannerAdWidth / adConfig.topBannerAdHeight}
+          <div
+            style={{
+              position: "relative",
+              aspectRatio:
+                adConfig.topBannerAdWidth / adConfig.topBannerAdHeight,
+              maxHeight: adConfig.topBannerAdHeight,
+              maxWidth: adConfig.topBannerAdWidth,
+              margin: "0 auto",
+            }}
           >
             <div className="absolute inset-0">
-              {adConfig.topBannerAdCode ? (
+              {typeof adConfig.topBannerAdCode === "string" ? (
                 <div
                   dangerouslySetInnerHTML={{ __html: adConfig.topBannerAdCode }}
                 />
               ) : (
                 <a href={adConfig.topBannerAdUrl} target="_blank">
                   <SanityImage
-                    id={adConfig.topBannerAdImage._id}
+                    id={adConfig.topBannerAdImage.id}
                     baseUrl={baseUrl}
-                    preview={adConfig.topBannerAdImage.metadata.lqip}
+                    preview={adConfig.topBannerAdImage.preview}
                     width={adConfig.topBannerAdWidth}
                     height={adConfig.topBannerAdHeight}
+                    className="m-auto"
                   />
                 </a>
               )}
             </div>
-          </AspectRatio>
+          </div>
         </div>
       </div>
     </div>

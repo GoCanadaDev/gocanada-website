@@ -38,7 +38,7 @@ export const structure: StructureResolver = (S) =>
       // S.documentTypeListItem("subCategoryType")
       //   .title("Sub Categories")
       //   .icon(FolderInput),
-      S.divider(),
+      // S.divider(),
       S.documentTypeListItem("tagType").title("Tags").icon(Tags),
       S.divider(),
       S.documentTypeListItem("staticPageType")

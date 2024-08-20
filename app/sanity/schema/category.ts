@@ -44,7 +44,6 @@ export const categoryType = defineType({
       name: "description",
       title: "Description",
       type: "localeString",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "displayOrder",
@@ -66,6 +65,8 @@ export const categoryType = defineType({
     defineField({
       name: "subCategories",
       title: "Sub Categories for Navigation",
+      description:
+        "Order matters here, but note that the Provinces & Territories are filtered into a separate list in the navigation manually. They will still appear in the order you put them relative to others.",
       type: "array",
       of: [{ type: "reference", to: { type: "subCategoryType" } }],
     }),

@@ -22,6 +22,9 @@ export const adConfigType = defineType({
       name: "topBannerAdImage",
       title: "Top Banner Ad Image",
       type: "image",
+      options: {
+        hotspot: true,
+      },
       description:
         "Used in conjunction with the URL when you dont want to use the Code section below",
     },

@@ -8,6 +8,7 @@ import { PostPreview, postsProjection } from "~/sanity/queries/posts"
 export type SubCategory = {
   title: LocalizedString
   slug: LocalizedString
+  enabledInNav?: boolean
   description: LocalizedString
   language: SupportedLanguages
   posts?: PostPreview[]
@@ -22,6 +23,7 @@ export const subCategoriesQuery = groq`*[_type == "subCategoryType"] | order(dis
     "en": slug.en.current,
     "fr": slug.fr.current,
   },
+  enabledInNav,
   "description": {
     "en": description.en,
     "fr": description.fr,
@@ -44,6 +46,7 @@ export const subCategoryBySlugQuery = groq`*[_type == "subCategoryType" && slug[
     "en": slug.en.current,
     "fr": slug.fr.current,
   },
+  enabledInNav,
   "description": {
     "en": description.en,
     "fr": description.fr,

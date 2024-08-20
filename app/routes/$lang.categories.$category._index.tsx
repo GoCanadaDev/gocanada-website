@@ -69,9 +69,11 @@ export default function CategoryByNameRoute() {
       <div className="holy-grail space-y-2 text-center">
         <Typography.H4>Category</Typography.H4>
         <Typography.H1>{category.title[category.language]}</Typography.H1>
-        <Typography.TextMuted className="mb-4">
-          {category.description[category.language]}
-        </Typography.TextMuted>
+        {typeof category.description[category.language] === "string" && (
+          <Typography.TextMuted className="mb-4">
+            {category.description[category.language]}
+          </Typography.TextMuted>
+        )}
       </div>
       <div className="mx-auto flex flex-wrap justify-center gap-4">
         {category.subCategories?.length > 0 &&

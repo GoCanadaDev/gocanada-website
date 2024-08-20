@@ -22,7 +22,11 @@ export const subCategoryType = defineType({
       name: "description",
       title: "Description",
       type: "localeString",
-      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "enabledInNav",
+      title: "Enabled in Navigation",
+      type: "boolean",
     }),
   ],
   preview: {

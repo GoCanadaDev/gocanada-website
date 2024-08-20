@@ -89,9 +89,11 @@ export default function SubCategoryByNameRoute() {
           {category.title[category.language]}
         </Typography.H4>
         <Typography.H1>{subCategory.title[subCategory.language]}</Typography.H1>
-        <Typography.TextMuted>
-          {subCategory.description[subCategory.language]}
-        </Typography.TextMuted>
+        {typeof subCategory.description[subCategory.language] === "string" && (
+          <Typography.TextMuted>
+            {subCategory.description[subCategory.language]}
+          </Typography.TextMuted>
+        )}
       </div>
       <Separator className="my-2" />
       {subCategory.posts?.length ? (

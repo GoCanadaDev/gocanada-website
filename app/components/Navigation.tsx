@@ -10,6 +10,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu"
+import { Typography } from "./Typography"
+import { Separator } from "./ui/separator"
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -73,26 +75,100 @@ export function Navigation() {
                 </Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
-                  {category.subCategories &&
-                    Array.isArray(category.subCategories) &&
-                    category.subCategories?.map((subCategory) => {
-                      // if (
-                      //   provincesAndTerritories.includes(
-                      //     subCategory.title[categoryTranslation]
-                      //   )
-                      // ) {
-                      //   return null
-                      // }
-                      return (
+                {category.title[categoryTranslation] === "Destinations" ? (
+                  <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
+                    <div>
+                      <Typography.H4 className="px-3 text-base font-bold text-brand">
+                        By Region
+                      </Typography.H4>
+                      <ul>
+                        {category.subCategories &&
+                          Array.isArray(category.subCategories) &&
+                          category.subCategories?.map((subCategory) => {
+                            if (
+                              !provincesAndTerritories.includes(
+                                subCategory.title[categoryTranslation]
+                              ) ||
+                              subCategory.enabledInNav === false
+                            ) {
+                              return null
+                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
+                      </ul>
+                      <Separator
+                        orientation="horizontal"
+                        className="my-8 block h-0.5 md:hidden"
+                      />
+                    </div>
+                    <div>
+                      <Typography.H4 className="px-3 text-base font-bold text-brand">
+                        By City
+                      </Typography.H4>
+                      <ul>
+                        {category.subCategories &&
+                          Array.isArray(category.subCategories) &&
+                          category.subCategories?.map((subCategory) => {
+                            if (
+                              provincesAndTerritories.includes(
+                                subCategory.title[categoryTranslation]
+                              ) ||
+                              subCategory.enabledInNav === false
+                            ) {
+                              return null
+                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
+                      </ul>
+                      <Separator
+                        orientation="horizontal"
+                        className="my-8 h-0.5"
+                      />
+                      <Typography.H4 className="px-3 text-base font-bold text-brand">
+                        Anywhere
+                      </Typography.H4>
+                      <ul>
                         <ListItem
-                          key={subCategory.title[categoryTranslation]}
-                          title={subCategory.title[categoryTranslation]}
-                          href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                          title="All of Canada"
+                          href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
                         />
-                      )
-                    })}
-                </ul>
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
+                    {category.subCategories &&
+                      Array.isArray(category.subCategories) &&
+                      category.subCategories?.map((subCategory) => {
+                        // if (
+                        //   provincesAndTerritories.includes(
+                        //     subCategory.title[categoryTranslation]
+                        //   )
+                        // ) {
+                        //   return null
+                        // }
+                        return (
+                          <ListItem
+                            key={subCategory.title[categoryTranslation]}
+                            title={subCategory.title[categoryTranslation]}
+                            href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                          />
+                        )
+                      })}
+                  </ul>
+                )}
               </NavigationMenuContent>
             </NavigationMenuItem>
           )
