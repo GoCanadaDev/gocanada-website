@@ -96,7 +96,7 @@ export const postType = defineType({
     defineField({
       name: "byline",
       title: "Byline/Ad Disclosure",
-      type: "text",
+      type: "blockContentType",
     }),
     defineField({
       name: "body",

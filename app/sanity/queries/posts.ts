@@ -298,7 +298,7 @@ export type NextOrPreviousPostType = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
-  byline?: string
+  byline?: PortableTextBlock[]
 }
 
 export type PostPreview = {
@@ -313,7 +313,7 @@ export type PostPreview = {
     fr: Slug
   }
   excerpt: LocalizedString
-  byline?: string
+  byline?: PortableTextBlock[]
   categories: {
     title: Category["title"]
     slug: Category["slug"]
@@ -356,7 +356,7 @@ export type AlgoliaPost = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
-  byline?: string
+  byline?: PortableTextBlock[]
   categories: {
     title: Category["title"]
     slug: Category["slug"]

@@ -17,6 +17,7 @@ type HeroImageProps = {
   fullBleed?: boolean
   hotspot?: ImageHotspot
   crop?: ImageCrop
+  aspectRatio?: number
 }
 
 export const HeroImage = ({
@@ -30,6 +31,7 @@ export const HeroImage = ({
   fullBleed,
   hotspot,
   crop,
+  aspectRatio,
 }: HeroImageProps) => {
   const params = useParams()
 
@@ -40,6 +42,7 @@ export const HeroImage = ({
           className={cn("", {
             "mx-auto mb-8 w-10/12 max-w-7xl": !fullBleed,
             "absolute left-0 right-0 top-full": fullBleed,
+            "w-8/12 max-w-7xl": !fullBleed && aspectRatio && aspectRatio < 1,
           })}
         >
           <figcaption
@@ -120,7 +123,12 @@ export const HeroImage = ({
           preview={preview}
           width={1440}
           loading="eager"
-          className="mx-auto mb-2 w-10/12 max-w-7xl select-none object-cover"
+          className={cn(
+            "mx-auto mb-2 w-10/12 max-w-7xl select-none object-cover",
+            {
+              "w-8/12": aspectRatio && aspectRatio < 1,
+            }
+          )}
           alt=""
           hotspot={hotspot}
           crop={crop}

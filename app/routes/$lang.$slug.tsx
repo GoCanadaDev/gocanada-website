@@ -23,6 +23,7 @@ import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
 import Share from "~/components/Share"
+import Prose from "~/components/portable/Prose"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -98,6 +99,7 @@ export default function Slug() {
             mainImageAttributionUrl={post.mainImageAttributionUrl}
             hotspot={post.mainImage.hotspot}
             crop={post.mainImage.crop}
+            aspectRatio={post.mainImage.aspectRatio}
           />
         </div>
         <div className="holy-grail mx-4 mb-12 mt-4 max-w-none text-xl">
@@ -131,22 +133,25 @@ export default function Slug() {
               media={post.mainImage.id}
             />
           </div>
-          {typeof post.byline === "string" && (
+          {post.byline && (
             <>
               <Separator className="h-0.5" />
               <div className="my-12 w-full text-center">
-                <Typography.Lead className="italic text-slate-400">
-                  {post.byline}
-                </Typography.Lead>
+                <Prose>
+                  <PortableText
+                    value={post.byline}
+                    components={PortableTextComponents}
+                  />
+                </Prose>
               </div>
             </>
           )}
 
           <Separator className="h-0.5" />
         </div>
-        <div className="holy-grail prose prose-lg prose-slate mx-4 my-12 max-w-none lg:prose-xl dark:prose-invert prose-h1:font-serif prose-h1:font-normal prose-h2:mb-0 prose-h2:font-serif prose-h2:font-normal prose-h3:font-serif prose-h3:font-normal prose-p:my-4 prose-a:text-brand hover:prose-a:text-brandHover prose-figure:my-4 prose-figcaption:mt-2 prose-figcaption:text-sm prose-ol:my-0 prose-ul:my-0 prose-li:my-0">
+        <Prose>
           <PortableText value={post.body} components={PortableTextComponents} />
-        </div>
+        </Prose>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
           {post.tags.map((tag) => (
             <div key={tag.title[post.language]} className="">
