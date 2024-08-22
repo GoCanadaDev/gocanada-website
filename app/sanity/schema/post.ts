@@ -96,7 +96,15 @@ export const postType = defineType({
       name: "isSponsored",
       title: "Sponsored Post",
       type: "boolean",
-      description: "Check this box if this post is sponsored",
+      description:
+        "Check this box to enable/disable the sponsored post text below",
+    }),
+    defineField({
+      name: "sponsoredText",
+      title: "Sponsored Post Text",
+      type: "string",
+      description:
+        "The text to display under the title if this post is sponsored",
     }),
     defineField({
       name: "byline",

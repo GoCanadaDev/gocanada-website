@@ -5,12 +5,6 @@ import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
 import { Post } from "~/sanity/queries"
 import { ImageCrop, ImageHotspot } from "sanity"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "~/components/ui/tooltip"
 
 type HeroImageProps = {
   id: string
@@ -24,7 +18,8 @@ type HeroImageProps = {
   hotspot?: ImageHotspot
   crop?: ImageCrop
   aspectRatio?: number
-  isSponsored?: boolean
+  isSponsored?: Post["isSponsored"]
+  sponsoredText?: Post["sponsoredText"]
 }
 
 export const HeroImage = ({
@@ -40,6 +35,7 @@ export const HeroImage = ({
   crop,
   aspectRatio,
   isSponsored,
+  sponsoredText,
 }: HeroImageProps) => {
   const params = useParams()
 
@@ -122,16 +118,9 @@ export const HeroImage = ({
         </Typography.H1>
         {typeof isSponsored === "boolean" && isSponsored === true && (
           <div className="mb-6 mt-4">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Typography.H4 className="flex items-center text-white drop-shadow-lg">
-                    Sponsored
-                  </Typography.H4>
-                </TooltipTrigger>
-                <TooltipContent>This post is sponsored</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Typography.H4 className="flex items-center text-white drop-shadow-lg">
+              {typeof sponsoredText === "string" ? sponsoredText : "Sponsored"}
+            </Typography.H4>
           </div>
         )}
       </div>
@@ -171,16 +160,9 @@ export const HeroImage = ({
         <Typography.H1 className="">{title}</Typography.H1>
         {typeof isSponsored === "boolean" && isSponsored === true && (
           <div className="mb-6 mt-4">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Typography.H4 className="flex items-center">
-                    Sponsored
-                  </Typography.H4>
-                </TooltipTrigger>
-                <TooltipContent>This post is sponsored</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Typography.H4 className="flex items-center">
+              {typeof sponsoredText === "string" ? sponsoredText : "Sponsored"}
+            </Typography.H4>
           </div>
         )}
       </div>

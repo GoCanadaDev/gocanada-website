@@ -59,7 +59,7 @@ export const galleryType = {
           { title: "Single", value: GalleryDisplay.Single },
           { title: "In-line (2+ in a row)", value: GalleryDisplay.Inline },
           { title: "Two Up (Square Aspect)", value: GalleryDisplay.TwoUp },
-          { title: "Grid", value: GalleryDisplay.Grid },
+          { title: "Grid (Square Aspect)", value: GalleryDisplay.Grid },
           { title: "Carousel", value: GalleryDisplay.Carousel },
         ],
         layout: "radio",

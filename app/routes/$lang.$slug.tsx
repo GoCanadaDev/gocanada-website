@@ -102,6 +102,7 @@ export default function Slug() {
             crop={post.mainImage.crop}
             aspectRatio={post.mainImage.aspectRatio}
             isSponsored={post.isSponsored}
+            sponsoredText={post.sponsoredText}
           />
         </div>
         <div

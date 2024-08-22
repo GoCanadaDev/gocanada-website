@@ -7,7 +7,7 @@ export const GridImages = ({ value }: GalleryImagesProps) => {
   if (!value || !value.images || value.images.length === 0) return null
 
   return (
-    <div className="grid grid-cols-2 gap-4 [&>figure]:m-0">
+    <div className="grid grid-cols-2 gap-8 [&>figure]:m-0">
       {value?.images?.map((image) => {
         if (!image || !image.asset?._ref) return null
         return (

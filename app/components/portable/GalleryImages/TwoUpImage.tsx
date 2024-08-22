@@ -44,7 +44,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
 
   return (
     <div className={value.fullBleed ? "full-bleed" : undefined}>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <SingleImage
           value={{
             asset: assetOne,

@@ -46,7 +46,6 @@ export const blockContentType = defineType({
           },
         ],
       },
-      // of: [{ type: "image" }],
     }),
     defineArrayMember({
       type: "image",
@@ -98,10 +97,6 @@ export const blockContentType = defineType({
           }
         },
       },
-    }),
-    defineArrayMember({
-      type: "twoUpImageType",
-      hidden: true,
     }),
     defineArrayMember({
       type: "galleryType",

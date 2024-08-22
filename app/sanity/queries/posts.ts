@@ -65,7 +65,9 @@ export const algoliaPostsProjection = `{
       "en": slug.en.current,
       "fr": slug.fr.current,
     },
-  }
+  },
+  isSponsored,
+  sponsoredText,
 }`
 
 export const algoliaPostsQuery = groq`*[_type == "postType"] | order(publishedAt desc) ${algoliaPostsProjection}`
@@ -98,16 +100,6 @@ export const postsProjection = `
       "fr": slug.fr.current,
     },
   },
-  "subCategories": subCategories[]->{
-    "title": {
-      "en": title.en,
-      "fr": title.fr,
-    },
-    "slug": {
-      "en": slug.en.current,
-      "fr": slug.fr.current,
-    },
-  },
   mainImage{
     ...,
     "id": asset._ref,
@@ -118,8 +110,6 @@ export const postsProjection = `
     "en": excerpt.en,
     "fr": excerpt.fr,
     },
-  byline,
-  isSponsored,
   "author": {
     "name": author->name,
     "slug": author->slug.current,
@@ -207,6 +197,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "fr": excerpt.fr,
   },
   isSponsored,
+  sponsoredText,
   byline,
   "body": body[] {
     ...,
@@ -355,21 +346,10 @@ export type PostPreview = {
     fr: Slug
   }
   excerpt: LocalizedString
-  isSponsored?: boolean
-  byline?: PortableTextBlock[]
   categories: {
     title: Category["title"]
     slug: Category["slug"]
   }[]
-  subCategories: {
-    title: Category["title"]
-    slug: Category["slug"]
-  }[]
-  showDate: boolean
-  mainImageCaption: string
-  mainImageAttribution: string
-  mainImageAttributionUrl: string
-  mainImageFullBleed: boolean
   mainImage: {
     id: string
     preview: string
@@ -386,6 +366,18 @@ export type Post = PostPreview & {
   }[]
   previousPost?: NextOrPreviousPostType
   nextPost?: NextOrPreviousPostType
+  isSponsored?: boolean
+  sponsoredText?: string
+  byline?: PortableTextBlock[]
+  subCategories: {
+    title: Category["title"]
+    slug: Category["slug"]
+  }[]
+  showDate: boolean
+  mainImageCaption: string
+  mainImageAttribution: string
+  mainImageAttributionUrl: string
+  mainImageFullBleed: boolean
 }
 
 export type AlgoliaPost = {
@@ -404,6 +396,7 @@ export type AlgoliaPost = {
   }
   excerpt: LocalizedString
   isSponsored?: boolean
+  sponsoredText?: string
   byline?: PortableTextBlock[]
   categories: {
     title: Category["title"]
