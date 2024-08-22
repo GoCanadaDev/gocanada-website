@@ -14,6 +14,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 const SearchModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -34,7 +36,9 @@ const SearchModal = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Search by location, tag, or keyword...</DialogTitle>
+          <DialogTitle className="font-serif">
+            Search by location, tag, or keyword...
+          </DialogTitle>
 
           <Form
             className="flex gap-4"
@@ -42,22 +46,14 @@ const SearchModal = () => {
             action="/resource/search"
             reloadDocument
           >
-            <input
-              name="search"
-              type="search"
-              autoFocus
-              className="sm:text-md block w-9/12 rounded-md border border-zinc-300 bg-zinc-50 p-4 text-zinc-900 outline-brand dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
-            />
+            <Input name="search" type="search" autoFocus />
             <div className="w-3/12">
-              <button
+              <Button
                 type="submit"
-                onClick={() => {
-                  setModalOpen(false)
-                }}
-                className="flex w-full items-center justify-center gap-1 rounded-md bg-brand p-4 text-center text-white hover:bg-brandHover dark:bg-zinc-800"
+                className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
               >
                 <Search size={16} /> Search
-              </button>
+              </Button>
             </div>
           </Form>
         </DialogHeader>

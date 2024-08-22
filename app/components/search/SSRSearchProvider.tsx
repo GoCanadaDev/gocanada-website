@@ -52,11 +52,14 @@ export const SSRSearchProvider = ({
           }),
         }}
       >
+        <PoweredBy
+          className="w-32"
+          theme={themePreference === "dark" ? "dark" : "light"}
+        />
         <ScrollTo className="flex">
           <div>
             <DynamicWidgets fallbackComponent={FallbackComponent} />
           </div>
-
           <div className="mt-4 flex w-full flex-col">
             <SearchBox
               placeholder="Search by location, tag, or keyword..."
@@ -64,17 +67,12 @@ export const SSRSearchProvider = ({
                 form: "flex gap-4",
                 loadingIcon: "hidden",
                 input:
-                  "w-full sm:text-md block rounded-md border border-zinc-300 bg-zinc-50 p-4 outline-brand text-zinc-900 focus:ring-blue-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:ring-blue-500",
+                  "w-10/12 sm:text-md block rounded-md border border-zinc-300 bg-zinc-50 p-4 outline-brand outline-offset-2 text-zinc-900 focus:ring-blue-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:ring-blue-500",
               }}
               submitIconComponent={() => <Search />}
               resetIconComponent={() => <X />}
             />
-            <div className="ml-auto mt-2">
-              <PoweredBy
-                className="w-32"
-                theme={themePreference === "dark" ? "dark" : "light"}
-              />
-            </div>
+
             <NoResultsBoundary fallback={<NoResults />}>
               <Hits
                 hitComponent={Hit}
