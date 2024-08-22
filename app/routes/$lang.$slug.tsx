@@ -134,7 +134,7 @@ export default function Slug() {
             <Share
               url={`/${post.language}/${post.slug[post.language]}`}
               title={post.title[post.language]}
-              tags={post.tags.map((tag) => tag.title[post.language])}
+              tags={post.subCategories.map((sc) => sc.title[post.language])}
               description={post.excerpt[post.language]}
               media={post.mainImage.id}
             />
@@ -159,14 +159,14 @@ export default function Slug() {
           <PortableText value={post.body} components={PortableTextComponents} />
         </Prose>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
-          {post.tags.map((tag) => (
-            <div key={tag.title[post.language]} className="">
+          {post.subCategories?.map((subCategory) => (
+            <div key={subCategory.title[post.language]} className="">
               <Link
                 prefetch="intent"
-                to={`/${post.language}/tags/${tag.slug[post.language]}`}
+                to={`/${post.language}/categories/${post.categories[0].slug[post.language]}/${subCategory.slug[post.language]}`}
                 className="rounded bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
               >
-                {tag.title[post.language]}
+                {subCategory.title[post.language]}
               </Link>
             </div>
           ))}

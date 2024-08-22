@@ -57,8 +57,8 @@ export const galleryType = {
       options: {
         list: [
           { title: "Single", value: GalleryDisplay.Single },
-          { title: "In-line", value: GalleryDisplay.Inline },
-          { title: "Two Up", value: GalleryDisplay.TwoUp },
+          { title: "In-line (2+ in a row)", value: GalleryDisplay.Inline },
+          { title: "Two Up (Square Aspect)", value: GalleryDisplay.TwoUp },
           { title: "Grid", value: GalleryDisplay.Grid },
           { title: "Carousel", value: GalleryDisplay.Carousel },
         ],

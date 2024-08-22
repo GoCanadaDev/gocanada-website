@@ -49,7 +49,6 @@ export const postType = defineType({
       title: "Tags",
       type: "array",
       of: [{ type: "reference", to: { type: "tagType" } }],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "publishedAt",

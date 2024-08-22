@@ -49,10 +49,6 @@ export const blockContentType = defineType({
       // of: [{ type: "image" }],
     }),
     defineArrayMember({
-      type: "horizontalRuleType",
-      icon: Minus,
-    }),
-    defineArrayMember({
       type: "image",
       hidden: true,
       options: { hotspot: true },
@@ -138,6 +134,10 @@ export const blockContentType = defineType({
     defineArrayMember({
       type: "youTubePostType",
       icon: YoutubeIcon,
+    }),
+    defineArrayMember({
+      type: "horizontalRuleType",
+      icon: Minus,
     }),
   ],
 })

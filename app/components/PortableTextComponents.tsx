@@ -17,6 +17,7 @@ import GalleryImages, {
   GalleryImagesProps,
 } from "~/components/portable/GalleryImages"
 import HorizontalRule from "./portable/HorizontalRule"
+import { PortableTextReactComponents } from "@portabletext/react"
 
 const PortableTextComponents = {
   marks: {
@@ -83,6 +84,6 @@ const PortableTextComponents = {
       return <HorizontalRule value={value} />
     },
   },
-}
+} as Partial<PortableTextReactComponents>
 
 export default PortableTextComponents

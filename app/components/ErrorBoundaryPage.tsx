@@ -65,7 +65,7 @@ export default function ErrorBoundaryPage() {
                   >
                     home page
                   </Link>
-                  . If the problem persists, please reach out to
+                  . If the problem persists, please reach out to{" "}
                   <span className="italic">info@gocanada.com.</span>
                 </Typography.Paragraph>
               </div>

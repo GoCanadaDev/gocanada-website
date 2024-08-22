@@ -46,6 +46,16 @@ export const algoliaPostsProjection = `{
       "fr": slug.fr.current,
     },
   },
+  "subCategories": subCategories[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  },
   "tags": tags[]->{
     "title": {
       "en": title.en,
@@ -79,6 +89,16 @@ export const postsProjection = `
     "fr": slug.fr.current,
   },
   "categories": categories[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  },
+  "subCategories": subCategories[]->{
     "title": {
       "en": title.en,
       "fr": title.fr,
@@ -191,12 +211,24 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
   "body": body[] {
     ...,
     ...select(
+      _type == 'galleryType' => {
+        display,
+        images[] {
+          ...,
+          "id": asset._ref,
+          "preview": asset->.metadata.lqip,
+          "metadata": asset->metadata,
+          "hotspot": asset->hotspot
+        },
+      },
       _type == "image" => {
         ...,
         "id": asset._ref,
-        "preview": asset->.metadata.lqip
-      } 
-    )
+        "preview": asset->.metadata.lqip,
+        "metadata": asset->metadata,
+        "hotspot": asset->hotspot
+      },
+    ),
   },
   // not sure why authorsProjection wont work here 😢
   "author": author->{
@@ -223,6 +255,16 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     },
   },
   "categories": categories[]->{
+    "title": {
+      "en": title.en,
+      "fr": title.fr,
+    },
+    "slug": {
+      "en": slug.en.current,
+      "fr": slug.fr.current,
+    },
+  },
+  "subCategories": subCategories[]->{
     "title": {
       "en": title.en,
       "fr": title.fr,
@@ -316,6 +358,10 @@ export type PostPreview = {
   isSponsored?: boolean
   byline?: PortableTextBlock[]
   categories: {
+    title: Category["title"]
+    slug: Category["slug"]
+  }[]
+  subCategories: {
     title: Category["title"]
     slug: Category["slug"]
   }[]
