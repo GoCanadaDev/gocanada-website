@@ -144,7 +144,7 @@ export default function Slug() {
             <>
               <Separator className="h-0.5" />
               <div className="w-full">
-                <Prose className="!text-base text-slate-500">
+                <Prose className="!text-base text-zinc-500 dark:text-zinc-400">
                   <PortableText
                     value={post.byline}
                     components={PortableTextComponents}
@@ -165,7 +165,7 @@ export default function Slug() {
               <Link
                 prefetch="intent"
                 to={`/${post.language}/categories/${post.categories[0].slug[post.language]}/${subCategory.slug[post.language]}`}
-                className="rounded bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
+                className="rounded bg-zinc-100 px-2.5 py-0.5 font-medium text-zinc-800 no-underline dark:bg-zinc-700 dark:text-zinc-300"
               >
                 {subCategory.title[post.language]}
               </Link>

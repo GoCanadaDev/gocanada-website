@@ -27,7 +27,7 @@ export const MiniCard = ({
         {post.mainImage && post.mainImage?.id ? (
           <AspectRatio
             ratio={1}
-            className="overflow-hidden bg-slate-200 dark:bg-slate-800"
+            className="overflow-hidden bg-zinc-200 dark:bg-zinc-800"
           >
             <Image
               mode="cover"
@@ -49,11 +49,11 @@ export const MiniCard = ({
         <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
-        <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-slate-600 dark:text-slate-300">
+        <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
           {post.excerpt[post.language]}
         </Typography.Paragraph>
         {"author" in post && post.author && post.author.name && (
-          <Typography.Paragraph className="text-xs uppercase tracking-widest text-slate-500">
+          <Typography.Paragraph className="text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
             By {post.author.name}
           </Typography.Paragraph>
         )}

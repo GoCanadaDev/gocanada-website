@@ -288,10 +288,10 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
-  "previousPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^.publishedAt > publishedAt]|order(publishedAt desc)[0]{ 
+  "previousPost": *[_type == "postType" && ^.publishedAt > publishedAt]|order(publishedAt desc)[0]{ 
     ${previousOrNextPostProjection}
   },
-  "nextPost": *[_type == "postType" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^.publishedAt < publishedAt]|order(publishedAt asc)[0]{ 
+  "nextPost": *[_type == "postType" && ^.publishedAt < publishedAt]|order(publishedAt asc)[0]{ 
     ${previousOrNextPostProjection}
   },
 }`

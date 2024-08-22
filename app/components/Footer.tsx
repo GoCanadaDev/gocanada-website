@@ -34,7 +34,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="border-t border-slate-900 transition-colors duration-1000 ease-in-out dark:border-slate-800">
+    <footer className="bg-zinc-900 transition-colors duration-1000 ease-in-out dark:bg-zinc-950">
       <div className="container mx-auto flex items-center justify-between pb-4 pt-8 lg:px-12">
         <LogoIcon />
       </div>
@@ -69,17 +69,17 @@ export function Footer() {
       )}
       <div className="container mx-auto flex flex-wrap gap-8 p-4 md:flex-nowrap lg:px-12">
         <div className="w-full space-y-8 text-center md:w-1/2">
-          <div className="max-w-prose text-left">
+          <div className="max-w-prose text-left text-zinc-400">
             <Typography.Paragraph className="mb-2 text-pretty">
               {siteConfig.siteDescription}
             </Typography.Paragraph>
-            <Typography.TextMuted className="text-pretty">
+            <Typography.TextMuted className="text-pretty leading-6 text-zinc-300">
               {siteConfig.footerText}
             </Typography.TextMuted>
           </div>
         </div>
         <div className="w-full space-y-8 text-center md:w-1/2">
-          <Typography.H4>Follow Us</Typography.H4>
+          <Typography.H4 className="text-zinc-300">Follow Us</Typography.H4>
           <div className="flex flex-wrap items-center justify-center gap-4 md:flex-nowrap">
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
@@ -130,7 +130,7 @@ export function Footer() {
                 to={`/${currentLang}${link.route}`}
                 role="menuitem"
                 prefetch="intent"
-                className="block px-8 py-4 tracking-widest transition-colors duration-200 hover:text-brandHover"
+                className="block px-8 py-4 tracking-widest text-zinc-300 transition-colors duration-200 hover:text-brandHover"
               >
                 {link.title[currentLang]}
               </Link>

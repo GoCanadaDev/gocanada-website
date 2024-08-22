@@ -27,7 +27,7 @@ export function UserMediaObject({
       {image && (
         <AvatarImage src={urlForImage(image)?.width(96).height(96).url()} />
       )}
-      <AvatarFallback className="text-slate-500">
+      <AvatarFallback className="text-zinc-500 dark:text-zinc-400">
         <UserSquare2 className="size-8" />
       </AvatarFallback>
     </Avatar>

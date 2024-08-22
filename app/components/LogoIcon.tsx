@@ -5,7 +5,7 @@ export function LogoIcon() {
   return (
     <Link
       to="/"
-      className="rounded-md p-2 hover:opacity-90 focus:bg-slate-100 focus-visible:outline-none dark:focus:bg-slate-800"
+      className="rounded-md p-2 hover:opacity-90 focus:bg-zinc-100 focus-visible:outline-none dark:focus:bg-zinc-800"
     >
       <span className="sr-only">Go Canada</span>
       <img

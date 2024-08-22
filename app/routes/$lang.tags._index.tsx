@@ -47,7 +47,7 @@ export default function TagIndexRoute() {
           return (
             <div
               key={tag.title[lang]}
-              className="mb-4 overflow-hidden rounded-md bg-slate-50 p-4 dark:bg-slate-800"
+              className="mb-4 overflow-hidden rounded-md bg-zinc-50 p-4 dark:bg-zinc-800"
             >
               <div className="flex items-start">
                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border ">

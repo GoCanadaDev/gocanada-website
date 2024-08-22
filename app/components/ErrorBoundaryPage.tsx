@@ -47,7 +47,7 @@ export default function ErrorBoundaryPage() {
       <body className={bodyClassNames}>
         <Layout useMargins>
           <div className="flex items-center justify-center">
-            <div className="flex w-5/6 max-w-[800px] flex-col space-y-8 rounded-lg bg-slate-100 p-8 shadow dark:bg-slate-800">
+            <div className="flex w-5/6 max-w-[800px] flex-col space-y-8 rounded-lg bg-zinc-100 p-8 shadow dark:bg-zinc-800">
               <div className="flex w-full items-center justify-center">
                 <AlertTriangle size={72} className="text-brand" />
               </div>

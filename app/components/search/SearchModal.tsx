@@ -34,7 +34,7 @@ const SearchModal = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Search</DialogTitle>
+          <DialogTitle>Search by location, tag, or keyword...</DialogTitle>
 
           <Form
             className="flex gap-4"
@@ -46,8 +46,7 @@ const SearchModal = () => {
               name="search"
               type="search"
               autoFocus
-              placeholder="Search by location, tag, or keyword..."
-              className="sm:text-md block w-9/12 rounded-md border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              className="sm:text-md block w-9/12 rounded-md border border-zinc-300 bg-zinc-50 p-4 text-zinc-900 outline-brand dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400"
             />
             <div className="w-3/12">
               <button
@@ -55,7 +54,7 @@ const SearchModal = () => {
                 onClick={() => {
                   setModalOpen(false)
                 }}
-                className="flex w-full items-center justify-center gap-1 rounded-md bg-slate-100 p-4 text-center dark:bg-slate-800"
+                className="flex w-full items-center justify-center gap-1 rounded-md bg-brand p-4 text-center text-white hover:bg-brandHover dark:bg-zinc-800"
               >
                 <Search size={16} /> Search
               </button>

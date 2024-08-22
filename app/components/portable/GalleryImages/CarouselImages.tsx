@@ -71,9 +71,9 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
             className="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
             onClick={() => toIndex(currentSlide - 1)}
           >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-zinc-800/30 dark:group-hover:bg-zinc-800/60 dark:group-focus:ring-zinc-800/70">
               <svg
-                className="h-4 w-4 text-white rtl:rotate-180 dark:text-gray-800"
+                className="h-4 w-4 text-white rtl:rotate-180 dark:text-zinc-800"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -95,9 +95,9 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
             className="group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
             onClick={() => toIndex(currentSlide + 1)}
           >
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-zinc-800/30 dark:group-hover:bg-zinc-800/60 dark:group-focus:ring-zinc-800/70">
               <svg
-                className="h-4 w-4 text-white rtl:rotate-180 dark:text-gray-800"
+                className="h-4 w-4 text-white rtl:rotate-180 dark:text-zinc-800"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

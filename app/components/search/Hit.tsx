@@ -40,7 +40,7 @@ export const Hit = ({ hit }: HitProps) => {
         <div className="w-32 flex-shrink-0">
           <AspectRatio
             ratio={3 / 2}
-            className="w-32 overflow-hidden bg-slate-200 dark:bg-slate-800"
+            className="w-32 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
           >
             <Image
               mode="cover"
@@ -66,14 +66,11 @@ export const Hit = ({ hit }: HitProps) => {
               attribute={`title.${currentLang}` as keyof AlgoliaPost}
             />
           </Typography.H3>
-          <Typography.TextMuted>
+          <Typography.TextMuted className="line-clamp-5">
             <Highlight
               hit={hit}
               attribute={`excerpt.${currentLang}` as keyof AlgoliaPost}
             />
-          </Typography.TextMuted>
-          <Typography.TextMuted>
-            {t("readMore")} <MoveRight className="inline h-4 w-4" />
           </Typography.TextMuted>
         </div>
       </a>

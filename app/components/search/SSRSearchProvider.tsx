@@ -18,6 +18,7 @@ import {
   ScrollTo,
   SearchPagination,
 } from "~/components/search"
+import { Search, X } from "lucide-react"
 
 type SSRSearchProviderProps = {
   serverState?: InstantSearchServerState
@@ -60,12 +61,13 @@ export const SSRSearchProvider = ({
             <SearchBox
               placeholder="Search by location, tag, or keyword..."
               classNames={{
-                submit: "hidden",
                 form: "flex gap-4",
-                reset: "hidden",
+                loadingIcon: "hidden",
                 input:
-                  "w-full sm:text-md block rounded-md border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500",
+                  "w-full sm:text-md block rounded-md border border-zinc-300 bg-zinc-50 p-4 outline-brand text-zinc-900 focus:ring-blue-500 dark:border-zinc-600 dark:bg-zinc-700 dark:text-white dark:placeholder-zinc-400 dark:focus:ring-blue-500",
               }}
+              submitIconComponent={() => <Search />}
+              resetIconComponent={() => <X />}
             />
             <div className="ml-auto mt-2">
               <PoweredBy

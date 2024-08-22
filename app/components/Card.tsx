@@ -28,7 +28,7 @@ export default function Card({
       {!hideImage && post.mainImage && post.mainImage?.id ? (
         <AspectRatio
           ratio={3 / 2}
-          className="mb-4 overflow-hidden bg-slate-200 dark:bg-slate-800"
+          className="mb-4 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
         >
           <Link prefetch="intent" to={linkTo}>
             <Image
@@ -68,14 +68,16 @@ export default function Card({
         {showExcerpt ? (
           <Typography.Paragraph
             className={cn(
-              "line-clamp-2 text-sm leading-snug text-slate-600  dark:text-slate-300"
+              "line-clamp-2 text-sm leading-snug text-zinc-600  dark:text-zinc-300"
             )}
           >
             {post.excerpt[post.language]}
           </Typography.Paragraph>
         ) : null}
         <Typography.Paragraph
-          className={cn("text-xs uppercase tracking-widest text-slate-500 ")}
+          className={cn(
+            "text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400 dark:text-zinc-400"
+          )}
         >
           By {post.author.name}
         </Typography.Paragraph>

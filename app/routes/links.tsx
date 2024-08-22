@@ -70,7 +70,7 @@ export default function Links() {
                     href={link.url}
                     target="_blank"
                     rel="noopener"
-                    className="block rounded-md border-2 border-slate-200 p-4 text-center transition-transform hover:scale-[1.05] dark:border-slate-800"
+                    className="block rounded-md border-2 border-zinc-200 p-4 text-center transition-transform hover:scale-[1.05] dark:border-zinc-100"
                   >
                     {link.title}
                   </a>

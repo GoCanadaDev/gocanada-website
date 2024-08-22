@@ -84,7 +84,7 @@ export default function CategoryByNameRoute() {
               to={`/${category.language}/categories/${
                 category.slug[category.language]
               }/${subCat.slug[category.language]}`}
-              className="inline-flex flex-nowrap rounded bg-gray-100 px-2.5 py-0.5 font-medium text-gray-800 no-underline dark:bg-gray-700 dark:text-gray-300"
+              className="inline-flex flex-nowrap rounded bg-zinc-100 px-2.5 py-0.5 font-medium text-zinc-800 no-underline dark:bg-zinc-700 dark:text-zinc-300"
             >
               {subCat.title[category.language]}
             </Link>

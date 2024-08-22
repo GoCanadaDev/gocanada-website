@@ -51,7 +51,7 @@ export default function AuthorsIndexRoute() {
           return (
             <div
               key={author.name}
-              className="relative mb-4 overflow-hidden rounded-md bg-slate-50 p-4 dark:bg-slate-800"
+              className="relative mb-4 overflow-hidden rounded-md bg-zinc-50 p-4 dark:bg-zinc-800"
             >
               <UserMediaObject
                 name={author.name}

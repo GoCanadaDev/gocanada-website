@@ -20,7 +20,7 @@ const H1 = ({ children, className }: TypographyProps) => (
 const H2 = ({ children, className }: TypographyProps) => (
   <h2
     className={cn(
-      "scroll-m-20 border-b border-slate-900 pb-2 font-serif text-3xl font-normal tracking-tight first:mt-0 dark:border-slate-800",
+      "scroll-m-20 border-b border-zinc-900 pb-2 font-serif text-3xl font-normal tracking-tight first:mt-0 dark:border-zinc-100",
       className
     )}
   >
@@ -94,7 +94,9 @@ const TextSmall = ({ children, className }: TypographyProps) => (
 )
 
 const TextMuted = ({ children, className }: TypographyProps) => (
-  <p className={cn("text-sm text-slate-500", className)}>{children}</p>
+  <p className={cn("text-sm text-zinc-500 dark:text-zinc-400", className)}>
+    {children}
+  </p>
 )
 
 export const Typography = ({ children }: TypographyProps) => children

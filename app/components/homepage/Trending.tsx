@@ -19,7 +19,10 @@ export const Trending = ({ posts }: { posts: PostPreview[] }) => {
           <MiniCard key={post._id} post={post} />
         ))}
       </div>
-      <Separator orientation="horizontal" className="bg-slate-900" />
+      <Separator
+        orientation="horizontal"
+        className="bg-zinc-900 dark:bg-zinc-100"
+      />
     </div>
   )
 }

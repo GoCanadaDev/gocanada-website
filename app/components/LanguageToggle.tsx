@@ -53,7 +53,7 @@ export function LanguageToggle({
                 onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
                 type="submit"
                 aria-label={t("currentLanguage")}
-                className="rounded-md p-2 focus:bg-slate-100 focus:outline-none dark:focus:bg-slate-800"
+                className="rounded-md p-2 focus:bg-zinc-100 focus:outline-none dark:focus:bg-zinc-800"
                 onClick={() => {
                   play()
                   changeLanguageTo(languageToChangeTo)

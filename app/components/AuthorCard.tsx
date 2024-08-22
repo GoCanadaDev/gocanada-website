@@ -106,7 +106,7 @@ export default function AuthorCard({
   })
   return (
     <div className="space-y-8 text-center">
-      <div className="mx-auto flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border bg-slate-200 text-slate-300 dark:bg-slate-800">
+      <div className="mx-auto flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border border-zinc-300 bg-zinc-200 text-zinc-300 dark:border-zinc-700 dark:bg-zinc-800">
         {author.image?.id ? (
           <Image
             mode="cover"
@@ -141,7 +141,7 @@ export default function AuthorCard({
               <a
                 href={link.url}
                 key={link.key}
-                className="flex gap-2 rounded-md p-2 transition-colors duration-200  hover:text-brand focus:bg-slate-100 focus:text-brand focus:outline-none dark:focus:bg-slate-800"
+                className="flex gap-2 rounded-md p-2 transition-colors duration-200  hover:text-brand focus:bg-zinc-100 focus:text-brand focus:outline-none dark:focus:bg-zinc-800"
                 target="_blank"
                 rel="noopener"
               >
