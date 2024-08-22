@@ -4,7 +4,7 @@ import {
   Tags,
   UserCircle,
   StickyNote,
-  // FolderInput,
+  FolderInput,
   HeartHandshake,
   Link,
   Cog,
@@ -26,20 +26,18 @@ export const structure: StructureResolver = (S) =>
     .title("Content")
     .items([
       S.documentTypeListItem("postType").title("Posts").icon(Newspaper),
+      S.documentTypeListItem("featuredPostsConfig")
+        .title("Featured Posts Config")
+        .icon(List),
       S.divider(),
-      S.documentTypeListItem("linksPageType")
-        .title(`"Link in Bio" Links`)
-        .icon(Link),
-      S.divider(),
+
       S.documentTypeListItem("authorType").title("Authors").icon(UserCircle),
       S.divider(),
       S.documentTypeListItem("categoryType").title("Categories").icon(Folder),
       S.divider(),
-      // S.documentTypeListItem("subCategoryType")
-      //   .title("Sub Categories")
-      //   .icon(FolderInput),
-      // S.divider(),
-      S.documentTypeListItem("tagType").title("Tags").icon(Tags),
+      S.documentTypeListItem("subCategoryType")
+        .title("Sub Categories")
+        .icon(FolderInput),
       S.divider(),
       S.documentTypeListItem("staticPageType")
         .title("Static Pages")
@@ -53,9 +51,10 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.documentTypeListItem("adConfigType").title("Ad Config").icon(Megaphone),
       S.divider(),
-      S.documentTypeListItem("featuredPostsConfig")
-        .title("Featured Posts Config")
-        .icon(List),
+      S.documentTypeListItem("linksPageType")
+        .title(`"Link in Bio" Links`)
+        .icon(Link),
+      S.divider(),
     ])
 
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (

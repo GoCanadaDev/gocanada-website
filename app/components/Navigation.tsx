@@ -36,7 +36,7 @@ const ListItem = React.forwardRef<
 
 const provincesAndTerritories = [
   "Alberta",
-  "British Columbia (BC)",
+  "British Columbia",
   "Manitoba",
   "New Brunswick",
   "Newfoundland and Labrador",
