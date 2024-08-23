@@ -8,6 +8,7 @@ import { Separator } from "~/components/ui/separator"
 import SearchModal from "~/components/search/SearchModal"
 import { Navigation } from "./Navigation"
 import TopAdBanner from "./TopAdBanner"
+import SubscribeModal from "./SubscribeModal"
 
 export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
@@ -60,7 +61,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
       <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
         <div className="flex w-screen items-center justify-between lg:container lg:px-12">
           <Navigation />
-          {/* <div className="flex items-center gap-4">Subscribe</div> */}
+          <SubscribeModal pageLocation="header" />
         </div>
       </div>
     </header>

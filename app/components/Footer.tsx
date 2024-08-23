@@ -17,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
+import SubscribeModal from "./SubscribeModal"
 
 export function Footer() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
@@ -117,6 +118,8 @@ export function Footer() {
               <span className="pl-2 text-2xl uppercase">@canada</span>
             </a>
           </div>
+
+          <SubscribeModal pageLocation="footer" />
         </div>
       </div>
       <div className="container mx-auto p-4 lg:px-12">

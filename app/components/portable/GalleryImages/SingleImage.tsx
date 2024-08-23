@@ -19,7 +19,6 @@ export const SingleImage = ({
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <Image
         id={value?.asset?._ref}
-        width={640}
         preview={value.preview}
         loading="lazy"
         className={cn("pointer-events-none w-full", className)}
