@@ -9,6 +9,7 @@ import SearchModal from "~/components/search/SearchModal"
 import { Navigation } from "./Navigation"
 import TopAdBanner from "./TopAdBanner"
 import SubscribeModal from "./SubscribeModal"
+import { MobileNavigation } from "./MobileNavigation"
 
 export function Header({ translationUrl }: { translationUrl?: string }) {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
@@ -59,8 +60,9 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
         </div>
       </div>
       <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
-        <div className="flex w-screen items-center justify-between lg:container lg:px-12">
+        <div className="flex w-screen flex-col items-start justify-between px-4 pb-2 lg:container md:flex-row md:items-center md:py-1 lg:px-12">
           <Navigation />
+          <MobileNavigation />
           <SubscribeModal pageLocation="header" />
         </div>
       </div>

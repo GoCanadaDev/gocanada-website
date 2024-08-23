@@ -45,7 +45,7 @@ const provincesAndTerritories = [
   "Nunavut",
   "Ontario",
   "Prince Edward Island",
-  "Quebec",
+  "Québec",
   "Saskatchewan",
   "Yukon",
 ]
@@ -58,7 +58,7 @@ export function Navigation() {
   const categoryTranslation = (lang || "en") as SupportedLanguages
 
   return (
-    <NavigationMenu className="">
+    <NavigationMenu className="-ml-4 hidden md:block">
       <NavigationMenuList>
         {categories.map((category) => {
           if (!category.enabled || !category.title[categoryTranslation]) {
