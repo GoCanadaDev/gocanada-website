@@ -50,6 +50,9 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
             asset: assetOne,
             alt: value.altOne || altOne,
             preview: previewOne,
+            metadata: value.imageOne.metadata,
+            hotspot: value.imageOne.hotspot,
+            crop: value.imageOne.crop,
           }}
           className="aspect-square object-cover"
         />
@@ -58,6 +61,8 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
             asset: assetTwo,
             alt: value.altTwo || altTwo,
             preview: previewTwo,
+            metadata: value.imageTwo.metadata,
+            crop: value.imageTwo.crop,
           }}
           className="aspect-square object-cover"
         />

@@ -1,5 +1,6 @@
 import { Image } from "~/components/Image"
 import { ImageProps } from "~/components/portable/GalleryImages/index"
+import { AspectRatio } from "~/components/ui/aspect-ratio"
 import { cn } from "~/lib/utils"
 
 export type SingleImageProps = {
@@ -17,14 +18,25 @@ export const SingleImage = ({
 
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
-      <Image
-        id={value?.asset?._ref}
-        preview={value.preview}
-        loading="lazy"
-        className={cn("pointer-events-none w-full", className)}
-        alt={value.alt ?? ""}
-        width={1024}
-      />
+      <AspectRatio
+        ratio={
+          value.metadata.dimensions.aspectRatio ??
+          value.metadata.dimensions.width / value.metadata?.dimensions.height
+        }
+        className="relative overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
+      >
+        <Image
+          id={value?.asset?._ref}
+          preview={value.preview}
+          loading="lazy"
+          className={cn(
+            "pointer-events-none absolute block h-full w-full object-cover object-center",
+            className
+          )}
+          alt={value.alt ?? ""}
+          width={1024}
+        />
+      </AspectRatio>
       {value.attribution || value.caption ? (
         <div className={value.fullBleed ? "holy-grail" : undefined}>
           <figcaption className="flex justify-between">

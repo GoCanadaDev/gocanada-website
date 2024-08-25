@@ -3,14 +3,15 @@ import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
 import { CarouselImages } from "~/components/portable/GalleryImages/CarouselImages"
 import { GridImages } from "~/components/portable/GalleryImages/GridImages"
 import { InlineImages } from "~/components/portable/GalleryImages/InlineImages"
-import { ImageHotspot, ImageMetadata } from "sanity"
+import { ImageCrop, ImageHotspot, ImageMetadata } from "sanity"
 
 export type ImageProps = {
   asset: {
     _ref: string
   }
   hotspot?: ImageHotspot
-  metadata?: ImageMetadata
+  crop?: ImageCrop
+  metadata: ImageMetadata
   id?: string
   preview?: string
   attribution?: string
