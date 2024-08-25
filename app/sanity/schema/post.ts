@@ -118,7 +118,13 @@ export const postType = defineType({
       validation: (Rule) => Rule.required(),
     }),
   ],
-
+  orderings: [
+    {
+      title: "Published Date",
+      name: "publishedAt",
+      by: [{ field: "publishedAt", direction: "desc" }],
+    },
+  ],
   preview: {
     select: {
       title: "title.en",

@@ -1,7 +1,6 @@
 import {
   Folder,
   Newspaper,
-  Tags,
   UserCircle,
   StickyNote,
   FolderInput,
@@ -10,6 +9,8 @@ import {
   Cog,
   Megaphone,
   List,
+  Eye,
+  EyeOff,
 } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
@@ -25,7 +26,28 @@ export const structure: StructureResolver = (S) =>
     .id("root")
     .title("Content")
     .items([
-      S.documentTypeListItem("postType").title("Posts").icon(Newspaper),
+      S.documentTypeListItem("postType").title("All Posts").icon(Newspaper),
+      S.listItem()
+        .title("Published Posts")
+        .icon(Eye)
+        .child(
+          S.documentList()
+            .title("Published Posts")
+            .defaultOrdering([{ field: "_createdAt", direction: "desc" }])
+            .filter('_type == "postType" && !(_id in path("drafts.**"))')
+            .child((id) => S.document().schemaType("postType").documentId(id))
+        ),
+      S.listItem()
+        .title("Unpublished Posts")
+        .icon(EyeOff)
+        .child(
+          S.documentList()
+            .title("Unpublished Posts")
+            .defaultOrdering([{ field: "_createdAt", direction: "desc" }])
+            .filter('_type == "postType" && (_id in path("drafts.**"))')
+            .child((id) => S.document().schemaType("postType").documentId(id))
+        ),
+      S.divider(),
       S.documentTypeListItem("featuredPostsConfig")
         .title("Featured Posts Config")
         .icon(List),

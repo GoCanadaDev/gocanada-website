@@ -23,6 +23,7 @@ export const SingleImage = ({
         loading="lazy"
         className={cn("pointer-events-none w-full", className)}
         alt={value.alt ?? ""}
+        width={1024}
       />
       {value.attribution || value.caption ? (
         <div className={value.fullBleed ? "holy-grail" : undefined}>

@@ -133,12 +133,12 @@ const Contact = () => {
                       <input name="bot-field" />
                     </label>
                   </p>
-                  <div className="columns-2">
+                  <div className="flex gap-4">
                     <FormField
                       control={form.control}
                       name="firstName"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex-1">
                           <FormLabel>
                             First Name
                             <RequiredText />
@@ -154,7 +154,7 @@ const Contact = () => {
                       control={form.control}
                       name="lastName"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex-1">
                           <FormLabel>
                             Last Name
                             <RequiredText />
