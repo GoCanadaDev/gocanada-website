@@ -11,7 +11,7 @@ export type ImageProps = {
   }
   hotspot?: ImageHotspot
   crop?: ImageCrop
-  metadata: ImageMetadata
+  metadata?: ImageMetadata
   id?: string
   preview?: string
   attribution?: string

@@ -20,8 +20,9 @@ export const SingleImage = ({
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <AspectRatio
         ratio={
-          value.metadata.dimensions.aspectRatio ??
-          value.metadata.dimensions.width / value.metadata?.dimensions.height
+          value.metadata?.dimensions.aspectRatio ??
+          (value.metadata?.dimensions.width ?? 1) /
+            (value.metadata?.dimensions.height ?? 1)
         }
         className="relative overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
       >

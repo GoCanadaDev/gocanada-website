@@ -209,7 +209,8 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
           "id": asset._ref,
           "preview": asset->.metadata.lqip,
           "metadata": asset->metadata,
-          "hotspot": asset->hotspot
+          "hotspot": asset->hotspot,
+          "crop": asset->crop,
         },
       },
       _type == "image" => {
@@ -217,7 +218,8 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
         "id": asset._ref,
         "preview": asset->.metadata.lqip,
         "metadata": asset->metadata,
-        "hotspot": asset->hotspot
+        "hotspot": asset->hotspot,
+        "crop": asset->crop,
       },
     ),
   },
