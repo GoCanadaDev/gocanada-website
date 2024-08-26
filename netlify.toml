@@ -2,6 +2,9 @@
 command = "npm run build"
 publish = "public"
 
+[functions]
+  external_node_modules = ["@sendgrid/mail"]
+
 [dev]
 command = "npm run dev"
 targetPort = 3000
