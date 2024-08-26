@@ -35,8 +35,8 @@ export default function Card({
               mode="cover"
               id={post.mainImage.id}
               alt=""
-              width={768}
-              height={512}
+              width={isLarge ? 768 : 576}
+              height={isLarge ? 512 : 384}
               preview={post.mainImage.preview ?? ""}
               loading="eager"
               className="transition-transform hover:scale-[1.05]"

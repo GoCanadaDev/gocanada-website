@@ -64,7 +64,6 @@ const config = {
       fontFamily: {
         sans: ["Open Sans", "Roboto", "Inter", "sans-serif"],
         serif: ["Rasa", "PT Serif", "serif"],
-        lead: ["Roboto", "Open Sans", "Inter", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

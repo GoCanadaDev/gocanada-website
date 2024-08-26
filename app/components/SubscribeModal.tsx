@@ -137,11 +137,17 @@ const SubscribeModal = ({
             <div className="space-y-4">
               <Typography.TextMuted className="text-xs">
                 By signing up you agree to our{" "}
-                <Link to={`/${location.pathname.split("/")[1]}/terms`}>
+                <Link
+                  to={`/${location.pathname.split("/")[1]}/terms`}
+                  className="text-brand underline hover:text-brandHover"
+                >
                   Terms of Use
                 </Link>
-                , our
-                <Link to={`/${location.pathname.split("/")[1]}/privacy`}>
+                , our{" "}
+                <Link
+                  to={`/${location.pathname.split("/")[1]}/privacy`}
+                  className="text-brand underline hover:text-brandHover"
+                >
                   Privacy Policy
                 </Link>{" "}
                 and to receive marketing and subscription emails from Go Canada.

@@ -145,7 +145,7 @@ export function Footer() {
           ))}
         </nav>
       </div>
-      <div className="container mx-auto pb-8 pt-4 text-center text-xs lg:px-12">
+      <div className="container mx-auto pb-8 pt-4 text-center text-xs text-zinc-300 lg:px-12">
         &copy; {year} Go Canada, a division of Stay &amp; Wander Media Inc. All
         Rights Reserved.
       </div>

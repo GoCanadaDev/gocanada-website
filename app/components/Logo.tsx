@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react"
-import GoCanadaLogoColour from "../../public/images/logotype-colour.png"
-import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse.png"
+import GoCanadaLogoColour from "../../public/images/logotype-colour-sm.png"
+import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.png"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export function Logo() {
@@ -17,6 +17,8 @@ export function Logo() {
         }
         alt="Go Canada Logo"
         className="w-32 md:w-48"
+        width={192}
+        height={37}
       />
     </Link>
   )

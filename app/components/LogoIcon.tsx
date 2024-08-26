@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react"
-import GoCanadaLogoRed from "../../public/images/icon-red.png"
+import GoCanadaLogoRed from "../../public/images/icon-red-sm.png"
 
 export function LogoIcon() {
   return (

@@ -80,7 +80,7 @@ const InlineCode = ({ children, className }: TypographyProps) => (
 )
 
 const Lead = ({ children, className }: TypographyProps) => (
-  <p className={cn("font-lead text-xl lg:text-2xl", className)}>{children}</p>
+  <p className={cn("font-sans text-xl lg:text-2xl", className)}>{children}</p>
 )
 
 const TextLarge = ({ children, className }: TypographyProps) => (
