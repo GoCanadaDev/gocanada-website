@@ -37,7 +37,7 @@ export const action: ActionFunction = async ({ request }) => {
     method: "PUT",
     body: data,
   }
-  sendgrid
+  await sendgrid
     .request(req as ClientRequest)
     .then(([response, body]) => {
       console.log({ status: response.statusCode })
