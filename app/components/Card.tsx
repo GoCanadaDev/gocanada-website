@@ -76,7 +76,7 @@ export default function Card({
         ) : null}
         <Typography.Paragraph
           className={cn(
-            "text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400 dark:text-zinc-400"
+            "text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           )}
         >
           By {post.author.name}
