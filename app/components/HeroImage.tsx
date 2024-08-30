@@ -41,8 +41,6 @@ export const HeroImage = ({
 }: HeroImageProps) => {
   const params = useParams()
 
-  console.log({ mainImageGradientOverlay })
-
   const renderFigCaption = () => (
     <>
       {mainImageAttribution || mainImageCaption ? (

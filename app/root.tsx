@@ -160,8 +160,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   let t = await i18next.getFixedT(request)
   const translations = await useTranslations(t)
 
-  console.log({ categories: categories[0].subCategories })
-
   return json<RootLoaderData>(
     {
       adConfig,
