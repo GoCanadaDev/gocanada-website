@@ -11,8 +11,6 @@ sendgrid.setApiKey(String(process.env.SENDGRID_API_KEY))
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const formInput = getObjectFromFormData<{
-    firstName: string
-    lastName?: string
     email: string
     pathname?: string
     pageLocation?: string
@@ -22,8 +20,6 @@ export const action: ActionFunction = async ({ request }) => {
     contacts: [
       {
         email: formInput.email,
-        first_name: formInput.firstName,
-        last_name: formInput.lastName ?? "",
         custom_fields: {
           signup_from_page: formInput.pathname ?? "",
           form_location: formInput.pageLocation ?? "",
