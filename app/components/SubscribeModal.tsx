@@ -69,7 +69,7 @@ const SubscribeModal = ({
       >
         <Button
           type="button"
-          className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+          className="gap-2 bg-brand uppercase tracking-wider hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
         >
           Newsletter
         </Button>

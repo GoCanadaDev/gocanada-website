@@ -124,29 +124,23 @@ export function Navigation() {
                       <ul>
                         {category.subCategories &&
                           Array.isArray(category.subCategories) &&
-                          category.subCategories
-                            ?.sort((a, b) =>
-                              a.title[categoryTranslation].localeCompare(
-                                b.title[categoryTranslation]
-                              )
+                          category.subCategories.map((subCategory) => {
+                            if (
+                              provincesAndTerritories.includes(
+                                subCategory.title[categoryTranslation]
+                              ) ||
+                              subCategory.enabledInNav === false
+                            ) {
+                              return null
+                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
                             )
-                            .map((subCategory) => {
-                              if (
-                                provincesAndTerritories.includes(
-                                  subCategory.title[categoryTranslation]
-                                ) ||
-                                subCategory.enabledInNav === false
-                              ) {
-                                return null
-                              }
-                              return (
-                                <ListItem
-                                  key={subCategory.title[categoryTranslation]}
-                                  title={subCategory.title[categoryTranslation]}
-                                  href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                />
-                              )
-                            })}
+                          })}
                       </ul>
                       <Separator
                         orientation="horizontal"
