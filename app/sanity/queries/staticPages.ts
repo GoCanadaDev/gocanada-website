@@ -38,6 +38,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
   mainImageCaption,
   mainImageAttribution,
   mainImageAttributionUrl,
+  mainImageFullBleed,
 }`
 
 // get all staticPages where isFooterLink is true

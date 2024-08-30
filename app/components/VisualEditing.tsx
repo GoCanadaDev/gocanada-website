@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "@remix-run/react"
-import type { HistoryUpdate } from "@sanity/overlays"
-import { enableOverlays } from "@sanity/overlays"
+import type { HistoryUpdate } from "@sanity/visual-editing"
+import { enableVisualEditing } from "@sanity/visual-editing"
 import { useEffect, useRef } from "react"
 
 import { client } from "~/sanity/client"
@@ -18,8 +18,7 @@ export default function VisualEditing() {
   useEffect(() => {
     // When displayed inside an iframe
     if (window.parent !== window.self) {
-      const disable = enableOverlays({
-        allowStudioOrigin: studioUrl,
+      const disable = enableVisualEditing({
         zIndex: 999999,
         history: {
           subscribe: (navigate) => {
@@ -52,7 +51,7 @@ export default function VisualEditing() {
   }, [location.hash, location.pathname, location.search])
 
   // Enable live queries from the specified studio origin URL
-  useLiveMode({ allowStudioOrigin: studioUrl, client })
+  useLiveMode({ client })
 
   return null
 }

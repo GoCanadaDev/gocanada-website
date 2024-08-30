@@ -71,10 +71,10 @@ export function Footer() {
       <div className="container mx-auto flex flex-wrap gap-8 p-4 md:flex-nowrap lg:px-12">
         <div className="w-full space-y-8 text-center md:w-1/2">
           <div className="max-w-prose text-left text-zinc-400">
-            <Typography.Paragraph className="mb-2 text-pretty">
+            <Typography.Paragraph className="mb-2 text-pretty text-zinc-300">
               {siteConfig.siteDescription}
             </Typography.Paragraph>
-            <Typography.TextMuted className="text-pretty leading-6 text-zinc-300">
+            <Typography.TextMuted className="text-pretty leading-6">
               {siteConfig.footerText}
             </Typography.TextMuted>
           </div>

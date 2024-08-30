@@ -9,7 +9,7 @@ import { ImageCrop, ImageHotspot } from "sanity"
 type HeroImageProps = {
   id: string
   title: string
-  category: Post["categories"][0]
+  category?: Post["categories"][0]
   preview: string
   mainImageCaption?: string
   mainImageAttribution?: string
@@ -103,16 +103,18 @@ export const HeroImage = ({
       </figure>
       <div className="absolute inset-0 z-[2] h-full w-full select-none bg-[radial-gradient(rgba(0,_0,_0,_0.3),_rgba(0,_0,_0,_0))]" />
       <div className="relative z-[3] mx-auto flex h-screen max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        <Typography.H4 className="mb-6 text-white drop-shadow-lg">
-          <Link
-            prefetch="intent"
-            to={`/${params.lang}/categories/${
-              category.slug[params.lang as keyof typeof category.title]
-            }`}
-          >
-            {category.title[params.lang as keyof typeof category.title]}
-          </Link>
-        </Typography.H4>
+        {category && (
+          <Typography.H4 className="mb-6 text-white drop-shadow-lg">
+            <Link
+              prefetch="intent"
+              to={`/${params.lang}/categories/${
+                category.slug[params.lang as keyof typeof category.title]
+              }`}
+            >
+              {category.title[params.lang as keyof typeof category.title]}
+            </Link>
+          </Typography.H4>
+        )}
         <Typography.H1 className="text-white drop-shadow-lg">
           {title}
         </Typography.H1>
@@ -147,16 +149,18 @@ export const HeroImage = ({
         {renderFigCaption()}
       </figure>
       <div className="mx-auto flex max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        <Typography.H4 className="mb-6">
-          <Link
-            prefetch="intent"
-            to={`/${params.lang}/categories/${
-              category.slug[params.lang as keyof typeof category.title]
-            }`}
-          >
-            {category.title[params.lang as keyof typeof category.title]}
-          </Link>
-        </Typography.H4>
+        {category && (
+          <Typography.H4 className="mb-6">
+            <Link
+              prefetch="intent"
+              to={`/${params.lang}/categories/${
+                category.slug[params.lang as keyof typeof category.title]
+              }`}
+            >
+              {category.title[params.lang as keyof typeof category.title]}
+            </Link>
+          </Typography.H4>
+        )}
         <Typography.H1 className="">{title}</Typography.H1>
         {typeof isSponsored === "boolean" && isSponsored === true && (
           <div className="mb-6 mt-4">

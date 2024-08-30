@@ -15,9 +15,14 @@ export const config = defineConfig({
   title: "Go Canada",
   plugins: [
     structureTool({ structure, defaultDocumentNode }),
-    // presentationTool({
-    //   previewUrl: "http://localhost:3000",
-    // }),
+    presentationTool({
+      previewUrl: {
+        origin: "http://localhost:3000",
+        previewMode: {
+          enable: "/api/draft",
+        },
+      },
+    }),
     visionTool(),
     media(),
   ],

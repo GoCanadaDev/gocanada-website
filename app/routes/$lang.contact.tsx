@@ -12,6 +12,7 @@ import {
   Form as RemixForm,
   redirect,
   useSearchParams,
+  useSubmit,
 } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
@@ -30,19 +31,42 @@ import {
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
 import postFormUrlEncoded from "~/lib/postFormUrlEncoded"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import Prose from "~/components/portable/Prose"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
 }
 
 const formSchema = z.object({
-  firstName: z.string().min(2).max(50),
-  lastName: z.string().min(2).max(50),
+  firstName: z
+    .string()
+    .min(2, {
+      message: "First name must be at least 2 characters.",
+    })
+    .max(50, {
+      message: "First name must be at most 50 characters.",
+    }),
+  lastName: z.string().max(50, {
+    message: "Last name must be at most 50 characters.",
+  }),
   email: z.string().email(),
-  subject: z.string().min(2).max(100),
-  message: z.string().min(2).max(500),
+  subject: z.string({ required_error: "Please select a subject." }),
+  message: z
+    .string()
+    .min(10, {
+      message: "Message must be at least 10 characters.",
+    })
+    .max(500, {
+      message: "Message must be at most 500 characters.",
+    }),
 })
 
 export const action: ActionFunction = async ({ request }) => {
@@ -80,6 +104,8 @@ const Contact = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
   const [searchParams] = useSearchParams()
+  const submit = useSubmit()
+  const formRef = useRef<HTMLFormElement>(null)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -98,6 +124,12 @@ const Contact = () => {
       form.reset()
     }
   }, [searchParams])
+
+  const handleSubmit = async () => {
+    if (Object.keys(form.formState.errors).length === 0) {
+      submit(formRef.current)
+    }
+  }
 
   return (
     <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
@@ -125,6 +157,8 @@ const Contact = () => {
                   className="space-y-2"
                   data-netlify="true"
                   method="POST"
+                  ref={formRef}
+                  onSubmit={form.handleSubmit(handleSubmit)}
                 >
                   <input type="hidden" name="form-name" value="contact-form" />
                   <p className="hidden">
@@ -155,10 +189,7 @@ const Contact = () => {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel>
-                            Last Name
-                            <RequiredText />
-                          </FormLabel>
+                          <FormLabel>Last Name</FormLabel>
                           <FormControl>
                             <Input {...field} />
                           </FormControl>
@@ -192,10 +223,31 @@ const Contact = () => {
                           Subject
                           <RequiredText />
                         </FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
+                        <Select
+                          name={field.name}
+                          onValueChange={(e) => {
+                            field.onChange(e)
+                          }}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select an option" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="Story Submission">
+                              Story Submission
+                            </SelectItem>
+                            <SelectItem value="Media Inquiry">
+                              Media Inquiry
+                            </SelectItem>
+                            <SelectItem value="Advertising Inquiry">
+                              Advertising Inquiry
+                            </SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </FormItem>
                     )}
                   />
@@ -209,7 +261,7 @@ const Contact = () => {
                           <RequiredText />
                         </FormLabel>
                         <FormControl>
-                          <Textarea {...field} />
+                          <Textarea {...field} maxLength={500} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
