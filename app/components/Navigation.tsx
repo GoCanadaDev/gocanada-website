@@ -57,6 +57,14 @@ export function Navigation() {
   // need to backup to "en" if lang is not there for pages like Links which doesn't have a lang in the url
   const categoryTranslation = (lang || "en") as SupportedLanguages
 
+  const provincesAndTerritoriesList = [...categories[0].subCategories].filter(
+    (c) => provincesAndTerritories.includes(c.title[categoryTranslation])
+  )
+
+  const citiesList = [...categories[0].subCategories].filter(
+    (c) => !provincesAndTerritories.includes(c.title[categoryTranslation])
+  )
+
   return (
     <NavigationMenu className="-ml-4 hidden md:block">
       <NavigationMenuList>
@@ -86,31 +94,24 @@ export function Navigation() {
                         By Province
                       </Typography.H4>
                       <ul>
-                        {category.subCategories &&
-                          Array.isArray(category.subCategories) &&
-                          category.subCategories
-                            ?.sort((a, b) =>
-                              a.title[categoryTranslation].localeCompare(
-                                b.title[categoryTranslation]
-                              )
+                        {provincesAndTerritoriesList
+                          ?.sort((a, b) =>
+                            a.title[categoryTranslation].localeCompare(
+                              b.title[categoryTranslation]
                             )
-                            .map((subCategory) => {
-                              if (
-                                !provincesAndTerritories.includes(
-                                  subCategory.title[categoryTranslation]
-                                ) ||
-                                subCategory.enabledInNav === false
-                              ) {
-                                return null
-                              }
-                              return (
-                                <ListItem
-                                  key={subCategory.title[categoryTranslation]}
-                                  title={subCategory.title[categoryTranslation]}
-                                  href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                />
-                              )
-                            })}
+                          )
+                          .map((subCategory) => {
+                            if (subCategory.enabledInNav === false) {
+                              return null
+                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
                       </ul>
                       <Separator
                         orientation="horizontal"
@@ -122,25 +123,18 @@ export function Navigation() {
                         By City
                       </Typography.H4>
                       <ul>
-                        {category.subCategories &&
-                          Array.isArray(category.subCategories) &&
-                          category.subCategories.map((subCategory) => {
-                            if (
-                              provincesAndTerritories.includes(
-                                subCategory.title[categoryTranslation]
-                              ) ||
-                              subCategory.enabledInNav === false
-                            ) {
-                              return null
-                            }
-                            return (
-                              <ListItem
-                                key={subCategory.title[categoryTranslation]}
-                                title={subCategory.title[categoryTranslation]}
-                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                              />
-                            )
-                          })}
+                        {citiesList.map((subCategory) => {
+                          if (subCategory.enabledInNav === false) {
+                            return null
+                          }
+                          return (
+                            <ListItem
+                              key={subCategory.title[categoryTranslation]}
+                              title={subCategory.title[categoryTranslation]}
+                              href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                            />
+                          )
+                        })}
                       </ul>
                       <Separator
                         orientation="horizontal"
@@ -160,7 +154,6 @@ export function Navigation() {
                 ) : (
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
                     {category.subCategories &&
-                      Array.isArray(category.subCategories) &&
                       category.subCategories?.map((subCategory) => {
                         return (
                           <ListItem

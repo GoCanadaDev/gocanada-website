@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { Link, useParams } from "@remix-run/react"
 import { SupportedLanguages } from "~/i18n"
@@ -45,10 +44,16 @@ export function MobileNavigation() {
   const { categories } = useRootLoaderData()
   const { lang } = useParams()
 
-  const [open, setOpen] = useState(false)
-
   // need to backup to "en" if lang is not there for pages like Links which doesn't have a lang in the url
   const categoryTranslation = (lang || "en") as SupportedLanguages
+
+  const provincesAndTerritoriesList = [...categories[0].subCategories].filter(
+    (c) => provincesAndTerritories.includes(c.title[categoryTranslation])
+  )
+
+  const citiesList = [...categories[0].subCategories].filter(
+    (c) => !provincesAndTerritories.includes(c.title[categoryTranslation])
+  )
 
   return (
     <div className="mb-2 block w-full md:hidden">
@@ -79,31 +84,24 @@ export function MobileNavigation() {
                         By Province
                       </Typography.H4>
                       <ul>
-                        {category.subCategories &&
-                          Array.isArray(category.subCategories) &&
-                          category.subCategories
-                            ?.sort((a, b) =>
-                              a.title[categoryTranslation].localeCompare(
-                                b.title[categoryTranslation]
-                              )
+                        {provincesAndTerritoriesList
+                          ?.sort((a, b) =>
+                            a.title[categoryTranslation].localeCompare(
+                              b.title[categoryTranslation]
                             )
-                            .map((subCategory) => {
-                              if (
-                                !provincesAndTerritories.includes(
-                                  subCategory.title[categoryTranslation]
-                                ) ||
-                                subCategory.enabledInNav === false
-                              ) {
-                                return null
-                              }
-                              return (
-                                <ListItem
-                                  key={subCategory.title[categoryTranslation]}
-                                  title={subCategory.title[categoryTranslation]}
-                                  href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                />
-                              )
-                            })}
+                          )
+                          .map((subCategory) => {
+                            if (subCategory.enabledInNav === false) {
+                              return null
+                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
                       </ul>
                       <Separator
                         orientation="horizontal"
@@ -115,31 +113,24 @@ export function MobileNavigation() {
                         By City
                       </Typography.H4>
                       <ul>
-                        {category.subCategories &&
-                          Array.isArray(category.subCategories) &&
-                          category.subCategories
-                            ?.sort((a, b) =>
-                              a.title[categoryTranslation].localeCompare(
-                                b.title[categoryTranslation]
-                              )
+                        {citiesList
+                          ?.sort((a, b) =>
+                            a.title[categoryTranslation].localeCompare(
+                              b.title[categoryTranslation]
                             )
-                            .map((subCategory) => {
-                              if (
-                                provincesAndTerritories.includes(
-                                  subCategory.title[categoryTranslation]
-                                ) ||
-                                subCategory.enabledInNav === false
-                              ) {
-                                return null
-                              }
-                              return (
-                                <ListItem
-                                  key={subCategory.title[categoryTranslation]}
-                                  title={subCategory.title[categoryTranslation]}
-                                  href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                />
-                              )
-                            })}
+                          )
+                          .map((subCategory) => {
+                            if (subCategory.enabledInNav === false) {
+                              return null
+                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
                       </ul>
                       <Separator
                         orientation="horizontal"
