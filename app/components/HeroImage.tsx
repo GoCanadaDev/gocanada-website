@@ -103,7 +103,7 @@ export const HeroImage = ({
       </figure>
       <div className="absolute inset-0 z-[2] h-full w-full select-none bg-[radial-gradient(rgba(0,_0,_0,_0.3),_rgba(0,_0,_0,_0))]" />
       <div className="relative z-[3] mx-auto flex h-screen max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        {category && (
+        {category ? (
           <Typography.H4 className="mb-6 text-white drop-shadow-lg">
             <Link
               prefetch="intent"
@@ -114,6 +114,8 @@ export const HeroImage = ({
               {category.title[params.lang as keyof typeof category.title]}
             </Link>
           </Typography.H4>
+        ) : (
+          <div className="mb-16" />
         )}
         <Typography.H1 className="text-white drop-shadow-lg">
           {title}
@@ -149,7 +151,7 @@ export const HeroImage = ({
         {renderFigCaption()}
       </figure>
       <div className="mx-auto flex max-w-[100ch] flex-col items-center justify-center px-8 text-center">
-        {category && (
+        {category ? (
           <Typography.H4 className="mb-6">
             <Link
               prefetch="intent"
@@ -160,6 +162,8 @@ export const HeroImage = ({
               {category.title[params.lang as keyof typeof category.title]}
             </Link>
           </Typography.H4>
+        ) : (
+          <div className="mb-16" />
         )}
         <Typography.H1 className="">{title}</Typography.H1>
         {typeof isSponsored === "boolean" && isSponsored === true && (
