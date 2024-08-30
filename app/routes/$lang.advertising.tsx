@@ -34,25 +34,34 @@ const Advertising = () => {
   return (
     <Layout translationUrl={`/${otherLanguage}/advertising`}>
       <article className="mb-24 mt-8">
-        <div className="w-full">
-          <HeroImage
-            fullBleed={staticPage.mainImageFullBleed}
-            id={staticPage.mainImage.id}
-            title={staticPage.title[staticPage.language]}
-            category={undefined}
-            preview={staticPage.mainImage.preview}
-            mainImageCaption={staticPage.mainImageCaption}
-            mainImageAttribution={staticPage.mainImageAttribution}
-            mainImageAttributionUrl={staticPage.mainImageAttributionUrl}
-            hotspot={staticPage.mainImage.hotspot}
-            crop={staticPage.mainImage.crop}
-            aspectRatio={staticPage.mainImage.aspectRatio}
-            isSponsored={false}
-            sponsoredText={undefined}
-          />
-        </div>
+        {staticPage.mainImage ? (
+          <div className="w-full">
+            <HeroImage
+              fullBleed={staticPage.mainImageFullBleed}
+              id={staticPage.mainImage.id}
+              title={staticPage.title[staticPage.language]}
+              category={undefined}
+              preview={staticPage.mainImage.preview}
+              mainImageCaption={staticPage.mainImageCaption}
+              mainImageAttribution={staticPage.mainImageAttribution}
+              mainImageAttributionUrl={staticPage.mainImageAttributionUrl}
+              mainImageGradientOverlay={staticPage.mainImageGradientOverlay}
+              hotspot={staticPage.mainImage.hotspot}
+              crop={staticPage.mainImage.crop}
+              aspectRatio={staticPage.mainImage.aspectRatio}
+              isSponsored={false}
+              sponsoredText={undefined}
+            />
+          </div>
+        ) : (
+          <Prose>
+            <Typography.H1>
+              {staticPage.title[staticPage.language]}
+            </Typography.H1>
+          </Prose>
+        )}
+
         <Prose>
-          <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
           <PortableText
             value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}

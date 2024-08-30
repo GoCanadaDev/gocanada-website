@@ -40,6 +40,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select"
+import { HeroImage } from "~/components/HeroImage"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
@@ -132,10 +133,35 @@ const Contact = () => {
   }
 
   return (
-    <Layout useMargins translationUrl={`/${otherLanguage}/contact`}>
-      <article>
+    <Layout translationUrl={`/${otherLanguage}/contact`}>
+      <article className="mb-24 mt-8">
+        {staticPage.mainImage ? (
+          <div className="w-full">
+            <HeroImage
+              fullBleed={staticPage.mainImageFullBleed}
+              id={staticPage.mainImage.id}
+              title={staticPage.title[staticPage.language]}
+              category={undefined}
+              preview={staticPage.mainImage.preview}
+              mainImageCaption={staticPage.mainImageCaption}
+              mainImageAttribution={staticPage.mainImageAttribution}
+              mainImageAttributionUrl={staticPage.mainImageAttributionUrl}
+              mainImageGradientOverlay={staticPage.mainImageGradientOverlay}
+              hotspot={staticPage.mainImage.hotspot}
+              crop={staticPage.mainImage.crop}
+              aspectRatio={staticPage.mainImage.aspectRatio}
+              isSponsored={false}
+              sponsoredText={undefined}
+            />
+          </div>
+        ) : (
+          <Prose>
+            <Typography.H1>
+              {staticPage.title[staticPage.language]}
+            </Typography.H1>
+          </Prose>
+        )}
         <Prose>
-          <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
           <PortableText
             value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}

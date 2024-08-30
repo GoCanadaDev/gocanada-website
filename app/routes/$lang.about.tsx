@@ -27,8 +27,6 @@ const About = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
 
-  console.log({ staticPage })
-
   return (
     <Layout translationUrl={`/${otherLanguage}/about`}>
       <article className="mb-24 mt-8">
@@ -42,6 +40,7 @@ const About = () => {
             mainImageCaption={staticPage.mainImageCaption}
             mainImageAttribution={staticPage.mainImageAttribution}
             mainImageAttributionUrl={staticPage.mainImageAttributionUrl}
+            mainImageGradientOverlay={staticPage.mainImageGradientOverlay}
             hotspot={staticPage.mainImage.hotspot}
             crop={staticPage.mainImage.crop}
             aspectRatio={staticPage.mainImage.aspectRatio}

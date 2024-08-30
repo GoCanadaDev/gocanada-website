@@ -280,7 +280,8 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
   },
   "language": $language,
   "showDate": showDate,
-  "mainImageFullBleed": mainImageFullBleed,
+  mainImageFullBleed,
+  mainImageGradientOverlay,
   mainImageCaption,
   mainImageAttribution,
   mainImageAttributionUrl,
@@ -326,6 +327,7 @@ export type NextOrPreviousPostType = {
   }[]
   showDate: boolean
   mainImageFullBleed: boolean
+  mainImageGradientOverlay: boolean
   mainImage: {
     id: string
     preview: string
@@ -380,6 +382,7 @@ export type Post = PostPreview & {
   mainImageAttribution: string
   mainImageAttributionUrl: string
   mainImageFullBleed: boolean
+  mainImageGradientOverlay: boolean
 }
 
 export type AlgoliaPost = {

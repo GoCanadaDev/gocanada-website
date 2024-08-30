@@ -53,6 +53,12 @@ export const staticPageType = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "mainImageGradientOverlay",
+      title: "Gradient Overlay on Main Image & Title",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "localeBlockContentType",

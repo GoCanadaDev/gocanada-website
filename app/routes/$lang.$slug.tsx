@@ -98,6 +98,7 @@ export default function Slug() {
             mainImageCaption={post.mainImageCaption}
             mainImageAttribution={post.mainImageAttribution}
             mainImageAttributionUrl={post.mainImageAttributionUrl}
+            mainImageGradientOverlay={post.mainImageGradientOverlay}
             hotspot={post.mainImage.hotspot}
             crop={post.mainImage.crop}
             aspectRatio={post.mainImage.aspectRatio}

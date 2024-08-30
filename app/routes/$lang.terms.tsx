@@ -9,6 +9,7 @@ import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/PortableTextComponents"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import Prose from "~/components/portable/Prose"
+import { HeroImage } from "~/components/HeroImage"
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
@@ -27,10 +28,35 @@ const TermsOfUse = () => {
   const otherLanguage = useOtherLanguage()
 
   return (
-    <Layout useMargins translationUrl={`/${otherLanguage}/terms`}>
-      <article>
+    <Layout translationUrl={`/${otherLanguage}/terms`}>
+      <article className="mb-24 mt-8">
+        {staticPage.mainImage ? (
+          <div className="w-full">
+            <HeroImage
+              fullBleed={staticPage.mainImageFullBleed}
+              id={staticPage.mainImage.id}
+              title={staticPage.title[staticPage.language]}
+              category={undefined}
+              preview={staticPage.mainImage.preview}
+              mainImageCaption={staticPage.mainImageCaption}
+              mainImageAttribution={staticPage.mainImageAttribution}
+              mainImageAttributionUrl={staticPage.mainImageAttributionUrl}
+              mainImageGradientOverlay={staticPage.mainImageGradientOverlay}
+              hotspot={staticPage.mainImage.hotspot}
+              crop={staticPage.mainImage.crop}
+              aspectRatio={staticPage.mainImage.aspectRatio}
+              isSponsored={false}
+              sponsoredText={undefined}
+            />
+          </div>
+        ) : (
+          <Prose>
+            <Typography.H1>
+              {staticPage.title[staticPage.language]}
+            </Typography.H1>
+          </Prose>
+        )}
         <Prose>
-          <Typography.H1>{staticPage.title[staticPage.language]}</Typography.H1>
           <PortableText
             value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}

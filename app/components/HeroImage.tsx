@@ -14,6 +14,7 @@ type HeroImageProps = {
   mainImageCaption?: string
   mainImageAttribution?: string
   mainImageAttributionUrl?: string
+  mainImageGradientOverlay?: boolean
   fullBleed?: boolean
   hotspot?: ImageHotspot
   crop?: ImageCrop
@@ -31,6 +32,7 @@ export const HeroImage = ({
   mainImageAttribution,
   mainImageAttributionUrl,
   fullBleed,
+  mainImageGradientOverlay,
   hotspot,
   crop,
   aspectRatio,
@@ -38,6 +40,8 @@ export const HeroImage = ({
   sponsoredText,
 }: HeroImageProps) => {
   const params = useParams()
+
+  console.log({ mainImageGradientOverlay })
 
   const renderFigCaption = () => (
     <>
@@ -51,7 +55,7 @@ export const HeroImage = ({
         >
           <figcaption
             className={cn(
-              "flex justify-between text-zinc-500 dark:text-zinc-400 dark:text-zinc-400",
+              "flex justify-between text-zinc-500 dark:text-zinc-400 ",
               {
                 "px-4 pt-2": fullBleed,
               }
@@ -101,7 +105,12 @@ export const HeroImage = ({
         />
         {renderFigCaption()}
       </figure>
-      <div className="absolute inset-0 z-[2] h-full w-full select-none bg-[radial-gradient(rgba(0,_0,_0,_0.3),_rgba(0,_0,_0,_0))]" />
+      <div
+        className={cn("absolute inset-0 z-[2] h-full w-full select-none", {
+          "bg-[radial-gradient(rgba(0,_0,_0,_0.3),_rgba(0,_0,_0,_0))]":
+            mainImageGradientOverlay,
+        })}
+      />
       <div className="relative z-[3] mx-auto flex h-screen max-w-[100ch] flex-col items-center justify-center px-8 text-center">
         {category ? (
           <Typography.H4 className="mb-6 text-white drop-shadow-lg">
