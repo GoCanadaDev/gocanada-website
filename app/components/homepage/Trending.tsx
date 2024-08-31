@@ -2,11 +2,14 @@ import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "../Typography"
 import { MiniCard } from "../MiniCard"
 import { Separator } from "../ui/separator"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export const Trending = ({ posts }: { posts: PostPreview[] }) => {
-  if (!posts) {
+  const sanitizedPosts = Object.values(sanitizeStrings<PostPreview[]>(posts))
+  if (!posts || !sanitizedPosts.length) {
     return null
   }
+
   return (
     <div className="mb-4">
       <div className="text-center">
@@ -15,7 +18,7 @@ export const Trending = ({ posts }: { posts: PostPreview[] }) => {
         </Typography.H2>
       </div>
       <div className="my-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {posts.map((post) => (
+        {sanitizedPosts.map((post) => (
           <MiniCard key={post._id} post={post} />
         ))}
       </div>
