@@ -49,6 +49,58 @@ export const blockContentType = defineType({
       },
     }),
     defineArrayMember({
+      type: "image",
+      // 'image' is deprecated, but a few posts might still use it
+      hidden: true,
+      options: { hotspot: true },
+      fields: [
+        {
+          name: "caption",
+          type: "string",
+          title: "Caption",
+        },
+        {
+          name: "attribution",
+          type: "string",
+          title: "Attribution Name",
+        },
+        {
+          name: "attributionUrl",
+          type: "url",
+          title: "Attribution URL",
+        },
+        {
+          name: "alt",
+          type: "string",
+          title: "Alt text",
+        },
+        {
+          name: "fullBleed",
+          type: "boolean",
+          title: "Full Bleed",
+        },
+      ],
+      components: {
+        preview: SingleImage,
+      },
+      preview: {
+        select: {
+          asset: "asset",
+          caption: "caption",
+          alt: "alt",
+          fullBleed: "fullBleed",
+          attribution: "attribution",
+          attributionUrl: "attributionUrl",
+        },
+        prepare(value) {
+          return {
+            title: "Single Image",
+            value: value,
+          }
+        },
+      },
+    }),
+    defineArrayMember({
       type: "galleryType",
       icon: ImagePlusIcon,
     }),

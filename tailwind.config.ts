@@ -64,6 +64,13 @@ const config = {
       fontFamily: {
         sans: ["Inter", "Roboto", "Open Sans", "sans-serif"],
         serif: ["Rasa", "PT Serif", "serif"],
+        body: [
+          "Libre Baskerville",
+          "Inter",
+          "Roboto",
+          "Open Sans",
+          "sans-serif",
+        ],
       },
       keyframes: {
         "accordion-down": {
