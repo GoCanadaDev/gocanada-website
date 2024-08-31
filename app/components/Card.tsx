@@ -25,27 +25,34 @@ export default function Card({
 
   return (
     <article className="group max-w-screen-md">
-      {!hideImage && post.mainImage && post.mainImage?.id ? (
-        <AspectRatio
-          ratio={3 / 2}
-          className="mb-4 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
+      {post.mainImage && post.mainImage?.id ? (
+        <div
+          className={cn("", {
+            "md:hidden": hideImage,
+          })}
         >
-          <Link prefetch="intent" to={linkTo}>
-            <Image
-              mode="cover"
-              id={post.mainImage.id}
-              alt=""
-              width={isLarge ? 768 : 576}
-              height={isLarge ? 512 : 384}
-              preview={post.mainImage.preview ?? ""}
-              loading="eager"
-              className="transition-transform hover:scale-[1.05]"
-              aria-label={`Read more: ${post.title[post.language]}`}
-              hotspot={post.mainImage.hotspot}
-              crop={post.mainImage.crop}
-            />
-          </Link>
-        </AspectRatio>
+          <AspectRatio
+            ratio={3 / 2}
+            className="mb-4 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
+          >
+            <Link prefetch="intent" to={linkTo}>
+              <Image
+                mode="cover"
+                id={post.mainImage.id}
+                alt=""
+                // if hideImage, we need a bigger size for the image a the sm breakpoint
+                width={isLarge || hideImage ? 768 : 576}
+                height={isLarge || hideImage ? 512 : 384}
+                preview={post.mainImage.preview ?? ""}
+                loading="eager"
+                className="transition-transform hover:scale-[1.05]"
+                aria-label={`Read more: ${post.title[post.language]}`}
+                hotspot={post.mainImage.hotspot}
+                crop={post.mainImage.crop}
+              />
+            </Link>
+          </AspectRatio>
+        </div>
       ) : null}
       <div className={cn("relative space-y-2", { "space-y-3": isLarge })}>
         <Typography.H4

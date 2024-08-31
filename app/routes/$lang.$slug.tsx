@@ -25,6 +25,7 @@ import AuthorCard from "~/components/AuthorCard"
 import Share from "~/components/Share"
 import Prose from "~/components/portable/Prose"
 import { cn } from "~/lib/utils"
+import MidRollBannerAd from "~/components/MidRollBannerAd"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -158,7 +159,20 @@ export default function Slug() {
           <Separator className="h-0.5" />
         </div>
         <Prose>
-          <PortableText value={post.body} components={PortableTextComponents} />
+          <PortableText
+            value={post.body.slice(0, Math.ceil(post.body.length / 2))}
+            components={PortableTextComponents}
+          />
+          <div className="my-8 bg-zinc-100 dark:bg-zinc-800">
+            <MidRollBannerAd />
+          </div>
+          <PortableText
+            value={post.body.slice(
+              Math.ceil(post.body.length / 2),
+              post.body.length
+            )}
+            components={PortableTextComponents}
+          />
         </Prose>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
           {post.subCategories?.map((subCategory) => (
