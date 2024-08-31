@@ -4,6 +4,8 @@ export const staticPageType = defineType({
   name: "staticPageType",
   title: "Static Page",
   type: "document",
+  description:
+    "Create a new document for every static page in the footer. Note that we will make a new file in the code for these to work when adding any new pages.",
   fields: [
     defineField({
       name: "title",

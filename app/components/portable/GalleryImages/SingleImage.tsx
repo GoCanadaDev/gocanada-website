@@ -18,6 +18,8 @@ export const SingleImage = ({
 }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
+  console.log({ value })
+
   return (
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <AspectRatio

@@ -25,8 +25,54 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
   },
   route,
   "body": {
-    "en": body.en,
-    "fr": body.fr,
+    "en": body.en[] {
+      ...,
+      ...select(
+        _type == 'galleryType' => {
+          display,
+          images[] {
+            ...,
+            "id": asset._ref,
+            "preview": asset->.metadata.lqip,
+            "metadata": asset->metadata,
+            "hotspot": asset->hotspot,
+            "crop": asset->crop,
+          },
+        },
+        _type == "image" => {
+          ...,
+          "id": asset._ref,
+          "preview": asset->.metadata.lqip,
+          "metadata": asset->metadata,
+          "hotspot": asset->hotspot,
+          "crop": asset->crop,
+        },
+      ),
+    },
+    "fr": body.fr[] {
+      ...,
+      ...select(
+        _type == 'galleryType' => {
+          display,
+          images[] {
+            ...,
+            "id": asset._ref,
+            "preview": asset->.metadata.lqip,
+            "metadata": asset->metadata,
+            "hotspot": asset->hotspot,
+            "crop": asset->crop,
+          },
+        },
+        _type == "image" => {
+          ...,
+          "id": asset._ref,
+          "preview": asset->.metadata.lqip,
+          "metadata": asset->metadata,
+          "hotspot": asset->hotspot,
+          "crop": asset->crop,
+        },
+      ),
+    },
   },
   "language": $language,
   mainImage{
