@@ -21,7 +21,6 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
     attribution: attributionOne,
     attributionUrl: attributionUrlOne,
     alt: altOne,
-    fullBleed: fullBleedOne,
     preview: previewOne,
     caption: captionOne,
     asset: assetOne,
@@ -30,17 +29,10 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
     attribution: attributionTwo,
     attributionUrl: attributionUrlTwo,
     alt: altTwo,
-    fullBleed: fullBleedTwo,
     preview: previewTwo,
     caption: captionTwo,
     asset: assetTwo,
   } = value.imageTwo
-
-  const attribution = value.attribution || attributionOne || attributionTwo
-  const attributionUrl =
-    value.attributionUrl || attributionUrlOne || attributionUrlTwo
-  const caption = value.caption || captionOne || captionTwo
-  const fullBleed = value.fullBleed || fullBleedOne || fullBleedTwo
 
   return (
     <div className={value.fullBleed ? "full-bleed" : undefined}>
@@ -48,42 +40,31 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
         <SingleImage
           value={{
             asset: assetOne,
-            alt: value.altOne || altOne,
+            alt: altOne,
             preview: previewOne,
             metadata: value.imageOne.metadata,
             hotspot: value.imageOne.hotspot,
             crop: value.imageOne.crop,
+            attribution: attributionOne,
+            attributionUrl: attributionUrlOne,
+            caption: captionOne,
           }}
-          className="aspect-square object-cover"
+          square
         />
         <SingleImage
           value={{
             asset: assetTwo,
-            alt: value.altTwo || altTwo,
+            alt: altTwo,
             preview: previewTwo,
             metadata: value.imageTwo.metadata,
             crop: value.imageTwo.crop,
+            attribution: attributionTwo,
+            attributionUrl: attributionUrlTwo,
+            caption: captionTwo,
           }}
-          className="aspect-square object-cover"
+          square
         />
       </div>
-      {attribution || caption ? (
-        <div className={fullBleed ? "holy-grail" : undefined}>
-          <figcaption className="!-mt-2 flex justify-between">
-            {caption ? <span className="flex-1">{caption}</span> : null}
-            {attribution ? (
-              <span className="flex-1 text-right">
-                Photos by{" "}
-                {attributionUrl ? (
-                  <a href={attributionUrl}>{attribution}</a>
-                ) : (
-                  attribution
-                )}
-              </span>
-            ) : null}
-          </figcaption>
-        </div>
-      ) : null}
     </div>
   )
 }

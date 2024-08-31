@@ -16,6 +16,7 @@ export const GridImages = ({ value }: GalleryImagesProps) => {
             key={image.asset._ref}
             className="aspect-square object-cover"
             isInGrid
+            square
           />
         )
       })}

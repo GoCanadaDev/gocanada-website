@@ -7,12 +7,14 @@ export type SingleImageProps = {
   value: ImageProps
   className?: string
   isInGrid?: boolean
+  square?: boolean
 }
 
 export const SingleImage = ({
   value,
   className,
   isInGrid,
+  square,
 }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
@@ -20,9 +22,11 @@ export const SingleImage = ({
     <figure className={value.fullBleed ? "full-bleed" : undefined}>
       <AspectRatio
         ratio={
-          value.metadata?.dimensions.aspectRatio ??
-          (value.metadata?.dimensions.width ?? 1) /
-            (value.metadata?.dimensions.height ?? 1)
+          square
+            ? 1
+            : (value.metadata?.dimensions.aspectRatio ??
+              (value.metadata?.dimensions.width ?? 1) /
+                (value.metadata?.dimensions.height ?? 1))
         }
         className="relative overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
       >
