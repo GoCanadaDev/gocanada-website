@@ -1,23 +1,15 @@
-import FacebookEmbed from "./portable/FacebookEmbed"
-import InstagramEmbed from "./portable/InstagramEmbed"
-import LinkedInEmbed from "./portable/LinkedInEmbed"
-import PinterestEmbed from "./portable/PinterestEmbed"
-import TikTokEmbed from "./portable/TikTokEmbed"
-import XEmbed from "./portable/XEmbed"
-import YouTubeEmbed from "./portable/YouTubeEmbed"
-import {
-  SingleImage,
-  SingleImageProps,
-} from "app/components/portable/GalleryImages/SingleImage"
-import {
-  TwoUpImage,
-  TwoUpImageProps,
-} from "app/components/portable/GalleryImages/TwoUpImage"
-import GalleryImages, {
-  GalleryImagesProps,
-} from "~/components/portable/GalleryImages"
-import HorizontalRule from "./portable/HorizontalRule"
+import FacebookEmbed from "./FacebookEmbed"
+import InstagramEmbed from "./InstagramEmbed"
+import LinkedInEmbed from "./LinkedInEmbed"
+import PinterestEmbed from "./PinterestEmbed"
+import TikTokEmbed from "./TikTokEmbed"
+import XEmbed from "./XEmbed"
+import YouTubeEmbed from "./YouTubeEmbed"
+import { SingleImage, SingleImageProps } from "./GalleryImages/SingleImage"
+import GalleryImages, { GalleryImagesProps } from "./GalleryImages"
+import HorizontalRule from "./HorizontalRule"
 import { PortableTextReactComponents } from "@portabletext/react"
+import InlineAd from "../InlineAd"
 
 const PortableTextComponents = {
   marks: {
@@ -36,6 +28,8 @@ const PortableTextComponents = {
     },
   },
   types: {
+    // TODO: fix type for inline ad
+    inlineAdType: ({ value }: { value: any }) => <InlineAd value={value} />,
     facebookPostType: ({ value }: { value: { url: string } }) => (
       <div className="flex justify-center">
         <FacebookEmbed url={value.url} className="w-full max-w-[540px]" />
@@ -73,9 +67,6 @@ const PortableTextComponents = {
     ),
     image: ({ value }: SingleImageProps) => {
       return <SingleImage value={value} />
-    },
-    twoUpImageType: ({ value }: TwoUpImageProps) => {
-      return <TwoUpImage value={value} />
     },
     galleryType: ({ value }: GalleryImagesProps) => {
       return <GalleryImages value={value} />

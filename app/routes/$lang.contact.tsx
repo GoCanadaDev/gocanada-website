@@ -15,7 +15,7 @@ import {
   useSubmit,
 } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
-import PortableTextComponents from "~/components/PortableTextComponents"
+import PortableTextComponents from "~/components/portable"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { Image } from "~/components/Image"
 import { toast } from "sonner"

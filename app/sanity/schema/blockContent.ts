@@ -3,6 +3,7 @@ import {
   ImagePlusIcon,
   InstagramIcon,
   LinkedinIcon,
+  Megaphone,
   Minus,
   Music2,
   PinIcon,
@@ -48,57 +49,6 @@ export const blockContentType = defineType({
       },
     }),
     defineArrayMember({
-      type: "image",
-      hidden: true,
-      options: { hotspot: true },
-      fields: [
-        {
-          name: "caption",
-          type: "string",
-          title: "Caption",
-        },
-        {
-          name: "attribution",
-          type: "string",
-          title: "Attribution Name",
-        },
-        {
-          name: "attributionUrl",
-          type: "url",
-          title: "Attribution URL",
-        },
-        {
-          name: "alt",
-          type: "string",
-          title: "Alt text",
-        },
-        {
-          name: "fullBleed",
-          type: "boolean",
-          title: "Full Bleed",
-        },
-      ],
-      components: {
-        preview: SingleImage,
-      },
-      preview: {
-        select: {
-          asset: "asset",
-          caption: "caption",
-          alt: "alt",
-          fullBleed: "fullBleed",
-          attribution: "attribution",
-          attributionUrl: "attributionUrl",
-        },
-        prepare(value) {
-          return {
-            title: "Single Image",
-            value: value,
-          }
-        },
-      },
-    }),
-    defineArrayMember({
       type: "galleryType",
       icon: ImagePlusIcon,
     }),
@@ -133,6 +83,10 @@ export const blockContentType = defineType({
     defineArrayMember({
       type: "horizontalRuleType",
       icon: Minus,
+    }),
+    defineArrayMember({
+      type: "inlineAdType",
+      icon: Megaphone,
     }),
   ],
 })

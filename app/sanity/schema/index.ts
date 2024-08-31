@@ -6,6 +6,7 @@ import { facebookPostType } from "~/sanity/schema/facebookPost"
 import { featuredPostsConfig } from "~/sanity/schema/featuredPostsConfig"
 import { galleryType } from "~/sanity/schema/gallery"
 import { horizontalRuleType } from "~/sanity/schema/horizontalRule"
+import { inlineAdType } from "~/sanity/schema/inlineAd"
 import { instagramPostType } from "~/sanity/schema/instagramPost"
 import { linkedinPostType } from "~/sanity/schema/linkedinPost"
 import { linksPageType } from "~/sanity/schema/linksPage"
@@ -34,6 +35,7 @@ export default [
   featuredPostsConfig,
   galleryType,
   horizontalRuleType,
+  inlineAdType,
   instagramPostType,
   linkedinPostType,
   linksPageType,

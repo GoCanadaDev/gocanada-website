@@ -202,6 +202,21 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
   "body": body[] {
     ...,
     ...select(
+      _type == 'inlineAdType' => {
+        enabledUntil,
+        adUrl,
+        adCode,
+        adWidth,
+        adHeight,
+        adImage {
+          ...,
+          "id": asset._ref,
+          "preview": asset->.metadata.lqip,
+          "metadata": asset->metadata,
+          "hotspot": asset->hotspot,
+          "crop": asset->crop,
+        },
+      },
       _type == 'galleryType' => {
         display,
         images[] {

@@ -18,7 +18,7 @@ import { Separator } from "~/components/ui/separator"
 import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import PortableTextComponents from "~/components/PortableTextComponents"
+import PortableTextComponents from "~/components/portable"
 import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
@@ -85,6 +85,10 @@ export default function Slug() {
   const formattedDate = useFormattedDate(post._createdAt, post.language)
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
+
+  const hasInlineAd =
+    post.body.findIndex((block) => block._type === "inlineAdType") > -1
+  const halfwayThroughBodyMarker = Math.ceil(post.body.length / 2)
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -159,20 +163,30 @@ export default function Slug() {
           <Separator className="h-0.5" />
         </div>
         <Prose>
-          <PortableText
-            value={post.body.slice(0, Math.ceil(post.body.length / 2))}
-            components={PortableTextComponents}
-          />
-          <div className="my-8 bg-zinc-100 dark:bg-zinc-800">
-            <MidRollBannerAd />
-          </div>
-          <PortableText
-            value={post.body.slice(
-              Math.ceil(post.body.length / 2),
-              post.body.length
-            )}
-            components={PortableTextComponents}
-          />
+          {hasInlineAd ? (
+            <PortableText
+              value={post.body}
+              components={PortableTextComponents}
+            />
+          ) : (
+            // if no inline ad in the post, manually insert the MidRollBannerAd halfway through the body blocks
+            <>
+              <PortableText
+                value={post.body.slice(0, halfwayThroughBodyMarker)}
+                components={PortableTextComponents}
+              />
+              <div className="my-8 bg-zinc-100 dark:bg-zinc-800">
+                <MidRollBannerAd />
+              </div>
+              <PortableText
+                value={post.body.slice(
+                  halfwayThroughBodyMarker,
+                  post.body.length
+                )}
+                components={PortableTextComponents}
+              />
+            </>
+          )}
         </Prose>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
           {post.subCategories?.map((subCategory) => (
