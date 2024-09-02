@@ -53,7 +53,7 @@ export const HeroImage = ({
         >
           <figcaption
             className={cn(
-              "flex justify-between text-zinc-500 dark:text-zinc-400 ",
+              "flex justify-between font-serif text-zinc-500 dark:text-zinc-400",
               {
                 "px-4 pt-2": fullBleed,
               }

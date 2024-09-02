@@ -62,7 +62,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "Roboto", "Open Sans", "sans-serif"],
+        sans: ["PT Sans", "Inter", "Roboto", "Open Sans", "sans-serif"],
         serif: ["Rasa", "PT Serif", "serif"],
         body: [
           "Libre Baskerville",

@@ -96,7 +96,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 const RequiredText = () => (
-  <span className="ml-2 text-sm font-normal text-zinc-500 dark:text-zinc-400">
+  <span className="ml-2 font-sans text-sm font-normal text-zinc-500 dark:text-zinc-400">
     (required)
   </span>
 )
@@ -199,7 +199,7 @@ const Contact = () => {
                       name="firstName"
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel>
+                          <FormLabel className="font-sans">
                             First Name
                             <RequiredText />
                           </FormLabel>
@@ -215,7 +215,7 @@ const Contact = () => {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel>Last Name</FormLabel>
+                          <FormLabel className="font-sans">Last Name</FormLabel>
                           <FormControl>
                             <Input {...field} />
                           </FormControl>
@@ -229,7 +229,7 @@ const Contact = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
+                        <FormLabel className="font-sans">
                           Email
                           <RequiredText />
                         </FormLabel>
@@ -245,7 +245,7 @@ const Contact = () => {
                     name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
+                        <FormLabel className="font-sans">
                           Subject
                           <RequiredText />
                         </FormLabel>
@@ -282,7 +282,7 @@ const Contact = () => {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
+                        <FormLabel className="font-sans">
                           Message
                           <RequiredText />
                         </FormLabel>
@@ -296,7 +296,7 @@ const Contact = () => {
                   <div data-netlify-recaptcha="true"></div>
                   <Button
                     type="submit"
-                    className="bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+                    className="bg-brand font-sans font-bold hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
                   >
                     Submit
                   </Button>

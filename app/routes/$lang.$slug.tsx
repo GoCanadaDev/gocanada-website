@@ -117,7 +117,7 @@ export default function Slug() {
           })}
         >
           <div className="w-full text-center">
-            <Typography.Paragraph className="font-serif text-3xl">
+            <Typography.Paragraph className="font-sans text-2xl italic text-zinc-500">
               {post.excerpt[post.language]}
             </Typography.Paragraph>
           </div>
@@ -150,7 +150,7 @@ export default function Slug() {
             <>
               <Separator className="h-0.5" />
               <div className="w-full">
-                <Prose className="!text-base text-zinc-500 dark:text-zinc-400">
+                <Prose className="!dark:text-zinc-400 font-sans !text-zinc-500">
                   <PortableText
                     value={post.byline}
                     components={PortableTextComponents}

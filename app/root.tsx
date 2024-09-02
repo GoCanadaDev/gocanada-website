@@ -55,7 +55,7 @@ export const links: LinksFunction = () => [
     crossOrigin: "anonymous",
   },
   {
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap",
     rel: "stylesheet",
   },
   {
@@ -239,6 +239,24 @@ export default function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
+        {false && (
+          <>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-NJ7GQNQFL2"
+            ></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-NJ7GQNQFL2');
+                  `,
+              }}
+            />
+          </>
+        )}
         {!initFacebookPixel ||
         process.env.NODE_ENV === "development" ||
         !ENV.FACEBOOK_PIXEL_ID ? null : (
