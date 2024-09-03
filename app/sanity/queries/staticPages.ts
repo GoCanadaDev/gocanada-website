@@ -85,7 +85,14 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
   mainImageAttribution,
   mainImageAttributionUrl,
   mainImageFullBleed,
-  mainImageGradientOverlay
+  mainImageGradientOverlay,
+  secondaryImage{
+    ...,
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  },
+  videoUrl,
 }`
 
 // get all staticPages where isFooterLink is true
@@ -130,6 +137,14 @@ export type StaticPageRoute = {
     hotspot?: ImageHotspot
     crop?: ImageCrop
   }
+  secondaryImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
+  }
+  videoUrl?: string
 }
 
 export type StaticPage = {

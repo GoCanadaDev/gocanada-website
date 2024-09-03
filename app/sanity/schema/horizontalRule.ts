@@ -11,6 +11,7 @@ export const horizontalRuleType = defineType({
       type: "string",
       options: {
         list: ["divider"],
+        default: "divider",
       },
     },
   ],

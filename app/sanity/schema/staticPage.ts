@@ -61,6 +61,21 @@ export const staticPageType = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "videoUrl",
+      title: "Video URL",
+      type: "url",
+      description: "URL to a video to display on the Advertising page",
+    }),
+    defineField({
+      name: "secondaryImage",
+      title: "Secondary Image",
+      type: "image",
+      description: "Second image for contact page",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "localeBlockContentType",

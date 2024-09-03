@@ -22,17 +22,6 @@ export default function InlineAd({
 }: {
   value: InlineAdProps
 }) {
-  console.log({
-    inlineAdProps: {
-      enabledUntil,
-      adUrl,
-      adCode,
-      adWidth,
-      adHeight,
-      adImage,
-    },
-  })
-
   // TODO: do a date comparison
   // if (!enabledUntil) {
   //   return null

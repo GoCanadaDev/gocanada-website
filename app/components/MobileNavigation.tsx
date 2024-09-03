@@ -24,21 +24,20 @@ const ListItem = ({ title, href }: { title: string; href: string }) => {
   )
 }
 
-const provincesAndTerritories = [
+const provinces = [
   "Alberta",
   "British Columbia",
   "Manitoba",
   "New Brunswick",
   "Newfoundland and Labrador",
-  "Northwest Territories",
   "Nova Scotia",
-  "Nunavut",
   "Ontario",
   "Prince Edward Island",
   "Québec",
   "Saskatchewan",
-  "Yukon",
 ]
+
+const territories = ["Northwest Territories", "Nunavut", "Yukon"]
 
 export function MobileNavigation() {
   const { categories } = useRootLoaderData()
@@ -47,12 +46,18 @@ export function MobileNavigation() {
   // need to backup to "en" if lang is not there for pages like Links which doesn't have a lang in the url
   const categoryTranslation = (lang || "en") as SupportedLanguages
 
-  const provincesAndTerritoriesList = [...categories[0].subCategories].filter(
-    (c) => provincesAndTerritories.includes(c.title[categoryTranslation])
+  const provincesList = [...categories[0].subCategories].filter((c) =>
+    provinces.includes(c.title[categoryTranslation])
+  )
+
+  const territoriesList = [...categories[0].subCategories].filter((c) =>
+    territories.includes(c.title[categoryTranslation])
   )
 
   const citiesList = [...categories[0].subCategories].filter(
-    (c) => !provincesAndTerritories.includes(c.title[categoryTranslation])
+    (c) =>
+      !provinces.includes(c.title[categoryTranslation]) &&
+      !territories.includes(c.title[categoryTranslation])
   )
 
   return (
@@ -84,16 +89,37 @@ export function MobileNavigation() {
                         By Province
                       </Typography.H4>
                       <ul>
-                        {provincesAndTerritoriesList
+                        {provincesList
                           ?.sort((a, b) =>
                             a.title[categoryTranslation].localeCompare(
                               b.title[categoryTranslation]
                             )
                           )
                           .map((subCategory) => {
-                            if (subCategory.enabledInNav === false) {
-                              return null
-                            }
+                            return (
+                              <ListItem
+                                key={subCategory.title[categoryTranslation]}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
+                      </ul>
+                      <Separator
+                        orientation="horizontal"
+                        className="my-8 block h-0.5 md:hidden"
+                      />
+                      <Typography.H4 className="text-base font-bold text-brand">
+                        By Territory
+                      </Typography.H4>
+                      <ul>
+                        {territoriesList
+                          ?.sort((a, b) =>
+                            a.title[categoryTranslation].localeCompare(
+                              b.title[categoryTranslation]
+                            )
+                          )
+                          .map((subCategory) => {
                             return (
                               <ListItem
                                 key={subCategory.title[categoryTranslation]}

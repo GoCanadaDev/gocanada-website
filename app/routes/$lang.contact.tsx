@@ -169,13 +169,15 @@ const Contact = () => {
 
           <div className="mt-8 flex flex-wrap gap-12 sm:flex-nowrap">
             <div className="w-full sm:w-1/2">
-              <Image
-                id={staticPage.mainImage.id}
-                alt={staticPage.mainImageCaption ?? ""}
-                width={640}
-                loading="lazy"
-                className="pointer-events-none !m-0 w-full"
-              />
+              {staticPage.secondaryImage?.id && (
+                <Image
+                  id={staticPage.secondaryImage.id}
+                  alt={""}
+                  width={640}
+                  loading="lazy"
+                  className="pointer-events-none !m-0 w-full"
+                />
+              )}
             </div>
             <div className="w-full sm:w-1/2">
               <Form {...form}>

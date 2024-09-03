@@ -66,9 +66,12 @@ export default function CategoryIndexRoute() {
                   <Typography.H3>
                     {category.title[category.language]}
                   </Typography.H3>
-                  <Typography.TextMuted>
-                    {category.description[category.language]}
-                  </Typography.TextMuted>
+                  {typeof category.description[category.language] ===
+                    "string" && (
+                    <Typography.TextMuted>
+                      {category.description[category.language]}
+                    </Typography.TextMuted>
+                  )}
                   <Typography.TextSmall>
                     <Link
                       prefetch="intent"
