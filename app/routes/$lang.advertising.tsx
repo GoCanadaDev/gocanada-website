@@ -31,6 +31,9 @@ const Advertising = () => {
   const { staticPage } = useLoaderData() as StaticPageLoaderData
   const otherLanguage = useOtherLanguage()
 
+  // https://gocanadadev.github.io/video/JONA%20JAMES%20x%20CANADA%20draft%204.mov
+  // https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4
+
   return (
     <Layout translationUrl={`/${otherLanguage}/advertising`}>
       <article className="mb-24 mt-8">

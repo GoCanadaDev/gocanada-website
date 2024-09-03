@@ -123,7 +123,8 @@ export default function Slug() {
           />
         </div>
         <div
-          className={cn("holy-grail mb-12 mt-4 text-xl", {
+          // 1.32rem is to get the holy-grail width to match the prose width below
+          className={cn("holy-grail mb-12 mt-4 text-[1.32rem]", {
             "mt-20": post.mainImageFullBleed,
           })}
         >
@@ -162,7 +163,7 @@ export default function Slug() {
               <Separator className="h-0.5" />
 
               <Prose
-                className="!dark:text-zinc-400 font-sans !text-zinc-500"
+                className="!dark:text-zinc-400 !mb-0 !mt-4 font-sans !text-zinc-500"
                 disableHolyGrail
               >
                 <PortableText
