@@ -53,18 +53,17 @@ export const HeroImage = ({
         >
           <figcaption
             className={cn(
-              "flex justify-between font-serif text-zinc-500 dark:text-zinc-400",
+              "flex justify-between font-sans text-zinc-500 dark:text-zinc-400",
               {
                 "px-4 pt-2": fullBleed,
               }
             )}
           >
             {typeof mainImageCaption === "string" ? (
-              <span className="flex-1 text-sm">{mainImageCaption}</span>
+              <span className="flex-1 text-xs">{mainImageCaption}</span>
             ) : null}
             {typeof mainImageAttribution === "string" ? (
-              <span className="flex-1 text-right text-sm">
-                Photo by{" "}
+              <span className="flex-1 text-right text-xs">
                 {typeof mainImageAttributionUrl === "string" ? (
                   <a
                     href={mainImageAttributionUrl}

@@ -176,7 +176,7 @@ export default function Slug() {
                 components={PortableTextComponents}
               />
               <div className="relative my-8 border bg-zinc-100 dark:bg-zinc-800">
-                <div className="absolute right-0 top-0 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center text-xs uppercase leading-6 dark:bg-zinc-950">
+                <div className="absolute right-0 top-0 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 dark:bg-zinc-950">
                   ad
                 </div>
                 <MidRollBannerAd />

@@ -257,7 +257,7 @@ const Contact = () => {
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger className="font-sans">
                               <SelectValue placeholder="Select an option" />
                             </SelectTrigger>
                           </FormControl>

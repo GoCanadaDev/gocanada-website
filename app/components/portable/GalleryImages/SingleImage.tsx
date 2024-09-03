@@ -8,6 +8,7 @@ export type SingleImageProps = {
   className?: string
   isInGrid?: boolean
   square?: boolean
+  hideAttribution?: boolean
 }
 
 export const SingleImage = ({
@@ -15,6 +16,7 @@ export const SingleImage = ({
   className,
   isInGrid,
   square,
+  hideAttribution,
 }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
@@ -42,15 +44,14 @@ export const SingleImage = ({
           width={1024}
         />
       </AspectRatio>
-      {value.attribution || value.caption ? (
+      {(!hideAttribution && value.attribution) || value.caption ? (
         <div className={value.fullBleed ? "holy-grail" : undefined}>
-          <figcaption className="flex justify-between">
+          <figcaption className="flex justify-between font-sans text-sm">
             {value.caption ? (
               <span className="flex-1">{value.caption}</span>
             ) : null}
             {value.attribution ? (
               <span className="flex-1 text-right">
-                {isInGrid ? "Photos" : "Photo"} by{" "}
                 {value.attributionUrl ? (
                   <a href={value.attributionUrl}>{value.attribution}</a>
                 ) : (

@@ -50,6 +50,7 @@ export const TwoUpImage = ({ value }: TwoUpImageProps) => {
             caption: captionOne,
           }}
           square
+          hideAttribution={attributionOne === attributionTwo}
         />
         <SingleImage
           value={{
