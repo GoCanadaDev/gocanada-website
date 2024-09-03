@@ -46,7 +46,9 @@ const SubscribeForm = ({
   useEffect(() => {
     if (searchParams.get("submitted") !== null) {
       setModalOpen?.(false)
-      toast.success(`Thanks, we've received your newsletter signup request.`)
+      toast.success(`Thanks, we've received your request.`, {
+        description: `Please check your email to confirm your subscription.`,
+      })
     }
   }, [searchParams])
 
