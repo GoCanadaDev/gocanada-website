@@ -3,7 +3,7 @@ import type { SanityClient } from "@sanity/client"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { ImageCrop, ImageHotspot } from "sanity"
+import { ImageCrop, ImageHotspot, ImageMetadata } from "sanity"
 
 export async function getStaticPageByRoute(
   client: SanityClient,
@@ -33,7 +33,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
           images[] {
             ...,
             "id": asset._ref,
-            "preview": asset->.metadata.lqip,
+            "preview": asset->metadata.lqip,
             "metadata": asset->metadata,
             "hotspot": asset->hotspot,
             "crop": asset->crop,
@@ -42,7 +42,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
         _type == "image" => {
           ...,
           "id": asset._ref,
-          "preview": asset->.metadata.lqip,
+          "preview": asset->metadata.lqip,
           "metadata": asset->metadata,
           "hotspot": asset->hotspot,
           "crop": asset->crop,
@@ -57,7 +57,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
           images[] {
             ...,
             "id": asset._ref,
-            "preview": asset->.metadata.lqip,
+            "preview": asset->metadata.lqip,
             "metadata": asset->metadata,
             "hotspot": asset->hotspot,
             "crop": asset->crop,
@@ -66,7 +66,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
         _type == "image" => {
           ...,
           "id": asset._ref,
-          "preview": asset->.metadata.lqip,
+          "preview": asset->metadata.lqip,
           "metadata": asset->metadata,
           "hotspot": asset->hotspot,
           "crop": asset->crop,
@@ -80,6 +80,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    "metadata": asset->metadata,
   },
   mainImageCaption,
   mainImageAttribution,
@@ -91,6 +92,7 @@ export const staticPageBySlugQuery = groq`*[_type == "staticPageType" && route =
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    "metadata": asset->metadata,
   },
   videoUrl,
 }`
@@ -136,6 +138,7 @@ export type StaticPageRoute = {
     aspectRatio: number
     hotspot?: ImageHotspot
     crop?: ImageCrop
+    metadata: ImageMetadata
   }
   secondaryImage: {
     id: string
@@ -143,6 +146,7 @@ export type StaticPageRoute = {
     aspectRatio: number
     hotspot?: ImageHotspot
     crop?: ImageCrop
+    metadata: ImageMetadata
   }
   videoUrl?: string
 }

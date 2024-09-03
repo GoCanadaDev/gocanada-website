@@ -49,6 +49,10 @@ export const authorsProjection = `
     ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
+    "metadata": asset->metadata,
+    "hotspot": asset->hotspot,
+    "crop": asset->crop,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
 `
 

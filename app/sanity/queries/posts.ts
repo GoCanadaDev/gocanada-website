@@ -1,6 +1,6 @@
 import groq from "groq"
 import type { SanityClient } from "@sanity/client"
-import type { ImageCrop, ImageHotspot, Slug } from "sanity"
+import type { ImageCrop, ImageHotspot, ImageMetadata, Slug } from "sanity"
 import { PortableTextBlock } from "@sanity/types"
 import { LocalizedString } from "~/sanity/queries/shared"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
@@ -211,10 +211,11 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
         adImage {
           ...,
           "id": asset._ref,
-          "preview": asset->.metadata.lqip,
+          "preview": asset->metadata.lqip,
           "metadata": asset->metadata,
           "hotspot": asset->hotspot,
           "crop": asset->crop,
+          "aspectRatio": asset->metadata.dimensions.aspectRatio,
         },
       },
       _type == 'galleryType' => {
@@ -222,19 +223,21 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
         images[] {
           ...,
           "id": asset._ref,
-          "preview": asset->.metadata.lqip,
+          "preview": asset->metadata.lqip,
           "metadata": asset->metadata,
           "hotspot": asset->hotspot,
           "crop": asset->crop,
+          "aspectRatio": asset->metadata.dimensions.aspectRatio,
         },
       },
       _type == "image" => {
         ...,
         "id": asset._ref,
-        "preview": asset->.metadata.lqip,
+        "preview": asset->metadata.lqip,
         "metadata": asset->metadata,
         "hotspot": asset->hotspot,
         "crop": asset->crop,
+        "aspectRatio": asset->metadata.dimensions.aspectRatio,
       },
     ),
   },
@@ -260,6 +263,10 @@ export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].cur
       ...,
       "id": asset._ref,
       "preview": asset->metadata.lqip,
+      "metadata": asset->metadata,
+      "hotspot": asset->hotspot,
+      "crop": asset->crop,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio,
     },
   },
   "categories": categories[]->{
@@ -375,6 +382,7 @@ export type PostPreview = {
     aspectRatio: number
     hotspot?: ImageHotspot
     crop?: ImageCrop
+    metadata: ImageMetadata
   }
 }
 export type Post = PostPreview & {

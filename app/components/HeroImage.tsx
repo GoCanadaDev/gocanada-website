@@ -84,7 +84,7 @@ export const HeroImage = ({
 
   return fullBleed ? (
     <section
-      className={cn("relative h-svh transition-all", {
+      className={cn("relative inline-block w-full transition-all", {
         "mb-12": mainImageAttribution || mainImageCaption,
       })}
     >
@@ -95,7 +95,7 @@ export const HeroImage = ({
           preview={preview}
           width={1440}
           loading="eager"
-          className="absolute inset-0 z-[1] h-full w-full select-none object-cover"
+          className="block h-auto max-h-screen w-full select-none object-cover"
           alt=""
           hotspot={hotspot}
           crop={crop}
@@ -103,12 +103,12 @@ export const HeroImage = ({
         {renderFigCaption()}
       </figure>
       <div
-        className={cn("absolute inset-0 z-[2] h-full w-full select-none", {
+        className={cn("absolute inset-0 z-[2] h-auto w-full select-none", {
           "bg-[radial-gradient(rgba(0,_0,_0,_0.3),_rgba(0,_0,_0,_0))]":
             mainImageGradientOverlay,
         })}
       />
-      <div className="relative z-[3] mx-auto flex h-screen max-w-[100ch] flex-col items-center justify-center px-8 text-center">
+      <div className="absolute inset-0 z-[3] mx-auto flex h-auto max-w-[100ch] flex-col items-center justify-center px-8 text-center">
         {category ? (
           <Typography.H4 className="mb-6 text-white drop-shadow-lg">
             <Link
@@ -121,7 +121,7 @@ export const HeroImage = ({
             </Link>
           </Typography.H4>
         ) : (
-          <div className="mb-16" />
+          <div className="" />
         )}
         <Typography.H1 className="text-white drop-shadow-lg">
           {title}

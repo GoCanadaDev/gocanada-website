@@ -27,9 +27,12 @@ export const linksQuery = groq`*[_type == "linksPageType"] {
   title,
   leadIn,
   headerImage{
-    ...,
+     ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
+    "metadata": asset->metadata,
+    "hotspot": asset->hotspot,
+    "crop": asset->crop,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
   links[]{

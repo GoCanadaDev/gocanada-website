@@ -22,6 +22,7 @@ export const partnersQuery = groq`*[_type == "partnerType"] | order(displayOrder
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    "metadata": asset->metadata,
   },
 }`
 
