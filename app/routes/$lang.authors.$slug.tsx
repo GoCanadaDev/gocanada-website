@@ -61,7 +61,7 @@ export default function AuthorBySlugRoute() {
     <Layout useMargins translationUrl={translationUrl}>
       <Link
         to={`/${author.language}/authors`}
-        className="hover:text-brandHover text-brand"
+        className="text-brand hover:text-brandHover"
       >
         <MoveLeft className="inline h-4 w-4" /> View all
       </Link>

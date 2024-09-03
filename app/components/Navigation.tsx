@@ -27,7 +27,9 @@ const ListItem = React.forwardRef<
           className="block select-none space-y-1 rounded-md p-3 uppercase leading-none no-underline outline-none transition-colors  hover:text-brandHover  focus:text-brandHover focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:text-brandHover data-[state=open]:text-brandHover dark:hover:text-brandHover  dark:focus:text-brandHover dark:data-[active]:text-brandHover dark:data-[state=open]:text-brandHover"
           {...props}
         >
-          <span className="text-sm font-medium leading-none">{title}</span>
+          <span className="text-sm font-medium leading-none tracking-widest">
+            {title}
+          </span>
         </Link>
       </NavigationMenuLink>
     </li>
