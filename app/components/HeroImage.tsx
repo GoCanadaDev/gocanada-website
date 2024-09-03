@@ -85,7 +85,9 @@ export const HeroImage = ({
   return fullBleed ? (
     <section
       className={cn("relative inline-block w-full transition-all", {
-        "mb-12": mainImageAttribution || mainImageCaption,
+        "mb-12":
+          typeof mainImageAttribution === "string" ||
+          typeof mainImageCaption === "string",
       })}
     >
       <figure>
