@@ -88,7 +88,18 @@ export default function Slug() {
 
   const hasInlineAd =
     post.body.findIndex((block) => block._type === "inlineAdType") > -1
-  const halfwayThroughBodyMarker = Math.ceil(post.body.length / 2)
+  let halfwayThroughBodyMarker = Math.ceil(post.body.length / 2)
+
+  console.log({ before: halfwayThroughBodyMarker })
+
+  const halfwayBlock = post.body[halfwayThroughBodyMarker]
+  if (halfwayBlock._type !== "block" && halfwayBlock.style !== "normal") {
+    const nextParagraph = [...post.body]
+      .slice(halfwayThroughBodyMarker, post.body.length)
+      .findIndex((block) => block._type === "block" && block.style === "normal")
+
+    halfwayThroughBodyMarker = halfwayThroughBodyMarker + nextParagraph
+  }
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -112,7 +123,7 @@ export default function Slug() {
           />
         </div>
         <div
-          className={cn("holy-grail mx-4 mb-12 mt-4 max-w-none text-xl", {
+          className={cn("holy-grail mb-12 mt-4 text-xl", {
             "mt-20": post.mainImageFullBleed,
           })}
         >
@@ -149,14 +160,16 @@ export default function Slug() {
           {post.byline && Object.entries(post.byline || {}).length > 0 && (
             <>
               <Separator className="h-0.5" />
-              <div className="w-full">
-                <Prose className="!dark:text-zinc-400 font-sans !text-zinc-500">
-                  <PortableText
-                    value={post.byline}
-                    components={PortableTextComponents}
-                  />
-                </Prose>
-              </div>
+
+              <Prose
+                className="!dark:text-zinc-400 font-sans !text-zinc-500"
+                disableHolyGrail
+              >
+                <PortableText
+                  value={post.byline}
+                  components={PortableTextComponents}
+                />
+              </Prose>
             </>
           )}
 
@@ -172,7 +185,7 @@ export default function Slug() {
             // if no inline ad in the post, manually insert the MidRollBannerAd halfway through the body blocks
             <>
               <PortableText
-                value={post.body.slice(0, halfwayThroughBodyMarker)}
+                value={[...post.body].slice(0, halfwayThroughBodyMarker)}
                 components={PortableTextComponents}
               />
               <div className="relative my-8 border bg-zinc-100 dark:bg-zinc-800">
@@ -182,7 +195,7 @@ export default function Slug() {
                 <MidRollBannerAd />
               </div>
               <PortableText
-                value={post.body.slice(
+                value={[...post.body].slice(
                   halfwayThroughBodyMarker,
                   post.body.length
                 )}
