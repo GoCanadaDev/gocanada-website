@@ -110,7 +110,7 @@ export default function Slug() {
   return (
     <Layout translationUrl={translationUrl}>
       <div className="container mx-auto p-4 lg:px-12">
-        <Breadcrumb>
+        <Breadcrumb className="hidden md:block">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
@@ -172,7 +172,7 @@ export default function Slug() {
         <div
           // 1.32rem is to get the holy-grail width to match the prose width below
           className={cn("holy-grail mb-12 mt-4 text-[1.32rem]", {
-            "mt-20": post.mainImageFullBleed,
+            "mt-12": post.mainImageFullBleed,
           })}
         >
           <div className="w-full text-center">
