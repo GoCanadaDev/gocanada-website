@@ -35,7 +35,14 @@ const Advertising = () => {
     <Layout translationUrl={`/${otherLanguage}/advertising`}>
       <article className="mb-24 mt-8">
         <div className="w-full">
-          <video playsInline autoPlay loop muted>
+          <video
+            playsInline
+            autoPlay
+            loop
+            muted
+            poster="https://gocanadadev.github.io/video/cover.png"
+            className="h-auto w-screen object-cover"
+          >
             <source src={staticPage.videoUrl} type="video/mp4" />
           </video>
         </div>
