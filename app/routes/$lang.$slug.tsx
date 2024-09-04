@@ -90,8 +90,6 @@ export default function Slug() {
     post.body.findIndex((block) => block._type === "inlineAdType") > -1
   let halfwayThroughBodyMarker = Math.ceil(post.body.length / 2)
 
-  console.log({ before: halfwayThroughBodyMarker })
-
   const halfwayBlock = post.body[halfwayThroughBodyMarker]
   if (halfwayBlock._type !== "block" && halfwayBlock.style !== "normal") {
     const nextParagraph = [...post.body]

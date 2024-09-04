@@ -50,7 +50,7 @@ const Privacy = () => {
             />
           </div>
         ) : (
-          <Prose>
+          <Prose className="text-center">
             <Typography.H1>
               {staticPage.title[staticPage.language]}
             </Typography.H1>
