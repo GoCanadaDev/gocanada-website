@@ -7,6 +7,7 @@ export type SingleImageProps = {
   value: ImageProps
   className?: string
   square?: boolean
+  inline?: boolean
   hideAttribution?: boolean
 }
 
@@ -14,17 +15,20 @@ export const SingleImage = ({
   value,
   className,
   square,
+  inline,
   hideAttribution,
 }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
-  const isPortrait = value.metadata?.dimensions.aspectRatio ?? 0 < 1
+  // commented out for now, but remove the false to make portrait images have some margins to not be so long
+  const isPortrait =
+    false && !inline && Boolean(value.metadata?.dimensions.aspectRatio < 1)
 
   return (
     <figure
       className={cn("", {
         "full-bleed": value.fullBleed,
-        "mx-auto": isPortrait && !square,
+        "lg:!mx-24": isPortrait && !square,
       })}
     >
       <AspectRatio

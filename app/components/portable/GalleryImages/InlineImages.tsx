@@ -13,6 +13,7 @@ export const InlineImages = ({ value }: GalleryImagesProps) => {
         .map((image) => (
           <SingleImage
             key={image.asset._ref}
+            inline
             value={{
               asset: image.asset,
               alt: image.alt,
