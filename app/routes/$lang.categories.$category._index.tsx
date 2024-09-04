@@ -12,6 +12,14 @@ import { Category, getCategory } from "~/sanity/queries"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { SITE_META } from "~/lib/utils"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -60,12 +68,31 @@ export default function CategoryByNameRoute() {
 
   return (
     <Layout useMargins translationUrl={translationUrl}>
-      <Link
-        to={`/${category.language}/categories`}
-        className="text-brand hover:text-brandHover"
-      >
-        <MoveLeft className="inline h-4 w-4" /> View all categories
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/" prefetch="intent">
+                Home
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link prefetch="intent" to={`/${category.language}/categories`}>
+                Categories
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+
+          <BreadcrumbItem>
+            <BreadcrumbPage>{category.title[category.language]}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="holy-grail space-y-2 text-center">
         <Typography.H4 className="text-brand">Category</Typography.H4>
         <Typography.H1>{category.title[category.language]}</Typography.H1>

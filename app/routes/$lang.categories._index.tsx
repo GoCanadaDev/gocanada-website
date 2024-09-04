@@ -55,7 +55,7 @@ export default function CategoryIndexRoute() {
           return (
             <div
               key={category.title[lang]}
-              className="mb-4 overflow-hidden rounded-md bg-zinc-50 p-4 dark:bg-zinc-800"
+              className="relative mb-4 overflow-hidden rounded-md bg-zinc-50 p-4 dark:bg-zinc-800"
             >
               <div className="flex items-start">
                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border ">
@@ -72,15 +72,14 @@ export default function CategoryIndexRoute() {
                       {category.description[category.language]}
                     </Typography.TextMuted>
                   )}
-                  <Typography.TextSmall>
-                    <Link
-                      prefetch="intent"
-                      to={linkTo}
-                      className="before:absolute before:inset-0"
-                    >
-                      <span className="sr-only">View category</span>
-                    </Link>
-                  </Typography.TextSmall>
+
+                  <Link
+                    prefetch="intent"
+                    to={linkTo}
+                    className="before:absolute before:inset-0"
+                  >
+                    <span className="sr-only">View category</span>
+                  </Link>
                 </div>
               </div>
             </div>

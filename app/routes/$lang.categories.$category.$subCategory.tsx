@@ -1,7 +1,7 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
-import { MoveLeft, Search } from "lucide-react"
+import { Search } from "lucide-react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
@@ -17,6 +17,14 @@ import {
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { SITE_META } from "~/lib/utils"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -75,15 +83,45 @@ export default function SubCategoryByNameRoute() {
 
   return (
     <Layout useMargins translationUrl={translationUrl}>
-      <Link
-        to={`/${subCategory.language}/categories/${
-          category.slug[category.language]
-        }`}
-        className="text-brand hover:text-brandHover"
-      >
-        <MoveLeft className="inline h-4 w-4" /> View all{" "}
-        {category.title[category.language]}
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/" prefetch="intent">
+                Home
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link prefetch="intent" to={`/${category.language}/categories`}>
+                Categories
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link
+                prefetch="intent"
+                to={`/${subCategory.language}/categories/${
+                  category.slug[category.language]
+                }`}
+              >
+                {category.title[category.language]}
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              {subCategory.title[subCategory.language]}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <div className="holy-grail space-y-2 text-center">
         <Typography.H4 className="text-brand">
           {category.title[category.language]}

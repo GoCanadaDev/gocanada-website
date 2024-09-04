@@ -10,7 +10,7 @@ type LayoutProps = {
 
 export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
   const classes = useMargins
-    ? "container mx-auto grid grid-cols-1 gap-4 p-4 lg:gap-12 lg:p-12"
+    ? "container mx-auto grid grid-cols-1 gap-4 py-4 lg:gap-12 lg:px-12"
     : undefined
   return (
     <>

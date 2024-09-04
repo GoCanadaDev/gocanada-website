@@ -26,6 +26,14 @@ import Share from "~/components/Share"
 import Prose from "~/components/portable/Prose"
 import { cn } from "~/lib/utils"
 import MidRollBannerAd from "~/components/MidRollBannerAd"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -101,7 +109,48 @@ export default function Slug() {
 
   return (
     <Layout translationUrl={translationUrl}>
-      <article className="mb-24 mt-8">
+      <div className="container mx-auto p-4 lg:px-12">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/" prefetch="intent">
+                  Home
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link
+                  prefetch="intent"
+                  to={`/${post.language}/categories/${
+                    post.categories[0].slug[post.language]
+                  }`}
+                >
+                  {post.categories[0].title.en}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link
+                  prefetch="intent"
+                  to={`/${post.language}/categories/${post.categories[0].slug[post.language]}/${post.subCategories[0].slug[post.language]}`}
+                >
+                  {post.subCategories[0].title.en}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{post.title[post.language]}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      <article className="mb-24">
         <div className="w-full">
           <HeroImage
             fullBleed={post.mainImageFullBleed}

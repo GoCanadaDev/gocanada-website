@@ -10,9 +10,17 @@ import { client } from "~/sanity/client"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Author, getAuthor } from "~/sanity/queries"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { MoveLeft, Search } from "lucide-react"
+import { Search } from "lucide-react"
 import { SITE_META } from "~/lib/utils"
 import AuthorCard from "~/components/AuthorCard"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -59,12 +67,31 @@ export default function AuthorBySlugRoute() {
 
   return (
     <Layout useMargins translationUrl={translationUrl}>
-      <Link
-        to={`/${author.language}/authors`}
-        className="text-brand hover:text-brandHover"
-      >
-        <MoveLeft className="inline h-4 w-4" /> View all
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/" prefetch="intent">
+                Home
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link prefetch="intent" to={`/${author.language}/authors`}>
+                Authors
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+
+          <BreadcrumbItem>
+            <BreadcrumbPage>{author.name}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <AuthorCard author={author} />
       <Separator className="my-8" />
       {author.posts && author.posts.length > 0 ? (
