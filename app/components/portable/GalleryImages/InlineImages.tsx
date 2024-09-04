@@ -4,6 +4,8 @@ import { SingleImage } from "./SingleImage"
 export const InlineImages = ({ value }: GalleryImagesProps) => {
   if (!value) return null
 
+  const firstAspectRatio = value?.images[0]?.metadata?.dimensions?.aspectRatio
+
   return (
     <div
       className={`grid grid-cols-1 gap-8 md:grid-cols-${value.images.length}`}
@@ -14,6 +16,7 @@ export const InlineImages = ({ value }: GalleryImagesProps) => {
           <SingleImage
             key={image.asset._ref}
             inline
+            aspectRatio={firstAspectRatio}
             value={{
               asset: image.asset,
               alt: image.alt,

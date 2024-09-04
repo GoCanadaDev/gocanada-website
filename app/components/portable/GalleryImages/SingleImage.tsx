@@ -9,6 +9,7 @@ export type SingleImageProps = {
   square?: boolean
   inline?: boolean
   hideAttribution?: boolean
+  aspectRatio?: number
 }
 
 export const SingleImage = ({
@@ -17,6 +18,7 @@ export const SingleImage = ({
   square,
   inline,
   hideAttribution,
+  aspectRatio,
 }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
@@ -33,11 +35,13 @@ export const SingleImage = ({
     >
       <AspectRatio
         ratio={
-          square
-            ? 1
-            : (value.metadata?.dimensions.aspectRatio ??
-              (value.metadata?.dimensions.width ?? 1) /
-                (value.metadata?.dimensions.height ?? 1))
+          inline
+            ? aspectRatio
+            : square
+              ? 1
+              : (value.metadata?.dimensions.aspectRatio ??
+                (value.metadata?.dimensions.width ?? 1) /
+                  (value.metadata?.dimensions.height ?? 1))
         }
         className={cn(
           "relative overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]"

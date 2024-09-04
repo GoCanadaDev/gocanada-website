@@ -1,7 +1,7 @@
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
 import { ImageCrop, ImageHotspot } from "sanity"
+import { useEffect, useState } from "react"
 
 export type InlineAdProps = {
   enabledUntil?: string
@@ -22,10 +22,33 @@ export default function InlineAd({
 }: {
   value: InlineAdProps
 }) {
-  // TODO: do a date comparison
-  // if (!enabledUntil) {
-  //   return null
-  // }
+  const formattedDate = new Date(enabledUntil ?? "").toLocaleDateString(
+    `en-CA`,
+    {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }
+  )
+  const [today, setToday] = useState<string | null>(null)
+
+  useEffect(() => {
+    setToday(
+      new Date().toLocaleDateString(`en-CA`, {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    )
+  }, [])
+
+  if (
+    today &&
+    typeof enabledUntil === "string" &&
+    new Date(today).getTime() > new Date(formattedDate).getTime()
+  ) {
+    return null
+  }
 
   return (
     <div className="relative my-8 border bg-zinc-100 dark:bg-zinc-800">
