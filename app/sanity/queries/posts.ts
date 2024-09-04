@@ -10,64 +10,25 @@ import { Author } from "./authors"
 
 export const algoliaPostsProjection = `{
   "objectID": _id,
-  "title": {
-    "en": title.en,
-    "fr": title.fr,
-  },
-  "slug": {
-    "en": slug.en.current,
-    "fr": slug.fr.current,
-  },
+  "title": title.en,
+  "slug": slug.en.current,
   mainImage{
-    ...,
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
-  mainImageCaption,
-  mainImageAttribution,
-  mainImageAttributionUrl,
-  "excerpt": {
-    "en": excerpt.en,
-    "fr": excerpt.fr,
-  },
-  byline,
+  "excerpt": excerpt.en,
+  "body": body[_type == "block" && style == "normal"]{
+    "text": children[].text
+  }[].text[],
   "author": {
     "name": author->name,
     "slug": author->slug.current,
   },
   "categories": categories[]->{
-    "title": {
-      "en": title.en,
-      "fr": title.fr,
-    },
-    "slug": {
-      "en": slug.en.current,
-      "fr": slug.fr.current,
-    },
+    "title": title.en,
+    "slug": slug.en.current,
   },
-  "subCategories": subCategories[]->{
-    "title": {
-      "en": title.en,
-      "fr": title.fr,
-    },
-    "slug": {
-      "en": slug.en.current,
-      "fr": slug.fr.current,
-    },
-  },
-  "tags": tags[]->{
-    "title": {
-      "en": title.en,
-      "fr": title.fr,
-    },
-    "slug": {
-      "en": slug.en.current,
-      "fr": slug.fr.current,
-    },
-  },
-  isSponsored,
-  sponsoredText,
 }`
 
 export const algoliaPostsQuery = groq`*[_type == "postType"] | order(publishedAt desc) ${algoliaPostsProjection}`
@@ -406,11 +367,8 @@ export type Post = PostPreview & {
 
 export type AlgoliaPost = {
   objectID: string
-  title: LocalizedString
-  slug: {
-    en: Slug
-    fr: Slug
-  }
+  title: string
+  slug: string
   mainImage: {
     id: string
     preview: string
@@ -419,12 +377,10 @@ export type AlgoliaPost = {
     crop?: ImageCrop
   }
   excerpt: LocalizedString
-  isSponsored?: boolean
-  sponsoredText?: string
-  byline?: PortableTextBlock[]
+  body: string
   categories: {
-    title: Category["title"]
-    slug: Category["slug"]
+    title: string
+    slug: string
   }[]
   __position: number
   __queryID?: string | undefined

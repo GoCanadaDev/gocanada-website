@@ -76,7 +76,7 @@ export const SSRSearchProvider = ({
             <Hits
               hitComponent={Hit}
               classNames={{
-                list: "grid grid-cols-1 gap-4 sm:grid-cols-2",
+                list: "grid grid-cols-1 gap-4 sm:grid-cols-2 my-8",
                 item: "p-2 w-full border-b",
               }}
             />
