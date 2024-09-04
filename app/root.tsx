@@ -211,10 +211,10 @@ export default function App() {
   useChangeLanguage(langPreference || locale)
 
   const location = useLocation()
-  const [initFacebookPixel, setInitFacebookPixel] = useState(false)
+  const [initScripts, setInitScripts] = useState(false)
 
   useEffect(() => {
-    setInitFacebookPixel(true)
+    setInitScripts(true)
   }, [])
 
   useEffect(() => {
@@ -239,31 +239,32 @@ export default function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        {false && (
+        {!initScripts ||
+        process.env.NODE_ENV === "development" ||
+        !ENV.GTAG_ID ? null : (
           <>
             <script
               async
-              src="https://www.googletagmanager.com/gtag/js?id=G-NJ7GQNQFL2"
-            ></script>
+              src={`https://www.googletagmanager.com/gtag/js?id=${ENV.GTAG_ID}`}
+            />
             <script
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  gtag('config', 'G-NJ7GQNQFL2');
+                  gtag('config', ${ENV.GTAG_ID});
                   `,
               }}
             />
           </>
         )}
-        {!initFacebookPixel ||
+        {!initScripts ||
         process.env.NODE_ENV === "development" ||
         !ENV.FACEBOOK_PIXEL_ID ? null : (
           <>
             <script
               id="fb-pixel"
-              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   !function(f,b,e,v,n,t,s)

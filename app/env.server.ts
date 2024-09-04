@@ -42,6 +42,8 @@ export function getEnv() {
     "FACEBOOK_PIXEL_ID should be defined"
   )
 
+  invariant(process.env.GTAG_ID, "GTAG_ID should be defined")
+
   return {
     SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
     SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
@@ -52,6 +54,7 @@ export function getEnv() {
     ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
     ALGOLIA_ADMIN_API_KEY: "",
     FACEBOOK_PIXEL_ID: process.env.FACEBOOK_PIXEL_ID,
+    GTAG_ID: process.env.GTAG_ID,
   }
 }
 
