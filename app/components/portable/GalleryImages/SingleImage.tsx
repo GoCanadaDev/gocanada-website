@@ -53,7 +53,12 @@ export const SingleImage = ({
             {value.attribution ? (
               <span className="flex-1 text-right">
                 {value.attributionUrl ? (
-                  <a href={value.attributionUrl}>{value.attribution}</a>
+                  <a
+                    href={value.attributionUrl}
+                    className="!border-0 !font-normal"
+                  >
+                    {value.attribution}
+                  </a>
                 ) : (
                   value.attribution
                 )}
