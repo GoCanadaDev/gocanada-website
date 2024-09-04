@@ -26,6 +26,7 @@ export type Author = {
     crop?: ImageCrop
   } & ImageAsset
   posts?: PostPreview[]
+  postsCount?: number
 }
 
 export const authorsProjection = `
@@ -45,6 +46,7 @@ export const authorsProjection = `
   "facebook": facebook,
   "email": email,
   "language": $language,
+  "postsCount": count(*[_type == "postType" && references(^._id)]),
   image{
     ...,
     "id": asset._ref,

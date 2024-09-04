@@ -6,7 +6,6 @@ import { cn } from "~/lib/utils"
 export type SingleImageProps = {
   value: ImageProps
   className?: string
-  isInGrid?: boolean
   square?: boolean
   hideAttribution?: boolean
 }
@@ -14,14 +13,20 @@ export type SingleImageProps = {
 export const SingleImage = ({
   value,
   className,
-  isInGrid,
   square,
   hideAttribution,
 }: SingleImageProps) => {
   if (!value || !value?.asset?._ref) return null
 
+  const isPortrait = value.metadata?.dimensions.aspectRatio ?? 0 < 1
+
   return (
-    <figure className={value.fullBleed ? "full-bleed" : undefined}>
+    <figure
+      className={cn("", {
+        "full-bleed": value.fullBleed,
+        "mx-auto": isPortrait && !square,
+      })}
+    >
       <AspectRatio
         ratio={
           square
@@ -30,7 +35,9 @@ export const SingleImage = ({
               (value.metadata?.dimensions.width ?? 1) /
                 (value.metadata?.dimensions.height ?? 1))
         }
-        className="relative overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
+        className={cn(
+          "relative overflow-hidden [-webkit-mask-image:-webkit-radial-gradient(white,black)]"
+        )}
       >
         <Image
           id={value?.asset?._ref}

@@ -46,6 +46,9 @@ export default function AuthorsIndexRoute() {
     >
       <div className="grid auto-rows-min grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
         {authors?.map((author) => {
+          if (author.postsCount === 0) {
+            return null
+          }
           const linkTo = `/${lang}/authors/${author.slug}`
 
           return (
