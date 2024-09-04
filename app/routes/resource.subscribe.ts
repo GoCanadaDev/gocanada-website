@@ -45,7 +45,8 @@ export const action: ActionFunction = async ({ request }) => {
       })
     })
 
-  return redirect(`${request.headers.get("Referer")}?submitted`)
+  return null
+  // return redirect(`${request.headers.get("Referer")}?submitted`)
 }
 
 export const loader: LoaderFunction = async ({ request }) => {

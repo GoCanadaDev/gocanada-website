@@ -33,7 +33,6 @@ const SubscribeForm = ({
   pageLocation: "header" | "footer"
   setModalOpen?: (open: boolean) => void
 }) => {
-  const [searchParams] = useSearchParams()
   const location = useLocation()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,14 +42,13 @@ const SubscribeForm = ({
     },
   })
 
-  useEffect(() => {
-    if (searchParams.get("submitted") !== null) {
-      setModalOpen?.(false)
-      toast.success(`Thanks, we've received your request.`, {
-        description: `Please check your email to confirm your subscription.`,
-      })
-    }
-  }, [searchParams])
+  const handleSubmit = () => {
+    toast.success(`Thanks, we've received your request.`, {
+      description: `Please check your email to confirm your subscription.`,
+    })
+    form.reset()
+    setModalOpen?.(false)
+  }
 
   return (
     <Form {...form}>
@@ -59,6 +57,7 @@ const SubscribeForm = ({
         method="post"
         action="/resource/subscribe"
         navigate={false}
+        onSubmit={handleSubmit}
       >
         <input type="hidden" name="pathname" value={location.pathname} />
         <input type="hidden" name="pageLocation" value={pageLocation} />
