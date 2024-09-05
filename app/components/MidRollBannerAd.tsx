@@ -10,8 +10,8 @@ export default function MidRollBannerAd({}) {
   }
 
   return (
-    <div className="py-4">
-      <div className="px-[3.5vw]">
+    <div className="py-0 md:py-4">
+      <div className="px-0 md:px-[3.5vw]">
         <div className="m-auto max-w-4xl">
           <div
             style={{
