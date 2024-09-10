@@ -138,7 +138,7 @@ export function Footer() {
                 to={`/${currentLang}${link.route}`}
                 role="menuitem"
                 prefetch="intent"
-                className="block w-1/2 px-8 py-4 tracking-widest text-zinc-300 transition-colors duration-200 hover:text-brandHover md:w-auto"
+                className="block w-1/2 px-2 py-4 tracking-widest text-zinc-300 transition-colors duration-200 hover:text-brandHover md:w-auto md:px-8"
               >
                 {link.title[currentLang]}
               </Link>

@@ -6,9 +6,6 @@ import {
   Post,
   PostPreview,
   featuredPostsQuery,
-  getFeaturedPosts,
-  getPosts,
-  getTrendingPosts,
   postsQuery,
   trendingPostsQuery,
 } from "~/sanity/queries"
@@ -40,11 +37,11 @@ export const meta: MetaFunction<typeof loader> = ({
 }
 
 type IndexLoaderData = {
-  featuredPosts: PostPreview[]
-  siteConfig: SiteConfigType
-  trendingPosts: PostPreview[]
+  featuredPosts: QueryResponseInitial<Post[] | null>
   params: Params
-  posts: QueryResponseInitial<Post[]>
+  posts: QueryResponseInitial<Post[] | null>
+  siteConfig: SiteConfigType
+  trendingPosts: QueryResponseInitial<Post[] | null>
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -61,7 +58,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   // const trendingPosts = await getTrendingPosts(client, params.lang!)
   const siteConfig = await getSiteConfig(client)
 
-  const posts = await loadQuery<Post[]>(postsQuery, {
+  const posts = await loadQuery<Post[] | null>(postsQuery, {
     language: params.lang,
   }).then((res) => ({
     ...res,
@@ -72,7 +69,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Posts Not found", { status: 404 })
   }
 
-  const featuredPosts = await loadQuery<Post[]>(featuredPostsQuery, {
+  const featuredPosts = await loadQuery<Post[] | null>(featuredPostsQuery, {
     language: params.lang,
   }).then((res) => ({
     ...res,
@@ -83,7 +80,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Featured Posts Not found", { status: 404 })
   }
 
-  const trendingPosts = await loadQuery<Post[]>(trendingPostsQuery, {
+  const trendingPosts = await loadQuery<Post[] | null>(trendingPostsQuery, {
     language: params.lang,
   }).then((res) => ({
     ...res,
@@ -91,15 +88,15 @@ export const loader: LoaderFunction = async ({ params }) => {
   }))
 
   if (!trendingPosts.data) {
-    throw new Response("Featured Posts Not found", { status: 404 })
+    throw new Response("Trending Posts Not found", { status: 404 })
   }
 
   return json<IndexLoaderData>({
     featuredPosts,
-    siteConfig,
-    trendingPosts,
     params,
     posts,
+    siteConfig,
+    trendingPosts,
   })
 }
 
@@ -110,7 +107,7 @@ export default function Index() {
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
-  const { data: postsData, loading } = useQuery<any>(
+  const { data: postsData, loading } = useQuery<Post[] | null>(
     postsQuery,
     { language: params.lang },
     {
@@ -118,23 +115,25 @@ export default function Index() {
     }
   )
 
-  const { data: featuredPostsData, loading: featuredPostsLoading } =
-    useQuery<any>(
-      featuredPostsQuery,
-      { language: params.lang },
-      {
-        initial: featuredPosts,
-      }
-    )
+  const { data: featuredPostsData, loading: featuredPostsLoading } = useQuery<{
+    featuredPosts: Post[] | null
+  }>(
+    featuredPostsQuery,
+    { language: params.lang },
+    {
+      initial: featuredPosts as unknown as undefined,
+    }
+  )
 
-  const { data: trendingPostsData, loading: trendingPostsLoading } =
-    useQuery<any>(
-      trendingPostsQuery,
-      { language: params.lang },
-      {
-        initial: trendingPosts,
-      }
-    )
+  const { data: trendingPostsData, loading: trendingPostsLoading } = useQuery<{
+    trendingPosts: Post[] | null
+  }>(
+    trendingPostsQuery,
+    { language: params.lang },
+    {
+      initial: trendingPosts as unknown as undefined,
+    }
+  )
 
   const remainingPosts =
     !loading &&
@@ -142,20 +141,20 @@ export default function Index() {
     !trendingPostsLoading &&
     postsData?.filter(
       (post) =>
-        !featuredPostsData.featuredPosts.some(
+        !featuredPostsData?.featuredPosts?.some(
           (featured) => featured._id === post._id
         ) &&
-        !trendingPostsData.trendingPosts.some(
+        !trendingPostsData?.trendingPosts?.some(
           (trending) => trending._id === post._id
         )
     )
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <TopGrid posts={featuredPostsData.featuredPosts} />
+      <TopGrid posts={featuredPostsData?.featuredPosts || []} />
       <MidRollBannerAd />
-      <Trending posts={trendingPostsData.trendingPosts} />
-      <CardGrid posts={remainingPosts} />
+      <Trending posts={trendingPostsData?.trendingPosts || []} />
+      <CardGrid posts={remainingPosts || []} />
     </Layout>
   )
 }

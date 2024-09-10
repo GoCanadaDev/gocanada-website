@@ -176,7 +176,7 @@ export default function Slug() {
           })}
         >
           <div className="w-full text-center">
-            <Typography.Paragraph className="font-sans text-2xl italic text-zinc-500">
+            <Typography.Paragraph className="font-sans text-xl italic text-zinc-500 md:text-2xl">
               {post.excerpt[post.language]}
             </Typography.Paragraph>
           </div>
