@@ -1,10 +1,4 @@
-import {
-  Link,
-  Form as RemixForm,
-  useLocation,
-  useSearchParams,
-} from "@remix-run/react"
-import { useEffect } from "react"
+import { Link, Form as RemixForm, useLocation } from "@remix-run/react"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { toast } from "sonner"
@@ -21,6 +15,7 @@ import {
 } from "~/components/ui/form"
 import { Typography } from "./Typography"
 import { cn } from "~/lib/utils"
+import { Dispatch, SetStateAction } from "react"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -29,9 +24,11 @@ const formSchema = z.object({
 const SubscribeForm = ({
   pageLocation,
   setModalOpen,
+  setSubmitted,
 }: {
   pageLocation: "header" | "footer"
   setModalOpen?: (open: boolean) => void
+  setSubmitted?: Dispatch<SetStateAction<boolean>>
 }) => {
   const location = useLocation()
 
@@ -43,11 +40,22 @@ const SubscribeForm = ({
   })
 
   const handleSubmit = () => {
-    toast.success(`Thanks, we've received your request.`, {
-      description: `Please check your email to confirm your subscription.`,
-    })
+    if (pageLocation === "footer") {
+      toast.success(`Thanks, we've received your request.`, {
+        description: `Please check your email to confirm your subscription.`,
+        action: {
+          label: "Close",
+          onClick: () => {
+            toast.dismiss()
+          },
+        },
+      })
+      setModalOpen?.(false)
+    }
+    if (pageLocation === "header" && typeof setSubmitted === "function") {
+      setSubmitted(true)
+    }
     form.reset()
-    setModalOpen?.(false)
   }
 
   return (

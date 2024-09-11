@@ -17,6 +17,7 @@ const SubscribeModal = ({
   pageLocation: "header" | "footer"
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
@@ -35,17 +36,34 @@ const SubscribeModal = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="font-serif text-3xl">
-            Sign up for the Go Canada newsletter
+            {submitted
+              ? `Thanks, we've received your request.`
+              : "Sign up for the Go Canada newsletter"}
           </DialogTitle>
           <Typography.Paragraph className="text-sm">
-            Receive the latest in travel info and inspiration, plus insider
-            tips, giveaways and special offers, right in your inbox.
+            {submitted
+              ? "Please check your email to confirm your subscription."
+              : "Receive the latest in travel info and inspiration, plus insider tips, giveaways and special offers, right in your inbox."}
           </Typography.Paragraph>
         </DialogHeader>
-        <SubscribeForm
-          pageLocation={pageLocation}
-          setModalOpen={setModalOpen}
-        />
+        {submitted ? (
+          <div>
+            <Button
+              type="button"
+              onClick={() => setModalOpen(false)}
+              className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+            >
+              Close
+            </Button>
+          </div>
+        ) : (
+          <SubscribeForm
+            pageLocation={pageLocation}
+            setModalOpen={setModalOpen}
+            setSubmitted={setSubmitted}
+          />
+        )}
+
         <img
           src={GoCanadaLogoColour}
           alt="Go Canada Logo"

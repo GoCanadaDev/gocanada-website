@@ -49,7 +49,14 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
       <Header translationUrl={translationUrl} />
       <main className={classes} id="main">
         {children}
-        <Toaster closeButton />
+        <Toaster
+          closeButton
+          toastOptions={{
+            classNames: {
+              actionButton: "!bg-brand !hover:bg-brandHover",
+            },
+          }}
+        />
       </main>
       <Footer />
       {showGoTop && (
