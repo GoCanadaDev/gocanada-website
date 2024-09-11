@@ -21,18 +21,26 @@ import MidRollBannerAd from "~/components/MidRollBannerAd"
 import { useQuery } from "~/sanity/loader"
 import { loadQuery } from "~/sanity/loader.server"
 import { QueryResponseInitial } from "@sanity/react-loader"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: IndexLoaderData
 }) => {
+  const title = `${data.siteConfig.siteTitle} | Canadian trip planning & preparation made enjoyable and easy`
   return [
-    { title: data.siteConfig.siteTitle },
+    { title },
     {
       name: "description",
       content: data.siteConfig.siteDescription,
     },
+    { property: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:title", content: title },
+    { property: "og:title", content: title },
+    { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
+    { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
+    { property: "og:image", content: "/public/images/og-main.png" },
   ]
 }
 
