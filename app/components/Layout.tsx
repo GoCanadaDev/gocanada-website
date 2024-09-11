@@ -59,7 +59,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
               <TooltipTrigger asChild>
                 <button
                   onClick={handleScrollUp}
-                  className="fixed bottom-4 right-4 rounded-full bg-zinc-800 p-4"
+                  className="fixed bottom-4 right-4 rounded-full bg-zinc-200 p-2 hover:bg-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600"
                 >
                   <ArrowUp />
                 </button>

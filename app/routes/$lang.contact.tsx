@@ -201,7 +201,7 @@ const Contact = () => {
                       name="firstName"
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel className="font-sans">
+                          <FormLabel>
                             First Name
                             <RequiredText />
                           </FormLabel>
@@ -217,7 +217,7 @@ const Contact = () => {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel className="font-sans">Last Name</FormLabel>
+                          <FormLabel>Last Name</FormLabel>
                           <FormControl>
                             <Input {...field} />
                           </FormControl>
@@ -231,7 +231,7 @@ const Contact = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans">
+                        <FormLabel>
                           Email
                           <RequiredText />
                         </FormLabel>
@@ -247,7 +247,7 @@ const Contact = () => {
                     name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans">
+                        <FormLabel>
                           Subject
                           <RequiredText />
                         </FormLabel>
@@ -259,7 +259,7 @@ const Contact = () => {
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="font-sans">
+                            <SelectTrigger>
                               <SelectValue placeholder="Select an option" />
                             </SelectTrigger>
                           </FormControl>
@@ -284,7 +284,7 @@ const Contact = () => {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-sans">
+                        <FormLabel>
                           Message
                           <RequiredText />
                         </FormLabel>
