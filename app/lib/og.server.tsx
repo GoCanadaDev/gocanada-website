@@ -49,7 +49,7 @@ export async function generatePngFromDocument(
       style={{
         width: 1200,
         height: 630,
-        background: "linear-gradient( 135deg, #bf2327 10%, #d64945 100%)",
+        background: "#bf2327",
         color: "white",
         fontFamily: "Rasa",
         letterSpacing: "-0.05em",
