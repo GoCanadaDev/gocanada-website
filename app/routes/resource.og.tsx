@@ -17,7 +17,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     return new Response("Bad request", { status: 400 })
   }
 
-  const doc = await previewClient.fetch(`*[_id == $id][0]{ ..., artist-> }`, {
+  const doc = await previewClient.fetch(`*[_id == $id][0]{ ..., author-> }`, {
     id,
   })
 

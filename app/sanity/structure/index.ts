@@ -34,6 +34,7 @@ export const structure: StructureResolver = (S) =>
           S.documentList()
             .title("Published Posts")
             .defaultOrdering([{ field: "_createdAt", direction: "desc" }])
+            .apiVersion("v2023-11-15")
             .filter('_type == "postType" && !(_id in path("drafts.**"))')
             .child((id) => S.document().schemaType("postType").documentId(id))
         ),
@@ -44,6 +45,7 @@ export const structure: StructureResolver = (S) =>
           S.documentList()
             .title("Unpublished Posts")
             .defaultOrdering([{ field: "_createdAt", direction: "desc" }])
+            .apiVersion("v2023-11-15")
             .filter('_type == "postType" && (_id in path("drafts.**"))')
             .child((id) => S.document().schemaType("postType").documentId(id))
         ),
@@ -83,18 +85,16 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
   { schemaType, documentId }
 ) => {
-  // const OGPreviewView = S.view
-  //   .component(OGPreview)
-  //   .options({
-  //     url: resolveOGUrl(documentId),
-  //   })
-  //   .title("OG Preview")
+  const OGPreviewView = S.view
+    .component(OGPreview)
+    .options({
+      url: resolveOGUrl(documentId),
+    })
+    .title("OG Preview")
 
   switch (schemaType) {
-    // case `home`:
-    //   return S.document().views([S.view.form()])
-    // case `record`:
-    //   return S.document().views([S.view.form(), OGPreviewView])
+    case `postType`:
+      return S.document().views([S.view.form(), OGPreviewView])
     default:
       return S.document().views([S.view.form()])
   }

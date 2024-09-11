@@ -28,7 +28,7 @@ export const meta: MetaFunction<typeof loader> = ({
 }: {
   data: IndexLoaderData
 }) => {
-  const title = `${data.siteConfig.siteTitle} | Canadian trip planning & preparation made enjoyable and easy`
+  const title = `${data.siteConfig.siteTitle} | Travel inspiration and information to make planning your trip to Canada enjoyable and easy`
   return [
     { title },
     {
