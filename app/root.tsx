@@ -218,16 +218,31 @@ export default function App() {
   }, [ENV])
 
   useEffect(() => {
+    // Add external scripts if the cookie banner has been dismissed, thus the user has consented
+
     if (
+      !showCookieBanner &&
       window?.ENV.FACEBOOK_PIXEL_ID?.length &&
       process.env.NODE_ENV !== "development" &&
       typeof window?.fbq === "function"
     ) {
-      window.fbq("consent", "revoke")
+      window.fbq("consent", "grant")
       window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
       window.fbq("track", "PageView")
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+      })
+      window.gtag("consent", "update", {
+        ad_user_data: "granted",
+      })
+      window.gtag("consent", "update", {
+        ad_personalization: "granted",
+      })
+      window.gtag("consent", "update", {
+        analytics_storage: "granted",
+      })
     }
-  }, [location])
+  }, [location, showCookieBanner])
 
   return (
     <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
@@ -242,11 +257,11 @@ export default function App() {
         <Outlet />
         <noscript>
           <iframe
-            src={"https://www.googletagmanager.com/ns.html?id=" + ENV.GTAG_ID}
+            src={`https://www.googletagmanager.com/ns.html?id=${ENV.GTAG_ID}`}
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
-          />
+          ></iframe>
           <img
             height="1"
             width="1"

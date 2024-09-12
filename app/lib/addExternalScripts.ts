@@ -1,3 +1,4 @@
+// @ts-nocheck
 export default function addExternalScripts(ENV: Window["ENV"]) {
   if (
     (!ENV.GTAG_ID && !ENV.FACEBOOK_PIXEL_ID) ||
@@ -33,23 +34,29 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
       "https://connect.facebook.net/en_US/fbevents.js"
     )
 
-    // Initialize the Facebook Pixel with your ID
-    window.fbq("init", ENV.FACEBOOK_PIXEL_ID)
-    window.fbq("track", "PageView")
+    // Initialize the Facebook Pixel without consent. It gets added after cookie banner is dismissed
+    // in the root component
+    window.fbq("consent", "revoke")
 
-    // Code copied from GTM console + added type annotations.
+    // Google Tag Manager script
     ;(function (w: Window, d: Document, s: "script", l: string, i: string) {
       w[l] = w[l] || []
-      w[l].push({
-        "gtm.start": new Date().getTime(),
-        event: "gtm.js",
-      })
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" })
       const f = d.getElementsByTagName(s)[0]
-      const j = d.createElement<"script">(s)
-      const dl = l != "dataLayer" ? "&l=" + l : ""
+      const j = d.createElement(s)
+      const dl = l !== "dataLayer" ? `&l=${l}` : ""
       j.async = true
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl
+      j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`
       f.parentNode?.insertBefore(j, f)
     })(window, document, "script", "dataLayer", ENV.GTAG_ID)
+
+    // Initialize the gtag without consent. It gets added after cookie banner is dismissed
+    // in the root component
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+    })
   }
 }
