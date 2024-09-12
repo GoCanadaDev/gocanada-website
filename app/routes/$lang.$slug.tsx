@@ -19,7 +19,6 @@ import invariant from "tiny-invariant"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import PortableTextComponents from "~/components/portable"
-import { SITE_META } from "~/lib/utils"
 import { MiniCard } from "~/components/MiniCard"
 import AuthorCard from "~/components/AuthorCard"
 import Share from "~/components/Share"
@@ -122,7 +121,7 @@ export const loader: LoaderFunction = async ({
 }
 
 export default function Slug() {
-  const { post } = useLoaderData() as LoaderDataType
+  const { post } = useLoaderData<LoaderDataType>()
   const otherLanguage = useOtherLanguage()
   const formattedDate = useFormattedDate(post.publishedAt, post.language)
 
@@ -270,8 +269,8 @@ export default function Slug() {
                 value={[...post.body].slice(0, halfwayThroughBodyMarker)}
                 components={PortableTextComponents}
               />
-              <div className="relative my-8 border bg-zinc-100 dark:bg-zinc-800">
-                <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 dark:bg-zinc-950">
+              <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
+                <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
                   ad
                 </div>
                 <MidRollBannerAd />

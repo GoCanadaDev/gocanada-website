@@ -5,13 +5,29 @@ import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { LogoIcon } from "~/components/LogoIcon"
 import { Button } from "~/components/ui/button"
-import { useLoaderData, useNavigate } from "@remix-run/react"
+import { MetaFunction, useLoaderData, useNavigate } from "@remix-run/react"
+import { client } from "~/sanity/client"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import { genericMetaTags } from "~/lib/utils"
+
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: { siteConfig: SiteConfigType }
+}) => {
+  const title = `Confirm Subscription | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   let { searchParams } = new URL(request.url)
   let email = searchParams.get("email")
   let pathname = searchParams.get("pathname")
   let pageLocation = searchParams.get("pageLocation")
+
+  const siteConfig = await getSiteConfig(client)
 
   const data = {
     contacts: [
@@ -46,6 +62,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     email,
+    siteConfig,
   }
 }
 

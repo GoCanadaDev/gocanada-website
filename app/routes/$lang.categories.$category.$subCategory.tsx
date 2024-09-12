@@ -16,7 +16,7 @@ import {
 } from "~/sanity/queries"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { SITE_META } from "~/lib/utils"
+import { genericMetaTags, SITE_META } from "~/lib/utils"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -25,30 +25,22 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: LoaderDataType
 }) => {
-  const title = [
-    data?.subCategory?.title[data.subCategory.language],
-    SITE_META.siteTitle,
-  ]
-    .filter(Boolean)
-    .join(" | ")
-
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+  const title = `${data.subCategory.title.en} | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
 }
 
 type LoaderDataType = {
   category: Category
   subCategory: SubCategory
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({
@@ -57,7 +49,9 @@ export const loader: LoaderFunction = async ({
   invariant(params.category, "Expected category param")
   invariant(params.subCategory, "Expected subCategory param")
   isLangSupportedLang(params.lang)
+
   const category = await getCategory(client, params.category!, params.lang!)
+
   if (!category) {
     throw new Response("Category Not found", { status: 404 })
   }
@@ -70,14 +64,18 @@ export const loader: LoaderFunction = async ({
   if (!subCategory) {
     throw new Response("Sub Category Not found", { status: 404 })
   }
+
+  const siteConfig = await getSiteConfig(client)
+
   return json({
     category,
     subCategory,
+    siteConfig,
   })
 }
 
 export default function SubCategoryByNameRoute() {
-  const { category, subCategory } = useLoaderData() as LoaderDataType
+  const { category, subCategory } = useLoaderData<LoaderDataType>()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/categories/${subCategory.slug[otherLanguage]}`
 

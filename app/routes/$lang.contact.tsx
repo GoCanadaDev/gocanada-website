@@ -13,6 +13,7 @@ import {
   redirect,
   useSearchParams,
   useSubmit,
+  MetaFunction,
 } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/portable"
@@ -41,11 +42,24 @@ import {
   SelectValue,
 } from "~/components/ui/select"
 import { HeroImage } from "~/components/HeroImage"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { genericMetaTags } from "~/lib/utils"
+
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: StaticPageLoaderData
+}) => {
+  const title = `Contact | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
+}
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
+  siteConfig: SiteConfigType
 }
-
 const formSchema = z.object({
   firstName: z
     .string()
@@ -91,8 +105,9 @@ export const loader: LoaderFunction = async ({ params }) => {
   isLangSupportedLang(params.lang)
 
   const staticPage = await getStaticPageByRoute(client, params.lang, "/contact")
+  const siteConfig = await getSiteConfig(client)
 
-  return json({ staticPage }, { status: 200 })
+  return json({ staticPage, siteConfig }, { status: 200 })
 }
 
 const RequiredText = () => (
@@ -102,7 +117,7 @@ const RequiredText = () => (
 )
 
 const Contact = () => {
-  const { staticPage } = useLoaderData() as StaticPageLoaderData
+  const { staticPage } = useLoaderData<StaticPageLoaderData>()
   const otherLanguage = useOtherLanguage()
   const [searchParams] = useSearchParams()
   const submit = useSubmit()

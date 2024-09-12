@@ -7,35 +7,38 @@ import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Author, getAuthors } from "~/sanity/queries"
 import UserMediaObject from "~/components/UserMediaObject"
-import { MoveRight } from "lucide-react"
-import { SITE_META } from "~/lib/utils"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import { genericMetaTags } from "~/lib/utils"
 
-export const meta: MetaFunction<typeof loader> = () => {
-  const title = ["Authors", SITE_META.siteTitle].filter(Boolean).join(" | ")
-
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: LoaderDataType
+}) => {
+  const title = `Authors | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
 }
 
-interface IndexLoaderData {
+type LoaderDataType = {
   authors: Author[]
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
   isLangSupportedLang(params.lang)
   const authors = await getAuthors(client, params.lang!)
+  const siteConfig = await getSiteConfig(client)
 
-  return json<IndexLoaderData>({
+  return json({
     authors,
+    siteConfig,
   })
 }
 
 export default function AuthorsIndexRoute() {
-  const { authors } = useLoaderData() as IndexLoaderData
+  const { authors } = useLoaderData<LoaderDataType>()
   const params = useParams()
   const lang = params.lang as SupportedLanguages
 

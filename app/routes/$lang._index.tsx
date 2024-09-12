@@ -127,7 +127,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function Index() {
   const { posts, featuredPosts, trendingPosts, params } =
-    useLoaderData() as IndexLoaderData
+    useLoaderData<IndexLoaderData>()
   const {
     i18n: { language },
   } = useTranslation()

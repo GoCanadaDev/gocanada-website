@@ -11,7 +11,7 @@ import { client } from "~/sanity/client"
 import { Category, getCategory } from "~/sanity/queries"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { SITE_META } from "~/lib/utils"
+import { genericMetaTags, SITE_META } from "~/lib/utils"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,29 +20,21 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: LoaderDataType
 }) => {
-  const title = [
-    data?.category?.title[data.category.language],
-    SITE_META.siteTitle,
-  ]
-    .filter(Boolean)
-    .join(" | ")
-
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+  const title = `${data.category.title.en} | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
 }
 
 type LoaderDataType = {
   category: Category
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({
@@ -51,6 +43,7 @@ export const loader: LoaderFunction = async ({
   invariant(params.category, "Expected category param")
   isLangSupportedLang(params.lang)
   const category = await getCategory(client, params.category!, params.lang!)
+  const siteConfig = await getSiteConfig(client)
 
   if (!category) {
     throw new Response("Not found", { status: 404 })
@@ -58,11 +51,12 @@ export const loader: LoaderFunction = async ({
 
   return json({
     category,
+    siteConfig,
   })
 }
 
 export default function CategoryByNameRoute() {
-  const { category } = useLoaderData() as LoaderDataType
+  const { category } = useLoaderData<LoaderDataType>()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/categories/${category.slug[otherLanguage]}`
 

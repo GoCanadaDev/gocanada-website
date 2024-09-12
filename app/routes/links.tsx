@@ -5,41 +5,35 @@ import { client } from "~/sanity/client"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Image } from "~/components/Image"
-import { SITE_META } from "~/lib/utils"
 import { LinksPageType, getLinks } from "~/sanity/queries/links"
 import { urlForImage } from "~/lib/sanity.image"
 import { Avatar, AvatarImage } from "~/components/ui/avatar"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "./resource.og"
+import { genericMetaTags } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: LoaderDataType
 }) => {
-  const title = [
-    data?.linksPageData?.title,
-    data?.linksPageData?.leadIn,
-    SITE_META.siteTitle,
-  ]
-    .filter(Boolean)
-    .join(" | ")
-
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+  const title = `Links | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
 }
 
 type LoaderDataType = {
   linksPageData: LinksPageType
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async () => {
   const linksPageData = await getLinks(client)
+  const siteConfig = await getSiteConfig(client)
 
   return json({
     linksPageData,
+    siteConfig,
   })
 }
 

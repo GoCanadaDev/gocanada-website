@@ -7,34 +7,37 @@ import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import { Tag as TagIcon } from "lucide-react"
-import { SITE_META } from "~/lib/utils"
+import { genericMetaTags, SITE_META } from "~/lib/utils"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 
-export const meta: MetaFunction<typeof loader> = () => {
-  const title = ["Categories", SITE_META.siteTitle].filter(Boolean).join(" | ")
-
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: LoaderDataType
+}) => {
+  const title = `Categories | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
 }
 
-interface IndexLoaderData {
+interface LoaderDataType {
   categories: Category[]
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
   isLangSupportedLang(params.lang)
   const categories = await getCategories(client, params.lang!)
+  const siteConfig = await getSiteConfig(client)
 
-  return json<IndexLoaderData>({
+  return json<LoaderDataType>({
     categories,
+    siteConfig,
   })
 }
 
 export default function CategoryIndexRoute() {
-  const { categories } = useLoaderData() as IndexLoaderData
+  const { categories } = useLoaderData<LoaderDataType>()
   const params = useParams()
   const lang = params.lang as SupportedLanguages
 

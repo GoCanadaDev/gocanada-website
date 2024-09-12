@@ -76,7 +76,7 @@ function Search({ serverState, serverUrl, themePreference }: SearchProps) {
 
 export default function SearchPage() {
   const { serverState, serverUrl, query, themePreference } =
-    useLoaderData() as SearchProps
+    useLoaderData<SearchProps>()
 
   return (
     <Layout useMargins>

@@ -11,7 +11,6 @@ import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { Author, getAuthor } from "~/sanity/queries"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { Search } from "lucide-react"
-import { SITE_META } from "~/lib/utils"
 import AuthorCard from "~/components/AuthorCard"
 import {
   Breadcrumb,
@@ -21,26 +20,24 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import { genericMetaTags } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: LoaderDataType
 }) => {
-  const title = [data?.author?.name, SITE_META.siteTitle]
-    .filter(Boolean)
-    .join(" | ")
-
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+  const title = `${data.author.name} | ${data.siteConfig.siteTitle}`
+  const description =
+    data.author.bio.en.substring(0, 160) || data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
 }
 
 type LoaderDataType = {
   author: Author
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({
@@ -50,6 +47,7 @@ export const loader: LoaderFunction = async ({
   invariant(params.slug, "Expected slug param")
 
   const author = await getAuthor(client, params.lang!, params.slug!)
+  const siteConfig = await getSiteConfig(client)
 
   if (!author) {
     throw new Response("Not found", { status: 404 })
@@ -57,11 +55,12 @@ export const loader: LoaderFunction = async ({
 
   return json({
     author,
+    siteConfig,
   })
 }
 
 export default function AuthorBySlugRoute() {
-  const { author } = useLoaderData() as LoaderDataType
+  const { author } = useLoaderData<LoaderDataType>()
   const otherLanguage = useOtherLanguage()
   const translationUrl = `/${otherLanguage}/${author.slug}`
 

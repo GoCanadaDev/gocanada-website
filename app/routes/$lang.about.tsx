@@ -1,30 +1,44 @@
 import { Layout } from "~/components/Layout"
-import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { json, LoaderFunction } from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
-import { useLoaderData } from "@remix-run/react"
+import { MetaFunction, useLoaderData } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/portable"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import Prose from "~/components/portable/Prose"
 import { HeroImage } from "~/components/HeroImage"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import { genericMetaTags } from "~/lib/utils"
+
+export const meta: MetaFunction<typeof loader> = ({
+  data,
+}: {
+  data: StaticPageLoaderData
+}) => {
+  const title = `About | ${data.siteConfig.siteTitle}`
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({ title, description })
+}
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
   isLangSupportedLang(params.lang)
 
   const staticPage = await getStaticPageByRoute(client, params.lang, "/about")
+  const siteConfig = await getSiteConfig(client)
 
-  return json({ staticPage }, { status: 200 })
+  return json({ staticPage, siteConfig }, { status: 200 })
 }
 
 const About = () => {
-  const { staticPage } = useLoaderData() as StaticPageLoaderData
+  const { staticPage } = useLoaderData<StaticPageLoaderData>()
   const otherLanguage = useOtherLanguage()
 
   return (
