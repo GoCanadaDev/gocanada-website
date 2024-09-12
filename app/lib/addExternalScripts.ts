@@ -52,7 +52,7 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
 
     // Initialize the gtag without consent. It gets added after cookie banner is dismissed
     // in the root component
-    window.gtag("consent", "default", {
+    window.gtag?.("consent", "default", {
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied",
