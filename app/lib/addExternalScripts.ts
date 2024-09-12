@@ -39,6 +39,14 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
     window.fbq("consent", "revoke")
 
     // Google Tag Manager script
+    // Fallback: Create a gtag function if it's not yet available
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      window.dataLayer.push(arguments)
+    }
+    window.gtag = window.gtag || gtag
+
+    // Add the GTM script tag
     ;(function (w: Window, d: Document, s: "script", l: string, i: string) {
       w[l] = w[l] || []
       w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" })
@@ -52,7 +60,7 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
 
     // Initialize the gtag without consent. It gets added after cookie banner is dismissed
     // in the root component
-    window.gtag?.("consent", "default", {
+    window.gtag("consent", "default", {
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied",

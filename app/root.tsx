@@ -224,7 +224,8 @@ export default function App() {
       !showCookieBanner &&
       window?.ENV.FACEBOOK_PIXEL_ID?.length &&
       process.env.NODE_ENV !== "development" &&
-      typeof window?.fbq === "function"
+      typeof window?.fbq === "function" &&
+      typeof window?.gtag === "function"
     ) {
       window.fbq("consent", "grant")
       window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
