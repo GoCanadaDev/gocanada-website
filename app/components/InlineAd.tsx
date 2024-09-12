@@ -51,8 +51,8 @@ export default function InlineAd({
   }
 
   return (
-    <div className="relative my-8 border bg-zinc-100 dark:bg-zinc-800">
-      <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 dark:bg-zinc-950">
+    <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
+      <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
         ad
       </div>
       <div className="py-0 md:py-4">

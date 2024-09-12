@@ -230,16 +230,11 @@ export default function App() {
       window.fbq("consent", "grant")
       window.fbq("init", window.ENV.FACEBOOK_PIXEL_ID)
       window.fbq("track", "PageView")
+
       window.gtag("consent", "update", {
         ad_storage: "granted",
-      })
-      window.gtag("consent", "update", {
         ad_user_data: "granted",
-      })
-      window.gtag("consent", "update", {
         ad_personalization: "granted",
-      })
-      window.gtag("consent", "update", {
         analytics_storage: "granted",
       })
     }
