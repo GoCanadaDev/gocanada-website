@@ -2,6 +2,7 @@ import type {
   LoaderFunction,
   LoaderFunctionArgs,
   MetaFunction,
+  HeadersFunction,
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, useLoaderData } from "@remix-run/react"
@@ -113,12 +114,24 @@ export const loader: LoaderFunction = async ({
   const { origin } = new URL(request.url)
   const ogImageUrl = `${origin}/resource/og?id=${post._id}`
 
-  return json({
-    post,
-    ogImageUrl,
-    siteConfig,
-  })
+  return json(
+    {
+      post,
+      ogImageUrl,
+      siteConfig,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        // Tag with the post id
+        "Cache-Tag": `posts:id:${post._id}`,
+      },
+    }
+  )
 }
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Slug() {
   const { post } = useLoaderData<LoaderDataType>()

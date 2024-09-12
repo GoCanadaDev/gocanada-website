@@ -1,7 +1,7 @@
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json, LoaderFunction } from "@remix-run/node"
+import { json, LoaderFunction, HeadersFunction } from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
 import { MetaFunction, useLoaderData } from "@remix-run/react"
@@ -35,8 +35,23 @@ export const loader: LoaderFunction = async ({ params }) => {
   const staticPage = await getStaticPageByRoute(client, params.lang, "/privacy")
   const siteConfig = await getSiteConfig(client)
 
-  return json({ staticPage, siteConfig }, { status: 200 })
+  return json(
+    { staticPage, siteConfig },
+    {
+      status: 200,
+      headers: {
+        // Always revalidate in the browser
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        // Cache for a year in the CDN
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        // Purge from the cache whenever the static page changes
+        "Cache-Tag": "static-pages:privacy",
+      },
+    }
+  )
 }
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 const Privacy = () => {
   const { staticPage } = useLoaderData<StaticPageLoaderData>()

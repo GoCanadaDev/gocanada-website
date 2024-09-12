@@ -4,7 +4,12 @@ import { useForm } from "react-hook-form"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json, LoaderFunction, ActionFunction } from "@remix-run/node"
+import {
+  json,
+  LoaderFunction,
+  ActionFunction,
+  HeadersFunction,
+} from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
 import {
@@ -107,8 +112,23 @@ export const loader: LoaderFunction = async ({ params }) => {
   const staticPage = await getStaticPageByRoute(client, params.lang, "/contact")
   const siteConfig = await getSiteConfig(client)
 
-  return json({ staticPage, siteConfig }, { status: 200 })
+  return json(
+    { staticPage, siteConfig },
+    {
+      status: 200,
+      headers: {
+        // Always revalidate in the browser
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        // Cache for a year in the CDN
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        // Purge from the cache whenever the static page changes
+        "Cache-Tag": "static-pages:contact",
+      },
+    }
+  )
 }
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 const RequiredText = () => (
   <span className="ml-2 font-sans text-sm font-normal text-zinc-500 dark:text-zinc-400">

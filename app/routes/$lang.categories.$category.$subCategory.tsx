@@ -1,4 +1,8 @@
-import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
+import type {
+  LoaderFunction,
+  LoaderFunctionArgs,
+  HeadersFunction,
+} from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
 import { Search } from "lucide-react"
@@ -67,12 +71,24 @@ export const loader: LoaderFunction = async ({
 
   const siteConfig = await getSiteConfig(client)
 
-  return json({
-    category,
-    subCategory,
-    siteConfig,
-  })
+  return json(
+    {
+      category,
+      subCategory,
+      siteConfig,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        // Tag with the category id
+        "Cache-Tag": `posts:category:${params.category}:subCategory:${params.subCategory}`,
+      },
+    }
+  )
 }
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function SubCategoryByNameRoute() {
   const { category, subCategory } = useLoaderData<LoaderDataType>()

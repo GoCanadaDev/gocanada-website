@@ -1,4 +1,8 @@
-import type { MetaFunction, LoaderFunction } from "@remix-run/node"
+import type {
+  MetaFunction,
+  LoaderFunction,
+  HeadersFunction,
+} from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Params, useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
@@ -116,14 +120,28 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Trending Posts Not found", { status: 404 })
   }
 
-  return json<IndexLoaderData>({
-    featuredPosts,
-    params,
-    posts,
-    siteConfig,
-    trendingPosts,
-  })
+  return json<IndexLoaderData>(
+    {
+      featuredPosts,
+      params,
+      posts,
+      siteConfig,
+      trendingPosts,
+    },
+    {
+      headers: {
+        // Always revalidate in the browser
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        // Cache for a year in the CDN
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        // Purge from the cache whenever the posts change
+        "Cache-Tag": "posts",
+      },
+    }
+  )
 }
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Index() {
   const { posts, featuredPosts, trendingPosts, params } =
