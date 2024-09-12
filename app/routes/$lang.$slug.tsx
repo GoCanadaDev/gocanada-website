@@ -80,12 +80,9 @@ export const meta: MetaFunction<typeof loader> = ({
       content: data.post.subCategories.map((sc) => sc.title.en).join(", "),
     },
     {
-      link: [
-        {
-          rel: "canonical",
-          href: `https://gocanada.com/en/${data.post.slug.en}`,
-        },
-      ],
+      tagName: "link",
+      rel: "canonical",
+      href: `https://gocanada.com/en/${data.post.slug.en}`,
     },
   ]
 }
