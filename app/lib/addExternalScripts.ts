@@ -45,6 +45,8 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
       window.dataLayer.push(arguments)
     }
     window.gtag = window.gtag || gtag
+    gtag("js", new Date())
+    gtag("config", ENV.GTAG_ID)
 
     // Add the GTM script tag
     ;(function (w: Window, d: Document, s: "script", l: string, i: string) {
