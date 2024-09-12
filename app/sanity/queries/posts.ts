@@ -321,6 +321,7 @@ export type PostPreview = {
   _type: "post"
   _id: string
   _createdAt: string
+  _updatedAt: string
   language: "en" | "fr"
   title: LocalizedString
   author: Author
@@ -363,6 +364,7 @@ export type Post = PostPreview & {
   mainImageAttributionUrl: string
   mainImageFullBleed: boolean
   mainImageGradientOverlay: boolean
+  publishedAt: string
 }
 
 export type AlgoliaPost = {

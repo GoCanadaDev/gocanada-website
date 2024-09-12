@@ -34,31 +34,66 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
+import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: LoaderDataType
 }) => {
-  const title = [data?.post?.title[data.post.language], SITE_META.siteTitle]
+  const title = [
+    data?.post?.title[data.post.language],
+    data.siteConfig.siteTitle,
+  ]
     .filter(Boolean)
     .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
+  const description = data.post.excerpt.en
 
   return [
     { title },
+    { name: "description", content: description },
     { property: "twitter:card", content: "summary_large_image" },
     { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
+    { property: "twitter:site", content: "@gocanada" },
+    { property: "twitter:description", content: description },
+    { property: "twitter:image", content: "ogImageUrl" },
+    { property: "og:image", content: ogImageUrl },
     { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
-    { property: "og:image", content: ogImageUrl },
+    { property: "og:type", content: "article" },
+    {
+      property: "og:url",
+      content: `https://gocanada.com/en/${data.post.slug.en}`,
+    },
+    { property: "og:title", content: title },
+    { property: "og:site_name", content: "Go Canada" },
+    { property: "og:locale", content: "en_CA" },
+    { property: "og:description", content: description },
+    { property: "og:image:type", content: "image/png" },
+    { property: "article:published_time", content: data.post.publishedAt },
+    { property: "article:modified_time", content: data.post._updatedAt },
+    { property: "article:author", content: data.post.author.name },
+    { property: "article:section", content: data.post.categories[0].title.en },
+    {
+      property: "article:tag",
+      content: data.post.subCategories.map((sc) => sc.title.en).join(", "),
+    },
+    {
+      link: [
+        {
+          rel: "canonical",
+          href: `https://gocanada.com/en/${data.post.slug.en}`,
+        },
+      ],
+    },
   ]
 }
 
 type LoaderDataType = {
   post: Post
   ogImageUrl: string
+  siteConfig: SiteConfigType
 }
 
 export const loader: LoaderFunction = async ({
@@ -76,6 +111,7 @@ export const loader: LoaderFunction = async ({
       statusText: "Not Found",
     })
   }
+  const siteConfig = await getSiteConfig(client)
 
   // Create social share image url
   const { origin } = new URL(request.url)
@@ -84,13 +120,14 @@ export const loader: LoaderFunction = async ({
   return json({
     post,
     ogImageUrl,
+    siteConfig,
   })
 }
 
 export default function Slug() {
   const { post } = useLoaderData() as LoaderDataType
   const otherLanguage = useOtherLanguage()
-  const formattedDate = useFormattedDate(post._createdAt, post.language)
+  const formattedDate = useFormattedDate(post.publishedAt, post.language)
 
   const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
 

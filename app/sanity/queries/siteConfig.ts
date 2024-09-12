@@ -7,6 +7,7 @@ export type SiteConfigType = {
   keywords: string[]
   siteDescription: string
   siteTitle: string
+  siteTitleDescription: string
   footerText: string
 }
 
@@ -15,6 +16,7 @@ export const siteConfigQuery = groq`*[_type == "siteConfigType"] {
   keywords,
   siteDescription,
   siteTitle,
+  siteTitleDescription,
   footerText,
 }`
 

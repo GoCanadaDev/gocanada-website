@@ -10,17 +10,24 @@ export const siteConfigType = defineType({
       name: "siteTitle",
       title: "Site Title",
       description:
-        "This is the title that will be displayed in the browser tab and for SEO purposes.",
+        "This is the short title that will be displayed on all pages.",
       type: "string",
     }),
-    {
+    defineField({
+      name: "siteTitleDescription",
+      title: "Site Title Description",
+      description:
+        "This is the title that will be displayed in the browser tab and for SEO purposes, after the Site Title.",
+      type: "string",
+    }),
+    defineField({
       name: "siteDescription",
       type: "text",
       title: "Site Description",
       description:
         "Describe your blog for search engines and social media, ideally less than 160 characters.",
-    },
-    {
+    }),
+    defineField({
       name: "keywords",
       type: "array",
       title: "Keywords",
@@ -29,7 +36,7 @@ export const siteConfigType = defineType({
       options: {
         layout: "tags",
       },
-    },
+    }),
     defineField({
       name: "enablePartners",
       title: "Show/Hide Partners",

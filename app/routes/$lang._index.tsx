@@ -4,7 +4,6 @@ import { Params, useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import {
   Post,
-  PostPreview,
   featuredPostsQuery,
   postsQuery,
   trendingPostsQuery,
@@ -28,7 +27,7 @@ export const meta: MetaFunction<typeof loader> = ({
 }: {
   data: IndexLoaderData
 }) => {
-  const title = `${data.siteConfig.siteTitle} | Travel inspiration and information to make planning your trip to Canada enjoyable and easy`
+  const title = `${data.siteConfig.siteTitle} | ${data.siteConfig.siteTitleDescription}`
   return [
     { title },
     {
@@ -81,9 +80,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 
   isLangSupportedLang(params.lang)
-  // const posts = await getPosts(client, params.lang!)
-  // const featuredPosts = await getFeaturedPosts(client, params.lang!)
-  // const trendingPosts = await getTrendingPosts(client, params.lang!)
+
   const siteConfig = await getSiteConfig(client)
 
   const posts = await loadQuery<Post[] | null>(postsQuery, {
