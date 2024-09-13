@@ -8,7 +8,6 @@ import { Typography } from "~/components/Typography"
 import { Author, getAuthors } from "~/sanity/queries"
 import UserMediaObject from "~/components/UserMediaObject"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
 import { genericMetaTags } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({

@@ -167,6 +167,7 @@ export function MobileNavigation() {
                       </Typography.H4>
                       <ul>
                         <ListItem
+                          key="All of Canada"
                           title="All of Canada"
                           href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
                         />

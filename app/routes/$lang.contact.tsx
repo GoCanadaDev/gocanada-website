@@ -47,7 +47,6 @@ import {
   SelectValue,
 } from "~/components/ui/select"
 import { HeroImage } from "~/components/HeroImage"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { genericMetaTags } from "~/lib/utils"
 

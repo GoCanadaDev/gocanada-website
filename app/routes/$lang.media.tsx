@@ -11,7 +11,6 @@ import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import Prose from "~/components/portable/Prose"
 import { HeroImage } from "~/components/HeroImage"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
 import { genericMetaTags } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({

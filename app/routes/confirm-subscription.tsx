@@ -1,15 +1,17 @@
 import type { LoaderFunction } from "@remix-run/node"
-import { ClientRequest } from "@sendgrid/client/src/request"
-import sendgrid from "~/lib/sendgrid"
+import type { MetaFunction } from "@remix-run/react"
+import { useLoaderData, useNavigate } from "@remix-run/react"
+import type { ClientRequest } from "@sendgrid/client/src/request"
+
 import { Layout } from "~/components/Layout"
-import { Typography } from "~/components/Typography"
 import { LogoIcon } from "~/components/LogoIcon"
+import { Typography } from "~/components/Typography"
 import { Button } from "~/components/ui/button"
-import { MetaFunction, useLoaderData, useNavigate } from "@remix-run/react"
-import { client } from "~/sanity/client"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import sendgrid from "~/lib/sendgrid"
 import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
