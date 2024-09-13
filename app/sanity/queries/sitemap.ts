@@ -2,6 +2,11 @@ import groq from "groq"
 import type { SanityClient } from "@sanity/client"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
+export type SitemapSlugs = {
+  slug: string
+  subCategories?: { slug: string }[]
+}
+
 const sitemapQuery = groq`*[_type in ["postType", "authorType", "staticPageType", "categoryType"]]{
     _type == "postType" => {
       "slug": "en/" + slug.en.current
@@ -23,5 +28,5 @@ const sitemapQuery = groq`*[_type in ["postType", "authorType", "staticPageType"
 
 export async function getSitemapSlugs(client: SanityClient) {
   const result = await client.fetch(sitemapQuery)
-  return Object.values(sanitizeStrings(result))
+  return Object.values(sanitizeStrings(result)) as SitemapSlugs[]
 }

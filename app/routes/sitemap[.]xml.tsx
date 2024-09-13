@@ -1,18 +1,16 @@
 import { LoaderFunction } from "@remix-run/node"
 import { client } from "~/sanity/client"
-import { getSitemapSlugs } from "~/sanity/queries/sitemap"
+import { getSitemapSlugs, SitemapSlugs } from "~/sanity/queries/sitemap"
 
-const renderXML = (
-  slugs: { slug?: string; subCategories?: Array<{ slug?: string }> }[]
-) => {
+const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
   const url = "https://gocanada.com"
 
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
       <loc>${`${url}/en`}</loc>
-    </url>
-    ${slugs.filter(Boolean).map((item) => {
+    </url>,
+    ${sitemapSlugs.filter(Boolean).map((item) => {
       if (!item.slug) return ""
       if (item.subCategories?.length) {
         return `
@@ -43,9 +41,9 @@ const renderXML = (
 }
 
 export const loader: LoaderFunction = async () => {
-  const slugs = await getSitemapSlugs(client)
+  const sitemapSlugs = await getSitemapSlugs(client)
 
-  return new Response(renderXML(slugs), {
+  return new Response(renderXML(sitemapSlugs), {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "x-content-type-options": "nosniff",
