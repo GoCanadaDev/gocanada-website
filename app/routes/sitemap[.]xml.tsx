@@ -3,17 +3,21 @@ import { client } from "~/sanity/client"
 import { getSitemapSlugs, SitemapSlugs } from "~/sanity/queries/sitemap"
 
 const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
-  const url = "https://gocanada.com"
+  const url = "https://www.gocanada.com"
 
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
       <loc>${`${url}/en`}</loc>
-    </url>,
-    ${sitemapSlugs.filter(Boolean).map((item) => {
-      if (!item.slug) return ""
-      if (item.subCategories?.length) {
-        return `
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+    </url>
+    ${sitemapSlugs
+      .filter(Boolean)
+      .map((item) => {
+        if (!item.slug) return ""
+        if (item.subCategories?.length) {
+          return `
           <url>
             <loc>${url}/${item.slug}</loc>
           </url>
@@ -23,18 +27,21 @@ const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
               return `
                 <url>
                   <loc>${url}/${subCategory.slug}</loc>
+                  <priority>0.6</priority>
                 </url>
               `
             })
             .join("")}
         `
-      }
-      return `
+        }
+        return `
           <url>
             <loc>${url}/${item.slug}</loc>
+             <priority>0.8</priority>
           </url>
         `
-    })}
+      })
+      .join("")}}
   </urlset>`
 
   return sourceXML
