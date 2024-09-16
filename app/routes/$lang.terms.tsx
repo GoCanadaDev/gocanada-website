@@ -44,7 +44,7 @@ export const loader: LoaderFunction = async ({ params }) => {
         // Cache for a year in the CDN
         "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
         // Purge from the cache whenever the static page changes
-        "Cache-Tag": "static-pages:terms",
+        "Cache-Tag": `static-pages:${staticPage?._id}`,
       },
     }
   )

@@ -30,10 +30,19 @@ export const loader: LoaderFunction = async ({ params }) => {
   const authors = await getAuthors(client, params.lang!)
   const siteConfig = await getSiteConfig(client)
 
-  return json({
-    authors,
-    siteConfig,
-  })
+  return json(
+    {
+      authors,
+      siteConfig,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        "Cache-Tag": `authors`,
+      },
+    }
+  )
 }
 
 export default function AuthorsIndexRoute() {

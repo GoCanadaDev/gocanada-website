@@ -6,6 +6,7 @@ import { SupportedLanguages } from "~/i18n"
 import { PostPreview, postsProjection } from "~/sanity/queries/posts"
 
 export type SubCategory = {
+  _id: string
   title: LocalizedString
   slug: LocalizedString
   enabledInNav?: boolean
@@ -15,6 +16,7 @@ export type SubCategory = {
 }
 
 export const subCategoriesQuery = groq`*[_type == "subCategoryType"] | order(displayOrder asc) {
+  _id,
   "title": {
     "en": title.en,
     "fr": title.fr,

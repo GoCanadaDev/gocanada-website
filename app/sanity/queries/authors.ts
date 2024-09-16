@@ -7,6 +7,7 @@ import { PostPreview, postsProjection } from "./posts"
 import { ImageAsset, ImageCrop, ImageHotspot, Slug } from "sanity"
 
 export type Author = {
+  _id: string
   name: string
   slug: Slug["current"]
   bio: LocalizedString

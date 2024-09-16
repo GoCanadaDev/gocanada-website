@@ -6,6 +6,7 @@ import { SupportedLanguages } from "~/i18n"
 import { PostPreview, postsProjection } from "~/sanity/queries/posts"
 
 export type Category = {
+  _id: string
   description: LocalizedString
   displayOrder: number
   enabled?: boolean
@@ -21,6 +22,7 @@ export type Category = {
 }
 
 export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOrder asc) {
+  _id,
   "title": {
     "en": title.en,
     "fr": title.fr,

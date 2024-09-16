@@ -52,10 +52,19 @@ export const loader: LoaderFunction = async ({
     throw new Response("Not found", { status: 404 })
   }
 
-  return json({
-    author,
-    siteConfig,
-  })
+  return json(
+    {
+      author,
+      siteConfig,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+        "Cache-Tag": `authors:${author._id}`,
+      },
+    }
+  )
 }
 
 export default function AuthorBySlugRoute() {

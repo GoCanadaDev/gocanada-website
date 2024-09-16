@@ -63,7 +63,7 @@ export const loader: LoaderFunction = async ({
         "Cache-Control": "public, max-age=0, must-revalidate",
         "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
         // Tag with the category id
-        "Cache-Tag": `posts:category:${params.category}`,
+        "Cache-Tag": `category:${params.category}`,
       },
     }
   )

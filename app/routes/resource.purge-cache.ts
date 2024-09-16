@@ -9,26 +9,35 @@ import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { langPreferenceCookie } from "~/cookies.server"
 
 export interface WebhookBody {
-  ids: {
-    created: string[]
-    updated: string[]
-    deleted: string[]
-  }
+  _id: string
+  _type: "postType" | "categoryType" | "subCategoryType" | "staticPageType"
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const json = await request.json()
+  const { _type, _id } = json as WebhookBody
 
-  console.log("Webhook body", json)
-
-  // await purgeCache({
-  //   tags: [
-  //     "posts",
-  //     `posts:id:${post._id}`,
-  //     `posts:category:${post.category}`,
-  //     `posts:category:${post.category}:subCategory:${post.subCategory}`,
-  //   ],
-  // })
+  if (_type === "postType") {
+    await purgeCache({
+      tags: ["posts", `posts:id:${_id}`],
+    })
+  } else if (_type === "categoryType") {
+    await purgeCache({
+      tags: [`posts:category:${_id}`],
+    })
+  } else if (_type === "subCategoryType") {
+    await purgeCache({
+      tags: [`subCategory:${_id}`],
+    })
+  } else if (_type === "staticPageType") {
+    await purgeCache({
+      tags: [`staticPage:${_id}`],
+    })
+  } else if (_type === "authorType") {
+    await purgeCache({
+      tags: [`authors, authors:${_id}`],
+    })
+  }
 
   return null
 }
