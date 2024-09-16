@@ -1,7 +1,12 @@
 import { client } from "~/sanity/client"
 import { purgeCache } from "@netlify/functions"
-import type { ActionFunction } from "@remix-run/node"
+import {
+  redirect,
+  type ActionFunction,
+  type LoaderFunction,
+} from "@remix-run/node"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { langPreferenceCookie } from "~/cookies.server"
 
 export interface WebhookBody {
   ids: {
@@ -26,4 +31,12 @@ export const action: ActionFunction = async ({ request }) => {
   // })
 
   return null
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const cookieHeader = request.headers.get("Cookie")
+  const cookie = (await langPreferenceCookie.parse(cookieHeader)) || {}
+  const langPreference = cookie.langPreference === "en" ? "fr" : "en"
+
+  return redirect(`/${langPreference}`, { status: 404 })
 }
