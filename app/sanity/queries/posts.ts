@@ -145,6 +145,7 @@ const previousOrNextPostProjection = `
 export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
   _id,
   _createdAt,
+  publishedAt,
   "title": {
     "en": title.en,
     "fr": title.fr,
