@@ -22,7 +22,7 @@ export default function Prose({
         "prose-a:border-b prose-a:border-b-current prose-a:font-bold prose-a:text-brand prose-a:no-underline hover:prose-a:text-brandHover",
         "prose-figure:m-0 prose-figcaption:mb-4 prose-figcaption:mt-2 prose-figcaption:font-sans prose-figcaption:text-sm",
         "mx-0 my-12 max-w-none font-body lg:leading-8",
-        "dark:prose-h2:text-zinc-100 dark:prose-h3:text-zinc-100 dark:prose-p:text-zinc-200 dark:prose-a:text-brand dark:prose-strong:text-inherit dark:prose-li:text-zinc-200",
+        "dark:prose-h2:text-zinc-100 dark:prose-h3:text-zinc-100 dark:prose-p:text-zinc-200 dark:prose-a:text-brand dark:prose-blockquote:text-zinc-200 dark:prose-strong:text-inherit dark:prose-li:text-zinc-200",
         {
           "holy-grail md:mx-4": !disableHolyGrail,
         },
