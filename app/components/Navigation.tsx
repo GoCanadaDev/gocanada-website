@@ -88,7 +88,7 @@ export function Navigation() {
                 <Link
                   to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
                   prefetch="intent"
-                  className="h-10 uppercase leading-10 tracking-widest"
+                  className="uppercase tracking-widest"
                 >
                   {category.title[categoryTranslation]}
                 </Link>
