@@ -5,7 +5,7 @@ import { baseUrl } from "~/sanity/projectDetails"
 export default function TopAdBanner({}) {
   const { adConfig } = useRootLoaderData()
 
-  if (!adConfig.featuredAdsEnabled) {
+  if (!adConfig || !adConfig.featuredAdsEnabled) {
     return null
   }
 
