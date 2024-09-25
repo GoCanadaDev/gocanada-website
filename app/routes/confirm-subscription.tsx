@@ -4,7 +4,7 @@ import { useLoaderData, useNavigate } from "@remix-run/react"
 import type { ClientRequest } from "@sendgrid/client/src/request"
 
 import { Layout } from "~/components/Layout"
-import { LogoIcon } from "~/components/LogoIcon"
+import { Logo } from "~/components/Logo"
 import { Typography } from "~/components/Typography"
 import { Button } from "~/components/ui/button"
 import sendgrid from "~/lib/sendgrid"
@@ -12,6 +12,7 @@ import { genericMetaTags } from "~/lib/utils"
 import { client } from "~/sanity/client"
 import type { SiteConfigType } from "~/sanity/queries/siteConfig"
 import { getSiteConfig } from "~/sanity/queries/siteConfig"
+import GoCanadaLogoRed from "../../public/images/logotype-red.png"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -76,7 +77,13 @@ export default function ConfirmSubscription() {
       <article className="text-center">
         <div className="holy-grail mx-4 my-24 max-w-none space-y-8 text-xl">
           <div className="flex justify-center">
-            <LogoIcon />
+            <img
+              src={GoCanadaLogoRed}
+              alt="Go Canada Logo"
+              className="w-32 md:w-48"
+              width={192}
+              height={37}
+            />
           </div>
           <Typography.H1>
             {email ? "Subscription Confirmed" : "Something went wrong"}
@@ -85,9 +92,7 @@ export default function ConfirmSubscription() {
             <>
               <Typography.Paragraph>
                 Thank you <strong> {email}</strong> for subscribing to the Go
-                Canada Newsletter. We look forward to bringing you the latest in
-                travel stories, important information, special offers, giveaways
-                and more.
+                Canada Newsletter. Your subscription has been confirmed.
               </Typography.Paragraph>
               <Typography.TextMuted>
                 You will be able to update your preferences or unsubscribe at
@@ -108,7 +113,7 @@ export default function ConfirmSubscription() {
               onClick={() => navigate("/")}
               className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
             >
-              Go Home
+              Explore GoCanada.com
             </Button>
           </div>
         </div>

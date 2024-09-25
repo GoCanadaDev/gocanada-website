@@ -17,7 +17,10 @@ export const action: ActionFunction = async ({ request }) => {
 
   const msg = {
     to: formInput.email,
-    from: "news@gocanada.com",
+    from: {
+      email: "news@gocanada.com",
+      name: "Go Canada",
+    },
     templateId: "d-6ae7e3266ecb405fa8d8bb6d42056d10",
     dynamicTemplateData: {
       email: formInput.email,
