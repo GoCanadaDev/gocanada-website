@@ -9,7 +9,7 @@ type TypographyProps = {
 const H1 = ({ children, className }: TypographyProps) => (
   <h1
     className={cn(
-      "scroll-m-20 font-serif text-4xl font-normal tracking-tight lg:text-5xl",
+      "scroll-m-20 font-serif text-4xl font-normal tracking-tight lg:text-5xl dark:text-zinc-100",
       className
     )}
   >
@@ -20,7 +20,7 @@ const H1 = ({ children, className }: TypographyProps) => (
 const H2 = ({ children, className }: TypographyProps) => (
   <h2
     className={cn(
-      "scroll-m-20 border-b border-zinc-900 pb-2 font-serif text-3xl font-normal tracking-tight first:mt-0 dark:border-zinc-100",
+      "scroll-m-20 border-b border-zinc-900 pb-2 font-serif text-3xl font-normal tracking-tight first:mt-0 dark:border-zinc-100 dark:text-zinc-100",
       className
     )}
   >
@@ -31,7 +31,7 @@ const H2 = ({ children, className }: TypographyProps) => (
 const H3 = ({ children, className }: TypographyProps) => (
   <h3
     className={cn(
-      "scroll-m-20 font-serif text-2xl font-normal tracking-tight",
+      "scroll-m-20 font-serif text-2xl font-normal tracking-tight dark:text-zinc-100",
       className
     )}
   >
@@ -42,7 +42,7 @@ const H3 = ({ children, className }: TypographyProps) => (
 const H4 = ({ children, className }: TypographyProps) => (
   <h4
     className={cn(
-      "scroll-m-20 font-sans text-xs font-normal uppercase tracking-[6px]",
+      "scroll-m-20 font-sans text-xs font-normal uppercase tracking-[6px] dark:text-zinc-100",
       className
     )}
   >
