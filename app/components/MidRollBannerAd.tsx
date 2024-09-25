@@ -33,6 +33,7 @@ export default function MidRollBannerAd({}) {
                   href={adConfig.midBannerAdUrl}
                   target="_blank"
                   rel="noopener"
+                  aria-label="Learn more from our advertising partner"
                 >
                   <SanityImage
                     id={adConfig.midBannerAdImage.id}

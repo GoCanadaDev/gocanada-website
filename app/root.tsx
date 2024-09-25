@@ -241,7 +241,10 @@ export default function App() {
   }, [location, showCookieBanner])
 
   return (
-    <html lang={langPreference || i18n.resolvedLanguage} dir={i18n.dir()}>
+    <html
+      lang={langPreference || i18n.resolvedLanguage || "en"}
+      dir={i18n.dir()}
+    >
       <head>
         <Meta />
         <meta charSet="utf-8" />

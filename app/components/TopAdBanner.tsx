@@ -33,6 +33,7 @@ export default function TopAdBanner({}) {
                   href={adConfig.topBannerAdUrl}
                   target="_blank"
                   rel="noopener"
+                  aria-label="Learn more from our advertising partner"
                 >
                   <SanityImage
                     id={adConfig.topBannerAdImage.id}
