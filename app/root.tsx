@@ -115,7 +115,7 @@ export const action: ActionFunction = async ({ request }) => {
     gdprCookie.gdprConsent = true
   }
 
-  return redirect("/", {
+  return redirect(request.headers.get("Referer") || "/", {
     headers: {
       "Set-Cookie": await gdprConsent.serialize(gdprCookie),
     },
