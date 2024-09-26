@@ -59,7 +59,7 @@ const TermsOfUse = () => {
   return (
     <Layout translationUrl={`/${otherLanguage}/terms`}>
       <article className="mb-24 mt-8">
-        {staticPage.mainImage ? (
+        {staticPage.mainImage.id ? (
           <div className="w-full">
             <HeroImage
               fullBleed={staticPage.mainImageFullBleed}
