@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
+import WelcomeDialog from "./WelcomeDialog"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -49,6 +50,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
       <Header translationUrl={translationUrl} />
       <main className={classes} id="main">
         {children}
+        <WelcomeDialog />
         <Toaster
           closeButton
           toastOptions={{
