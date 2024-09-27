@@ -57,11 +57,12 @@ export const meta: MetaFunction<typeof loader> = ({
     { property: "twitter:title", content: title },
     { property: "twitter:site", content: "@gocanada" },
     { property: "twitter:description", content: description },
-    { property: "twitter:image", content: "ogImageUrl" },
+    { property: "twitter:image", content: ogImageUrl },
     { property: "og:image", content: ogImageUrl },
     { property: "og:image:secure_url", content: ogImageUrl },
     { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
+    { property: "og:image:type", content: "image/png" },
     { property: "og:type", content: "article" },
     {
       property: "og:url",
