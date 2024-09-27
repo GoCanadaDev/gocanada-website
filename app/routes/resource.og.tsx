@@ -34,13 +34,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     headers: {
       // Tell the browser the response is an image
       "Content-Type": "image/png",
-      "Cache-Control":
+      "cache-control":
         process.env.NODE_ENV === "development"
           ? "no-cache"
-          : "public, max-age=0, must-revalidate",
-      "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
-      // Tag with the post id
-      "Cache-Tag": `posts:id:${doc._id}`,
+          : "public, immutable, no-transform, max-age=31536000",
     },
   })
 }
