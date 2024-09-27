@@ -26,7 +26,6 @@ export default function WelcomeDialog() {
   useEffect(() => {
     if (showWelcomeDialog) {
       setIsOpen(true)
-      submit(formData, { method: "post" })
     }
   }, [])
 
