@@ -29,12 +29,16 @@ export default function WelcomeDialog() {
     }
   }, [])
 
+  const submitAndClose = () => {
+    submit(formData, { method: "post" })
+    setTimeout(() => {
+      setIsOpen(false)
+    }, 3000)
+  }
+
   useEffect(() => {
     if (submitted) {
-      submit(formData, { method: "post" })
-      setTimeout(() => {
-        setIsOpen(false)
-      }, 3000)
+      submitAndClose()
     }
   }, [submitted])
 
@@ -46,10 +50,10 @@ export default function WelcomeDialog() {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent
           className="max-w-xs md:max-w-lg"
-          onEscapeKeyDown={() => setSubmitted(true)}
-          onCloseAutoFocus={() => setSubmitted(true)}
-          onPointerDownOutside={() => setSubmitted(true)}
-          onInteractOutside={() => setSubmitted(true)}
+          onEscapeKeyDown={submitAndClose}
+          onCloseAutoFocus={submitAndClose}
+          onPointerDownOutside={submitAndClose}
+          onInteractOutside={submitAndClose}
         >
           <DialogHeader>
             <DialogTitle className="font-serif text-3xl">
