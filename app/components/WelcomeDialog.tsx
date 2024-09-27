@@ -26,12 +26,12 @@ export default function WelcomeDialog() {
   useEffect(() => {
     if (showWelcomeDialog) {
       setIsOpen(true)
-      submit(formData, { method: "post" })
     }
   }, [])
 
   useEffect(() => {
     if (submitted) {
+      submit(formData, { method: "post" })
       setTimeout(() => {
         setIsOpen(false)
       }, 3000)
