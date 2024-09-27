@@ -159,7 +159,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const gdprCookie = (await gdprConsent.parse(cookieHeader)) || {}
   // Welcome dialog cookie
   const hasSeenWelcomeDialogCookie =
-    await hasSeenWelcomeDialog.parse(cookieHeader)
+    (await hasSeenWelcomeDialog.parse(cookieHeader)) || {}
 
   let headers = {}
   if (!langPreference) {
