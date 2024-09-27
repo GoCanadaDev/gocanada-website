@@ -44,7 +44,13 @@ export default function WelcomeDialog() {
         <input type="hidden" name="dismiss-welcome-dialog" value="true" />
       </Form>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-xs md:max-w-lg">
+        <DialogContent
+          className="max-w-xs md:max-w-lg"
+          onEscapeKeyDown={() => setSubmitted(true)}
+          onCloseAutoFocus={() => setSubmitted(true)}
+          onPointerDownOutside={() => setSubmitted(true)}
+          onInteractOutside={() => setSubmitted(true)}
+        >
           <DialogHeader>
             <DialogTitle className="font-serif text-3xl">
               {submitted
