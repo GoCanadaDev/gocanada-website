@@ -31,9 +31,9 @@ export default function WelcomeDialog() {
 
   useEffect(() => {
     if (submitted) {
+      submit(formData, { method: "post" })
       setTimeout(() => {
         setIsOpen(false)
-        submit(formData, { method: "post" })
       }, 3000)
     }
   }, [submitted])
