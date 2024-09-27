@@ -52,7 +52,10 @@ const SubscribeForm = ({
       })
       setModalOpen?.(false)
     }
-    if (pageLocation === "header" && typeof setSubmitted === "function") {
+    if (
+      (pageLocation === "header" || pageLocation === "welcome-dialog") &&
+      typeof setSubmitted === "function"
+    ) {
       setSubmitted(true)
     }
     form.reset()

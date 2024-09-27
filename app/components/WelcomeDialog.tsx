@@ -28,6 +28,14 @@ export default function WelcomeDialog() {
     }
   }, [])
 
+  useEffect(() => {
+    if (submitted) {
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 3000)
+    }
+  }, [submitted])
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="max-w-xs md:max-w-lg">
