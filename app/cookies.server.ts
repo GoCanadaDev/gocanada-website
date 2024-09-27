@@ -12,3 +12,8 @@ export const gdprConsent = createCookie("gdpr-consent", {
   path: "/",
   maxAge: 31536000, // One Year
 })
+
+export const hasSeenWelcomeDialog = createCookie("has-seen-welcome-dialog", {
+  path: "/",
+  maxAge: 31536000, // One Year
+})

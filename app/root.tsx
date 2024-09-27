@@ -21,6 +21,7 @@ import {
   langPreferenceCookie,
   themePreferenceCookie,
   gdprConsent,
+  hasSeenWelcomeDialog,
 } from "~/cookies.server"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { Category, Partner, getCategories, getPartners } from "~/sanity/queries"
@@ -101,6 +102,7 @@ export type RootLoaderData = {
   params: {}
   partners: Partner[]
   showCookieBanner: boolean
+  showWelcomeDialog: boolean
   siteConfig: SiteConfigType
   themePreference: string | undefined
   translations: Record<TranslationKey, string>
@@ -110,16 +112,30 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const cookieHeader = request.headers.get("Cookie")
   const gdprCookie = (await gdprConsent.parse(cookieHeader)) || {}
+  const hasSeenWelcomeDialogCookie =
+    (await hasSeenWelcomeDialog.parse(cookieHeader)) || {}
 
   if (formData.get("accept-gdpr") === "true") {
     gdprCookie.gdprConsent = true
+    return redirect(request.headers.get("Referer") || "/", {
+      headers: {
+        "Set-Cookie": await gdprConsent.serialize(gdprCookie),
+      },
+    })
   }
 
-  return redirect(request.headers.get("Referer") || "/", {
-    headers: {
-      "Set-Cookie": await gdprConsent.serialize(gdprCookie),
-    },
-  })
+  if (formData.get("dismiss-welcome-dialog") === "true") {
+    hasSeenWelcomeDialogCookie.hasSeenWelcomeDialog = true
+    return redirect(request.headers.get("Referer") || "/", {
+      headers: {
+        "Set-Cookie": await hasSeenWelcomeDialog.serialize(
+          hasSeenWelcomeDialogCookie
+        ),
+      },
+    })
+  }
+
+  return null
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -141,6 +157,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   // GDPR cookie
   const gdprCookie = (await gdprConsent.parse(cookieHeader)) || {}
+  // Welcome dialog cookie
+  const hasSeenWelcomeDialogCookie =
+    await hasSeenWelcomeDialog.parse(cookieHeader)
 
   let headers = {}
   if (!langPreference) {
@@ -174,6 +193,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       params: {},
       partners,
       showCookieBanner: !gdprCookie.gdprConsent,
+      showWelcomeDialog: !hasSeenWelcomeDialogCookie.hasSeenWelcomeDialog,
       siteConfig,
       themePreference,
       translations,
@@ -200,6 +220,7 @@ export default function App() {
     langPreference,
     isStudioRoute,
     showCookieBanner,
+    showWelcomeDialog,
     siteConfig,
   } = useLoaderData<RootLoaderData>()
 
