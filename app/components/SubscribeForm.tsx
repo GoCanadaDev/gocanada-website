@@ -26,7 +26,7 @@ const SubscribeForm = ({
   setModalOpen,
   setSubmitted,
 }: {
-  pageLocation: "header" | "footer"
+  pageLocation: "header" | "footer" | "welcome-dialog"
   setModalOpen?: (open: boolean) => void
   setSubmitted?: Dispatch<SetStateAction<boolean>>
 }) => {
@@ -99,10 +99,7 @@ const SubscribeForm = ({
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
-          >
+          <Button type="submit" className="gap-2">
             Subscribe
           </Button>
         </div>

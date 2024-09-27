@@ -9,7 +9,9 @@ import { useState } from "react"
 import { Button } from "./ui/button"
 import { Typography } from "./Typography"
 import SubscribeForm from "./SubscribeForm"
-import GoCanadaLogoColour from "../../public/images/logotype-colour.png"
+import GoCanadaLogoColour from "../../public/images/logotype-colour-sm.png"
+import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.png"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 const SubscribeModal = ({
   pageLocation,
@@ -18,6 +20,7 @@ const SubscribeModal = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const { themePreference } = useRootLoaderData()
 
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
@@ -51,7 +54,7 @@ const SubscribeModal = ({
             <Button
               type="button"
               onClick={() => setModalOpen(false)}
-              className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+              variant="default"
             >
               Close
             </Button>
@@ -65,7 +68,11 @@ const SubscribeModal = ({
         )}
 
         <img
-          src={GoCanadaLogoColour}
+          src={
+            themePreference === "dark"
+              ? GoCanadaLogoReverse
+              : GoCanadaLogoColour
+          }
           alt="Go Canada Logo"
           className="w-24 md:w-32"
         />

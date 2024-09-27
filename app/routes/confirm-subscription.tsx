@@ -111,7 +111,7 @@ export default function ConfirmSubscription() {
             <Button
               type="button"
               onClick={() => navigate("/")}
-              className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
+              variant="default"
             >
               Explore GoCanada.com
             </Button>

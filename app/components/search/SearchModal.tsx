@@ -48,10 +48,7 @@ const SearchModal = () => {
           >
             <Input name="search" type="search" autoFocus />
             <div className="w-3/12">
-              <Button
-                type="submit"
-                className="gap-2 bg-brand hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
-              >
+              <Button type="submit" className="gap-2" variant="default">
                 <Search size={16} /> Search
               </Button>
             </div>

@@ -64,7 +64,7 @@ const Privacy = () => {
   return (
     <Layout translationUrl={`/${otherLanguage}/privacy`}>
       <article className="mb-24 mt-8">
-        {staticPage.mainImage.id ? (
+        {staticPage.mainImage?.id ? (
           <div className="w-full">
             <HeroImage
               fullBleed={staticPage.mainImageFullBleed}
