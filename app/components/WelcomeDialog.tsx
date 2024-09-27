@@ -61,11 +61,13 @@ export default function WelcomeDialog() {
           <Form method="post" reloadDocument>
             <input type="hidden" name="accept-gdpr" value="true" />
           </Form>
-          <SubscribeForm
-            pageLocation={"welcome-dialog"}
-            setModalOpen={setModalOpen}
-            setSubmitted={setSubmitted}
-          />
+          {!submitted && (
+            <SubscribeForm
+              pageLocation={"welcome-dialog"}
+              setModalOpen={setModalOpen}
+              setSubmitted={setSubmitted}
+            />
+          )}
 
           <img
             src={

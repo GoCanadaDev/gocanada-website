@@ -42,6 +42,7 @@ import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
 import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
 import { useEffect, useState } from "react"
 import addExternalScripts from "./lib/addExternalScripts"
+import WelcomeDialog from "./components/WelcomeDialog"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -290,6 +291,7 @@ export default function App() {
           />
         </noscript>
         {showCookieBanner && <CookieBanner />}
+        {showWelcomeDialog && <WelcomeDialog />}
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
           <Hydrated>
