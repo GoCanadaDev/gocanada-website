@@ -9,7 +9,7 @@ import { Layout } from "~/components/Layout"
 import { themePreferenceCookie } from "~/cookies.server"
 import { z } from "zod"
 import { SSRSearchProvider } from "~/components/search"
-import { SITE_META } from "~/lib/utils"
+import { genericMetaTags, SITE_META } from "~/lib/utils"
 import { useTranslation } from "react-i18next"
 
 export const meta: MetaFunction<typeof loader> = ({
@@ -21,12 +21,11 @@ export const meta: MetaFunction<typeof loader> = ({
     ? `[${data.query}] Results from ${SITE_META.siteTitle}`
     : `Search | ${SITE_META.siteTitle}`
 
-  return [
-    { title },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "og:title", content: title },
-  ]
+  return genericMetaTags({
+    title,
+    description: "",
+    canonical: "/en/search",
+  })
 }
 
 export const loader: LoaderFunction = async ({ request }) => {

@@ -1,3 +1,4 @@
+import { MetaDescriptor } from "@remix-run/node"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
@@ -14,12 +15,14 @@ export const SITE_META = {
 export const genericMetaTags = ({
   title,
   description,
+  canonical,
 }: {
   title: string
   description: string
+  canonical?: string
 }) => {
   const imageAlt = "White logo for Go Canada on a red background"
-  return [
+  const meta: MetaDescriptor[] = [
     { title },
     { name: "description", content: description },
     { property: "twitter:card", content: "summary_large_image" },
@@ -40,4 +43,14 @@ export const genericMetaTags = ({
     { property: "og:image:type", content: "image/png" },
     { property: "og:image:alt", content: imageAlt },
   ]
+
+  if (canonical) {
+    meta.push({
+      tagName: "link",
+      rel: "canonical",
+      href: `https://gocanada.com${canonical}`,
+    })
+  }
+
+  return meta
 }

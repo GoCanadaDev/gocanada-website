@@ -19,7 +19,7 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Links | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
-  return genericMetaTags({ title, description })
+  return genericMetaTags({ title, description, canonical: "/links" })
 }
 
 type LoaderDataType = {

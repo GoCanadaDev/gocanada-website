@@ -57,7 +57,11 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Contact | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
-  return genericMetaTags({ title, description })
+  return genericMetaTags({
+    title,
+    description,
+    canonical: "/en/contact",
+  })
 }
 
 type StaticPageLoaderData = {

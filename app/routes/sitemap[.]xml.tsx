@@ -3,7 +3,7 @@ import { client } from "~/sanity/client"
 import { getSitemapSlugs, SitemapSlugs } from "~/sanity/queries/sitemap"
 
 const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
-  const url = "https://www.gocanada.com"
+  const url = "https://gocanada.com"
 
   const sourceXML = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

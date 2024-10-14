@@ -31,7 +31,11 @@ export const meta: MetaFunction<typeof loader> = ({
   const title = `${data.author.name} | ${data.siteConfig.siteTitle}`
   const description =
     data.author.bio.en.substring(0, 160) || data.siteConfig.siteDescription
-  return genericMetaTags({ title, description })
+  return genericMetaTags({
+    title,
+    description,
+    canonical: `/en/authors/${data.author.slug}`,
+  })
 }
 
 type LoaderDataType = {

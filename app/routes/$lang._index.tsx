@@ -24,7 +24,7 @@ import MidRollBannerAd from "~/components/MidRollBannerAd"
 import { useQuery } from "~/sanity/loader"
 import { loadQuery } from "~/sanity/loader.server"
 import { QueryResponseInitial } from "@sanity/react-loader"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
+import { genericMetaTags } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -32,39 +32,12 @@ export const meta: MetaFunction<typeof loader> = ({
   data: IndexLoaderData
 }) => {
   const title = `${data.siteConfig.siteTitle} | ${data.siteConfig.siteTitleDescription}`
-  return [
-    { title },
-    {
-      name: "description",
-      content: data.siteConfig.siteDescription,
-    },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:title", content: title },
-    { property: "twitter:site", content: "@gocanada" },
-    {
-      property: "twitter:description",
-      content: data.siteConfig.siteDescription,
-    },
-    { property: "twitter:image", content: "/images/og-main.png" },
-    {
-      property: "twitter:image:alt",
-      content: "White logo for Go Canada on a red background",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://gocanada.com/en" },
-    { property: "og:title", content: title },
-    { property: "og:site_name", content: "Go Canada" },
-    { property: "og:locale", content: "en_CA" },
-    { property: "og:description", content: data.siteConfig.siteDescription },
-    { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
-    { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
-    { property: "og:image", content: "/images/og-main.png" },
-    { property: "og:image:type", content: "image/png" },
-    {
-      property: "og:image:alt",
-      content: "White logo for Go Canada on a red background",
-    },
-  ]
+  const description = data.siteConfig.siteDescription
+  return genericMetaTags({
+    title,
+    description,
+    canonical: "/en",
+  })
 }
 
 type IndexLoaderData = {
