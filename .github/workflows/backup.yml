@@ -1,7 +1,7 @@
 name: Sanity backup
 on:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "*/10 * * * 1"
 
 jobs:
   build:
@@ -21,5 +21,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: production
-          path: backups/${{ steps.date.outputs.date }}.tar.gz
+          path: backups/${{ steps.date.outputs['date'] }}.tar.gz
           retention-days: 30
