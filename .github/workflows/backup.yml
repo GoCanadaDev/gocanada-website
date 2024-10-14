@@ -9,6 +9,7 @@ jobs:
     name: Backup dataset
     steps:
       - uses: actions/checkout@v4
+      - run: npm install
       - name: Export dataset
         uses: sanity-io/github-action-sanity@v0.7-alpha
         env:
