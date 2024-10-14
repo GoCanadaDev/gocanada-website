@@ -10,15 +10,15 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - run: npx @sanity/cli dataset export production ${{ steps.date.outputs.date }}.tar.gz
         working-directory: ./
         env:
-          SANITY_STUDIO_API_PROJECT_ID: theProjectId
+          SANITY_STUDIO_API_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_BACKUP_TOKEN }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: production
           path: backups/${{ steps.date.outputs.date }}.tar.gz
