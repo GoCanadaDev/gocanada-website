@@ -3,7 +3,7 @@ import type {
   LoaderFunction,
   HeadersFunction,
 } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import { json, redirect } from "@remix-run/node"
 import { Params, useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import {
@@ -56,7 +56,22 @@ export const loader: LoaderFunction = async ({ params }) => {
     })
   }
 
-  isLangSupportedLang(params.lang)
+  const staticPages = [
+    "terms",
+    "privacy",
+    "about",
+    "contact",
+    "advertising",
+    "media",
+    "search",
+  ]
+
+  // if params.lang is a static page, redirect to the static page
+  if (staticPages.includes(params.lang)) {
+    return redirect(`/en/${params.lang}`)
+  } else {
+    isLangSupportedLang(params.lang)
+  }
 
   const siteConfig = await getSiteConfig(client)
 
