@@ -4,22 +4,23 @@ on:
     - cron: "*/10 * * * 1"
 
 jobs:
-  backup-dataset:
+  build:
     runs-on: ubuntu-latest
-    name: Backup dataset
     steps:
-      - uses: actions/checkout@v4
       - run: npm install
-      - name: Export dataset
-        uses: sanity-io/github-action-sanity@v0.7-alpha
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v4
+
+      - run: sanity dataset export production ${{ steps.date.outputs.date }}.tar.gz
+        working-directory: ./
         env:
+          SANITY_STUDIO_API_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_BACKUP_TOKEN }}
+
+      - uses: actions/upload-artifact@v4
         with:
-          args: dataset export production backups/backup.tar.gz
-      - name: Upload backup.tar.gz
-        uses: actions/upload-artifact@v4
-        with:
-          name: backup-tarball
-          path: backups/backup.tar.gz
-          # Fails the workflow if no files are found; defaults to 'warn'
-          if-no-files-found: error
+          name: production
+          path: backups/${{ steps.date.outputs.date }}.tar.gz
+          retention-days: 30
