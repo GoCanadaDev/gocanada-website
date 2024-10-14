@@ -23,5 +23,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     })
   }
 
-  return redirect(`/${currentLang}`)
+  return redirect(`/${currentLang}`, {
+    headers: {
+      // Always revalidate in the browser
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      // Cache for a year in the CDN
+      "Netlify-CDN-Cache-Control": "public, durable, s-maxage=31536000",
+      // Purge from the cache whenever the posts change
+      "Cache-Tag": "posts",
+    },
+  })
 }
