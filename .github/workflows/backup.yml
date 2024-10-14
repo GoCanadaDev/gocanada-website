@@ -1,7 +1,7 @@
 name: Sanity backup
 on:
   schedule:
-    - cron: "*/10 * * * 1"
+    - cron: "0 0 * * 0"
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
       - run: npm install
-      - run: sanity dataset export production ${{ steps.date.outputs.date }}.tar.gz
+      - run: npx sanity@latest dataset export production ${{ steps.date.outputs.date }}.tar.gz
         working-directory: ./
         env:
           SANITY_STUDIO_API_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
