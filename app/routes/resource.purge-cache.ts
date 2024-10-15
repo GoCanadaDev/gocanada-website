@@ -10,7 +10,12 @@ import { langPreferenceCookie } from "~/cookies.server"
 
 export interface WebhookBody {
   _id: string
-  _type: "postType" | "categoryType" | "subCategoryType" | "staticPageType"
+  _type:
+    | "postType"
+    | "categoryType"
+    | "subCategoryType"
+    | "staticPageType"
+    | "featuredPostsConfig"
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -20,6 +25,10 @@ export const action: ActionFunction = async ({ request }) => {
   if (_type === "postType") {
     await purgeCache({
       tags: ["posts", `posts:id:${_id}`],
+    })
+  } else if (_type === "featuredPostsConfig") {
+    await purgeCache({
+      tags: ["posts"],
     })
   } else if (_type === "categoryType") {
     await purgeCache({
