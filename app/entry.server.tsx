@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/remix";
 import { PassThrough } from "stream"
 import type { EntryContext } from "@remix-run/node"
 import { RemixServer } from "@remix-run/react"
@@ -13,6 +14,10 @@ import { resolve } from "node:path"
 import { getEnv } from "./env.server"
 import { langPreferenceCookie } from "./cookies.server"
 import { z } from "zod"
+
+export const handleError = Sentry.wrapHandleErrorWithSentry((error, { request }) => {
+  // Custom handleError implementation
+});
 
 const ABORT_DELAY = 5000
 

@@ -1,3 +1,4 @@
+import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix";
 import type {
   ActionFunction,
   LinksFunction,
@@ -13,7 +14,8 @@ import {
   ScrollRestoration,
   useLoaderData,
   useLocation,
-} from "@remix-run/react"
+  useRouteError,
+} from "@remix-run/react";
 import { useChangeLanguage } from "remix-i18next"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
@@ -219,7 +221,7 @@ export let handle = {
   i18n: "common",
 }
 
-export default function App() {
+function App() {
   const {
     locale,
     bodyClassNames,
@@ -317,6 +319,9 @@ export default function App() {
   )
 }
 
+export default withSentry(App);
+
 export function ErrorBoundary() {
+  const error = useRouteError();captureRemixErrorBoundaryError(error);
   return <ErrorBoundaryPage />
 }
