@@ -1,1 +1,1 @@
-https://emails.gocanada.com   https://sendgrid.net
+https://emails.gocanada.com/*   https://sendgrid.net/:splat 301!
