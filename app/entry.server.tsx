@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/remix";
+import * as Sentry from "@sentry/remix"
 import { PassThrough } from "stream"
 import type { EntryContext } from "@remix-run/node"
 import { RemixServer } from "@remix-run/react"
@@ -15,9 +15,11 @@ import { getEnv } from "./env.server"
 import { langPreferenceCookie } from "./cookies.server"
 import { z } from "zod"
 
-export const handleError = Sentry.wrapHandleErrorWithSentry((error, { request }) => {
-  // Custom handleError implementation
-});
+export const handleError = Sentry.wrapHandleErrorWithSentry(
+  (error, { request }) => {
+    // Custom handleError implementation
+  }
+)
 
 const ABORT_DELAY = 5000
 
@@ -31,6 +33,12 @@ export default async function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
+  // Redirect traffic from emails.gocanada.com to sendgrid.net
+  const url = new URL(request.url)
+  if (url.hostname === "emails.gocanada.com") {
+    return Response.redirect(`https://sendgrid.net${url.pathname}`, 301)
+  }
+
   let callbackName = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
     : "onShellReady"
