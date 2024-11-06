@@ -15,8 +15,8 @@ targetPort = 3000
 
 [[redirects]]
   from = "https://emails.gocanada.com/*"
-  to = "https://sendgrid.net/:splat"
-  status = 200
+  to = "https://sendgrid.net/"
+  status = 301
   force = true
   headers = {X-Forwarded-Proto = "https"}
 
