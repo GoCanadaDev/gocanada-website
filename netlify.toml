@@ -16,9 +16,9 @@ targetPort = 3000
 [[redirects]]
   from = "https://emails.gocanada.com/*"
   to = "https://sendgrid.net/"
-  status = 301
+  status = 200
   force = true
-  headers = {X-Forwarded-Proto = "https", Host = "emails.gocanada.com"}
+  headers = { Host = "emails.gocanada.com"}
 
 # Set immutable caching for static files, because they have fingerprinted filenames
 
