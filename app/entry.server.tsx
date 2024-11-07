@@ -37,9 +37,10 @@ export default async function handleRequest(
   const url = new URL(request.url)
   if (url.hostname === "emails.gocanada.com") {
     return new Response(null, {
-      status: 301,
+      status: 200,
       headers: {
         Location: `https://sendgrid.net${url.pathname}`,
+        Host: "emails.gocanada.com",
       },
     })
   }
