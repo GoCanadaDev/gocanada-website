@@ -100,8 +100,12 @@ export const action: ActionFunction = async ({ request }) => {
     firstName: String(formData.get("firstName")) ?? "",
     lastName: String(formData.get("lastName")) ?? "",
     email: String(formData.get("email")) ?? "",
-    subject: String(formData.get("subject")) ?? "",
+    subject: `${String(formData.get("subject")) ?? `New inquiry`} - ${String(formData.get("email"))}`,
     message: String(formData.get("message")) ?? "",
+  }
+
+  if (values["bot-field"] !== "") {
+    return null
   }
 
   await postFormUrlEncoded<typeof values>(values)
