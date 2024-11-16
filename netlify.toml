@@ -16,7 +16,7 @@ targetPort = 3000
 [[redirects]]
   from = "https://emails.gocanada.com/*"
   to = "https://sendgrid.net/"
-  status = 200
+  status = 301
   force = true
   headers = { Host = "emails.gocanada.com"}
 
