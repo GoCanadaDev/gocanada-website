@@ -9,25 +9,27 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import Backend from "i18next-http-backend"
 import { getInitialNamespaces } from "remix-i18next"
 
-Sentry.init({
-  dsn: "https://034299a6e749e9fba9aaea38fc46cda2@o456660.ingest.us.sentry.io/4508132492640256",
-  tracesSampleRate: 1,
+if (process.env.NODE_ENV !== "development") {
+  Sentry.init({
+    dsn: "https://034299a6e749e9fba9aaea38fc46cda2@o456660.ingest.us.sentry.io/4508132492640256",
+    tracesSampleRate: 1,
 
-  integrations: [
-    Sentry.browserTracingIntegration({
-      useEffect,
-      useLocation,
-      useMatches,
-    }),
-    Sentry.replayIntegration({
-      maskAllText: false,
-      blockAllMedia: false,
-    }),
-  ],
+    integrations: [
+      Sentry.browserTracingIntegration({
+        useEffect,
+        useLocation,
+        useMatches,
+      }),
+      Sentry.replayIntegration({
+        maskAllText: false,
+        blockAllMedia: false,
+      }),
+    ],
 
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1,
-})
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1,
+  })
+}
 
 async function hydrate() {
   await i18next
