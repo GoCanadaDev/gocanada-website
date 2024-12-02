@@ -17,7 +17,10 @@ export const config = defineConfig({
     structureTool({ structure, defaultDocumentNode }),
     presentationTool({
       previewUrl: {
-        origin: "http://localhost:3000",
+        origin:
+          process.env.NODE_ENV === "production"
+            ? "https://gocanada.com"
+            : "http://localhost:3000",
         previewMode: {
           enable: "/api/draft",
         },
