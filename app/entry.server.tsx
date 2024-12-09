@@ -33,18 +33,6 @@ export default async function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  // // Redirect traffic from emails.gocanada.com to sendgrid.net
-  // const url = new URL(request.url)
-  // if (url.hostname === "emails.gocanada.com") {
-  //   return new Response(null, {
-  //     status: 301,
-  //     headers: {
-  //       Location: `https://sendgrid.net${url.pathname}`,
-  //       Host: "emails.gocanada.com",
-  //     },
-  //   })
-  // }
-
   let callbackName = isbot(request.headers.get("user-agent"))
     ? "onAllReady"
     : "onShellReady"

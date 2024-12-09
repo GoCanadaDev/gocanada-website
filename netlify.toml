@@ -13,13 +13,6 @@ targetPort = 3000
   from = "/contact-form"
   to = "/"
 
-[[redirects]]
-  from = "https://emails.gocanada.com/*"
-  to = "https://sendgrid.net/"
-  status = 301
-  force = true
-  headers = { Host = "emails.gocanada.com"}
-
 # Set immutable caching for static files, because they have fingerprinted filenames
 
 [[headers]]
