@@ -15,7 +15,7 @@ jobs:
       - run: npx sanity@latest dataset export production ${{ steps.date.outputs.date }}.tar.gz
         working-directory: ./
         env:
-          SANITY_STUDIO_API_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
+          SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_STUDIO_PROJECT_ID }}
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_BACKUP_TOKEN }}
 
       - uses: actions/upload-artifact@v4
