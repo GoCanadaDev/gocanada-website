@@ -15,8 +15,9 @@ targetPort = 3000
 
 [[redirects]]
   from = "/ls/click"
-  to = "/.netlify/functions/sg 200!"
+  to = "/.netlify/functions/sg"
   status = 200
+  force = true
 
 # Set immutable caching for static files, because they have fingerprinted filenames
 
