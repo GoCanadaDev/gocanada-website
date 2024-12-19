@@ -22,13 +22,13 @@ export const algoliaSearchApiKey = ALGOLIA_SEARCH_API_KEY!
 
 export const algoliaAdminApiKey = ALGOLIA_ADMIN_API_KEY!
 
-if (!projectId) throw new Error("Missing SANITY_STUDIO_PROJECT_ID in .env")
-if (!dataset) throw new Error("Missing SANITY_STUDIO_DATASET in .env")
-if (!apiVersion) throw new Error("Missing SANITY_STUDIO_API_VERSION in .env")
-if (!studioUrl) throw new Error("Missing SANITY_STUDIO_URL in .env")
-if (typeof useStega !== "boolean")
-  throw new Error(
-    `SANITY_STUDIO_USE_STEGA must be a boolean, current value: ${useStega}`
-  )
-if (!algoliaApplicationId) throw new Error("Missing ALGOLIA_APPLICATION_ID")
-if (!algoliaSearchApiKey) throw new Error("Missing ALGOLIA_SEARCH_API_KEY")
+// if (!projectId) throw new Error("Missing SANITY_STUDIO_PROJECT_ID in .env")
+// if (!dataset) throw new Error("Missing SANITY_STUDIO_DATASET in .env")
+// if (!apiVersion) throw new Error("Missing SANITY_STUDIO_API_VERSION in .env")
+// if (!studioUrl) throw new Error("Missing SANITY_STUDIO_URL in .env")
+// if (typeof useStega !== "boolean")
+//   throw new Error(
+//     `SANITY_STUDIO_USE_STEGA must be a boolean, current value: ${useStega}`
+//   )
+// if (!algoliaApplicationId) throw new Error("Missing ALGOLIA_APPLICATION_ID")
+// if (!algoliaSearchApiKey) throw new Error("Missing ALGOLIA_SEARCH_API_KEY")
