@@ -5,11 +5,11 @@ import type {
   HeadersFunction,
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { Link, useLoaderData } from "@remix-run/react"
+import { Link, Params, useLoaderData } from "@remix-run/react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { client } from "~/sanity/client"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
-import { getPost, Post } from "~/sanity/queries"
+import { Post, postBySlugQuery } from "~/sanity/queries"
 import useFormattedDate from "~/lib/useFormattedDate"
 import { PortableText } from "@portabletext/react"
 import { Layout } from "~/components/Layout"
@@ -35,31 +35,37 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { loadQuery } from "~/sanity/loader.server"
+import { useQuery } from "~/sanity/loader"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
-  data: LoaderDataType
+  data: Omit<LoaderDataType, "post"> & { post: { data: Post } }
 }) => {
   const title = [
-    data?.post?.title[data.post.language],
+    data?.post.data.title[data.post.data.language],
     data.siteConfig.siteTitle,
   ]
     .filter(Boolean)
     .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
-  const description = data.post.excerpt.en
+  const description = data ? data.post.data.excerpt.en : ""
 
   return [
     { title },
     { name: "description", content: description },
-    { property: "article:author", content: data.post.author.name },
-    { property: "article:modified_time", content: data.post._updatedAt },
-    { property: "article:published_time", content: data.post.publishedAt },
-    { property: "article:section", content: data.post.categories[0].title.en },
+    { property: "article:author", content: data.post.data.author.name },
+    { property: "article:modified_time", content: data.post.data._updatedAt },
+    { property: "article:published_time", content: data.post.data.publishedAt },
+    {
+      property: "article:section",
+      content: data.post.data.categories[0].title.en,
+    },
     {
       property: "article:tag",
-      content: data.post.subCategories.map((sc) => sc.title.en).join(", "),
+      content: data.post.data.subCategories.map((sc) => sc.title.en).join(", "),
     },
     { property: "og:description", content: description },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
@@ -74,7 +80,7 @@ export const meta: MetaFunction<typeof loader> = ({
     { property: "og:type", content: "article" },
     {
       property: "og:url",
-      content: `https://gocanada.com/en/${data.post.slug.en}`,
+      content: `https://gocanada.com/en/${data.post.data.slug.en}`,
     },
     { property: "twitter:card", content: "summary_large_image" },
     { property: "twitter:description", content: description },
@@ -84,12 +90,13 @@ export const meta: MetaFunction<typeof loader> = ({
     {
       tagName: "link",
       rel: "canonical",
-      href: `https://gocanada.com/en/${data.post.slug.en}`,
+      href: `https://gocanada.com/en/${data.post.data.slug.en}`,
     },
   ]
 }
 
 type LoaderDataType = {
+  params: Params
   post: Post
   ogImageUrl: string
   siteConfig: SiteConfigType
@@ -101,7 +108,15 @@ export const loader: LoaderFunction = async ({
 }: LoaderFunctionArgs) => {
   invariant(params.slug, "Expected slug param")
   isLangSupportedLang(params.lang)
-  const post = await getPost(client, params.slug!, params.lang!)
+  //const post = await getPost(client, params.slug!, params.lang!)
+
+  const post = await loadQuery<Post | null>(postBySlugQuery, {
+    slug: params.slug,
+    language: params.lang,
+  }).then((res) => ({
+    ...res,
+    data: res.data ? res.data : null,
+  }))
 
   // post returns an empty object if the slug is not found, so check for empty object with Object.keys
   if (Object.keys(post).length === 0) {
@@ -114,10 +129,11 @@ export const loader: LoaderFunction = async ({
 
   // Create social share image url
   const { origin } = new URL(request.url)
-  const ogImageUrl = `${origin}/resource/og?id=${post._id}`
+  const ogImageUrl = `${origin}/resource/og?id=${post.data?._id}`
 
   return json(
     {
+      params,
       post,
       ogImageUrl,
       siteConfig,
@@ -127,7 +143,7 @@ export const loader: LoaderFunction = async ({
         "Cache-Control": "public, max-age=0, must-revalidate",
         "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
         // Tag with the post id
-        "Cache-Tag": `posts:id:${post._id}`,
+        "Cache-Tag": `posts:id:${post.data?._id}`,
       },
     }
   )
@@ -136,23 +152,39 @@ export const loader: LoaderFunction = async ({
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Slug() {
-  const { post } = useLoaderData<LoaderDataType>()
-  const otherLanguage = useOtherLanguage()
-  const formattedDate = useFormattedDate(post.publishedAt, post.language)
+  const { post, params } = useLoaderData<LoaderDataType>()
+  const { data: postData, loading } = useQuery<Post | null>(
+    postBySlugQuery,
+    { language: params.lang, slug: params.slug },
+    {
+      initial: post,
+    }
+  )
+  const postToUse = sanitizeStrings(postData ?? post)
 
-  const translationUrl = `/${otherLanguage}/${post.slug[otherLanguage]}`
+  const otherLanguage = useOtherLanguage()
+  const formattedDate = useFormattedDate(
+    postToUse.publishedAt,
+    postToUse.language
+  )
+
+  const translationUrl = `/${otherLanguage}/${postToUse.slug[otherLanguage]}`
 
   const hasInlineAd =
-    post.body.findIndex((block) => block._type === "inlineAdType") > -1
-  let halfwayThroughBodyMarker = Math.ceil(post.body.length / 2)
+    postToUse.body.findIndex((block) => block._type === "inlineAdType") > -1
+  let halfwayThroughBodyMarker = Math.ceil(postToUse.body.length / 2)
 
-  const halfwayBlock = post.body[halfwayThroughBodyMarker]
+  const halfwayBlock = postToUse.body[halfwayThroughBodyMarker]
   if (halfwayBlock._type !== "block" && halfwayBlock.style !== "normal") {
-    const nextParagraph = [...post.body]
-      .slice(halfwayThroughBodyMarker, post.body.length)
+    const nextParagraph = [...postToUse.body]
+      .slice(halfwayThroughBodyMarker, postToUse.body.length)
       .findIndex((block) => block._type === "block" && block.style === "normal")
 
     halfwayThroughBodyMarker = halfwayThroughBodyMarker + nextParagraph
+  }
+
+  if (loading) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -172,11 +204,11 @@ export default function Slug() {
               <BreadcrumbLink asChild>
                 <Link
                   prefetch="intent"
-                  to={`/${post.language}/categories/${
-                    post.categories[0].slug[post.language]
+                  to={`/${postToUse.language}/categories/${
+                    postToUse.categories[0].slug[postToUse.language]
                   }`}
                 >
-                  {post.categories[0].title.en}
+                  {postToUse.categories[0].title.en}
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -185,15 +217,17 @@ export default function Slug() {
               <BreadcrumbLink asChild>
                 <Link
                   prefetch="intent"
-                  to={`/${post.language}/categories/${post.categories[0].slug[post.language]}/${post.subCategories[0].slug[post.language]}`}
+                  to={`/${postToUse.language}/categories/${postToUse.categories[0].slug[postToUse.language]}/${postToUse.subCategories[0].slug[postToUse.language]}`}
                 >
-                  {post.subCategories[0].title.en}
+                  {postToUse.subCategories[0].title.en}
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{post.title[post.language]}</BreadcrumbPage>
+              <BreadcrumbPage>
+                {postToUse.title[postToUse.language]}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -201,31 +235,31 @@ export default function Slug() {
       <article className="mb-24">
         <div className="w-full">
           <HeroImage
-            fullBleed={post.mainImageFullBleed}
-            id={post.mainImage.id}
-            title={post.title[post.language]}
-            category={post.categories[0]}
-            preview={post.mainImage.preview}
-            mainImageCaption={post.mainImageCaption}
-            mainImageAttribution={post.mainImageAttribution}
-            mainImageAttributionUrl={post.mainImageAttributionUrl}
-            mainImageGradientOverlay={post.mainImageGradientOverlay}
-            hotspot={post.mainImage.hotspot}
-            crop={post.mainImage.crop}
-            aspectRatio={post.mainImage.aspectRatio}
-            isSponsored={post.isSponsored}
-            sponsoredText={post.sponsoredText}
+            fullBleed={postToUse.mainImageFullBleed}
+            id={postToUse.mainImage.id}
+            title={postToUse.title[postToUse.language]}
+            category={postToUse.categories[0]}
+            preview={postToUse.mainImage.preview}
+            mainImageCaption={postToUse.mainImageCaption}
+            mainImageAttribution={postToUse.mainImageAttribution}
+            mainImageAttributionUrl={postToUse.mainImageAttributionUrl}
+            mainImageGradientOverlay={postToUse.mainImageGradientOverlay}
+            hotspot={postToUse.mainImage.hotspot}
+            crop={postToUse.mainImage.crop}
+            aspectRatio={postToUse.mainImage.aspectRatio}
+            isSponsored={postToUse.isSponsored}
+            sponsoredText={postToUse.sponsoredText}
           />
         </div>
         <div
           // 1.32rem is to get the holy-grail width to match the prose width below
           className={cn("holy-grail mb-12 mt-4 text-[1.32rem]", {
-            "mt-12": post.mainImageFullBleed,
+            "mt-12": postToUse.mainImageFullBleed,
           })}
         >
           <div className="w-full text-center">
             <Typography.Paragraph className="font-sans text-xl italic text-zinc-500 md:text-2xl">
-              {post.excerpt[post.language]}
+              {postToUse.excerpt[postToUse.language]}
             </Typography.Paragraph>
           </div>
           <div className="mb-12 mt-4 text-center">
@@ -233,55 +267,58 @@ export default function Slug() {
               By{" "}
               <Link
                 prefetch="intent"
-                to={`/${post.language}/authors/${post.author.slug}`}
+                to={`/${postToUse.language}/authors/${postToUse.author.slug}`}
                 className="hover:text-brand"
               >
-                {post.author.name}
+                {postToUse.author.name}
               </Link>
             </Typography.Paragraph>
-            {post.showDate && (
+            {postToUse.showDate && (
               <Typography.TextMuted>{formattedDate}</Typography.TextMuted>
             )}
           </div>
           <div className="mb-12 w-full text-center">
             <Typography.H4>Share</Typography.H4>
             <Share
-              url={`/${post.language}/${post.slug[post.language]}`}
-              title={post.title[post.language]}
-              tags={post.subCategories.map((sc) => sc.title[post.language])}
-              description={post.excerpt[post.language]}
-              media={post.mainImage.id}
+              url={`/${postToUse.language}/${postToUse.slug[postToUse.language]}`}
+              title={postToUse.title[postToUse.language]}
+              tags={postToUse.subCategories.map(
+                (sc) => sc.title[postToUse.language]
+              )}
+              description={postToUse.excerpt[postToUse.language]}
+              media={postToUse.mainImage.id}
             />
           </div>
-          {post.byline && Object.entries(post.byline || {}).length > 0 && (
-            <>
-              <Separator className="h-0.5" />
+          {postToUse.byline &&
+            Object.entries(postToUse.byline || {}).length > 0 && (
+              <>
+                <Separator className="h-0.5" />
 
-              <Prose
-                className="!dark:text-zinc-400 !mb-0 !mt-4 font-sans !text-zinc-500"
-                disableHolyGrail
-              >
-                <PortableText
-                  value={post.byline}
-                  components={PortableTextComponents}
-                />
-              </Prose>
-            </>
-          )}
+                <Prose
+                  className="!dark:text-zinc-400 !mb-0 !mt-4 font-sans !text-zinc-500"
+                  disableHolyGrail
+                >
+                  <PortableText
+                    value={postToUse.byline}
+                    components={PortableTextComponents}
+                  />
+                </Prose>
+              </>
+            )}
 
           <Separator className="h-0.5" />
         </div>
         <Prose>
           {hasInlineAd ? (
             <PortableText
-              value={post.body}
+              value={postToUse.body}
               components={PortableTextComponents}
             />
           ) : (
-            // if no inline ad in the post, manually insert the MidRollBannerAd halfway through the body blocks
+            // if no inline ad in the postToUse, manually insert the MidRollBannerAd halfway through the body blocks
             <>
               <PortableText
-                value={[...post.body].slice(0, halfwayThroughBodyMarker)}
+                value={[...postToUse.body].slice(0, halfwayThroughBodyMarker)}
                 components={PortableTextComponents}
               />
               <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
@@ -291,9 +328,9 @@ export default function Slug() {
                 <MidRollBannerAd />
               </div>
               <PortableText
-                value={[...post.body].slice(
+                value={[...postToUse.body].slice(
                   halfwayThroughBodyMarker,
-                  post.body.length
+                  postToUse.body.length
                 )}
                 components={PortableTextComponents}
               />
@@ -301,62 +338,64 @@ export default function Slug() {
           )}
         </Prose>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
-          {post.subCategories?.map((subCategory) => (
-            <div key={subCategory.title[post.language]} className="">
+          {postToUse.subCategories?.map((subCategory) => (
+            <div key={subCategory.title[postToUse.language]} className="">
               <Link
                 prefetch="intent"
-                to={`/${post.language}/categories/${post.categories[0].slug[post.language]}/${subCategory.slug[post.language]}`}
+                to={`/${postToUse.language}/categories/${postToUse.categories[0].slug[postToUse.language]}/${subCategory.slug[postToUse.language]}`}
                 className="rounded bg-zinc-100 px-2.5 py-0.5 font-medium text-zinc-800 no-underline dark:bg-zinc-700 dark:text-zinc-300"
               >
-                {subCategory.title[post.language]}
+                {subCategory.title[postToUse.language]}
               </Link>
             </div>
           ))}
         </div>
         <div className="space-y-24">
           <Separator />
-          <AuthorCard author={post.author} showLinkToAuthorPage />
+          <AuthorCard author={postToUse.author} showLinkToAuthorPage />
           <Separator />
         </div>
       </article>
 
       <div className="mx-auto my-12 grid max-w-screen-xl grid-cols-1 gap-8 lg:grid-cols-2">
-        {[post.previousPost, post.nextPost].map((previousOrNextPost, index) => {
-          if (!previousOrNextPost || !previousOrNextPost.title)
-            return <div key="">&nbsp;</div>
-          return (
-            <div
-              key={previousOrNextPost._id}
-              className="group relative flex items-center gap-4 px-8"
-            >
-              {index === 0 && (
-                <Link
-                  className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
-                  prefetch="intent"
-                  to={`/${post.language}/${post.slug[post.language]}`}
-                  aria-label={`Read more: ${post.title[post.language]}`}
-                >
-                  <ChevronLeft className="size-8" />
-                </Link>
-              )}
-              <MiniCard post={previousOrNextPost} reverse={index === 1} />
-              {index === 1 && (
-                <Link
-                  className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
-                  prefetch="intent"
-                  to={`/${previousOrNextPost.language}/${
-                    previousOrNextPost.slug[previousOrNextPost.language]
-                  }`}
-                  aria-label={`Read more: ${
-                    previousOrNextPost.title[previousOrNextPost.language]
-                  }`}
-                >
-                  <ChevronRight className="size-8" />
-                </Link>
-              )}
-            </div>
-          )
-        })}
+        {[postToUse.previousPost, postToUse.nextPost].map(
+          (previousOrNextPost, index) => {
+            if (!previousOrNextPost || !previousOrNextPost.title)
+              return <div key="">&nbsp;</div>
+            return (
+              <div
+                key={previousOrNextPost._id}
+                className="group relative flex items-center gap-4 px-8"
+              >
+                {index === 0 && (
+                  <Link
+                    className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
+                    prefetch="intent"
+                    to={`/${postToUse.language}/${postToUse.slug[postToUse.language]}`}
+                    aria-label={`Read more: ${postToUse.title[postToUse.language]}`}
+                  >
+                    <ChevronLeft className="size-8" />
+                  </Link>
+                )}
+                <MiniCard post={previousOrNextPost} reverse={index === 1} />
+                {index === 1 && (
+                  <Link
+                    className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
+                    prefetch="intent"
+                    to={`/${previousOrNextPost.language}/${
+                      previousOrNextPost.slug[previousOrNextPost.language]
+                    }`}
+                    aria-label={`Read more: ${
+                      previousOrNextPost.title[previousOrNextPost.language]
+                    }`}
+                  >
+                    <ChevronRight className="size-8" />
+                  </Link>
+                )}
+              </div>
+            )
+          }
+        )}
       </div>
     </Layout>
   )

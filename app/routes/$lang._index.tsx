@@ -25,6 +25,7 @@ import { useQuery } from "~/sanity/loader"
 import { loadQuery } from "~/sanity/loader.server"
 import { QueryResponseInitial } from "@sanity/react-loader"
 import { genericMetaTags } from "~/lib/utils"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -180,12 +181,22 @@ export default function Index() {
         )
     )
 
+  const sanitizedFeaturedPosts = sanitizeStrings(
+    featuredPostsData?.featuredPosts || []
+  )
+  const sanitizedTrendingPosts = sanitizeStrings(
+    trendingPostsData?.trendingPosts || []
+  )
+  const sanitizedRemainingPosts = Object.values(
+    sanitizeStrings(remainingPosts || [])
+  )
+
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <TopGrid posts={featuredPostsData?.featuredPosts || []} />
+      <TopGrid posts={sanitizedFeaturedPosts} />
       <MidRollBannerAd />
-      <Trending posts={trendingPostsData?.trendingPosts || []} />
-      <CardGrid posts={remainingPosts || []} />
+      <Trending posts={sanitizedTrendingPosts} />
+      <CardGrid posts={sanitizedRemainingPosts} />
     </Layout>
   )
 }
