@@ -1,5 +1,5 @@
-import type { ActionFunction, LoaderFunction } from "@remix-run/node"
-import { redirect } from "@remix-run/node"
+import type { ActionFunction, LoaderFunction } from "react-router"
+import { redirect } from "react-router"
 import sendgridMail from "@sendgrid/mail"
 
 import { langPreferenceCookie } from "~/cookies.server"

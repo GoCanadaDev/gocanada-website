@@ -1,5 +1,5 @@
 import { PortableText } from "@portabletext/react"
-import { HeadersFunction, json, LoaderFunction } from "@remix-run/node"
+import { HeadersFunction, json, LoaderFunction } from "react-router"
 import { MetaFunction, useLoaderData } from "@remix-run/react"
 import { HeroImage } from "~/components/HeroImage"
 import { Layout } from "~/components/Layout"

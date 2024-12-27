@@ -1,5 +1,5 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import type { LoaderFunction, MetaFunction } from "react-router"
+import { json } from "react-router"
 import { useLoaderData } from "@remix-run/react"
 import { client } from "~/sanity/client"
 import { Layout } from "~/components/Layout"

@@ -9,7 +9,7 @@ import {
   LoaderFunction,
   ActionFunction,
   HeadersFunction,
-} from "@remix-run/node"
+} from "react-router"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
 import {

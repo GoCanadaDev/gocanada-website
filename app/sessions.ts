@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node"
+import { createCookieSessionStorage } from "react-router"
 
 export const DRAFT_SESSION_NAME = "__draft"
 

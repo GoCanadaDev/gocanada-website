@@ -1,5 +1,5 @@
-import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import type { LoaderFunction, LoaderFunctionArgs } from "react-router"
+import { json } from "react-router"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"

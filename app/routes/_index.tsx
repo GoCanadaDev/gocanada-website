@@ -1,4 +1,4 @@
-import { LoaderFunction, redirect } from "@remix-run/node"
+import { LoaderFunction, redirect } from "react-router"
 import i18next from "~/i18next.server"
 import { SupportedLanguages } from "~/i18n"
 import { langPreferenceCookie } from "~/cookies.server"

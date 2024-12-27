@@ -1,6 +1,6 @@
 import { Layout } from "~/components/Layout"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json, LoaderFunction, HeadersFunction } from "@remix-run/node"
+import { json, LoaderFunction, HeadersFunction } from "react-router"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
 import { MetaFunction, useLoaderData } from "@remix-run/react"

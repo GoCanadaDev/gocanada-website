@@ -1,4 +1,4 @@
-import { MetaDescriptor } from "@remix-run/node"
+import { MetaDescriptor } from "react-router"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"

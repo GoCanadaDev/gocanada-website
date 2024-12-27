@@ -2,8 +2,8 @@ import type {
   MetaFunction,
   LoaderFunction,
   HeadersFunction,
-} from "@remix-run/node"
-import { json, redirect } from "@remix-run/node"
+} from "react-router"
+import { json, redirect } from "react-router"
 import { Params, useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import {
@@ -21,11 +21,12 @@ import { TopGrid } from "~/components/homepage/TopGrid"
 import { Trending } from "~/components/homepage/Trending"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import MidRollBannerAd from "~/components/MidRollBannerAd"
-import { useQuery } from "~/sanity/loader"
+import { useQuery } from "@sanity/react-loader"
 import { loadQuery } from "~/sanity/loader.server"
 import { QueryResponseInitial } from "@sanity/react-loader"
 import { genericMetaTags } from "~/lib/utils"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { loadQueryOptions } from "~/sanity/loadQueryOptions.server"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -49,7 +50,8 @@ type IndexLoaderData = {
   trendingPosts: QueryResponseInitial<Post[] | null>
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const { options } = await loadQueryOptions(request.headers)
   if (!params.lang) {
     throw new Response(null, {
       status: 404,
@@ -76,9 +78,11 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const siteConfig = await getSiteConfig(client)
 
-  const posts = await loadQuery<Post[] | null>(postsQuery, {
-    language: params.lang,
-  }).then((res) => ({
+  const posts = await loadQuery<Post[] | null>(
+    postsQuery,
+    { language: params.lang },
+    options
+  ).then((res) => ({
     ...res,
     data: res.data ? res.data : null,
   }))
@@ -87,9 +91,11 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Posts Not found", { status: 404 })
   }
 
-  const featuredPosts = await loadQuery<Post[] | null>(featuredPostsQuery, {
-    language: params.lang,
-  }).then((res) => ({
+  const featuredPosts = await loadQuery<Post[] | null>(
+    featuredPostsQuery,
+    { language: params.lang },
+    options
+  ).then((res) => ({
     ...res,
     data: res.data ? res.data : null,
   }))
@@ -98,9 +104,11 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Featured Posts Not found", { status: 404 })
   }
 
-  const trendingPosts = await loadQuery<Post[] | null>(trendingPostsQuery, {
-    language: params.lang,
-  }).then((res) => ({
+  const trendingPosts = await loadQuery<Post[] | null>(
+    trendingPostsQuery,
+    { language: params.lang },
+    options
+  ).then((res) => ({
     ...res,
     data: res.data ? res.data : null,
   }))

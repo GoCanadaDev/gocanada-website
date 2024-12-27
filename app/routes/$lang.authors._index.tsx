@@ -1,5 +1,5 @@
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react"
-import { json, LoaderFunction } from "@remix-run/node"
+import { json, LoaderFunction } from "react-router"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"

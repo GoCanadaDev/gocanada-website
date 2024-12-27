@@ -1,6 +1,6 @@
 import { PortableText } from "@portabletext/react"
-import type { HeadersFunction, LoaderFunction } from "@remix-run/node"
-import { json } from "@remix-run/node"
+import type { HeadersFunction, LoaderFunction } from "react-router"
+import { json } from "react-router"
 import type { MetaFunction } from "@remix-run/react"
 import { useLoaderData } from "@remix-run/react"
 

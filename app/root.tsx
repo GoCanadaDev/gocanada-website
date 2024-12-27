@@ -3,11 +3,10 @@ import type {
   ActionFunction,
   LinksFunction,
   LoaderFunction,
-} from "@remix-run/node"
-import { json, redirect } from "@remix-run/node"
+} from "react-router"
+import { json, redirect } from "react-router"
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -29,7 +28,7 @@ import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { Category, Partner, getCategories, getPartners } from "~/sanity/queries"
 import styles from "~/tailwind.css"
 import { getEnv } from "./env.server"
-import VisualEditing from "./components/VisualEditing"
+import { VisualEditing } from "@sanity/visual-editing/remix"
 import i18next from "~/i18next.server"
 import { Hydrated } from "./components/Hydrated"
 import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
@@ -313,7 +312,6 @@ function App() {
           }}
         />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   )

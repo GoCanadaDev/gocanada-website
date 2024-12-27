@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node"
+import type { LoaderFunction } from "react-router"
 import type { MetaFunction } from "@remix-run/react"
 import { useLoaderData, useNavigate } from "@remix-run/react"
 import type { ClientRequest } from "@sendgrid/client/src/request"

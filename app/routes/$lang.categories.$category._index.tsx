@@ -2,8 +2,8 @@ import type {
   LoaderFunction,
   LoaderFunctionArgs,
   HeadersFunction,
-} from "@remix-run/node"
-import { json } from "@remix-run/node"
+} from "react-router"
+import { json } from "react-router"
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
 import { MoveLeft } from "lucide-react"
 import invariant from "tiny-invariant"

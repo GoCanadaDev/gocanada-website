@@ -2,7 +2,7 @@ import algoliasearch from "algoliasearch"
 import { client } from "~/sanity/client"
 import indexer from "sanity-algolia"
 
-import type { ActionFunction } from "@remix-run/node"
+import type { ActionFunction } from "react-router"
 
 import {
   algoliaAdminApiKey,

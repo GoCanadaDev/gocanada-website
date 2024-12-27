@@ -1,4 +1,4 @@
-import { LoaderFunction } from "@remix-run/node"
+import { LoaderFunction } from "react-router"
 import { client } from "~/sanity/client"
 import { getSitemapSlugs, SitemapSlugs } from "~/sanity/queries/sitemap"
 

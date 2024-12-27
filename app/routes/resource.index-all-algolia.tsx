@@ -1,6 +1,6 @@
 import { client } from "~/sanity/client"
-import { json } from "@remix-run/node"
-import type { ActionFunction } from "@remix-run/node"
+import { json } from "react-router"
+import type { ActionFunction } from "react-router"
 
 import { getAlgoliaPosts } from "~/sanity/queries"
 import { algoliaAdminInstance } from "~/algolia"

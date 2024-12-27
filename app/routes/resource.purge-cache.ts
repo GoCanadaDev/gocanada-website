@@ -4,7 +4,7 @@ import {
   redirect,
   type ActionFunction,
   type LoaderFunction,
-} from "@remix-run/node"
+} from "react-router"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { langPreferenceCookie } from "~/cookies.server"
 

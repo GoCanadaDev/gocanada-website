@@ -1,5 +1,5 @@
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react"
-import { json, LoaderFunction } from "@remix-run/node"
+import { json, LoaderFunction } from "react-router"
 import { Category, getCategories } from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
