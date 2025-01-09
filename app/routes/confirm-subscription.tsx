@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "react-router"
-import type { MetaFunction } from "@remix-run/react"
-import { useLoaderData, useNavigate } from "@remix-run/react"
+import type { MetaFunction } from "react-router"
+import { useLoaderData, useNavigate } from "react-router"
 import type { ClientRequest } from "@sendgrid/client/src/request"
 
 import { Layout } from "~/components/Layout"
@@ -12,7 +12,7 @@ import { genericMetaTags } from "~/lib/utils"
 import { client } from "~/sanity/client"
 import type { SiteConfigType } from "~/sanity/queries/siteConfig"
 import { getSiteConfig } from "~/sanity/queries/siteConfig"
-import GoCanadaLogoRed from "../../public/images/logotype-red.png"
+import GoCanadaLogoRed from "/images/logotype-red.png"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

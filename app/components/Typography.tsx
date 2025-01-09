@@ -1,15 +1,14 @@
-import { HTMLProps } from "react"
 import { cn } from "~/lib/utils"
 
 type TypographyProps = {
   children: React.ReactNode
-  className?: HTMLProps<HTMLElement>["className"]
+  className?: React.HTMLAttributes<HTMLHeadingElement>["className"]
 }
 
 const H1 = ({ children, className }: TypographyProps) => (
   <h1
     className={cn(
-      "scroll-m-20 font-serif text-4xl font-normal tracking-tight lg:text-5xl dark:text-zinc-100",
+      "scroll-m-20 font-serif text-4xl font-normal tracking-tight dark:text-zinc-100 lg:text-5xl",
       className
     )}
   >

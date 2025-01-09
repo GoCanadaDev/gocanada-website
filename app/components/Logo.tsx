@@ -1,6 +1,6 @@
-import { Link } from "@remix-run/react"
-import GoCanadaLogoColour from "../../public/images/logotype-colour-sm.png"
-import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.png"
+import { Link } from "react-router"
+import GoCanadaLogoColour from "/images/logotype-colour-sm.png"
+import GoCanadaLogoReverse from "/images/logotype-colour-reverse-sm.png"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export function Logo() {

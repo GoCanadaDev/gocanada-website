@@ -1,13 +1,6 @@
 import { AlertTriangle } from "lucide-react"
 import { Layout } from "./Layout"
-import {
-  isRouteErrorResponse,
-  useRouteError,
-  Links,
-  Meta,
-  Scripts,
-  Link,
-} from "@remix-run/react"
+import { isRouteErrorResponse, useRouteError, Links, Meta, Scripts, Link } from "react-router";
 import { Typography } from "./Typography"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 

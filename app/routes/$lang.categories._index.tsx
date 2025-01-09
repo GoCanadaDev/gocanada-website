@@ -1,5 +1,5 @@
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react"
-import { json, LoaderFunction } from "react-router"
+import { Link, MetaFunction, useLoaderData, useParams } from "react-router"
+import { data, LoaderFunction } from "react-router"
 import { Category, getCategories } from "~/sanity/queries"
 import { client } from "~/sanity/client"
 import { SupportedLanguages } from "~/i18n"
@@ -30,7 +30,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const categories = await getCategories(client, params.lang!)
   const siteConfig = await getSiteConfig(client)
 
-  return json<LoaderDataType>({
+  return data<LoaderDataType>({
     categories,
     siteConfig,
   })

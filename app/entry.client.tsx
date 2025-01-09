@@ -1,13 +1,16 @@
-import * as Sentry from "@sentry/remix"
-import { RemixBrowser, useLocation, useMatches } from "react-router"
+import * as Sentry from "@sentry/react"
+import { useLocation, useMatches } from "react-router"
+import { HydratedRouter } from "react-router/dom"
 import { startTransition, StrictMode, useEffect } from "react"
-import { hydrateRoot } from "react-dom/client"
+import ReactDOM from "react-dom/client"
 import i18n from "./i18n"
 import i18next from "i18next"
 import { I18nextProvider, initReactI18next } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import Backend from "i18next-http-backend"
-import { getInitialNamespaces } from "remix-i18next"
+import { getInitialNamespaces } from "remix-i18next/client"
+import { createBrowserRouter } from "react-router"
+import routes from "./routes"
 
 if (process.env.NODE_ENV !== "development") {
   Sentry.init({
@@ -52,22 +55,19 @@ async function hydrate() {
       },
     })
 
-  startTransition(() => {
-    hydrateRoot(
-      document,
-      <I18nextProvider i18n={i18next}>
-        <StrictMode>
-          <RemixBrowser />
-        </StrictMode>
-      </I18nextProvider>
-    )
-  })
+  const root = document.getElementById("root")
+  if (!root) {
+    throw new Error("Root element not found")
+  }
+
+  ReactDOM.hydrateRoot(
+    root,
+    <I18nextProvider i18n={i18next}>
+      <StrictMode>
+        <HydratedRouter />
+      </StrictMode>
+    </I18nextProvider>
+  )
 }
 
-if (window.requestIdleCallback) {
-  window.requestIdleCallback(hydrate)
-} else {
-  // Safari doesn't support requestIdleCallback
-  // https://caniuse.com/requestidlecallback
-  window.setTimeout(hydrate, 1)
-}
+hydrate()

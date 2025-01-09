@@ -1,5 +1,5 @@
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
-import { Link, useParams } from "@remix-run/react"
+import { Link, useParams } from "react-router";
 import { SupportedLanguages } from "~/i18n"
 import {
   Accordion,

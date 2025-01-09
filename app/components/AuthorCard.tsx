@@ -12,7 +12,7 @@ import {
   Youtube,
 } from "lucide-react"
 import { Image } from "~/components/Image"
-import { Link } from "@remix-run/react"
+import { Link } from "react-router";
 
 enum AuthorLinksKeys {
   Website = "website",

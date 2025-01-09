@@ -5,9 +5,14 @@ node_modules
 /build
 .env
 
+.react-router/
+
 # Local Netlify folder
 .netlify
 .idea
 
 # Sentry Config File
 .sentryclirc
+
+# Sentry Config File
+.env.sentry-build-plugin

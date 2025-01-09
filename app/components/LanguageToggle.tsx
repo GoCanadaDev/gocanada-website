@@ -1,8 +1,8 @@
-import { Form } from "@remix-run/react"
+import { Form } from "react-router"
 import { useTranslation } from "react-i18next"
 import { SupportedLanguages } from "~/i18n"
 import useSound from "use-sound"
-import { MouseEventHandler, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { animated } from "react-spring"
 import clickSound from "../../public/sounds/click.mp3"
 import useBoop from "~/lib/useBoop"
@@ -50,7 +50,7 @@ export function LanguageToggle({
           <TooltipTrigger asChild>
             {ready && (
               <button
-                onMouseEnter={trigger as MouseEventHandler<HTMLButtonElement>}
+                onMouseEnter={trigger}
                 type="submit"
                 aria-label={t("currentLanguage")}
                 className="rounded-md p-2 focus:bg-zinc-100 focus:outline-none dark:focus:bg-zinc-800"

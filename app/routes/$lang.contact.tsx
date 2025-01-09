@@ -5,7 +5,7 @@ import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import {
-  json,
+  data,
   LoaderFunction,
   ActionFunction,
   HeadersFunction,
@@ -19,7 +19,7 @@ import {
   useSearchParams,
   useSubmit,
   MetaFunction,
-} from "@remix-run/react"
+} from "react-router"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/portable"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
@@ -119,7 +119,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const staticPage = await getStaticPageByRoute(client, params.lang, "/contact")
   const siteConfig = await getSiteConfig(client)
 
-  return json(
+  return data(
     { staticPage, siteConfig },
     {
       status: 200,

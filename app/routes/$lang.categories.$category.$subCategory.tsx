@@ -3,8 +3,8 @@ import type {
   LoaderFunctionArgs,
   HeadersFunction,
 } from "react-router"
-import { json } from "react-router"
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
+import { data } from "react-router"
+import { Link, MetaFunction, useLoaderData } from "react-router"
 import { Search } from "lucide-react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
@@ -71,7 +71,7 @@ export const loader: LoaderFunction = async ({
 
   const siteConfig = await getSiteConfig(client)
 
-  return json(
+  return data(
     {
       category,
       subCategory,

@@ -9,8 +9,8 @@ import { useState } from "react"
 import { Button } from "./ui/button"
 import { Typography } from "./Typography"
 import SubscribeForm from "./SubscribeForm"
-import GoCanadaLogoColour from "../../public/images/logotype-colour-sm.png"
-import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.png"
+import GoCanadaLogoColour from "/images/logotype-colour-sm.png"
+import GoCanadaLogoReverse from "/images/logotype-colour-reverse-sm.png"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 const SubscribeModal = ({
@@ -31,7 +31,7 @@ const SubscribeModal = ({
       >
         <Button
           type="button"
-          className="gap-2 bg-transparent px-0 text-base uppercase tracking-widest text-brand hover:bg-brandHover hover:bg-transparent hover:text-brandHover md:bg-brand md:px-4 md:text-sm md:text-white md:hover:bg-brandHover md:hover:text-white dark:bg-transparent dark:text-brand dark:hover:bg-brandHover dark:hover:bg-transparent dark:hover:text-brandHover md:dark:bg-brand md:dark:text-white dark:md:hover:bg-brandHover dark:md:hover:text-white"
+          className="gap-2 bg-transparent px-0 text-base uppercase tracking-widest text-brand hover:bg-brandHover hover:bg-transparent hover:text-brandHover dark:bg-transparent dark:text-brand dark:hover:bg-brandHover dark:hover:bg-transparent dark:hover:text-brandHover md:bg-brand md:px-4 md:text-sm md:text-white md:hover:bg-brandHover md:hover:text-white md:dark:bg-brand md:dark:text-white dark:md:hover:bg-brandHover dark:md:hover:text-white"
         >
           Newsletter
         </Button>

@@ -1,9 +1,9 @@
 import { Layout } from "~/components/Layout"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json, LoaderFunction, HeadersFunction } from "react-router"
+import { data, LoaderFunction, HeadersFunction } from "react-router"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
-import { MetaFunction, useLoaderData } from "@remix-run/react"
+import { MetaFunction, useLoaderData } from "react-router"
 import { PortableText } from "@portabletext/react"
 import PortableTextComponents from "~/components/portable"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
@@ -37,7 +37,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const staticPage = await getStaticPageByRoute(client, params.lang, "/about")
   const siteConfig = await getSiteConfig(client)
 
-  return json(
+  return data(
     { staticPage, siteConfig },
     {
       status: 200,

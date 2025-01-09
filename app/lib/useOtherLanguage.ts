@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react"
+import { useParams } from "react-router";
 
 /**
  * Hook for grabbing the other language from the url for use in linking to the other language

@@ -1,6 +1,6 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "react-router"
-import { json } from "react-router"
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
+import { data } from "react-router"
+import { Link, MetaFunction, useLoaderData } from "react-router"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
@@ -56,7 +56,7 @@ export const loader: LoaderFunction = async ({
     throw new Response("Not found", { status: 404 })
   }
 
-  return json(
+  return data(
     {
       author,
       siteConfig,

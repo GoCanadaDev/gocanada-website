@@ -1,8 +1,7 @@
 import { renderToString } from "react-dom/server"
 import type { InstantSearchServerState } from "react-instantsearch"
 import { getServerState } from "react-instantsearch"
-import { json } from "react-router"
-import { MetaFunction, useLoaderData } from "@remix-run/react"
+import { MetaFunction, useLoaderData } from "react-router"
 import type { LoaderFunction } from "react-router"
 import { Typography } from "~/components/Typography"
 import { Layout } from "~/components/Layout"
@@ -42,12 +41,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     .optional()
     .parse(themeCookie.themePreference)
 
-  return json({
+  return {
     query,
     serverState,
     serverUrl,
     themePreference,
-  })
+  }
 }
 
 type SearchProps = {

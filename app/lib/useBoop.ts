@@ -1,7 +1,22 @@
 import React from "react"
-import { useSpring } from "react-spring"
-
+import { useSpring, SpringValue } from "react-spring"
 import { usePrefersReducedMotion } from "@sanity/ui"
+
+interface BoopConfig {
+  x?: number
+  y?: number
+  rotation?: number
+  scale?: number
+  timing?: number
+  springConfig?: {
+    tension: number
+    friction: number
+  }
+}
+
+type BoopStyle = {
+  transform: SpringValue<string>
+}
 
 function useBoop({
   x = 0,
@@ -13,9 +28,10 @@ function useBoop({
     tension: 300,
     friction: 10,
   },
-}) {
+}: BoopConfig): [BoopStyle | {}, () => void] {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isBooped, setIsBooped] = React.useState(false)
+
   const style = useSpring({
     transform: isBooped
       ? `translate(${x}px, ${y}px)
@@ -26,6 +42,7 @@ function useBoop({
          scale(1)`,
     config: springConfig,
   })
+
   React.useEffect(() => {
     if (!isBooped) {
       return
@@ -36,11 +53,15 @@ function useBoop({
     return () => {
       window.clearTimeout(timeoutId)
     }
-  }, [isBooped])
+  }, [isBooped, timing])
+
   const trigger = React.useCallback(() => {
     setIsBooped(true)
   }, [])
-  let appliedStyle = prefersReducedMotion ? {} : style
+
+  const appliedStyle = prefersReducedMotion ? {} : style
+
   return [appliedStyle, trigger]
 }
+
 export default useBoop

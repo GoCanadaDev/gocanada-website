@@ -1,6 +1,6 @@
 import { PortableText } from "@portabletext/react"
-import { HeadersFunction, json, LoaderFunction } from "react-router"
-import { MetaFunction, useLoaderData } from "@remix-run/react"
+import { HeadersFunction, data, LoaderFunction } from "react-router"
+import { MetaFunction, useLoaderData } from "react-router"
 import { HeroImage } from "~/components/HeroImage"
 import { Layout } from "~/components/Layout"
 import PortableTextComponents from "~/components/portable"
@@ -38,7 +38,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const staticPage = await getStaticPageByRoute(client, params.lang, "/terms")
   const siteConfig = await getSiteConfig(client)
 
-  return json(
+  return data(
     { staticPage, siteConfig },
     {
       status: 200,

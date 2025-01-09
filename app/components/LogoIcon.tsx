@@ -1,5 +1,5 @@
-import { Link } from "@remix-run/react"
-import GoCanadaLogoRed from "../../public/images/icon-red-sm.png"
+import { Link } from "react-router"
+import GoCanadaLogoRed from "/images/icon-red-sm.png"
 
 export function LogoIcon() {
   return (

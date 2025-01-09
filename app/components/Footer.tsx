@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
-import { Link } from "@remix-run/react"
+import { Link } from "react-router"
 import { LogoIcon } from "~/components/LogoIcon"
 import { Separator } from "~/components/ui/separator"
-import { Fragment, MouseEventHandler } from "react"
+import { Fragment } from "react"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { SupportedLanguages } from "~/i18n"
 import { useTranslation } from "react-i18next"
@@ -84,7 +84,7 @@ export function Footer() {
           <Typography.H4 className="text-zinc-300">Follow Us</Typography.H4>
           <div className="mt-2 flex flex-wrap items-center justify-center gap-4 md:flex-nowrap">
             <a
-              onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
+              onMouseEnter={trigger}
               href="https://instagram.com/canada"
               className="flex items-center text-brand transition-colors duration-200 hover:text-brandHover"
               target="_blank"
@@ -96,7 +96,7 @@ export function Footer() {
               <span className="pl-2 text-xl uppercase">@canada</span>
             </a>
             <a
-              onMouseEnter={trigger2 as MouseEventHandler<HTMLAnchorElement>}
+              onMouseEnter={trigger2}
               href="https://threads.net/canada"
               className="flex items-center text-brand transition-colors duration-200 hover:text-brandHover"
               target="_blank"

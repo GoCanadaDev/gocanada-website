@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import { Link } from "react-router"
 import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"

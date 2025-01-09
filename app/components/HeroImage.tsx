@@ -2,7 +2,7 @@ import { SanityImage } from "sanity-image"
 import { cn } from "~/lib/utils"
 import { baseUrl } from "~/sanity/projectDetails"
 import { Typography } from "./Typography"
-import { Link, useParams } from "@remix-run/react"
+import { Link, useParams } from "react-router";
 import { Post } from "~/sanity/queries"
 import { ImageCrop, ImageHotspot } from "sanity"
 

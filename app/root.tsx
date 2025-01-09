@@ -1,10 +1,10 @@
-import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
+import * as Sentry from "@sentry/react"
 import type {
   ActionFunction,
   LinksFunction,
   LoaderFunction,
 } from "react-router"
-import { json, redirect } from "react-router"
+import { data, isRouteErrorResponse, redirect } from "react-router"
 import {
   Links,
   Meta,
@@ -13,9 +13,8 @@ import {
   ScrollRestoration,
   useLoaderData,
   useLocation,
-  useRouteError,
-} from "@remix-run/react"
-import { useChangeLanguage } from "remix-i18next"
+} from "react-router"
+import { useChangeLanguage } from "remix-i18next/react"
 import { useTranslation } from "react-i18next"
 import { z } from "zod"
 import {
@@ -26,7 +25,7 @@ import {
 } from "~/cookies.server"
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 import { Category, Partner, getCategories, getPartners } from "~/sanity/queries"
-import styles from "~/tailwind.css"
+import stylesheet from "./tailwind.css?url"
 import { getEnv } from "./env.server"
 import { VisualEditing } from "@sanity/visual-editing/remix"
 import i18next from "~/i18next.server"
@@ -44,19 +43,19 @@ import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
 import { useEffect, useState } from "react"
 import addExternalScripts from "./lib/addExternalScripts"
 import WelcomeDialog from "./components/WelcomeDialog"
+import { Route } from "./+types/root"
 
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
+export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://cdn.sanity.io" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
+    "cross-origin": "anonymous",
   },
   {
     rel: "preconnect",
     href: "https://fonts.googleapis.com",
-    crossOrigin: "anonymous",
+    "cross-origin": "anonymous",
   },
   {
     href: "https://fonts.googleapis.com/css2?family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap",
@@ -88,15 +87,8 @@ export const links: LinksFunction = () => [
     sizes: "16x16",
     href: "/site.webmanifest",
   },
+  { rel: "stylesheet", href: stylesheet },
 ]
-
-export const scripts = () => {
-  return [
-    {
-      src: "",
-    },
-  ]
-}
 
 export type RootLoaderData = {
   adConfig: AdConfigType
@@ -188,7 +180,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   let t = await i18next.getFixedT(request)
   const translations = await useTranslations(t)
 
-  return json<RootLoaderData>(
+  return data<RootLoaderData>(
     {
       adConfig,
       bodyClassNames,
@@ -220,7 +212,7 @@ export let handle = {
   i18n: "common",
 }
 
-function App() {
+export function Layout({ children }: { children: React.ReactNode }) {
   const {
     locale,
     bodyClassNames,
@@ -275,14 +267,14 @@ function App() {
       dir={i18n.dir()}
     >
       <head>
-        <Meta />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>{siteConfig.siteTitle}</title>
+        <Meta />
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        <Outlet />
+        {children}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${ENV.GTAG_ID}`}
@@ -317,10 +309,29 @@ function App() {
   )
 }
 
-export default withSentry(App)
+export default function App() {
+  return <Outlet />
+}
 
-export function ErrorBoundary() {
-  const error = useRouteError()
-  captureRemixErrorBoundaryError(error)
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  let message = "Oops!"
+  let details = "An unexpected error occurred."
+  let stack: string | undefined
+
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? "404" : "Error"
+    details =
+      error.status === 404
+        ? "The requested page could not be found."
+        : error.statusText || details
+  } else if (error && error instanceof Error) {
+    // you only want to capture non 404-errors that reach the boundary
+    Sentry.captureException(error)
+    if (import.meta.env.DEV) {
+      details = error.message
+      stack = error.stack
+    }
+  }
+
   return <ErrorBoundaryPage />
 }

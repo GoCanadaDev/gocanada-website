@@ -1,13 +1,14 @@
 [build]
 command = "npm run build"
-publish = "public"
+publish = "build/client"
 
 [functions]
   external_node_modules = ["@sendgrid/client"]
 
 [dev]
-command = "npm run dev"
-targetPort = 3000
+  command = "react-router dev"
+  targetPort = 5173  # Vite's default port, adjust if you've configured a different one
+  port = 8888  # The port Netlify Dev will use
 
 [[redirects]]
   from = "/contact-form"
@@ -34,11 +35,5 @@ for = "/*"
 X-Frame-Options = "SAMEORIGIN"
 X-Content-Type-Options = "nosniff"
 X-XSS-Protection = "1; mode=block"
-Content-Security-Policy = '''
-  default-src 'self';
-  script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com  https://connect.facebook.net https://www.facebook.com;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' https://cdn.sanity.io https://www.facebook.com;
-  font-src 'self' https://fonts.gstatic.com;
-  frame-src 'self' https://www.youtube.com https://www.instagram.com https://www.threads.net https://www.linkedin.com https://www.x.com https://www.facebook.com;'''
+# Content-Security-Policy = "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.facebook.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https://cdn.sanity.io https://www.facebook.com data:; font-src 'self' https://fonts.gstatic.com; frame-src 'self' https://www.youtube.com https://www.instagram.com https://www.threads.net https://www.linkedin.com https://www.x.com https://www.facebook.com;"
 Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"

@@ -7,7 +7,9 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    ".prettierrc.mjs"
+    ".prettierrc.mjs",
+    ".react-router/types/**/*",
+    "tailwind.config.js"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
@@ -23,9 +25,9 @@
     "paths": {
       "~/*": ["./app/*"]
     },
-    // Remix takes care of building everything in `remix build`.
     "noEmit": true,
-    "types": ["@remix-run/node", "vite/client"],
+    "types": ["@react-router/node", "vite/client"],
+    "rootDirs": [".", "./.react-router/types"],
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "Bundler"

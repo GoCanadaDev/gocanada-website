@@ -3,8 +3,8 @@ import type {
   LoaderFunction,
   HeadersFunction,
 } from "react-router"
-import { json, redirect } from "react-router"
-import { Params, useLoaderData } from "@remix-run/react"
+import { data, redirect } from "react-router"
+import { Params, useLoaderData } from "react-router"
 import { useTranslation } from "react-i18next"
 import {
   Post,
@@ -117,7 +117,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     throw new Response("Trending Posts Not found", { status: 404 })
   }
 
-  return json<IndexLoaderData>(
+  return data<IndexLoaderData>(
     {
       featuredPosts,
       params,

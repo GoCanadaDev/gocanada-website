@@ -1,5 +1,5 @@
 import { client } from "~/sanity/client"
-import { json } from "react-router"
+import { data } from "react-router"
 import type { ActionFunction } from "react-router"
 
 import { getAlgoliaPosts } from "~/sanity/queries"
@@ -94,7 +94,7 @@ export const action: ActionFunction = async ({ request }) => {
     await index.saveObjects(mappedPosts)
     console.timeEnd(`Saved ${posts.length} posts to index:`)
 
-    return json(
+    return data(
       { success: true },
       {
         status: 200,
@@ -106,7 +106,7 @@ export const action: ActionFunction = async ({ request }) => {
   } catch (error) {
     console.error(error)
 
-    return json(
+    return data(
       { success: false },
       {
         status: 200,

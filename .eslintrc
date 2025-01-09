@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "@remix-run/eslint-config",
-    "@remix-run/eslint-config/node",
-    "prettier"
-  ],
+  "extends": ["prettier"],
   "ignorePatterns": ["node_modules", "build", ".cache"],
   "plugins": ["prettier", "simple-import-sort"],
   "overrides": [
@@ -12,9 +8,9 @@
       "files": ["./app/*/*.{js,jsx,ts,tsx}"],
       "excludedFiles": ["./app/routes/**"],
       "rules": {
-        "import/no-default-export": "error"
-      }
-    }
+        "import/no-default-export": "error",
+      },
+    },
   ],
   "rules": {
     "simple-import-sort/imports": "error",
@@ -25,8 +21,8 @@
         "semi": false,
         "printWidth": 80,
         "bracketSpacing": false,
-        "singleQuote": true
-      }
-    ]
-  }
+        "singleQuote": true,
+      },
+    ],
+  },
 }

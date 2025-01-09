@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import { Link } from "react-router";
 import { PostPreview, Post, NextOrPreviousPostType } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"

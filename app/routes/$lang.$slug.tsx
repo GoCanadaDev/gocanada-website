@@ -4,8 +4,8 @@ import type {
   MetaFunction,
   HeadersFunction,
 } from "react-router"
-import { json } from "react-router"
-import { Link, Params, useLoaderData } from "@remix-run/react"
+import { data } from "react-router"
+import { Link, Params, useLoaderData } from "react-router"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { client } from "~/sanity/client"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
@@ -45,36 +45,35 @@ export const meta: MetaFunction<typeof loader> = ({
 }: {
   data: Omit<LoaderDataType, "initial"> & { initial: { data: Post } }
 }) => {
+  const sanitizedData = sanitizeStrings(data?.initial?.data)
   const title = [
-    data?.initial?.data?.title[data.initial.data.language],
+    sanitizedData?.title[sanitizedData.language],
     data.siteConfig.siteTitle,
   ]
     .filter(Boolean)
     .join(" | ")
   const ogImageUrl = data ? data.ogImageUrl : null
-  const description = data ? data.initial.data.excerpt.en : ""
+  const description = data ? sanitizedData.excerpt.en : ""
 
   return [
     { title },
     { name: "description", content: description },
-    { property: "article:author", content: data.initial.data.author.name },
+    { property: "article:author", content: sanitizedData.author.name },
     {
       property: "article:modified_time",
-      content: data.initial.data._updatedAt,
+      content: sanitizedData._updatedAt,
     },
     {
       property: "article:published_time",
-      content: data.initial.data.publishedAt,
+      content: sanitizedData.publishedAt,
     },
     {
       property: "article:section",
-      content: data.initial.data.categories[0].title.en,
+      content: sanitizedData.categories[0].title.en,
     },
     {
       property: "article:tag",
-      content: data.initial.data.subCategories
-        .map((sc) => sc.title.en)
-        .join(", "),
+      content: sanitizedData.subCategories.map((sc) => sc.title.en).join(", "),
     },
     { property: "og:description", content: description },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
@@ -88,7 +87,7 @@ export const meta: MetaFunction<typeof loader> = ({
     { property: "og:type", content: "article" },
     {
       property: "og:url",
-      content: `https://gocanada.com/en/${data.initial.data.slug.en}`,
+      content: `https://gocanada.com/en/${sanitizedData.slug.en}`,
     },
     { property: "twitter:card", content: "summary_large_image" },
     { property: "twitter:description", content: description },
@@ -98,7 +97,7 @@ export const meta: MetaFunction<typeof loader> = ({
     {
       tagName: "link",
       rel: "canonical",
-      href: `https://gocanada.com/en/${data.initial.data.slug.en}`,
+      href: `https://gocanada.com/en/${sanitizedData.slug.en}`,
     },
   ]
 }
@@ -142,7 +141,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const { origin } = new URL(request.url)
   const ogImageUrl = `${origin}/resource/og?id=${initial.data?._id}`
 
-  return json(
+  return data(
     {
       params,
       initial,
@@ -377,7 +376,6 @@ export default function Slug() {
           <Separator />
         </div>
       </article>
-
       <div className="mx-auto my-12 grid max-w-screen-xl grid-cols-1 gap-8 lg:grid-cols-2">
         {[sanitizedPost.previousPost, sanitizedPost.nextPost].map(
           (previousOrNextPost, index) => {

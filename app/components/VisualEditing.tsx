@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "@remix-run/react"
+import { useLocation, useNavigate } from "react-router";
 import type { HistoryUpdate } from "@sanity/visual-editing"
 import { enableVisualEditing } from "@sanity/visual-editing"
 import { useEffect, useRef } from "react"

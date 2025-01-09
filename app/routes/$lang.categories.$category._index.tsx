@@ -3,8 +3,8 @@ import type {
   LoaderFunctionArgs,
   HeadersFunction,
 } from "react-router"
-import { json } from "react-router"
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
+import { data } from "react-router"
+import { Link, MetaFunction, useLoaderData } from "react-router"
 import { MoveLeft } from "lucide-react"
 import invariant from "tiny-invariant"
 import { CardGrid } from "~/components/CardGrid"
@@ -57,7 +57,7 @@ export const loader: LoaderFunction = async ({
     throw new Response("Not found", { status: 404 })
   }
 
-  return json(
+  return data(
     {
       category,
       siteConfig,

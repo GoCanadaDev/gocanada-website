@@ -7,11 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog"
-import GoCanadaLogoColour from "../../public/images/logotype-colour-sm.png"
-import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.png"
+import GoCanadaLogoColour from "/images/logotype-colour-sm.png"
+import GoCanadaLogoReverse from "/images/logotype-colour-reverse-sm.png"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import SubscribeForm from "./SubscribeForm"
-import { Form, useSubmit } from "@remix-run/react"
+import { Form, useSubmit } from "react-router"
 
 export default function WelcomeDialog() {
   const submit = useSubmit()

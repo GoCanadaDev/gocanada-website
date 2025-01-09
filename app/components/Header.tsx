@@ -3,7 +3,6 @@ import { ThemeToggle } from "~/components/ThemeToggle"
 import { Instagram } from "lucide-react"
 import useBoop from "~/lib/useBoop"
 import { animated } from "react-spring"
-import { MouseEventHandler } from "react"
 import { Separator } from "~/components/ui/separator"
 import SearchModal from "~/components/search/SearchModal"
 import { Navigation } from "./Navigation"
@@ -11,7 +10,7 @@ import TopAdBanner from "./TopAdBanner"
 import SubscribeModal from "./SubscribeModal"
 import { MobileNavigation } from "./MobileNavigation"
 
-export function Header({ translationUrl }: { translationUrl?: string }) {
+export function Header() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
 
   return (
@@ -28,7 +27,7 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
           <Logo />
           <div className="flex items-center gap-1 md:gap-2">
             <a
-              onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
+              onMouseEnter={trigger}
               href="https://instagram.com/canada"
               className="flex flex-col items-center justify-center rounded-md p-1 transition-colors duration-200 hover:text-brand focus:bg-zinc-100 focus:text-brand focus:outline-none dark:focus:bg-zinc-800"
               target="_blank"

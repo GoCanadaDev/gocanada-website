@@ -46,7 +46,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
   return (
     <>
       <div ref={refScrollUp} />
-      <Header translationUrl={translationUrl} />
+      <Header />
       <main className={classes} id="main">
         {children}
         <Toaster
