@@ -8,6 +8,18 @@ import { I18nextProvider, initReactI18next } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import Backend from "i18next-http-backend"
 import { getInitialNamespaces } from "remix-i18next"
+import posthog from "posthog-js"
+
+function PosthogInit() {
+  useEffect(() => {
+    posthog.init("phc_HRLvvfNFz7PVRK5BRZl29YVJYugZZkUrFgf8hVTMiPm", {
+      api_host: "https://us.i.posthog.com",
+      person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
+    })
+  }, [])
+
+  return null
+}
 
 if (process.env.NODE_ENV !== "development") {
   Sentry.init({
@@ -58,6 +70,7 @@ async function hydrate() {
       <I18nextProvider i18n={i18next}>
         <StrictMode>
           <RemixBrowser />
+          <PosthogInit />
         </StrictMode>
       </I18nextProvider>
     )

@@ -153,7 +153,7 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Slug() {
   const { post, params } = useLoaderData<LoaderDataType>()
-  const { data: postData, loading } = useQuery<Post | null>(
+  const { data: postData } = useQuery<Post | null>(
     postBySlugQuery,
     { language: params.lang, slug: params.slug },
     {
@@ -181,10 +181,6 @@ export default function Slug() {
       .findIndex((block) => block._type === "block" && block.style === "normal")
 
     halfwayThroughBodyMarker = halfwayThroughBodyMarker + nextParagraph
-  }
-
-  if (loading) {
-    return <div>Loading...</div>
   }
 
   return (

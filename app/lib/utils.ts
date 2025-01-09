@@ -2,9 +2,14 @@ import { MetaDescriptor } from "@remix-run/node"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
+import posthog from "posthog-js"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+export const trackEvent = (eventName: string, rest: Record<string, any>) => {
+  posthog.capture(eventName, { ...rest })
 }
 
 export const SITE_META = {
