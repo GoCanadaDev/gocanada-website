@@ -1,9 +1,17 @@
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
+import { useEffect } from "react"
+import { trackEvent } from "~/lib/utils"
 
 export default function MidRollBannerAd({}) {
   const { adConfig } = useRootLoaderData()
+
+  useEffect(() => {
+    trackEvent("MidRoll Ad Banner Viewed", {
+      midBannerAdUrl: adConfig.midBannerAdUrl,
+    })
+  }, [])
 
   if (!adConfig || !adConfig.featuredAdsEnabled) {
     return null
@@ -34,6 +42,11 @@ export default function MidRollBannerAd({}) {
                   target="_blank"
                   rel="noopener"
                   aria-label="Learn more from our advertising partner"
+                  onClick={() =>
+                    trackEvent("MidRoll Ad Banner Clicked", {
+                      midBannerAdUrl: adConfig.midBannerAdUrl,
+                    })
+                  }
                 >
                   <SanityImage
                     id={adConfig.midBannerAdImage.id}
