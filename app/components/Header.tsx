@@ -10,8 +10,11 @@ import { Navigation } from "./Navigation"
 import TopAdBanner from "./TopAdBanner"
 import SubscribeModal from "./SubscribeModal"
 import { MobileNavigation } from "./MobileNavigation"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+import { Link } from "@remix-run/react"
 
-export function Header({ translationUrl }: { translationUrl?: string }) {
+export function Header() {
+  const { spotlightPost } = useRootLoaderData()
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
 
   return (
@@ -66,6 +69,18 @@ export function Header({ translationUrl }: { translationUrl?: string }) {
           <SubscribeModal pageLocation="header" />
         </div>
       </div>
+      {spotlightPost && Object.keys(spotlightPost).length > 0 && (
+        <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
+          <div className="flex w-screen flex-col items-start justify-start px-4 py-2 lg:container md:flex-row md:items-center lg:px-12">
+            <Link
+              to={`/en/${spotlightPost.link}`}
+              className="block font-serif text-xl text-brand hover:underline"
+            >
+              {spotlightPost.text}
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   )
 }

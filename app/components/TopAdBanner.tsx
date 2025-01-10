@@ -3,15 +3,22 @@ import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
 import { trackEvent } from "~/lib/utils"
 import { useEffect } from "react"
+import useVisibilityTracker from "~/lib/useVisibilityTracker"
 
 export default function TopAdBanner({}) {
   const { adConfig } = useRootLoaderData()
 
-  useEffect(() => {
-    trackEvent("Top Ad Banner Viewed", {
-      topBannerAdUrl: adConfig.topBannerAdUrl,
-    })
-  }, [])
+  const adRef = useVisibilityTracker(
+    () => {
+      trackEvent("Top Ad Banner Viewed", {
+        topBannerAdUrl: adConfig.topBannerAdUrl,
+      })
+    },
+    {
+      threshold: 0.5, // Trigger when 50% of the ad is visible
+      rootMargin: "0px", // No margin around the viewport
+    }
+  )
 
   if (!adConfig || !adConfig.featuredAdsEnabled) {
     return null
@@ -31,7 +38,7 @@ export default function TopAdBanner({}) {
               margin: "0 auto",
             }}
           >
-            <div className="absolute inset-0">
+            <div className="absolute inset-0" ref={adRef}>
               {typeof adConfig.topBannerAdCode === "string" ? (
                 <div
                   dangerouslySetInnerHTML={{ __html: adConfig.topBannerAdCode }}

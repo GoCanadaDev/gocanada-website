@@ -11,6 +11,7 @@ import {
   List,
   Eye,
   EyeOff,
+  AppWindow,
 } from "lucide-react"
 import type {
   DefaultDocumentNodeResolver,
@@ -49,6 +50,10 @@ export const structure: StructureResolver = (S) =>
             .filter('_type == "postType" && (_id in path("drafts.**"))')
             .child((id) => S.document().schemaType("postType").documentId(id))
         ),
+      S.divider(),
+      S.documentTypeListItem("popupPromoConfigType")
+        .title("Popup Promo Config")
+        .icon(AppWindow),
       S.divider(),
       S.documentTypeListItem("featuredPostsConfig")
         .title("Featured Posts Config")

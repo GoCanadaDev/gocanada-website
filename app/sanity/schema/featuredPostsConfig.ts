@@ -30,6 +30,28 @@ export const featuredPostsConfig = defineType({
       ],
       validation: (Rule) => Rule.required().min(3).max(3),
     },
+    {
+      name: "spotlightPost",
+      title: "Text-based spotlight at top of page",
+      type: "object",
+      fields: [
+        {
+          name: "text",
+          title: "Spotlight Text",
+          type: "string",
+          description:
+            "This is the text that will be displayed in the spotlight",
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          name: "link",
+          title: "Spotlight Link",
+          type: "reference",
+          to: [{ type: "postType" }],
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+    },
   ],
   preview: {
     prepare() {

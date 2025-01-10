@@ -3,9 +3,22 @@ import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
 import { useEffect } from "react"
 import { trackEvent } from "~/lib/utils"
+import useVisibilityTracker from "~/lib/useVisibilityTracker"
 
 export default function MidRollBannerAd({}) {
   const { adConfig } = useRootLoaderData()
+
+  const adRef = useVisibilityTracker(
+    () => {
+      trackEvent("MidRoll Ad Banner Viewed", {
+        midBannerAdUrl: adConfig.midBannerAdUrl,
+      })
+    },
+    {
+      threshold: 0.5, // Trigger when 50% of the ad is visible
+      rootMargin: "0px", // No margin around the viewport
+    }
+  )
 
   useEffect(() => {
     trackEvent("MidRoll Ad Banner Viewed", {
@@ -31,7 +44,7 @@ export default function MidRollBannerAd({}) {
               margin: "0 auto",
             }}
           >
-            <div className="absolute inset-0">
+            <div className="absolute inset-0" ref={adRef}>
               {typeof adConfig.midBannerAdCode === "string" ? (
                 <div
                   dangerouslySetInnerHTML={{ __html: adConfig.midBannerAdCode }}

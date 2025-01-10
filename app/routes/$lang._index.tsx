@@ -26,6 +26,11 @@ import { loadQuery } from "~/sanity/loader.server"
 import { QueryResponseInitial } from "@sanity/react-loader"
 import { genericMetaTags } from "~/lib/utils"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import PromoPopup from "~/components/PromoPopup"
+import {
+  getPopupPromoConfig,
+  PopupPromoConfig,
+} from "~/sanity/queries/popupPromoConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -44,6 +49,7 @@ export const meta: MetaFunction<typeof loader> = ({
 type IndexLoaderData = {
   featuredPosts: QueryResponseInitial<Post[] | null>
   params: Params
+  popupPromoConfig: PopupPromoConfig
   posts: QueryResponseInitial<Post[] | null>
   siteConfig: SiteConfigType
   trendingPosts: QueryResponseInitial<Post[] | null>
@@ -75,6 +81,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 
   const siteConfig = await getSiteConfig(client)
+  const popupPromoConfig = await getPopupPromoConfig(client)
 
   const posts = await loadQuery<Post[] | null>(postsQuery, {
     language: params.lang,
@@ -113,6 +120,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     {
       featuredPosts,
       params,
+      popupPromoConfig,
       posts,
       siteConfig,
       trendingPosts,
@@ -133,7 +141,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Index() {
-  const { posts, featuredPosts, trendingPosts, params } =
+  const { posts, featuredPosts, trendingPosts, params, popupPromoConfig } =
     useLoaderData<IndexLoaderData>()
   const {
     i18n: { language },
@@ -197,6 +205,9 @@ export default function Index() {
       <MidRollBannerAd />
       <Trending posts={sanitizedTrendingPosts} />
       <CardGrid posts={sanitizedRemainingPosts} />
+      {popupPromoConfig.popupPromoEnabled && (
+        <PromoPopup config={popupPromoConfig} />
+      )}
     </Layout>
   )
 }

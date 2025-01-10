@@ -12,10 +12,12 @@ import posthog from "posthog-js"
 
 function PosthogInit() {
   useEffect(() => {
-    posthog.init("phc_HRLvvfNFz7PVRK5BRZl29YVJYugZZkUrFgf8hVTMiPm", {
-      api_host: "https://us.i.posthog.com",
-      person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
-    })
+    if (process.env.NODE_ENV !== "development") {
+      posthog.init("phc_HRLvvfNFz7PVRK5BRZl29YVJYugZZkUrFgf8hVTMiPm", {
+        api_host: "https://us.i.posthog.com",
+        person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
+      })
+    }
   }, [])
 
   return null

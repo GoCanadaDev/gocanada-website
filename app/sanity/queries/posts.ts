@@ -108,6 +108,18 @@ export async function getTrendingPosts(client: SanityClient, language: string) {
   return Object.values(sanitizeStrings(result.trendingPosts)) as Post[]
 }
 
+export const spotlightPostQuery = groq`*[_type == "featuredPostsConfig"][0]{
+  spotlightPost {
+   "link": link->slug.en.current,
+    "text": text,
+  }
+}`
+
+export async function getSpotlightPost(client: SanityClient) {
+  const result = await client.fetch(spotlightPostQuery)
+  return sanitizeStrings(result).spotlightPost as { link: string; text: string }
+}
+
 const previousOrNextPostProjection = `
 "title": {
     "en": title.en,

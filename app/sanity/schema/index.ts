@@ -16,6 +16,7 @@ import { localeString } from "~/sanity/schema/localeString"
 import { localeText } from "~/sanity/schema/localeText"
 import { partnerType } from "~/sanity/schema/partners"
 import { pinterestPostType } from "~/sanity/schema/pinterestPost"
+import { popupPromoConfigType } from "~/sanity/schema/popupPromoConfig"
 import { postType } from "~/sanity/schema/post"
 import { siteConfigType } from "~/sanity/schema/siteConfig"
 import { staticPageType } from "~/sanity/schema/staticPage"
@@ -25,6 +26,7 @@ import { tiktokPostType } from "~/sanity/schema/tiktokPost"
 import { twitterPostType } from "~/sanity/schema/twitterPost"
 import { twoUpImageType } from "~/sanity/schema/twoUpImage"
 import { youTubePostType } from "~/sanity/schema/youTubePost"
+import { popupPromoConfig } from "./popupPromoConfig"
 
 export default [
   adConfigType,
@@ -45,6 +47,7 @@ export default [
   localeText,
   partnerType,
   pinterestPostType,
+  popupPromoConfigType,
   postType,
   siteConfigType,
   staticPageType,

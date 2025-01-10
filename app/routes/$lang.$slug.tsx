@@ -71,7 +71,6 @@ export const meta: MetaFunction<typeof loader> = ({
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
     { property: "og:image:secure_url", content: ogImageUrl },
     { property: "og:image:type", content: "image/png" },
-    { property: "og:image:type", content: "image/png" },
     { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
     { property: "og:image", content: ogImageUrl },
     { property: "og:locale", content: "en_CA" },
