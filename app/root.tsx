@@ -239,7 +239,7 @@ function App() {
     // Add external scripts if the cookie banner has been dismissed, thus the user has consented
 
     if (
-      !showCookieBanner &&
+      // !showCookieBanner &&
       window?.ENV.FACEBOOK_PIXEL_ID?.length &&
       process.env.NODE_ENV !== "development" &&
       typeof window?.fbq === "function" &&

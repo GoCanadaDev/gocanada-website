@@ -36,7 +36,7 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
 
     // Initialize the Facebook Pixel without consent. It gets added after cookie banner is dismissed
     // in the root component
-    window.fbq("consent", "revoke")
+    // window.fbq("consent", "revoke")
 
     // Google Tag Manager script
     // Fallback: Create a gtag function if it's not yet available
@@ -62,11 +62,11 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
 
     // Initialize the gtag without consent. It gets added after cookie banner is dismissed
     // in the root component
-    window.gtag("consent", "default", {
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
-      analytics_storage: "denied",
-    })
+    // window.gtag("consent", "default", {
+    //   ad_storage: "denied",
+    //   ad_user_data: "denied",
+    //   ad_personalization: "denied",
+    //   analytics_storage: "denied",
+    // })
   }
 }
