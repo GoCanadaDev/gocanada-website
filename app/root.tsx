@@ -255,6 +255,7 @@ function App() {
         ad_personalization: "granted",
         analytics_storage: "granted",
       })
+      window.gtag.pageview(location.pathname, window.ENV.GTAG_ID)
     }
   }, [location, showCookieBanner])
 
