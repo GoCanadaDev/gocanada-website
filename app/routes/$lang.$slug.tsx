@@ -45,28 +45,41 @@ export const meta: MetaFunction<typeof loader> = ({
 }: {
   data: Omit<LoaderDataType, "post"> & { post: { data: Post } }
 }) => {
+  const sanitizedData = sanitizeStrings(data)
   const title = [
-    data?.post.data.title[data.post.data.language],
+    sanitizedData?.post.data.title[sanitizedData.post.data.language],
     data.siteConfig.siteTitle,
   ]
     .filter(Boolean)
     .join(" | ")
-  const ogImageUrl = data ? data.ogImageUrl : null
-  const description = data ? data.post.data.excerpt.en : ""
+
+  const ogImageUrl = sanitizedData ? sanitizedData.ogImageUrl : null
+  const description = sanitizedData ? sanitizedData.post.data.excerpt.en : ""
 
   return [
     { title },
     { name: "description", content: description },
-    { property: "article:author", content: data.post.data.author.name },
-    { property: "article:modified_time", content: data.post.data._updatedAt },
-    { property: "article:published_time", content: data.post.data.publishedAt },
+    {
+      property: "article:author",
+      content: sanitizedData.post.data.author.name,
+    },
+    {
+      property: "article:modified_time",
+      content: sanitizedData.post.data._updatedAt,
+    },
+    {
+      property: "article:published_time",
+      content: sanitizedData.post.data.publishedAt,
+    },
     {
       property: "article:section",
-      content: data.post.data.categories[0].title.en,
+      content: sanitizedData.post.data.categories[0].title.en,
     },
     {
       property: "article:tag",
-      content: data.post.data.subCategories.map((sc) => sc.title.en).join(", "),
+      content: sanitizedData.post.data.subCategories
+        .map((sc) => sc.title.en)
+        .join(", "),
     },
     { property: "og:description", content: description },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
@@ -80,7 +93,7 @@ export const meta: MetaFunction<typeof loader> = ({
     { property: "og:type", content: "article" },
     {
       property: "og:url",
-      content: `https://gocanada.com/en/${data.post.data.slug.en}`,
+      content: `https://gocanada.com/en/${sanitizedData.post.data.slug.en}`,
     },
     { property: "twitter:card", content: "summary_large_image" },
     { property: "twitter:description", content: description },
@@ -90,7 +103,7 @@ export const meta: MetaFunction<typeof loader> = ({
     {
       tagName: "link",
       rel: "canonical",
-      href: `https://gocanada.com/en/${data.post.data.slug.en}`,
+      href: `https://gocanada.com/en/${sanitizedData.post.data.slug.en}`,
     },
   ]
 }
