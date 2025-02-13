@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     })
   }
 
-  return redirect(`/${currentLang}`, {
+  return redirect(`/en`, {
     headers: {
       // Always revalidate in the browser
       "Cache-Control": "public, max-age=0, must-revalidate",
