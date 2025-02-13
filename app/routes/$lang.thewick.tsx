@@ -11,6 +11,7 @@ import Prose from "~/components/portable/Prose"
 import { HeroImage } from "~/components/HeroImage"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { genericMetaTags } from "~/lib/utils"
+import SubscribeForm from "~/components/SubscribeForm"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -59,6 +60,11 @@ const TheWick = () => {
   const { staticPage } = useLoaderData<StaticPageLoaderData>()
   const otherLanguage = useOtherLanguage()
 
+  const sweepstakesListItemTwo =
+    staticPage.body[staticPage.language].findIndex(
+      (block) => block.listItem === "number"
+    ) + 2
+
   return (
     <Layout translationUrl={`/${otherLanguage}/thewick`}>
       <article className="mb-24 mt-8">
@@ -82,7 +88,21 @@ const TheWick = () => {
         </div>
         <Prose className="mt-4">
           <PortableText
-            value={staticPage.body[staticPage.language]}
+            value={[...staticPage.body[staticPage.language]].slice(
+              0,
+              sweepstakesListItemTwo
+            )}
+            components={PortableTextComponents}
+          />
+          <div className="mb-8 border border-zinc-300 bg-zinc-100 p-4 dark:border-zinc-700 dark:bg-zinc-800">
+            <SubscribeForm pageLocation="thewick" />
+          </div>
+          <PortableText
+            value={[...staticPage.body[staticPage.language]].slice(
+              sweepstakesListItemTwo,
+              staticPage.body[staticPage.language].length
+            )}
+            // value={staticPage.body[staticPage.language]}
             components={PortableTextComponents}
           />
         </Prose>

@@ -26,7 +26,7 @@ const SubscribeForm = ({
   setModalOpen,
   setSubmitted,
 }: {
-  pageLocation: "header" | "footer" | "welcome-dialog"
+  pageLocation: "header" | "footer" | "welcome-dialog" | "thewick"
   setModalOpen?: (open: boolean) => void
   setSubmitted?: Dispatch<SetStateAction<boolean>>
 }) => {
@@ -40,7 +40,7 @@ const SubscribeForm = ({
   })
 
   const handleSubmit = () => {
-    if (pageLocation === "footer") {
+    if (pageLocation === "footer" || pageLocation === "thewick") {
       toast.success(`Thanks, we've received your request.`, {
         description: `Please check your email to confirm your subscription.`,
         action: {
@@ -50,7 +50,9 @@ const SubscribeForm = ({
           },
         },
       })
-      setModalOpen?.(false)
+      if (typeof setModalOpen === "function") {
+        setModalOpen?.(false)
+      }
     }
     if (
       (pageLocation === "header" || pageLocation === "welcome-dialog") &&
@@ -106,7 +108,7 @@ const SubscribeForm = ({
             Subscribe
           </Button>
         </div>
-        <div className="space-y-4">
+        {/* <div className="space-y-4">
           <Typography.TextMuted className="text-pretty text-xs">
             By signing up you agree to our{" "}
             <Link
@@ -125,7 +127,7 @@ const SubscribeForm = ({
             and to receive marketing and subscription emails from Go Canada. You
             can unsubscribe from our newsletter at any time.
           </Typography.TextMuted>
-        </div>
+        </div> */}
       </RemixForm>
     </Form>
   )

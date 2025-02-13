@@ -38,6 +38,7 @@ import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { loadQuery } from "~/sanity/loader.server"
 import { useQuery } from "~/sanity/loader"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import SubscribeForm from "~/components/SubscribeForm"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -304,32 +305,51 @@ export default function Slug() {
           <Separator className="h-0.5" />
         </div>
         <Prose>
-          {hasInlineAd ? (
-            <PortableText
-              value={postToUse.body}
-              components={PortableTextComponents}
-            />
-          ) : (
-            // if no inline ad in the postToUse, manually insert the MidRollBannerAd halfway through the body blocks
-            <>
+          <div>
+            {hasInlineAd ? (
               <PortableText
-                value={[...postToUse.body].slice(0, halfwayThroughBodyMarker)}
+                value={postToUse.body}
                 components={PortableTextComponents}
               />
-              <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
-                <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
-                  ad
+            ) : (
+              // if no inline ad in the postToUse, manually insert the MidRollBannerAd halfway through the body blocks
+              <>
+                <PortableText
+                  value={[...postToUse.body].slice(0, halfwayThroughBodyMarker)}
+                  components={PortableTextComponents}
+                />
+                <div>
+                  {postToUse.slug.en ===
+                  "giveaway-win-a-three-night-stay-at-the-wickaninnish-inn-in-tofino" ? (
+                    <div className="my-8 border bg-zinc-100 p-4 dark:border-zinc-700 dark:bg-zinc-800">
+                      <SubscribeForm pageLocation="thewick" />
+                    </div>
+                  ) : (
+                    <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
+                      <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
+                        ad
+                      </div>
+                      <MidRollBannerAd />
+                    </div>
+                  )}
                 </div>
-                <MidRollBannerAd />
+                <PortableText
+                  value={[...postToUse.body].slice(
+                    halfwayThroughBodyMarker,
+                    postToUse.body.length
+                  )}
+                  components={PortableTextComponents}
+                />
+              </>
+            )}
+          </div>
+          {false && (
+            //adConfig.verticalPostAdUrl && (
+            <aside className="sticky top-16 !col-span-1 !col-start-3">
+              <div className="h-screen rounded-md bg-gray-100 p-4">
+                <p>Your Ad Here</p>
               </div>
-              <PortableText
-                value={[...postToUse.body].slice(
-                  halfwayThroughBodyMarker,
-                  postToUse.body.length
-                )}
-                components={PortableTextComponents}
-              />
-            </>
+            </aside>
           )}
         </Prose>
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">

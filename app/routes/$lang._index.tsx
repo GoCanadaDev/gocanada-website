@@ -71,6 +71,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     "advertising",
     "media",
     "search",
+    "thewick",
   ]
 
   // if params.lang is a static page, redirect to the static page

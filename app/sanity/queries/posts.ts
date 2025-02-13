@@ -339,8 +339,8 @@ export type PostPreview = {
   title: LocalizedString
   author: Author
   slug: {
-    en: Slug
-    fr: Slug
+    en: Slug | string
+    fr: Slug | string
   }
   excerpt: LocalizedString
   categories: {
