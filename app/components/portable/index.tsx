@@ -29,9 +29,9 @@ const PortableTextComponents = {
     },
   },
   types: {
-    subscribeFormType: ({ value }: { value: any }) => (
+    subscribeFormType: ({ value }: { value: { trackingName: string } }) => (
       <div className="mb-8 border border-zinc-300 bg-zinc-100 p-4 dark:border-zinc-700 dark:bg-zinc-800">
-        <SubscribeForm pageLocation={value} />
+        <SubscribeForm pageLocation={value.trackingName} />
       </div>
     ),
     // TODO: fix type for inline ad
