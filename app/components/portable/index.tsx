@@ -10,6 +10,7 @@ import GalleryImages, { GalleryImagesProps } from "./GalleryImages"
 import HorizontalRule from "./HorizontalRule"
 import { PortableTextReactComponents } from "@portabletext/react"
 import InlineAd from "../InlineAd"
+import SubscribeForm from "../SubscribeForm"
 
 const PortableTextComponents = {
   marks: {
@@ -28,6 +29,11 @@ const PortableTextComponents = {
     },
   },
   types: {
+    subscribeFormType: ({ value }: { value: any }) => (
+      <div className="mb-8 border border-zinc-300 bg-zinc-100 p-4 dark:border-zinc-700 dark:bg-zinc-800">
+        <SubscribeForm pageLocation={value} />
+      </div>
+    ),
     // TODO: fix type for inline ad
     inlineAdType: ({ value }: { value: any }) => <InlineAd value={value} />,
     facebookPostType: ({ value }: { value: { url: string } }) => (

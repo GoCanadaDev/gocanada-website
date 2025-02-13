@@ -6,6 +6,7 @@ import {
   Megaphone,
   Minus,
   Music2,
+  Newspaper,
   PinIcon,
   TwitterIcon,
   YoutubeIcon,
@@ -139,6 +140,10 @@ export const blockContentType = defineType({
     defineArrayMember({
       type: "inlineAdType",
       icon: Megaphone,
+    }),
+    defineArrayMember({
+      type: "subscribeFormType",
+      icon: Newspaper,
     }),
   ],
 })

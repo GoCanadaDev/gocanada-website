@@ -26,7 +26,7 @@ const SubscribeForm = ({
   setModalOpen,
   setSubmitted,
 }: {
-  pageLocation: "header" | "footer" | "welcome-dialog" | "thewick"
+  pageLocation: "header" | "footer" | "welcome-dialog" | string
   setModalOpen?: (open: boolean) => void
   setSubmitted?: Dispatch<SetStateAction<boolean>>
 }) => {
@@ -40,7 +40,10 @@ const SubscribeForm = ({
   })
 
   const handleSubmit = () => {
-    if (pageLocation === "footer" || pageLocation === "thewick") {
+    if (
+      pageLocation === "footer" ||
+      (pageLocation !== "header" && pageLocation !== "welcome-dialog")
+    ) {
       toast.success(`Thanks, we've received your request.`, {
         description: `Please check your email to confirm your subscription.`,
         action: {

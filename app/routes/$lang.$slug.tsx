@@ -38,7 +38,6 @@ import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { loadQuery } from "~/sanity/loader.server"
 import { useQuery } from "~/sanity/loader"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import SubscribeForm from "~/components/SubscribeForm"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -333,11 +332,7 @@ export default function Slug() {
                 />
                 <div>
                   {postToUse.slug.en ===
-                  "giveaway-win-a-three-night-stay-at-the-wickaninnish-inn-in-tofino" ? (
-                    <div className="my-8 border bg-zinc-100 p-4 dark:border-zinc-700 dark:bg-zinc-800">
-                      <SubscribeForm pageLocation="thewick" />
-                    </div>
-                  ) : (
+                  "giveaway-win-a-three-night-stay-at-the-wickaninnish-inn-in-tofino" ? null : (
                     <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
                       <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
                         ad
