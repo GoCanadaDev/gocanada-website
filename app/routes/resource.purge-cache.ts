@@ -16,6 +16,7 @@ export interface WebhookBody {
     | "subCategoryType"
     | "staticPageType"
     | "featuredPostsConfig"
+    | "popupPromoConfig"
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -25,6 +26,10 @@ export const action: ActionFunction = async ({ request }) => {
   if (_type === "postType") {
     await purgeCache({
       tags: ["posts", `posts:id:${_id}`],
+    })
+  } else if (_type === "popupPromoConfig") {
+    await purgeCache({
+      tags: ["popupPromoConfig"],
     })
   } else if (_type === "featuredPostsConfig") {
     await purgeCache({
