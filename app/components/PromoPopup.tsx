@@ -13,6 +13,7 @@ export default function PromoPopup({ config }: { config: PopupPromoConfig }) {
   useEffect(() => {
     // get value from sessionStorage
     const hasSeenPromoPopup = sessionStorage.getItem("hasSeenPromoPopup")
+    console.log({ hasSeenPromoPopup })
 
     if (!hasSeenPromoPopup) {
       setTimeout(() => {
