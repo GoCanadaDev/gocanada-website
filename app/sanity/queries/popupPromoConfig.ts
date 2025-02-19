@@ -22,13 +22,13 @@ export type PopupPromoConfig = {
 export const popupPromoConfigQuery = groq`*[_type == "popupPromoConfigType"][0] {
   popupPromoEnabled,
   popupImage{
-     ...,
-   "id": asset._ref,
-   "preview": asset->metadata.lqip,
-   "metadata": asset->metadata,
-   "hotspot": asset->hotspot,
-   "crop": asset->crop,
-   "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    ...,
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "metadata": asset->metadata,
+    "hotspot": hotspot,
+    "crop": crop,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
   popupTitle,
   "popupCopy": popupCopy[] {
