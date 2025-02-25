@@ -2,16 +2,17 @@ import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
 import { trackEvent } from "~/lib/utils"
-import { useEffect } from "react"
 import useVisibilityTracker from "~/lib/useVisibilityTracker"
+import { useState, useEffect } from "react"
 
 export default function TopAdBanner({}) {
   const { adConfig } = useRootLoaderData()
+  const [currentAdIndex, setCurrentAdIndex] = useState(0)
 
   const adRef = useVisibilityTracker(
     () => {
       trackEvent("Top Ad Banner Viewed", {
-        topBannerAdUrl: adConfig.topBannerAdUrl,
+        topBannerAdUrl: adConfig.topBannerAds[currentAdIndex].topBannerAdUrl,
       })
     },
     {
@@ -20,9 +21,29 @@ export default function TopAdBanner({}) {
     }
   )
 
+  useEffect(() => {
+    if (adConfig && adConfig.topBannerAds.length > 1) {
+      const cycleTime = adConfig.topBannerAdsCycleTime * 1000 // Convert to milliseconds
+      const interval = setInterval(() => {
+        setCurrentAdIndex(
+          (prevIndex) => (prevIndex + 1) % adConfig.topBannerAds.length
+        )
+        trackEvent("Top Ad Banner Viewed", {
+          topBannerAdUrl:
+            adConfig.topBannerAds[
+              (currentAdIndex + 1) % adConfig.topBannerAds.length
+            ].topBannerAdUrl,
+        })
+      }, cycleTime)
+      return () => clearInterval(interval)
+    }
+  }, [adConfig, currentAdIndex])
+
   if (!adConfig || !adConfig.featuredAdsEnabled) {
     return null
   }
+
+  const currentAd = adConfig.topBannerAds[currentAdIndex]
 
   return (
     <div className="py-4">
@@ -32,35 +53,37 @@ export default function TopAdBanner({}) {
             style={{
               position: "relative",
               aspectRatio:
-                adConfig.topBannerAdWidth / adConfig.topBannerAdHeight,
-              maxHeight: adConfig.topBannerAdHeight,
-              maxWidth: adConfig.topBannerAdWidth,
+                currentAd.topBannerAdWidth / currentAd.topBannerAdHeight,
+              maxHeight: currentAd.topBannerAdHeight,
+              maxWidth: currentAd.topBannerAdWidth,
               margin: "0 auto",
             }}
           >
             <div className="absolute inset-0" ref={adRef}>
-              {typeof adConfig.topBannerAdCode === "string" ? (
+              {typeof currentAd.topBannerAdCode === "string" ? (
                 <div
-                  dangerouslySetInnerHTML={{ __html: adConfig.topBannerAdCode }}
+                  dangerouslySetInnerHTML={{
+                    __html: currentAd.topBannerAdCode,
+                  }}
                 />
               ) : (
                 <a
-                  href={adConfig.topBannerAdUrl}
+                  href={currentAd.topBannerAdUrl}
                   target="_blank"
                   rel="noopener"
                   aria-label="Learn more from our advertising partner"
                   onClick={() =>
                     trackEvent("Top Ad Banner Clicked", {
-                      topBannerAdUrl: adConfig.topBannerAdUrl,
+                      topBannerAdUrl: currentAd.topBannerAdUrl,
                     })
                   }
                 >
                   <SanityImage
-                    id={adConfig.topBannerAdImage.id}
+                    id={currentAd.topBannerAdImage.id}
                     baseUrl={baseUrl}
-                    preview={adConfig.topBannerAdImage.preview}
-                    width={adConfig.topBannerAdWidth}
-                    height={adConfig.topBannerAdHeight}
+                    preview={currentAd.topBannerAdImage.preview}
+                    width={currentAd.topBannerAdWidth}
+                    height={currentAd.topBannerAdHeight}
                     className="m-auto"
                   />
                 </a>
