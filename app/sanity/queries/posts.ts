@@ -154,8 +154,9 @@ const previousOrNextPostProjection = `
   },
 `
 
-export const postBySlugQuery = groq`*[_type == "postType" && slug[$language].current == $slug][0]{
+export const postBySlugQuery = groq`*[_type == "postType" && (slug[$language].current == $slug || _id in path("drafts.**") && slug[$language].current == $slug)][0]{
   _id,
+  _updatedAt,
   _createdAt,
   publishedAt,
   "title": {

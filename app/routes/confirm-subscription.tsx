@@ -52,9 +52,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
     await sendgrid
       .request(req as ClientRequest)
-      .then(([response, body]) => {
-        console.log({ status: response.statusCode })
-        console.log({ body })
+      .then(([response]) => {
+        console.info({ status: response.statusCode })
       })
       .catch((error) => {
         console.error({

@@ -49,6 +49,8 @@ import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
 import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
 import { useEffect, useState } from "react"
 import addExternalScripts from "./lib/addExternalScripts"
+import { Preview } from "./components/Preview"
+import { getDraftMode } from "./sanity/get-draft-mode.server"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -109,6 +111,7 @@ export type RootLoaderData = {
   categories: Category[]
   ENV: ReturnType<typeof getEnv>
   footerLinks: StaticPageRoute[]
+  isDraftMode: boolean
   isStudioRoute: boolean
   langPreference: SupportedLanguages | undefined
   locale: string
@@ -178,6 +181,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   let t = await i18next.getFixedT(request)
   const translations = await useTranslations(t)
 
+  const isDraftMode = await getDraftMode(request)
+
   return json<RootLoaderData>(
     {
       adConfig,
@@ -185,6 +190,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       categories,
       ENV: getEnv(),
       footerLinks,
+      isDraftMode,
       isStudioRoute,
       langPreference,
       locale,
@@ -271,7 +277,9 @@ function App() {
         <Links />
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        <Outlet />
+        <Preview>
+          <Outlet />
+        </Preview>
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${ENV.GTAG_ID}`}

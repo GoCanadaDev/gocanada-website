@@ -35,9 +35,10 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { loadQuery } from "~/sanity/loader.server"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
 import { useQuery } from "~/sanity/loader"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { getDraftMode } from "~/sanity/get-draft-mode.server"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -120,12 +121,18 @@ export const loader: LoaderFunction = async ({
 }: LoaderFunctionArgs) => {
   invariant(params.slug, "Expected slug param")
   isLangSupportedLang(params.lang)
-  //const post = await getPost(client, params.slug!, params.lang!)
 
-  const post = await loadQuery<Post | null>(postBySlugQuery, {
-    slug: params.slug,
-    language: params.lang,
-  }).then((res) => ({
+  const isDraftMode = await getDraftMode(request)
+
+  // Use the draft-aware query loader
+  const post = await loadQueryWithDraft(
+    postBySlugQuery,
+    {
+      slug: params.slug,
+      language: params.lang,
+    },
+    isDraftMode
+  ).then((res) => ({
     ...res,
     data: res.data ? res.data : null,
   }))
@@ -149,6 +156,7 @@ export const loader: LoaderFunction = async ({
       post,
       ogImageUrl,
       siteConfig,
+      isDraftMode,
     },
     {
       headers: {
