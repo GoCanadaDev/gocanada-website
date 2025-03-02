@@ -17,7 +17,6 @@ export const adConfigType = defineType({
     {
       name: "verticalPostAd",
       title: "Vertical Post Ad",
-      hidden: true,
     },
   ],
   fields: [
@@ -177,7 +176,6 @@ export const adConfigType = defineType({
       type: "url",
       description: "Paste your URL here",
       group: "verticalPostAd",
-      hidden: true,
     },
     {
       name: "verticalPostAdImage",
@@ -189,7 +187,6 @@ export const adConfigType = defineType({
       description:
         "Used in conjunction with the URL when you dont want to use the Code section below",
       group: "verticalPostAd",
-      hidden: true,
     },
     {
       name: "verticalPostAdCode",
@@ -197,21 +194,18 @@ export const adConfigType = defineType({
       type: "text",
       description: "Paste your HTML or script code here",
       group: "verticalPostAd",
-      hidden: true,
     },
     {
       name: "verticalPostAdWidth",
       title: "Vertical Post Ad Width",
       type: "number",
       group: "verticalPostAd",
-      hidden: true,
     },
     {
       name: "verticalPostAdHeight",
       title: "Vertical Post Ad Height",
       type: "number",
       group: "verticalPostAd",
-      hidden: true,
     },
   ],
   preview: {

@@ -15,12 +15,5 @@ export async function getDraftMode(request: Request) {
     )
   }
 
-  // Add debug logging
-  console.log("Draft mode check:", {
-    sessionProjectId,
-    configProjectId: client.config().projectId,
-    isDraft: draft,
-  })
-
   return draft
 }

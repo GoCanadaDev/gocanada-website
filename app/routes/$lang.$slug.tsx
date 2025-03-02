@@ -39,6 +39,8 @@ import { loadQueryWithDraft } from "~/sanity/loader.server"
 import { useQuery } from "~/sanity/loader"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { getDraftMode } from "~/sanity/get-draft-mode.server"
+import VerticalPostAd from "~/components/VerticalPostAd"
+import { useRef } from "react"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -203,6 +205,8 @@ export default function Slug() {
     halfwayThroughBodyMarker = halfwayThroughBodyMarker + nextParagraph
   }
 
+  const bottomMarkerRef = useRef<HTMLDivElement | null>(null)
+
   return (
     <Layout translationUrl={translationUrl}>
       <div className="container mx-auto p-4 lg:px-12">
@@ -324,6 +328,9 @@ export default function Slug() {
 
           <Separator className="h-0.5" />
         </div>
+
+        <VerticalPostAd bottomMarkerRef={bottomMarkerRef} />
+
         <Prose>
           <div>
             {hasInlineAd ? (
@@ -359,15 +366,8 @@ export default function Slug() {
               </>
             )}
           </div>
-          {false && (
-            //adConfig.verticalPostAdUrl && (
-            <aside className="sticky top-16 !col-span-1 !col-start-3">
-              <div className="h-screen rounded-md bg-gray-100 p-4">
-                <p>Your Ad Here</p>
-              </div>
-            </aside>
-          )}
         </Prose>
+        <div ref={bottomMarkerRef} className="h-0" />
         <div className="mx-auto my-16 flex max-w-lg flex-wrap justify-center gap-4">
           {postToUse.subCategories?.map((subCategory) => (
             <div key={subCategory.title[postToUse.language]} className="">
