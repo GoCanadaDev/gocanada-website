@@ -99,6 +99,16 @@ export const postType = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "secondaryImage",
+      title: "Secondary Main image",
+      description:
+        "If the post is in the featured spot on the homepage, cycle between the main image and this image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: "isSponsored",
       title: "Sponsored Post",
       type: "boolean",

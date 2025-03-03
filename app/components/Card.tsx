@@ -4,6 +4,7 @@ import { Typography } from "./Typography"
 import { Image } from "./Image"
 import { AspectRatio } from "./ui/aspect-ratio"
 import { cn } from "~/lib/utils"
+import { useEffect, useState } from "react"
 
 export default function Card({
   post,
@@ -19,6 +20,19 @@ export default function Card({
   categoryToUse?: PostPreview["categories"][0]
 }) {
   const linkTo = `/${post.language}/${post.slug[post.language]}`
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    if (post.secondaryImage && post.secondaryImage?.id && isLarge) {
+      const cycleTime = 5000
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % 2)
+      }, cycleTime)
+      return () => clearInterval(interval)
+    }
+  }, [post.secondaryImage, isLarge])
+
   if (!post) {
     return null
   }
@@ -36,20 +50,55 @@ export default function Card({
             className="mb-4 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
           >
             <Link prefetch="intent" to={linkTo}>
-              <Image
-                mode="cover"
-                id={post.mainImage.id}
-                alt=""
-                // if hideImage, we need a bigger size for the image at the sm breakpoint
-                width={isLarge || hideImage ? 1024 : 576}
-                height={isLarge || hideImage ? 640 : 384}
-                preview={post.mainImage.preview ?? ""}
-                loading="eager"
-                className="h-full object-cover transition-transform hover:scale-[1.05]"
-                aria-label={`Read more: ${post.title[post.language]}`}
-                hotspot={post.mainImage.hotspot}
-                crop={post.mainImage.crop}
-              />
+              <div className="relative h-full w-full">
+                {/* Main Image */}
+                <Image
+                  mode="cover"
+                  id={post.mainImage.id}
+                  alt=""
+                  width={isLarge || hideImage ? 1024 : 576}
+                  height={isLarge || hideImage ? 640 : 384}
+                  preview={post.mainImage.preview ?? ""}
+                  loading="eager"
+                  className={cn(
+                    "absolute inset-0 h-full object-cover hover:scale-[1.05]",
+                    {
+                      "opacity-100 transition-transform":
+                        currentImageIndex === 0,
+                      "opacity-0":
+                        currentImageIndex === 1 && post.secondaryImage?.id,
+                      "transition-opacity duration-700":
+                        post.secondaryImage?.id,
+                    }
+                  )}
+                  aria-label={`Read more: ${post.title[post.language]}`}
+                  hotspot={post.mainImage.hotspot}
+                  crop={post.mainImage.crop}
+                />
+
+                {/* Secondary Image (only rendered if it exists and isLarge is true) */}
+                {post.secondaryImage && post.secondaryImage.id && isLarge && (
+                  <Image
+                    mode="cover"
+                    id={post.secondaryImage.id}
+                    alt=""
+                    width={isLarge ? 1024 : 576}
+                    height={isLarge ? 640 : 384}
+                    preview={post.secondaryImage.preview ?? ""}
+                    loading="eager"
+                    className={cn(
+                      "absolute inset-0 h-full object-cover transition-opacity duration-700",
+                      {
+                        "opacity-100": currentImageIndex === 1,
+                        "opacity-0": currentImageIndex === 0,
+                      }
+                    )}
+                    aria-label={`Read more: ${post.title[post.language]}`}
+                    hotspot={post.secondaryImage.hotspot}
+                    crop={post.secondaryImage.crop}
+                  />
+                )}
+              </div>
             </Link>
           </AspectRatio>
         </div>

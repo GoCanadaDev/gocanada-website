@@ -67,6 +67,12 @@ export const postsProjection = `
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
   },
+  secondaryImage{
+    ...,
+    "id": asset._ref,
+    "preview": asset->metadata.lqip,
+    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  },
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
@@ -328,6 +334,13 @@ export type NextOrPreviousPostType = {
     hotspot?: ImageHotspot
     crop?: ImageCrop
   }
+  secondaryImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
+  }
   excerpt: LocalizedString
 }
 
@@ -349,6 +362,14 @@ export type PostPreview = {
     slug: Category["slug"]
   }[]
   mainImage: {
+    id: string
+    preview: string
+    aspectRatio: number
+    hotspot?: ImageHotspot
+    crop?: ImageCrop
+    metadata: ImageMetadata
+  }
+  secondaryImage: {
     id: string
     preview: string
     aspectRatio: number
