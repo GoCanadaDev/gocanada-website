@@ -39,7 +39,7 @@ import { loadQueryWithDraft } from "~/sanity/loader.server"
 import { useQuery } from "~/sanity/loader"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { getDraftMode } from "~/sanity/get-draft-mode.server"
-import VerticalPostAd from "~/components/VerticalPostAd"
+import VerticalBannerAd from "~/components/VerticalBannerAd"
 import { useRef } from "react"
 
 export const meta: MetaFunction<typeof loader> = ({
@@ -329,7 +329,7 @@ export default function Slug() {
           <Separator className="h-0.5" />
         </div>
 
-        <VerticalPostAd bottomMarkerRef={bottomMarkerRef} />
+        <VerticalBannerAd bottomMarkerRef={bottomMarkerRef} />
 
         <Prose>
           <div>

@@ -3,9 +3,9 @@ import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
 import { trackEvent } from "~/lib/utils"
 import useVisibilityTracker from "~/lib/useVisibilityTracker"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
-export default function VerticalPostAd({
+export default function VerticalBannerAd({
   bottomMarkerRef,
 }: {
   bottomMarkerRef: React.RefObject<HTMLDivElement>
@@ -13,11 +13,13 @@ export default function VerticalPostAd({
   const stickyRef = useRef<HTMLElement | null>(null)
 
   const { adConfig } = useRootLoaderData()
+  const [currentAdIndex, setCurrentAdIndex] = useState(0)
 
   const adRef = useVisibilityTracker(
     () => {
-      trackEvent("Vertical Post Ad Viewed", {
-        verticalPostAdUrl: adConfig.verticalPostAdUrl,
+      trackEvent("Vertical Banner Ad Viewed", {
+        verticalBannerAdUrl:
+          adConfig.verticalBannerAds[currentAdIndex].verticalBannerAdUrl,
       })
     },
     {
@@ -105,13 +107,33 @@ export default function VerticalPostAd({
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (adConfig && adConfig.verticalBannerAds.length > 1) {
+      const cycleTime = adConfig.verticalBannerAdsCycleTime * 1000 // Convert to milliseconds
+      const interval = setInterval(() => {
+        setCurrentAdIndex(
+          (prevIndex) => (prevIndex + 1) % adConfig.verticalBannerAds.length
+        )
+        trackEvent("Vertical Ad Banner Viewed", {
+          verticalBannerAdUrl:
+            adConfig.verticalBannerAds[
+              (currentAdIndex + 1) % adConfig.verticalBannerAds.length
+            ].verticalBannerAdUrl,
+        })
+      }, cycleTime)
+      return () => clearInterval(interval)
+    }
+  }, [adConfig, currentAdIndex])
+
   if (
-    Object.keys(adConfig).length === 0 ||
-    Object.keys(adConfig.verticalPostAdUrl).length === 0 ||
-    Object.keys(adConfig.verticalPostAdImage).length
+    !adConfig ||
+    !adConfig.featuredAdsEnabled ||
+    !adConfig.verticalBannerAds.length
   ) {
     return null
   }
+
+  const currentAd = adConfig.verticalBannerAds[currentAdIndex]
 
   return (
     <>
@@ -123,38 +145,38 @@ export default function VerticalPostAd({
                 style={{
                   position: "relative",
                   aspectRatio:
-                    adConfig.verticalPostAdWidth /
-                    adConfig.verticalPostAdHeight,
-                  maxHeight: adConfig.verticalPostAdHeight,
-                  maxWidth: adConfig.verticalPostAdWidth,
+                    currentAd.verticalBannerAdWidth /
+                    currentAd.verticalBannerAdHeight,
+                  maxHeight: currentAd.verticalBannerAdHeight,
+                  maxWidth: currentAd.verticalBannerAdWidth,
                   margin: "0 auto",
                 }}
               >
                 <div className="absolute inset-0" ref={adRef}>
-                  {typeof adConfig.verticalPostAdCode === "string" ? (
+                  {typeof currentAd.verticalBannerAdCode === "string" ? (
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: adConfig.verticalPostAdCode,
+                        __html: currentAd.verticalBannerAdCode,
                       }}
                     />
                   ) : (
                     <a
-                      href={adConfig.verticalPostAdUrl}
+                      href={currentAd.verticalBannerAdUrl}
                       target="_blank"
                       rel="noopener"
                       aria-label="Learn more from our advertising partner"
                       onClick={() =>
-                        trackEvent("Vertical Post Ad Clicked", {
-                          verticalPostAdUrl: adConfig.verticalPostAdUrl,
+                        trackEvent("Vertical Banner Ad Clicked", {
+                          verticalBannerAdUrl: currentAd.verticalBannerAdUrl,
                         })
                       }
                     >
                       <SanityImage
-                        id={adConfig.verticalPostAdImage.id}
+                        id={currentAd.verticalBannerAdImage.id}
                         baseUrl={baseUrl}
-                        preview={adConfig.verticalPostAdImage.preview}
-                        width={adConfig.verticalPostAdWidth}
-                        height={adConfig.verticalPostAdHeight}
+                        preview={currentAd.verticalBannerAdImage.preview}
+                        width={currentAd.verticalBannerAdWidth}
+                        height={currentAd.verticalBannerAdHeight}
                         className="m-auto"
                       />
                     </a>

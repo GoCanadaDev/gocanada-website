@@ -7,15 +7,15 @@ export const adConfigType = defineType({
   type: "document",
   groups: [
     {
-      name: "topBanner",
+      name: "topBannerGroup",
       title: "Top Banner Ad",
     },
     {
-      name: "midRollAd",
+      name: "midBannerGroup",
       title: "Mid Banner Ad",
     },
     {
-      name: "verticalPostAd",
+      name: "verticalBannerGroup",
       title: "Vertical Post Ad",
     },
   ],
@@ -24,7 +24,7 @@ export const adConfigType = defineType({
       name: "featuredAdsEnabled",
       title: "Enable Featured Ads",
       type: "boolean",
-      description: "Enable or disable the featured ads section",
+      description: "Enable or disable all the ads",
     },
     {
       name: "topBannerAdsCycleTime",
@@ -32,7 +32,7 @@ export const adConfigType = defineType({
       type: "number",
       description:
         "Time, in seconds, to cycle through the top banner ads, between 1 and 30",
-      group: "topBanner",
+      group: "topBannerGroup",
       initialValue: 10,
       validation: (Rule) => Rule.required().min(1).max(30),
     },
@@ -42,7 +42,7 @@ export const adConfigType = defineType({
       description:
         "Add your top banner ads to cycle through here, only one will be shown at a time.",
       type: "array",
-      group: "topBanner",
+      group: "topBannerGroup",
       of: [
         {
           name: "topBannerAd",
@@ -92,120 +92,134 @@ export const adConfigType = defineType({
       ],
     },
     {
-      name: "topBannerAdUrl",
-      title: "Top Banner Ad Url",
-      type: "url",
-      description: "Paste your URL here",
-      group: "topBanner",
-      hidden: true,
-    },
-    {
-      name: "topBannerAdImage",
-      title: "Top Banner Ad Image",
-      type: "image",
-      group: "topBanner",
-      options: {
-        hotspot: true,
-      },
+      name: "midBannerAdsCycleTime",
+      title: "Midroll Banner Cycle Time",
+      type: "number",
       description:
-        "Used in conjunction with the URL when you dont want to use the Code section below",
-      hidden: true,
+        "Time, in seconds, to cycle through the midroll banner ads, between 1 and 30",
+      group: "midBannerGroup",
+      initialValue: 10,
+      validation: (Rule) => Rule.required().min(1).max(30),
     },
     {
-      name: "topBannerAdCode",
-      title: "Top Banner Ad Code",
-      type: "text",
-      description: "Paste your HTML or script code here",
-      group: "topBanner",
-      hidden: true,
-    },
-    {
-      name: "topBannerAdWidth",
-      title: "Top Banner Ad Width",
-      type: "number",
-      group: "topBanner",
-      hidden: true,
-    },
-    {
-      name: "topBannerAdHeight",
-      title: "Top Banner Ad Height",
-      type: "number",
-      group: "topBanner",
-      hidden: true,
-    },
-    {
-      name: "midBannerAdUrl",
-      title: "Mid Banner Ad Url",
-      type: "url",
-      description: "Paste your URL here",
-      group: "midRollAd",
-    },
-    {
-      name: "midBannerAdImage",
-      title: "Mid Banner Ad Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
+      name: "midBannerAds",
+      title: "mid Banner Ads",
       description:
-        "Used in conjunction with the URL when you dont want to use the Code section below",
-      group: "midRollAd",
+        "Add your midroll banner ads to cycle through here, only one will be shown at a time.",
+      type: "array",
+      group: "midBannerGroup",
+      of: [
+        {
+          name: "midBannerAd",
+          type: "object",
+          title: "mid Banner Ad",
+          preview: {
+            select: {
+              title: "midBannerAdUrl",
+              media: "midBannerAdImage",
+            },
+          },
+          fields: [
+            {
+              name: "midBannerAdUrl",
+              title: "Mid Banner Ad Url",
+              type: "url",
+              description: "Paste your URL here",
+            },
+            {
+              name: "midBannerAdImage",
+              title: "Mid Banner Ad Image",
+              type: "image",
+              options: {
+                hotspot: true,
+              },
+              description:
+                "Used in conjunction with the URL when you dont want to use the Code section below",
+            },
+            {
+              name: "midBannerAdCode",
+              title: "Mid Banner Ad Code",
+              type: "text",
+              description: "Paste your HTML or script code here",
+            },
+            {
+              name: "midBannerAdWidth",
+              title: "Mid Banner Ad Width",
+              type: "number",
+            },
+            {
+              name: "midBannerAdHeight",
+              title: "Mid Banner Ad Height",
+              type: "number",
+            },
+          ],
+        },
+      ],
     },
     {
-      name: "midBannerAdCode",
-      title: "Mid Banner Ad Code",
-      type: "text",
-      description: "Paste your HTML or script code here",
-      group: "midRollAd",
-    },
-    {
-      name: "midBannerAdWidth",
-      title: "Mid Banner Ad Width",
+      name: "verticalBannerAdsCycleTime",
+      title: "Vertical Banner Cycle Time",
       type: "number",
-      group: "midRollAd",
-    },
-    {
-      name: "midBannerAdHeight",
-      title: "Mid Banner Ad Height",
-      type: "number",
-      group: "midRollAd",
-    },
-    {
-      name: "verticalPostAdUrl",
-      title: "Vertical Post Ad Url",
-      type: "url",
-      description: "Paste your URL here",
-      group: "verticalPostAd",
-    },
-    {
-      name: "verticalPostAdImage",
-      title: "Vertical Post Ad Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
       description:
-        "Used in conjunction with the URL when you dont want to use the Code section below",
-      group: "verticalPostAd",
+        "Time, in seconds, to cycle through the vertical banner ads, between 1 and 30",
+      group: "verticalBannerGroup",
+      initialValue: 10,
+      validation: (Rule) => Rule.required().min(1).max(30),
     },
     {
-      name: "verticalPostAdCode",
-      title: "Vertical Post Ad Code",
-      type: "text",
-      description: "Paste your HTML or script code here",
-      group: "verticalPostAd",
-    },
-    {
-      name: "verticalPostAdWidth",
-      title: "Vertical Post Ad Width",
-      type: "number",
-      group: "verticalPostAd",
-    },
-    {
-      name: "verticalPostAdHeight",
-      title: "Vertical Post Ad Height",
-      type: "number",
-      group: "verticalPostAd",
+      name: "verticalBannerAds",
+      title: "vertical Banner Ads",
+      description:
+        "Add your vertical banner ads to cycle through here, only one will be shown at a time.",
+      type: "array",
+      group: "verticalBannerGroup",
+      of: [
+        {
+          name: "verticalBannerAd",
+          type: "object",
+          title: "vertical Banner Ad",
+          preview: {
+            select: {
+              title: "verticalBannerAdUrl",
+              media: "verticalBannerAdImage",
+            },
+          },
+          fields: [
+            {
+              name: "verticalBannerAdUrl",
+              title: "Vertical Post Ad Url",
+              type: "url",
+              description: "Paste your URL here",
+            },
+            {
+              name: "verticalBannerAdImage",
+              title: "Vertical Post Ad Image",
+              type: "image",
+              options: {
+                hotspot: true,
+              },
+              description:
+                "Used in conjunction with the URL when you dont want to use the Code section below",
+            },
+            {
+              name: "verticalBannerAdCode",
+              title: "Vertical Post Ad Code",
+              type: "text",
+              description: "Paste your HTML or script code here",
+            },
+            {
+              name: "verticalBannerAdWidth",
+              title: "Vertical Post Ad Width",
+              type: "number",
+            },
+            {
+              name: "verticalBannerAdHeight",
+              title: "Vertical Post Ad Height",
+              type: "number",
+            },
+          ],
+        },
+      ],
     },
   ],
   preview: {

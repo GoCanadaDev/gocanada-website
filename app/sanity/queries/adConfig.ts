@@ -19,39 +19,34 @@ export type AdConfigType = {
     topBannerAdWidth: number
     topBannerAdHeight: number
   }[]
-  topBannerAdUrl: string
-  topBannerAdImage: {
-    id: string
-    preview: string
-    aspectRatio: number
-    hotspot?: ImageHotspot
-    crop?: ImageCrop
-  }
-  topBannerAdCode: string
-  topBannerAdWidth: number
-  topBannerAdHeight: number
-  midBannerAdUrl: string
-  midBannerAdImage: {
-    id: string
-    preview: string
-    aspectRatio: number
-    hotspot?: ImageHotspot
-    crop?: ImageCrop
-  }
-  midBannerAdCode: string
-  midBannerAdWidth: number
-  midBannerAdHeight: number
-  verticalPostAdUrl: string
-  verticalPostAdImage: {
-    id: string
-    preview: string
-    aspectRatio: number
-    hotspot?: ImageHotspot
-    crop?: ImageCrop
-  }
-  verticalPostAdCode: string
-  verticalPostAdWidth: number
-  verticalPostAdHeight: number
+  midBannerAdsCycleTime: number
+  midBannerAds: {
+    midBannerAdUrl: string
+    midBannerAdImage: {
+      id: string
+      preview: string
+      aspectRatio: number
+      hotspot?: ImageHotspot
+      crop?: ImageCrop
+    }
+    midBannerAdCode: string
+    midBannerAdWidth: number
+    midBannerAdHeight: number
+  }[]
+  verticalBannerAdsCycleTime: number
+  verticalBannerAds: {
+    verticalBannerAdUrl: string
+    verticalBannerAdImage: {
+      id: string
+      preview: string
+      aspectRatio: number
+      hotspot?: ImageHotspot
+      crop?: ImageCrop
+    }
+    verticalBannerAdCode: string
+    verticalBannerAdWidth: number
+    verticalBannerAdHeight: number
+  }[]
 }
 
 export const adConfigQuery = groq`*[_type == "adConfigType"] {
@@ -72,45 +67,38 @@ export const adConfigQuery = groq`*[_type == "adConfigType"] {
     topBannerAdWidth,
     topBannerAdHeight,
   },
-  topBannerAdUrl,
-  topBannerAdImage{
-     ...,
-   "id": asset._ref,
-   "preview": asset->metadata.lqip,
-   "metadata": asset->metadata,
-   "hotspot": asset->hotspot,
-   "crop": asset->crop,
-   "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  midBannerAdsCycleTime,
+  midBannerAds[]{
+    midBannerAdUrl,
+    midBannerAdImage{
+      ...,
+      "id": asset._ref,
+      "preview": asset->metadata.lqip,
+      "metadata": asset->metadata,
+      "hotspot": asset->hotspot,
+      "crop": asset->crop,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    },
+    midBannerAdCode,
+    midBannerAdWidth,
+    midBannerAdHeight,
   },
-  topBannerAdCode,
-  topBannerAdWidth,
-  topBannerAdHeight,
-  midBannerAdUrl,
-  midBannerAdImage{
-    ...,
-   "id": asset._ref,
-   "preview": asset->metadata.lqip,
-   "metadata": asset->metadata,
-   "hotspot": asset->hotspot,
-   "crop": asset->crop,
-   "aspectRatio": asset->metadata.dimensions.aspectRatio,
+  verticalBannerAdsCycleTime,
+  verticalBannerAds[]{
+    verticalBannerAdUrl,
+    verticalBannerAdImage{
+      ...,
+      "id": asset._ref,
+      "preview": asset->metadata.lqip,
+      "metadata": asset->metadata,
+      "hotspot": asset->hotspot,
+      "crop": asset->crop,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    },
+    verticalBannerAdCode,
+    verticalBannerAdWidth,
+    verticalBannerAdHeight,
   },
-  midBannerAdCode,
-  midBannerAdWidth,
-  midBannerAdHeight,
-  verticalPostAdUrl,
-  verticalPostAdImage{
-    ...,
-   "id": asset._ref,
-   "preview": asset->metadata.lqip,
-   "metadata": asset->metadata,
-   "hotspot": asset->hotspot,
-   "crop": asset->crop,
-   "aspectRatio": asset->metadata.dimensions.aspectRatio,
-  },
-  verticalPostAdCode,
-  verticalPostAdWidth,
-  verticalPostAdHeight,
 }`
 
 export async function getAdConfig(client: SanityClient) {

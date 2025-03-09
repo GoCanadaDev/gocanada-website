@@ -1,17 +1,18 @@
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { SanityImage } from "sanity-image"
 import { baseUrl } from "~/sanity/projectDetails"
-import { useEffect } from "react"
 import { trackEvent } from "~/lib/utils"
 import useVisibilityTracker from "~/lib/useVisibilityTracker"
+import { useState, useEffect } from "react"
 
 export default function MidRollBannerAd({}) {
   const { adConfig } = useRootLoaderData()
+  const [currentAdIndex, setCurrentAdIndex] = useState(0)
 
   const adRef = useVisibilityTracker(
     () => {
-      trackEvent("MidRoll Ad Banner Viewed", {
-        midBannerAdUrl: adConfig.midBannerAdUrl,
+      trackEvent("Midroll Ad Banner Viewed", {
+        midBannerAdUrl: adConfig.midBannerAds[currentAdIndex].midBannerAdUrl,
       })
     },
     {
@@ -21,14 +22,32 @@ export default function MidRollBannerAd({}) {
   )
 
   useEffect(() => {
-    trackEvent("MidRoll Ad Banner Viewed", {
-      midBannerAdUrl: adConfig.midBannerAdUrl,
-    })
-  }, [])
+    if (adConfig && adConfig.midBannerAds.length > 1) {
+      const cycleTime = adConfig.midBannerAdsCycleTime * 1000 // Convert to milliseconds
+      const interval = setInterval(() => {
+        setCurrentAdIndex(
+          (prevIndex) => (prevIndex + 1) % adConfig.midBannerAds.length
+        )
+        trackEvent("Midroll Ad Banner Viewed", {
+          midBannerAdUrl:
+            adConfig.midBannerAds[
+              (currentAdIndex + 1) % adConfig.midBannerAds.length
+            ].midBannerAdUrl,
+        })
+      }, cycleTime)
+      return () => clearInterval(interval)
+    }
+  }, [adConfig, currentAdIndex])
 
-  if (!adConfig || !adConfig.featuredAdsEnabled) {
+  if (
+    !adConfig ||
+    !adConfig.featuredAdsEnabled ||
+    !adConfig.midBannerAds.length
+  ) {
     return null
   }
+
+  const currentAd = adConfig.midBannerAds[currentAdIndex]
 
   return (
     <div className="py-0 md:py-4">
@@ -38,35 +57,37 @@ export default function MidRollBannerAd({}) {
             style={{
               position: "relative",
               aspectRatio:
-                adConfig.midBannerAdWidth / adConfig.midBannerAdHeight,
-              maxHeight: adConfig.midBannerAdHeight,
-              maxWidth: adConfig.midBannerAdWidth,
+                currentAd.midBannerAdWidth / currentAd.midBannerAdHeight,
+              maxHeight: currentAd.midBannerAdHeight,
+              maxWidth: currentAd.midBannerAdWidth,
               margin: "0 auto",
             }}
           >
             <div className="absolute inset-0" ref={adRef}>
-              {typeof adConfig.midBannerAdCode === "string" ? (
+              {typeof currentAd.midBannerAdCode === "string" ? (
                 <div
-                  dangerouslySetInnerHTML={{ __html: adConfig.midBannerAdCode }}
+                  dangerouslySetInnerHTML={{
+                    __html: currentAd.midBannerAdCode,
+                  }}
                 />
               ) : (
                 <a
-                  href={adConfig.midBannerAdUrl}
+                  href={currentAd.midBannerAdUrl}
                   target="_blank"
                   rel="noopener"
                   aria-label="Learn more from our advertising partner"
                   onClick={() =>
                     trackEvent("MidRoll Ad Banner Clicked", {
-                      midBannerAdUrl: adConfig.midBannerAdUrl,
+                      midBannerAdUrl: currentAd.midBannerAdUrl,
                     })
                   }
                 >
                   <SanityImage
-                    id={adConfig.midBannerAdImage.id}
+                    id={currentAd.midBannerAdImage.id}
                     baseUrl={baseUrl}
-                    preview={adConfig.midBannerAdImage.preview}
-                    width={adConfig.midBannerAdWidth}
-                    height={adConfig.midBannerAdHeight}
+                    preview={currentAd.midBannerAdImage.preview}
+                    width={currentAd.midBannerAdWidth}
+                    height={currentAd.midBannerAdHeight}
                     className="m-auto"
                   />
                 </a>
