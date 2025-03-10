@@ -38,7 +38,7 @@ export const featuredPostsConfig = defineType({
           to: [{ type: "postType" }],
         },
       ],
-      validation: (Rule) => Rule.required().min(6).max(6),
+      validation: (Rule) => Rule.required().min(5).max(5),
     },
     {
       name: "trendingPosts",
