@@ -93,15 +93,14 @@ export async function getPosts(client: SanityClient, language: string) {
 }
 
 export const featuredPostsQuery = groq`*[_type == "featuredPostsConfig"][0]{
+  mainPostCarouselCycleTime,
+  "frontAndCenterPosts": frontAndCenterPosts[]->{
+    ${postsProjection}
+  },
   "featuredPosts": featuredPosts[]->{
     ${postsProjection}
   },
 }`
-
-export async function getFeaturedPosts(client: SanityClient, language: string) {
-  const result = await client.fetch(featuredPostsQuery, { language })
-  return Object.values(sanitizeStrings(result.featuredPosts)) as Post[]
-}
 
 export const trendingPostsQuery = groq`*[_type == "featuredPostsConfig"][0]{
   "trendingPosts": trendingPosts[]->{

@@ -12,19 +12,26 @@ export default function Card({
   isLarge,
   hideImage,
   categoryToUse,
+  disableImageTransition,
 }: {
   post: PostPreview
   showExcerpt?: boolean
   isLarge?: boolean
   hideImage?: boolean
   categoryToUse?: PostPreview["categories"][0]
+  disableImageTransition?: boolean
 }) {
   const linkTo = `/${post.language}/${post.slug[post.language]}`
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
-    if (post.secondaryImage && post.secondaryImage?.id && isLarge) {
+    if (
+      post.secondaryImage &&
+      post.secondaryImage?.id &&
+      isLarge &&
+      !disableImageTransition
+    ) {
       const cycleTime = 5000
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % 2)

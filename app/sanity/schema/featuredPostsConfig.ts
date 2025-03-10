@@ -7,8 +7,30 @@ export const featuredPostsConfig = defineType({
   type: "document",
   fields: [
     {
+      name: "mainPostCarouselCycleTime",
+      title: "Main Post Carousel Cycle Time",
+      type: "number",
+      description:
+        "Time, in seconds, to cycle through the main posts, between 1 and 30",
+      initialValue: 10,
+      validation: (Rule) => Rule.required().min(1).max(30),
+    },
+    {
+      name: "frontAndCenterPosts",
+      title: "Front & Center Post(s), in a carousel or by itself if only 1",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "postType" }],
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1).max(3),
+    },
+    {
       name: "featuredPosts",
-      title: "6 Featured Posts, in order",
+      title:
+        "5 Featured Posts, in order, do go around the Front & Center post(s)",
       type: "array",
       of: [
         {

@@ -8,6 +8,7 @@ import { Params, useLoaderData } from "@remix-run/react"
 import { useTranslation } from "react-i18next"
 import {
   Post,
+  PostPreview,
   featuredPostsQuery,
   postsQuery,
   trendingPostsQuery,
@@ -46,13 +47,19 @@ export const meta: MetaFunction<typeof loader> = ({
   })
 }
 
+type FeaturedPostsType = {
+  mainPostCarouselCycleTime: number | null
+  frontAndCenterPosts: PostPreview[] | null
+  featuredPosts: PostPreview[] | null
+}
+
 type IndexLoaderData = {
-  featuredPosts: QueryResponseInitial<Post[] | null>
+  featuredPosts: QueryResponseInitial<FeaturedPostsType | null>
   params: Params
   popupPromoConfig: PopupPromoConfig
-  posts: QueryResponseInitial<Post[] | null>
+  posts: QueryResponseInitial<PostPreview[] | null>
   siteConfig: SiteConfigType
-  trendingPosts: QueryResponseInitial<Post[] | null>
+  trendingPosts: QueryResponseInitial<PostPreview[] | null>
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -95,9 +102,12 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Posts Not found", { status: 404 })
   }
 
-  const featuredPosts = await loadQuery<Post[] | null>(featuredPostsQuery, {
-    language: params.lang,
-  }).then((res) => ({
+  const featuredPosts = await loadQuery<FeaturedPostsType | null>(
+    featuredPostsQuery,
+    {
+      language: params.lang,
+    }
+  ).then((res) => ({
     ...res,
     data: res.data ? res.data : null,
   }))
@@ -148,7 +158,7 @@ export default function Index() {
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
-  const { data: postsData, loading } = useQuery<Post[] | null>(
+  const { data: postsData, loading } = useQuery<PostPreview[] | null>(
     postsQuery,
     { language: params.lang },
     {
@@ -157,7 +167,9 @@ export default function Index() {
   )
 
   const { data: featuredPostsData, loading: featuredPostsLoading } = useQuery<{
-    featuredPosts: Post[] | null
+    featuredPosts: PostPreview[] | null
+    frontAndCenterPosts: PostPreview[] | null
+    mainPostCarouselCycleTime: number | null
   }>(
     featuredPostsQuery,
     { language: params.lang },
@@ -167,7 +179,7 @@ export default function Index() {
   )
 
   const { data: trendingPostsData, loading: trendingPostsLoading } = useQuery<{
-    trendingPosts: Post[] | null
+    trendingPosts: PostPreview[] | null
   }>(
     trendingPostsQuery,
     { language: params.lang },
@@ -182,6 +194,9 @@ export default function Index() {
     !trendingPostsLoading &&
     postsData?.filter(
       (post) =>
+        !featuredPostsData?.frontAndCenterPosts?.some(
+          (featured) => featured._id === post._id
+        ) &&
         !featuredPostsData?.featuredPosts?.some(
           (featured) => featured._id === post._id
         ) &&
@@ -190,6 +205,9 @@ export default function Index() {
         )
     )
 
+  const sanitizedFrontAndCenterPosts = sanitizeStrings(
+    featuredPostsData?.frontAndCenterPosts || []
+  )
   const sanitizedFeaturedPosts = sanitizeStrings(
     featuredPostsData?.featuredPosts || []
   )
@@ -202,7 +220,13 @@ export default function Index() {
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <TopGrid posts={sanitizedFeaturedPosts} />
+      <TopGrid
+        featuredPosts={sanitizedFeaturedPosts}
+        frontAndCenterPosts={sanitizedFrontAndCenterPosts}
+        mainPostCarouselCycleTime={
+          featuredPostsData?.mainPostCarouselCycleTime ?? 10
+        }
+      />
       <MidRollBannerAd />
       <Trending posts={sanitizedTrendingPosts} />
       <CardGrid posts={sanitizedRemainingPosts} />
