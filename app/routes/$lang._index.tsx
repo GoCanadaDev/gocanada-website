@@ -143,7 +143,7 @@ export const loader: LoaderFunction = async ({ params }) => {
         // Cache for a year in the CDN
         "Netlify-CDN-Cache-Control": "public, durable, s-maxage=31536000",
         // Purge from the cache whenever the posts change
-        "Cache-Tag": "posts, popupPromoConfig",
+        "Cache-Tag": "posts, popupPromoConfig, adConfigType",
       },
     }
   )

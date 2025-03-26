@@ -17,6 +17,7 @@ export interface WebhookBody {
     | "staticPageType"
     | "featuredPostsConfig"
     | "popupPromoConfig"
+    | "adConfigType"
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -30,6 +31,10 @@ export const action: ActionFunction = async ({ request }) => {
   } else if (_type === "popupPromoConfig") {
     await purgeCache({
       tags: ["popupPromoConfig"],
+    })
+  } else if (_type === "adConfigType") {
+    await purgeCache({
+      tags: ["adConfigType"],
     })
   } else if (_type === "featuredPostsConfig") {
     await purgeCache({

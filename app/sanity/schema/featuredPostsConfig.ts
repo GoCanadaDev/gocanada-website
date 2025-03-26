@@ -30,7 +30,7 @@ export const featuredPostsConfig = defineType({
     {
       name: "featuredPosts",
       title:
-        "5 Featured Posts, in order, do go around the Front & Center post(s)",
+        "5 Featured Posts, in order, to go around the Front & Center post(s)",
       type: "array",
       of: [
         {
