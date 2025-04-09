@@ -45,6 +45,12 @@ export default function TopAdBanner({}) {
 
   const currentAd = adConfig.topBannerAds[currentAdIndex]
 
+  const aspectRatio = currentAd.topBannerAdWidth / currentAd.topBannerAdHeight
+
+  if (aspectRatio === undefined) {
+    return null
+  }
+
   return (
     <div className="py-4">
       <div className="px-[3.5vw]">
@@ -52,8 +58,7 @@ export default function TopAdBanner({}) {
           <div
             style={{
               position: "relative",
-              aspectRatio:
-                currentAd.topBannerAdWidth / currentAd.topBannerAdHeight,
+              aspectRatio: aspectRatio,
               maxHeight: currentAd.topBannerAdHeight,
               maxWidth: currentAd.topBannerAdWidth,
               margin: "0 auto",
