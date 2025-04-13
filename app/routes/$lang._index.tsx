@@ -170,7 +170,6 @@ export default function Index() {
         const result = await client.fetch(postsCountQuery, {
           language: params.lang,
         })
-        console.log("Posts count result:", result)
         setTotalPostsCount(result?.total || 0)
       } catch (error) {
         console.error("Posts count error:", error)
@@ -242,15 +241,6 @@ export default function Index() {
   const handleLoadMore = (newPosts: PostPreview[]) => {
     setDisplayedPosts((prev) => [...prev, ...newPosts])
   }
-
-  console.log({
-    postsDataLength: postsData?.length,
-    totalPostsCount,
-    displayedPostsLength: displayedPosts.length,
-    sanitizedPostsLength: sanitizedPosts.length,
-    postsData,
-    displayedPosts,
-  })
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>

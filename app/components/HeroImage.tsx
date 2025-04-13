@@ -4,7 +4,8 @@ import { baseUrl } from "~/sanity/projectDetails"
 import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
 import { Post } from "~/sanity/queries"
-import { ImageCrop, ImageHotspot } from "sanity"
+import { ImageCrop, ImageHotspot, Reference } from "sanity"
+import { generateSrcSet } from "~/lib/sanity.image"
 
 type HeroImageProps = {
   id: string
@@ -31,8 +32,8 @@ export const HeroImage = ({
   mainImageCaption,
   mainImageAttribution,
   mainImageAttributionUrl,
-  fullBleed,
   mainImageGradientOverlay,
+  fullBleed,
   hotspot,
   crop,
   aspectRatio,
@@ -41,46 +42,59 @@ export const HeroImage = ({
 }: HeroImageProps) => {
   const params = useParams()
 
-  const renderFigCaption = () => (
-    <>
-      {mainImageAttribution || mainImageCaption ? (
-        <div
-          className={cn("", {
-            "mx-auto mb-8 w-10/12 max-w-7xl": !fullBleed,
-            "absolute left-0 right-0 top-full": fullBleed,
-            "w-8/12 max-w-7xl": !fullBleed && aspectRatio && aspectRatio < 1,
-          })}
+  const renderFigCaption = () => {
+    // Ensure we have valid string values
+    const caption = typeof mainImageCaption === "string" ? mainImageCaption : ""
+    const attribution =
+      typeof mainImageAttribution === "string" ? mainImageAttribution : ""
+    const attributionUrl =
+      typeof mainImageAttributionUrl === "string" ? mainImageAttributionUrl : ""
+
+    if (!caption && !attribution) return null
+
+    return (
+      <div
+        className={cn("", {
+          "mx-auto mb-8 w-10/12 max-w-7xl": !fullBleed,
+          "absolute left-0 right-0 top-full": fullBleed,
+          "w-8/12 max-w-7xl": !fullBleed && aspectRatio && aspectRatio < 1,
+        })}
+      >
+        <figcaption
+          className={cn(
+            "flex justify-between font-sans text-zinc-500 dark:text-zinc-400",
+            {
+              "px-4 pt-2": fullBleed,
+            }
+          )}
         >
-          <figcaption
-            className={cn(
-              "flex justify-between font-sans text-zinc-500 dark:text-zinc-400",
-              {
-                "px-4 pt-2": fullBleed,
-              }
-            )}
-          >
-            {typeof mainImageCaption === "string" ? (
-              <span className="flex-1 text-xs">{mainImageCaption}</span>
-            ) : null}
-            {typeof mainImageAttribution === "string" ? (
-              <span className="flex-1 text-right text-xs">
-                {typeof mainImageAttributionUrl === "string" ? (
-                  <a
-                    href={mainImageAttributionUrl}
-                    className="text-brand transition-colors duration-200 hover:text-brandHover"
-                  >
-                    {mainImageAttribution}
-                  </a>
-                ) : (
-                  mainImageAttribution
-                )}
-              </span>
-            ) : null}
-          </figcaption>
-        </div>
-      ) : null}
-    </>
-  )
+          {caption && <span className="flex-1 text-xs">{caption}</span>}
+          {attribution && (
+            <span className="flex-1 text-right text-xs">
+              {attributionUrl ? (
+                <a
+                  href={attributionUrl}
+                  className="text-brand transition-colors duration-200 hover:text-brandHover"
+                >
+                  {attribution}
+                </a>
+              ) : (
+                attribution
+              )}
+            </span>
+          )}
+        </figcaption>
+      </div>
+    )
+  }
+
+  // Generate srcSet string
+  const imageSrcSet = generateSrcSet({
+    asset: {
+      _ref: id,
+      _type: "reference",
+    } as Reference,
+  })
 
   return fullBleed ? (
     <section
@@ -101,6 +115,8 @@ export const HeroImage = ({
           alt=""
           hotspot={hotspot}
           crop={crop}
+          srcSet={imageSrcSet || undefined}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
         />
         {renderFigCaption()}
       </figure>
@@ -155,6 +171,8 @@ export const HeroImage = ({
           alt=""
           hotspot={hotspot}
           crop={crop}
+          srcSet={imageSrcSet || undefined}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
         />
         {renderFigCaption()}
       </figure>
