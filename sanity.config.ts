@@ -21,16 +21,6 @@ export const config = defineConfig({
         draftMode: {
           enable: "/api/draft",
         },
-        // Remove or comment out this resolveProductionUrl function
-        // resolveProductionUrl: async (document, context) => {
-        //   // This might be bypassing the draft mode
-        //   if (document._type === "postType" && document.slug) {
-        //     const lang = document.language || "en";
-        //     const slugValue = document.slug[lang]?.current || "";
-        //     return `/${lang}/${slugValue}`;
-        //   }
-        //   return "/";
-        // },
       },
     }),
     visionTool(),

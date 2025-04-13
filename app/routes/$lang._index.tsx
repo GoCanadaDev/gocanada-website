@@ -32,6 +32,9 @@ import {
   getPopupPromoConfig,
   PopupPromoConfig,
 } from "~/sanity/queries/popupPromoConfig"
+import { LoadMorePosts } from "~/components/LoadMorePosts"
+import { useState, useEffect } from "react"
+import { postsCountQuery, testCountQuery } from "~/sanity/queries/posts"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -158,11 +161,29 @@ export default function Index() {
     i18n: { language },
   } = useTranslation()
   const currentLang = language as SupportedLanguages
+  const [displayedPosts, setDisplayedPosts] = useState<PostPreview[]>([])
+  const [totalPostsCount, setTotalPostsCount] = useState(0)
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const result = await client.fetch(postsCountQuery, {
+          language: params.lang,
+        })
+        console.log("Posts count result:", result)
+        setTotalPostsCount(result?.total || 0)
+      } catch (error) {
+        console.error("Posts count error:", error)
+      }
+    }
+    fetchCount()
+  }, [params.lang])
+
   const { data: postsData, loading } = useQuery<PostPreview[] | null>(
     postsQuery,
     { language: params.lang },
     {
-      initial: posts,
+      initial: posts as unknown as QueryResponseInitial<PostPreview[] | null>,
     }
   )
 
@@ -188,35 +209,48 @@ export default function Index() {
     }
   )
 
-  const remainingPosts =
-    !loading &&
-    !featuredPostsLoading &&
-    !trendingPostsLoading &&
-    postsData?.filter(
-      (post) =>
-        !featuredPostsData?.frontAndCenterPosts?.some(
-          (featured) => featured._id === post._id
-        ) &&
-        !featuredPostsData?.featuredPosts?.some(
-          (featured) => featured._id === post._id
-        ) &&
-        !trendingPostsData?.trendingPosts?.some(
-          (trending) => trending._id === post._id
-        )
-    )
-
   const sanitizedFrontAndCenterPosts = sanitizeStrings(
-    featuredPostsData?.frontAndCenterPosts || []
+    featuredPostsData?.frontAndCenterPosts?.filter(
+      (post) => !post._id.includes("drafts")
+    ) || []
   )
   const sanitizedFeaturedPosts = sanitizeStrings(
-    featuredPostsData?.featuredPosts || []
+    featuredPostsData?.featuredPosts?.filter(
+      (post) => !post._id.includes("drafts")
+    ) || []
   )
   const sanitizedTrendingPosts = sanitizeStrings(
-    trendingPostsData?.trendingPosts || []
+    trendingPostsData?.trendingPosts?.filter(
+      (post) => !post._id.includes("drafts")
+    ) || []
   )
-  const sanitizedRemainingPosts = Object.values(
-    sanitizeStrings(remainingPosts || [])
+  const sanitizedPosts = Object.values(
+    sanitizeStrings(
+      (Array.isArray(postsData) &&
+        postsData?.filter((post) => !post._id.includes("drafts"))) ||
+        []
+    )
   )
+
+  // Initialize displayed posts with first 12 posts
+  useEffect(() => {
+    if (sanitizedPosts.length > 0 && displayedPosts.length === 0) {
+      setDisplayedPosts(sanitizedPosts.slice(0, 12))
+    }
+  }, [sanitizedPosts])
+
+  const handleLoadMore = (newPosts: PostPreview[]) => {
+    setDisplayedPosts((prev) => [...prev, ...newPosts])
+  }
+
+  console.log({
+    postsDataLength: postsData?.length,
+    totalPostsCount,
+    displayedPostsLength: displayedPosts.length,
+    sanitizedPostsLength: sanitizedPosts.length,
+    postsData,
+    displayedPosts,
+  })
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
@@ -229,7 +263,19 @@ export default function Index() {
       />
       <MidRollBannerAd />
       <Trending posts={sanitizedTrendingPosts} />
-      <CardGrid posts={sanitizedRemainingPosts} />
+      <CardGrid posts={displayedPosts} />
+      {displayedPosts.length < totalPostsCount && displayedPosts.length > 0 && (
+        <LoadMorePosts
+          lastPostId={displayedPosts[displayedPosts.length - 1]?._id}
+          lastPostPublishedAt={
+            displayedPosts[displayedPosts.length - 1]?.publishedAt
+          }
+          language={params.lang ?? "en"}
+          onPostsLoaded={handleLoadMore}
+          currentCount={displayedPosts.length}
+          totalCount={totalPostsCount}
+        />
+      )}
       {popupPromoConfig.popupPromoEnabled && (
         <PromoPopup config={popupPromoConfig} />
       )}

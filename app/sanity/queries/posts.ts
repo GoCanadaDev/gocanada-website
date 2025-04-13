@@ -42,6 +42,8 @@ export async function getAlgoliaPosts(client: SanityClient) {
 export const postsProjection = `
   _id,
   _createdAt,
+  _updatedAt,
+  publishedAt,
   "language": $language,
   "title": {
     "en": title.en,
@@ -83,8 +85,20 @@ export const postsProjection = `
   },
 `
 
-export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current)] | order(publishedAt desc){
+export const postsQuery = groq`*[_type == "postType" && defined(slug[$language].current) && !(_id in *[_type == "featuredPostsConfig"][0].frontAndCenterPosts[]._ref) && !(_id in *[_type == "featuredPostsConfig"][0].featuredPosts[]._ref) && !(_id in *[_type == "featuredPostsConfig"][0].trendingPosts[]._ref)] | order(publishedAt desc)[0...12]{
   ${postsProjection}
+}`
+
+export const loadMorePostsQuery = groq`*[_type == "postType" && defined(slug[$language].current) && !(_id in *[_type == "featuredPostsConfig"][0].frontAndCenterPosts[]._ref) && !(_id in *[_type == "featuredPostsConfig"][0].featuredPosts[]._ref) && !(_id in *[_type == "featuredPostsConfig"][0].trendingPosts[]._ref) && (!defined($lastId) || publishedAt < $lastId)] | order(publishedAt desc)[0...12]{
+  ${postsProjection}
+}`
+
+export const testCountQuery = groq`{
+  "total": count(*[_type == "postType"])
+}`
+
+export const postsCountQuery = groq`{
+  "total": count(*[_type == "postType" && defined(slug[$language].current) && !(_id in *[_type == "featuredPostsConfig"][0].frontAndCenterPosts[]._ref) && !(_id in *[_type == "featuredPostsConfig"][0].featuredPosts[]._ref) && !(_id in *[_type == "featuredPostsConfig"][0].trendingPosts[]._ref)] | order(publishedAt desc))
 }`
 
 export async function getPosts(client: SanityClient, language: string) {
@@ -376,6 +390,7 @@ export type PostPreview = {
     crop?: ImageCrop
     metadata: ImageMetadata
   }
+  publishedAt: string
 }
 export type Post = PostPreview & {
   body: PortableTextBlock[]
