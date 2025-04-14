@@ -68,6 +68,7 @@ export const postsProjection = `
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    "url": asset->url,
   },
   secondaryImage{
     ...,
@@ -302,6 +303,7 @@ export const postBySlugQuery = groq`*[_type == "postType" && (slug[$language].cu
     "id": asset._ref,
     "preview": asset->metadata.lqip,
     "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    "url": asset->url,
   },
   "previousPost": *[_type == "postType" && ^.publishedAt > publishedAt]|order(publishedAt desc)[0]{ 
     ${previousOrNextPostProjection}
@@ -381,6 +383,7 @@ export type PostPreview = {
     hotspot?: ImageHotspot
     crop?: ImageCrop
     metadata: ImageMetadata
+    url: string
   }
   secondaryImage: {
     id: string

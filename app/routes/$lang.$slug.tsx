@@ -2,7 +2,6 @@ import type {
   LoaderFunction,
   LoaderFunctionArgs,
   MetaFunction,
-  HeadersFunction,
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { Link, Params, useLoaderData } from "@remix-run/react"
@@ -41,6 +40,7 @@ import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { getDraftMode } from "~/sanity/get-draft-mode.server"
 import VerticalBannerAd from "~/components/VerticalBannerAd"
 import { useRef } from "react"
+import { QueryResponseInitial } from "@sanity/react-loader"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -136,7 +136,7 @@ export const loader: LoaderFunction = async ({
     isDraftMode
   ).then((res) => ({
     ...res,
-    data: res.data ? res.data : null,
+    data: res.data ? (res.data as Post) : null,
   }))
 
   // post returns an empty object if the slug is not found, so check for empty object with Object.keys
@@ -166,12 +166,11 @@ export const loader: LoaderFunction = async ({
         "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
         // Tag with the post id
         "Cache-Tag": `posts:id:${post.data?._id}`,
+        Link: `<${post.data?.mainImage.url}>; rel=preload; as=image; fetchpriority=high`,
       },
     }
   )
 }
-
-export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Slug() {
   const { post, params } = useLoaderData<LoaderDataType>()
@@ -179,7 +178,7 @@ export default function Slug() {
     postBySlugQuery,
     { language: params.lang, slug: params.slug },
     {
-      initial: post,
+      initial: post as unknown as QueryResponseInitial<Post | null>,
     }
   )
   const postToUse = sanitizeStrings(postData ?? post)

@@ -8,6 +8,9 @@ export default {
     "accept-language-parser",
     "use-sound",
   ],
+  // Add HMR configuration
+  devServerPort: 3000,
+  devServerBroadcastDelay: 1000,
   // This works out of the box with the Netlify adapter, but you can
   // add your own custom config here if you want to.
   //
