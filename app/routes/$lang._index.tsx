@@ -63,9 +63,10 @@ type IndexLoaderData = {
   posts: QueryResponseInitial<PostPreview[] | null>
   siteConfig: SiteConfigType
   trendingPosts: QueryResponseInitial<PostPreview[] | null>
+  isDraftMode: boolean
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
   if (!params.lang) {
     throw new Response(null, {
       status: 404,
@@ -90,6 +91,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   } else {
     isLangSupportedLang(params.lang)
   }
+
+  const isDraftMode = Boolean(
+    request.headers.get("referer")?.includes("studio")
+  )
 
   const siteConfig = await getSiteConfig(client)
   const popupPromoConfig = await getPopupPromoConfig(client)
@@ -138,6 +143,7 @@ export const loader: LoaderFunction = async ({ params }) => {
       posts,
       siteConfig,
       trendingPosts,
+      isDraftMode,
     },
     {
       headers: {
@@ -155,8 +161,14 @@ export const loader: LoaderFunction = async ({ params }) => {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Index() {
-  const { posts, featuredPosts, trendingPosts, params, popupPromoConfig } =
-    useLoaderData<IndexLoaderData>()
+  const {
+    posts,
+    featuredPosts,
+    trendingPosts,
+    params,
+    popupPromoConfig,
+    isDraftMode,
+  } = useLoaderData<IndexLoaderData>()
   const {
     i18n: { language },
   } = useTranslation()
@@ -209,24 +221,26 @@ export default function Index() {
   )
 
   const sanitizedFrontAndCenterPosts = sanitizeStrings(
-    featuredPostsData?.frontAndCenterPosts?.filter(
-      (post) => !post._id.includes("drafts")
+    featuredPostsData?.frontAndCenterPosts?.filter((post) =>
+      isDraftMode ? true : !post._id.includes("drafts")
     ) || []
   )
   const sanitizedFeaturedPosts = sanitizeStrings(
-    featuredPostsData?.featuredPosts?.filter(
-      (post) => !post._id.includes("drafts")
+    featuredPostsData?.featuredPosts?.filter((post) =>
+      isDraftMode ? true : !post._id.includes("drafts")
     ) || []
   )
   const sanitizedTrendingPosts = sanitizeStrings(
-    trendingPostsData?.trendingPosts?.filter(
-      (post) => !post._id.includes("drafts")
+    trendingPostsData?.trendingPosts?.filter((post) =>
+      isDraftMode ? true : !post._id.includes("drafts")
     ) || []
   )
   const sanitizedPosts = Object.values(
     sanitizeStrings(
       (Array.isArray(postsData) &&
-        postsData?.filter((post) => !post._id.includes("drafts"))) ||
+        postsData?.filter((post) =>
+          isDraftMode ? true : !post._id.includes("drafts")
+        )) ||
         []
     )
   )

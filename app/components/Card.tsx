@@ -21,13 +21,12 @@ export default function Card({
   categoryToUse?: PostPreview["categories"][0]
   disableImageTransition?: boolean
 }) {
-  const linkTo = `/${post.language}/${post.slug[post.language]}`
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     if (
-      post.secondaryImage &&
+      post &&
+      !!post.secondaryImage &&
       post.secondaryImage?.id &&
       isLarge &&
       !disableImageTransition
@@ -38,11 +37,13 @@ export default function Card({
       }, cycleTime)
       return () => clearInterval(interval)
     }
-  }, [post.secondaryImage, isLarge])
+  }, [post, isLarge])
 
-  if (!post) {
+  if (!post || !post.language) {
     return null
   }
+
+  const linkTo = `/${post.language}/${post.slug[post.language]}`
 
   return (
     <article className="group">
