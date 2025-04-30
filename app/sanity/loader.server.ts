@@ -19,7 +19,7 @@ export function loadQueryWithDraft(
   const clientToUse = isDraftMode
     ? client.withConfig({
         token: process.env.SANITY_READ_TOKEN,
-        perspective: "previewDrafts",
+        perspective: "drafts",
       })
     : client
 

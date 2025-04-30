@@ -23,7 +23,7 @@ import { Trending } from "~/components/homepage/Trending"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import MidRollBannerAd from "~/components/MidRollBannerAd"
 import { useQuery } from "~/sanity/loader"
-import { loadQuery } from "~/sanity/loader.server"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
 import { QueryResponseInitial } from "@sanity/react-loader"
 import { genericMetaTags } from "~/lib/utils"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
@@ -99,36 +99,45 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const siteConfig = await getSiteConfig(client)
   const popupPromoConfig = await getPopupPromoConfig(client)
 
-  const posts = await loadQuery<Post[] | null>(postsQuery, {
-    language: params.lang,
-  }).then((res) => ({
+  const posts = await loadQueryWithDraft(
+    postsQuery,
+    {
+      language: params.lang,
+    },
+    isDraftMode
+  ).then((res) => ({
     ...res,
-    data: res.data ? res.data : null,
+    data: res.data ? (res.data as Post[]) : null,
   }))
 
   if (!posts.data) {
     throw new Response("Posts Not found", { status: 404 })
   }
 
-  const featuredPosts = await loadQuery<FeaturedPostsType | null>(
+  const featuredPosts = await loadQueryWithDraft(
     featuredPostsQuery,
     {
       language: params.lang,
-    }
+    },
+    isDraftMode
   ).then((res) => ({
     ...res,
-    data: res.data ? res.data : null,
+    data: res.data ? (res.data as FeaturedPostsType) : null,
   }))
 
   if (!featuredPosts.data) {
     throw new Response("Featured Posts Not found", { status: 404 })
   }
 
-  const trendingPosts = await loadQuery<Post[] | null>(trendingPostsQuery, {
-    language: params.lang,
-  }).then((res) => ({
+  const trendingPosts = await loadQueryWithDraft(
+    trendingPostsQuery,
+    {
+      language: params.lang,
+    },
+    isDraftMode
+  ).then((res) => ({
     ...res,
-    data: res.data ? res.data : null,
+    data: res.data ? (res.data as Post[]) : null,
   }))
 
   if (!trendingPosts.data) {
@@ -221,29 +230,15 @@ export default function Index() {
   )
 
   const sanitizedFrontAndCenterPosts = sanitizeStrings(
-    featuredPostsData?.frontAndCenterPosts?.filter((post) =>
-      isDraftMode ? true : !post._id.includes("drafts")
-    ) || []
+    featuredPostsData?.frontAndCenterPosts || []
   )
   const sanitizedFeaturedPosts = sanitizeStrings(
-    featuredPostsData?.featuredPosts?.filter((post) =>
-      isDraftMode ? true : !post._id.includes("drafts")
-    ) || []
+    featuredPostsData?.featuredPosts || []
   )
   const sanitizedTrendingPosts = sanitizeStrings(
-    trendingPostsData?.trendingPosts?.filter((post) =>
-      isDraftMode ? true : !post._id.includes("drafts")
-    ) || []
+    trendingPostsData?.trendingPosts || []
   )
-  const sanitizedPosts = Object.values(
-    sanitizeStrings(
-      (Array.isArray(postsData) &&
-        postsData?.filter((post) =>
-          isDraftMode ? true : !post._id.includes("drafts")
-        )) ||
-        []
-    )
-  )
+  const sanitizedPosts = Object.values(sanitizeStrings(postsData || []))
 
   // Initialize displayed posts with first 12 posts
   useEffect(() => {
