@@ -286,9 +286,6 @@ function App() {
         ) : (
           <Outlet />
         )}
-        <Preview>
-          <Outlet />
-        </Preview>
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${ENV.GTAG_ID}`}
