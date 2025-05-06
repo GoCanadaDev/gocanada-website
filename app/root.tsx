@@ -275,7 +275,7 @@ function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>{siteConfig.siteTitle}</title>
         <Links />
-        {/* <script src="/sw-register.js" defer></script> */}
+        <script src="/sw-register.js" defer></script>
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
         <Preview>
