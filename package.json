@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "npm run redirects:enable && remix build --sourcemap && sentry-upload-sourcemaps --org tonymamo --project gocanada",
+    "postbuild": "workbox generateSW workbox-config.cjs",
     "dev": "npm run redirects:disable && remix dev",
     "start": "netlify serve",
     "typecheck": "tsc -b",
