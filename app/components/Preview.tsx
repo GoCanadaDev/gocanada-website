@@ -6,7 +6,7 @@ export function Preview({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {isDraftMode && (
+      {false && isDraftMode && (
         <a
           href="/api/disable-draft"
           className="fixed right-0 top-0 z-50 flex gap-2 rounded-bl bg-brand p-3 text-sm text-white transition-all duration-200 hover:gap-4 hover:bg-brandHover"
