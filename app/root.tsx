@@ -225,6 +225,7 @@ function App() {
     isStudioRoute,
     showCookieBanner,
     siteConfig,
+    isDraftMode,
   } = useLoaderData<RootLoaderData>()
 
   const { i18n } = useTranslation()
@@ -278,6 +279,13 @@ function App() {
         <script src="/sw-register.js" defer></script>
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
+        {isDraftMode ? (
+          <Preview>
+            <Outlet />
+          </Preview>
+        ) : (
+          <Outlet />
+        )}
         <Preview>
           <Outlet />
         </Preview>
