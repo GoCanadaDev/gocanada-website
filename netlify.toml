@@ -28,6 +28,28 @@ for = "/build/*"
 
 "Cache-Control" = "public, max-age=31560000, immutable"
 
+# Cache CSS files
+[[headers]]
+for = "/*.css"
+[headers.values]
+"Cache-Control" = "public, max-age=31536000, immutable"
+"Netlify-CDN-Cache-Control" = "public, max-age=31536000, immutable"
+
+# Cache JavaScript files
+[[headers]]
+for = "/*.js"
+[headers.values]
+"Cache-Control" = "public, max-age=31536000, immutable"
+"Netlify-CDN-Cache-Control" = "public, max-age=31536000, immutable"
+
+# Cache HTML files, but with a shorter duration since content may change
+[[headers]]
+for = "/*.html"
+[headers.values]
+"Cache-Control" = "public, max-age=3600"
+"Netlify-CDN-Cache-Control" = "public, max-age=3600"
+"Vary" = "Accept-Encoding"
+
 # Optimize caching for Sanity images
 [[headers]]
 for = "https://cdn.sanity.io/images/*"

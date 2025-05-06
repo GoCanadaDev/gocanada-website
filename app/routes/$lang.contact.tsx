@@ -93,24 +93,59 @@ const formSchema = z.object({
 })
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData()
-  const values = {
-    "form-name": "contact-form",
-    "bot-field": String(formData.get("bot-field")) ?? "",
-    firstName: String(formData.get("firstName")) ?? "",
-    lastName: String(formData.get("lastName")) ?? "",
-    email: String(formData.get("email")) ?? "",
-    subject: `${String(formData.get("subject")) ?? `New inquiry`} - ${String(formData.get("email"))}`,
-    message: String(formData.get("message")) ?? "",
+  try {
+    // 1. Parse form data
+    const formData = await request.formData()
+
+    // 2. Check honeypot field first - quick bot check
+    if (
+      formData.get("bot-field") &&
+      String(formData.get("bot-field")).length > 0
+    ) {
+      // Return success to avoid revealing this is a trap
+      // No redirect - simply "swallow" the submission silently
+      return json({ success: true }, { status: 200 })
+    }
+
+    // 3. Validate required fields
+    const requiredFields = ["firstName", "email", "subject", "message"]
+    for (const field of requiredFields) {
+      const value = formData.get(field)
+      if (!value || String(value).trim() === "") {
+        return json(
+          { error: `Missing required field: ${field}` },
+          { status: 400 }
+        )
+      }
+    }
+
+    // 4. Email format validation
+    const email = String(formData.get("email") || "")
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailPattern.test(email)) {
+      return json({ error: "Invalid email format" }, { status: 400 })
+    }
+
+    // 5. Create cleaned values object
+    const values = {
+      "form-name": "contact-form",
+      "bot-field": "",
+      firstName: String(formData.get("firstName") || "").slice(0, 50),
+      lastName: String(formData.get("lastName") || "").slice(0, 50),
+      email: email,
+      subject: `${String(formData.get("subject") || "New inquiry")} - ${email}`,
+      message: String(formData.get("message") || "").slice(0, 500),
+    }
+
+    // 6. Submit the form data
+    await postFormUrlEncoded<typeof values>(values)
+
+    // 7. Return success
+    return redirect(`${request.url}?submitted`)
+  } catch (error) {
+    console.error("Contact form submission error:", error)
+    return json({ error: "Failed to submit form" }, { status: 500 })
   }
-
-  if (values["bot-field"] !== "") {
-    return null
-  }
-
-  await postFormUrlEncoded<typeof values>(values)
-
-  return redirect(`${request.url}?submitted`)
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
