@@ -68,5 +68,16 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
     //   ad_personalization: "denied",
     //   analytics_storage: "denied",
     // })
+
+    // add affiliate script
+    ;(function () {
+      const script = document.createElement("script")
+      script.async = true
+      script.setAttribute("data-noptimize", "1")
+      script.setAttribute("data-cfasync", "false")
+      script.setAttribute("data-wpfc-render", "false")
+      script.src = "https://emrld.cc/NDEzNzA1.js?t=413705"
+      document.head.appendChild(script)
+    })()
   }
 }
