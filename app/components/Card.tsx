@@ -13,6 +13,7 @@ export default function Card({
   hideImage,
   categoryToUse,
   disableImageTransition,
+  loadingMode,
 }: {
   post: PostPreview
   showExcerpt?: boolean
@@ -20,6 +21,7 @@ export default function Card({
   hideImage?: boolean
   categoryToUse?: PostPreview["categories"][0]
   disableImageTransition?: boolean
+  loadingMode?: "lazy" | "eager"
 }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -67,7 +69,7 @@ export default function Card({
                   width={isLarge || hideImage ? 1024 : 576}
                   height={isLarge || hideImage ? 640 : 384}
                   preview={post.mainImage.preview ?? ""}
-                  loading="eager"
+                  loading={loadingMode}
                   className={cn(
                     "absolute inset-0 h-full object-cover hover:scale-[1.05]",
                     {
@@ -93,7 +95,7 @@ export default function Card({
                     width={isLarge ? 1024 : 576}
                     height={isLarge ? 640 : 384}
                     preview={post.secondaryImage.preview ?? ""}
-                    loading="eager"
+                    loading={loadingMode}
                     className={cn(
                       "absolute inset-0 h-full object-cover transition-opacity duration-700",
                       {

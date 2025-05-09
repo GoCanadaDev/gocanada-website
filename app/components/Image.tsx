@@ -21,7 +21,7 @@ export const Image = (
 
   // Default sizes if not provided
   const defaultSizes =
-    sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+    sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
 
   return (
     <SanityImage
@@ -31,6 +31,7 @@ export const Image = (
       className={props.className}
       srcSet={defaultSrcSet}
       sizes={defaultSizes}
+      queryParams={{ q: 75, fm: "webp" }}
     />
   )
 }

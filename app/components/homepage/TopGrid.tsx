@@ -21,19 +21,24 @@ export const TopGrid = ({
             mainPostCarouselCycleTime={mainPostCarouselCycleTime}
           />
           <Separator orientation="horizontal" className="my-2 h-0.5" />
-          <Card post={featuredPosts[4]} showExcerpt hideImage />
+          <Card
+            post={featuredPosts[4]}
+            showExcerpt
+            hideImage
+            loadingMode="lazy"
+          />
         </div>
       </div>
       <div className="col-span-1 gap-8 md:col-start-1 md:row-span-1 md:row-start-1">
         <div className="flex flex-col gap-8">
-          <Card post={featuredPosts[0]} showExcerpt />
-          <Card post={featuredPosts[1]} showExcerpt />
+          <Card post={featuredPosts[0]} showExcerpt loadingMode="eager" />
+          <Card post={featuredPosts[1]} showExcerpt loadingMode="eager" />
         </div>
       </div>
       <div className="col-span-1 gap-8 md:col-start-4 md:row-span-1 md:row-start-1">
         <div className="flex flex-col gap-8">
-          <Card post={featuredPosts[2]} showExcerpt />
-          <Card post={featuredPosts[3]} showExcerpt />
+          <Card post={featuredPosts[2]} showExcerpt loadingMode="eager" />
+          <Card post={featuredPosts[3]} showExcerpt loadingMode="eager" />
         </div>
       </div>
     </div>
