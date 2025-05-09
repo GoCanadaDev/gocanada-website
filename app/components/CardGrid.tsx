@@ -23,7 +23,6 @@ export const CardGrid = ({
               key={post.title[post.language]}
               post={post}
               categoryToUse={categoryToUse}
-              loadingMode="lazy"
             />
           ))
         : null}

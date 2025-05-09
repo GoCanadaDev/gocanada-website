@@ -34,7 +34,7 @@ const FrontAndCenterPostCarousel = ({
   if (postsArray.length === 1) {
     return (
       <div>
-        <Card post={posts[0]} showExcerpt isLarge loadingMode="eager" />
+        <Card post={posts[0]} showExcerpt isLarge />
       </div>
     )
   }
@@ -79,13 +79,7 @@ const FrontAndCenterPostCarousel = ({
       >
         {postsArray.map((post) => (
           <CarouselItem key={post._createdAt}>
-            <Card
-              post={post}
-              showExcerpt
-              isLarge
-              disableImageTransition
-              loadingMode="eager"
-            />
+            <Card post={post} showExcerpt isLarge disableImageTransition />
           </CarouselItem>
         ))}
       </CarouselContent>
