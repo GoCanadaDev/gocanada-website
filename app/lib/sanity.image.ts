@@ -39,6 +39,7 @@ export const generateSrcSet = (
         .auto("format")
         .quality(80)
         .fit("max")
+        .format("webp") // Use WebP format for better compression
         .dpr(1)
         .url()
       return url ? `${url} ${width}w` : null
