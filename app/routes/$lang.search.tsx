@@ -11,6 +11,12 @@ import { z } from "zod"
 import { SSRSearchProvider } from "~/components/search"
 import { genericMetaTags, SITE_META } from "~/lib/utils"
 import { useTranslation } from "react-i18next"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -20,11 +26,28 @@ export const meta: MetaFunction<typeof loader> = ({
   const title = data.query
     ? `[${data.query}] Results from ${SITE_META.siteTitle}`
     : `Search | ${SITE_META.siteTitle}`
+  const description = "Search results from Go Canada"
+  const canonical = `https://gocanada.com/en/search`
 
   return genericMetaTags({
     title,
     description: "",
-    canonical: "/en/search",
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Search",
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

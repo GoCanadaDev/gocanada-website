@@ -34,7 +34,13 @@ import {
 } from "~/sanity/queries/popupPromoConfig"
 import { LoadMorePosts } from "~/components/LoadMorePosts"
 import { useState, useEffect } from "react"
-import { postsCountQuery, testCountQuery } from "~/sanity/queries/posts"
+import { postsCountQuery } from "~/sanity/queries/posts"
+import {
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -43,10 +49,22 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `${data.siteConfig.siteTitle} | ${data.siteConfig.siteTitleDescription}`
   const description = data.siteConfig.siteDescription
+  const canonical = `https://gocanada.com/${data.params.lang}`
   return genericMetaTags({
     title,
     description,
-    canonical: "/en",
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

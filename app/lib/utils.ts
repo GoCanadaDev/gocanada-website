@@ -21,10 +21,12 @@ export const genericMetaTags = ({
   title,
   description,
   canonical,
+  schemas,
 }: {
   title: string
   description: string
   canonical?: string
+  schemas?: Record<string, unknown>[]
 }) => {
   const imageAlt = "White logo for Go Canada on a red background"
   const meta: MetaDescriptor[] = [
@@ -53,7 +55,15 @@ export const genericMetaTags = ({
     meta.push({
       tagName: "link",
       rel: "canonical",
-      href: `https://gocanada.com${canonical}`,
+      href: canonical,
+    })
+  }
+
+  if (schemas) {
+    schemas.forEach((schema) => {
+      meta.push({
+        "script:ld+json": schema,
+      })
     })
   }
 

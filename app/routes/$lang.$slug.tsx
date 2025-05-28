@@ -41,6 +41,12 @@ import { getDraftMode } from "~/sanity/get-draft-mode.server"
 import VerticalBannerAd from "~/components/VerticalBannerAd"
 import { useRef } from "react"
 import { QueryResponseInitial } from "@sanity/react-loader"
+import {
+  generateBlogPostingSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -57,6 +63,7 @@ export const meta: MetaFunction<typeof loader> = ({
 
   const ogImageUrl = sanitizedData ? sanitizedData.ogImageUrl : null
   const description = sanitizedData ? sanitizedData.post.data.excerpt.en : ""
+  const canonical = `https://gocanada.com/en/${sanitizedData.post.data.slug.en}`
 
   return [
     { title },
@@ -95,7 +102,7 @@ export const meta: MetaFunction<typeof loader> = ({
     { property: "og:type", content: "article" },
     {
       property: "og:url",
-      content: `https://gocanada.com/en/${sanitizedData.post.data.slug.en}`,
+      content: canonical,
     },
     { property: "twitter:card", content: "summary_large_image" },
     { property: "twitter:description", content: description },
@@ -105,7 +112,36 @@ export const meta: MetaFunction<typeof loader> = ({
     {
       tagName: "link",
       rel: "canonical",
-      href: `https://gocanada.com/en/${sanitizedData.post.data.slug.en}`,
+      href: canonical,
+    },
+    {
+      "script:ld+json": generateOrganizationSchema(),
+    },
+    {
+      "script:ld+json": generateWebsiteSchema(),
+    },
+    {
+      "script:ld+json": generateBlogPostingSchema({
+        title,
+        description,
+        url: canonical,
+        imageUrl: ogImageUrl ?? "",
+        authorName: sanitizedData.post.data.author.name,
+        datePublished: sanitizedData.post.data.publishedAt,
+        dateModified: sanitizedData.post.data._updatedAt,
+      }),
+    },
+    {
+      "script:ld+json": generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: title,
+          url: canonical,
+        },
+      ]),
     },
   ]
 }

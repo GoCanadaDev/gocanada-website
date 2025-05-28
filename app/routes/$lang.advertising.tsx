@@ -48,6 +48,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -56,10 +62,26 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Advertising | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
+  const canonical = `https://gocanada.com/en/advertising`
   return genericMetaTags({
     title,
     description,
     canonical: "/en/advertising",
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Advertising",
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

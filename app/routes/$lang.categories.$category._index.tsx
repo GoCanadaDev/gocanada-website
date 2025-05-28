@@ -15,7 +15,7 @@ import { client } from "~/sanity/client"
 import { Category, getCategory } from "~/sanity/queries"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { genericMetaTags, SITE_META } from "~/lib/utils"
+import { genericMetaTags } from "~/lib/utils"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -25,6 +25,12 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -33,10 +39,30 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `${data.category.title.en} | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
+  const canonical = `https://gocanada.com/en/categories/${data.category.slug.en}`
   return genericMetaTags({
     title,
     description,
-    canonical: `/en/categories/${data.category.slug.en}`,
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Categories",
+          url: "https://gocanada.com/en/categories",
+        },
+        {
+          name: data.category.title.en,
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

@@ -9,6 +9,12 @@ import { Typography } from "~/components/Typography"
 import { Tag as TagIcon } from "lucide-react"
 import { genericMetaTags, SITE_META } from "~/lib/utils"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import {
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -17,7 +23,27 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Categories | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
-  return genericMetaTags({ title, description, canonical: "/en/categories" })
+  const canonical = `/en/categories`
+  return genericMetaTags({
+    title,
+    description,
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Categories",
+          url: canonical,
+        },
+      ]),
+    ],
+  })
 }
 
 interface LoaderDataType {

@@ -11,6 +11,12 @@ import Prose from "~/components/portable/Prose"
 import { HeroImage } from "~/components/HeroImage"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { genericMetaTags } from "~/lib/utils"
+import {
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -19,10 +25,26 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `About | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
+  const canonical = `https://gocanada.com/en/about`
   return genericMetaTags({
     title,
     description,
-    canonical: "/en/about",
+    canonical: canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "About",
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

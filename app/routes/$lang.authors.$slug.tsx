@@ -22,6 +22,12 @@ import {
 } from "~/components/ui/breadcrumb"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { genericMetaTags } from "~/lib/utils"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -31,10 +37,30 @@ export const meta: MetaFunction<typeof loader> = ({
   const title = `${data.author.name} | ${data.siteConfig.siteTitle}`
   const description =
     data.author.bio.en.substring(0, 160) || data.siteConfig.siteDescription
+  const canonical = `https://gocanada.com/en/authors/${data.author.slug}`
   return genericMetaTags({
     title,
     description,
-    canonical: `/en/authors/${data.author.slug}`,
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Authors",
+          url: "https://gocanada.com/en/authors",
+        },
+        {
+          name: data.author.name,
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

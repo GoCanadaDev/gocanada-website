@@ -9,8 +9,13 @@ import { LinksPageType, getLinks } from "~/sanity/queries/links"
 import { urlForImage } from "~/lib/sanity.image"
 import { Avatar, AvatarImage } from "~/components/ui/avatar"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "./resource.og"
 import { genericMetaTags } from "~/lib/utils"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -19,7 +24,27 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Links | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
-  return genericMetaTags({ title, description, canonical: "/links" })
+  const canonical = `https://gocanada.com/en/links`
+  return genericMetaTags({
+    title,
+    description,
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Links",
+          url: canonical,
+        },
+      ]),
+    ],
+  })
 }
 
 type LoaderDataType = {

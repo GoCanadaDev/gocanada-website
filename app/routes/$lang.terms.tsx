@@ -7,6 +7,12 @@ import PortableTextComponents from "~/components/portable"
 import Prose from "~/components/portable/Prose"
 import { Typography } from "~/components/Typography"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { genericMetaTags } from "~/lib/utils"
 import { client } from "~/sanity/client"
@@ -20,10 +26,26 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Terms | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
+  const canonical = `https://gocanada.com/en/terms`
   return genericMetaTags({
     title,
     description,
-    canonical: "/en/terms",
+    canonical,
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Terms",
+          url: canonical,
+        },
+      ]),
+    ],
   })
 }
 

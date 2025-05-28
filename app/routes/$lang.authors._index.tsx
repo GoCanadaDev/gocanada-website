@@ -9,6 +9,12 @@ import { Author, getAuthors } from "~/sanity/queries"
 import UserMediaObject from "~/components/UserMediaObject"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { genericMetaTags } from "~/lib/utils"
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  generateBlogSchema,
+  generateBreadcrumbSchema,
+} from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -17,7 +23,27 @@ export const meta: MetaFunction<typeof loader> = ({
 }) => {
   const title = `Authors | ${data.siteConfig.siteTitle}`
   const description = data.siteConfig.siteDescription
-  return genericMetaTags({ title, description, canonical: "/en/authors" })
+  const canonical = `https://gocanada.com/en/authors`
+  return genericMetaTags({
+    title,
+    description,
+    canonical: "/en/authors",
+    schemas: [
+      generateOrganizationSchema(),
+      generateWebsiteSchema(),
+      generateBlogSchema({ description }),
+      generateBreadcrumbSchema([
+        {
+          name: "Home",
+          url: "https://gocanada.com/en",
+        },
+        {
+          name: "Authors",
+          url: canonical,
+        },
+      ]),
+    ],
+  })
 }
 
 type LoaderDataType = {
