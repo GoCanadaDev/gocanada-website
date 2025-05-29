@@ -49,9 +49,11 @@ export const MiniCard = ({
         <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
           {post.title[post.language]}
         </Typography.H3>
-        <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
-          {post.excerpt[post.language]}
-        </Typography.Paragraph>
+        {typeof post.excerpt[post.language] === "string" && (
+          <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
+            {post.excerpt[post.language]}
+          </Typography.Paragraph>
+        )}
         {"author" in post && post.author && post.author.name && (
           <Typography.Paragraph className="text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
             By {post.author.name}
