@@ -25,7 +25,7 @@ export const urlForImage = (source: Image) => {
 // Helper function to generate srcSet for responsive images
 export const generateSrcSet = (
   source: Image,
-  widths: number[] = [400, 800, 1200, 1600]
+  widths: number[] = [400, 800, 1200, 1600, 1920, 2560]
 ): string | undefined => {
   if (!source?.asset?._ref) {
     return undefined
