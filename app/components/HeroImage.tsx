@@ -109,14 +109,14 @@ export const HeroImage = ({
           id={id}
           baseUrl={baseUrl}
           preview={preview}
-          width={1440}
+          width={2560}
           loading="eager"
           className="block h-auto max-h-screen w-full select-none object-cover"
           alt=""
           hotspot={hotspot}
           crop={crop}
           srcSet={imageSrcSet || undefined}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
         />
         {renderFigCaption()}
       </figure>
@@ -160,7 +160,7 @@ export const HeroImage = ({
           id={id}
           baseUrl={baseUrl}
           preview={preview}
-          width={1440}
+          width={2560}
           loading="eager"
           className={cn(
             "mx-auto mb-2 w-10/12 max-w-7xl select-none object-cover",
@@ -172,7 +172,7 @@ export const HeroImage = ({
           hotspot={hotspot}
           crop={crop}
           srcSet={imageSrcSet || undefined}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
         />
         {renderFigCaption()}
       </figure>
