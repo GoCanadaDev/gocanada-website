@@ -364,9 +364,8 @@ export default function Slug() {
           <Separator className="h-0.5" />
         </div>
 
-        <VerticalBannerAd bottomMarkerRef={bottomMarkerRef} />
-
         <Prose>
+          <VerticalBannerAd bottomMarkerRef={bottomMarkerRef} />
           <div>
             {hasInlineAd ? (
               <PortableText

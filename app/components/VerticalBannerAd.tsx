@@ -137,9 +137,12 @@ export default function VerticalBannerAd({
 
   return (
     <>
-      <aside ref={stickyRef} className="sticky top-16 hidden h-0 lg:block">
-        <div className="holy-grail text-[1.32rem]">
-          <div className="!col-span-1 !col-start-3">
+      <aside
+        ref={stickyRef}
+        className="sticky right-0 top-16 !col-span-1 !col-start-3 hidden h-0 lg:block"
+      >
+        <div className="text-[1.32rem]">
+          <div className="">
             <div className="m-auto pr-8 pt-12">
               <div
                 style={{
