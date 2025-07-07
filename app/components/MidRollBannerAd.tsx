@@ -50,48 +50,53 @@ export default function MidRollBannerAd({}) {
   const currentAd = adConfig.midBannerAds[currentAdIndex]
 
   return (
-    <div className="py-0 md:py-4">
-      <div className="px-0 md:px-[3.5vw]">
-        <div className="m-auto max-w-4xl">
-          <div
-            style={{
-              position: "relative",
-              aspectRatio:
-                currentAd.midBannerAdWidth / currentAd.midBannerAdHeight,
-              maxHeight: currentAd.midBannerAdHeight,
-              maxWidth: currentAd.midBannerAdWidth,
-              margin: "0 auto",
-            }}
-          >
-            <div className="absolute inset-0" ref={adRef}>
-              {typeof currentAd.midBannerAdCode === "string" ? (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: currentAd.midBannerAdCode,
-                  }}
-                />
-              ) : (
-                <a
-                  href={currentAd.midBannerAdUrl}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="Learn more from our advertising partner"
-                  onClick={() =>
-                    trackEvent("MidRoll Ad Banner Clicked", {
-                      midBannerAdUrl: currentAd.midBannerAdUrl,
-                    })
-                  }
-                >
-                  <SanityImage
-                    id={currentAd.midBannerAdImage.id}
-                    baseUrl={baseUrl}
-                    preview={currentAd.midBannerAdImage.preview}
-                    width={currentAd.midBannerAdWidth}
-                    height={currentAd.midBannerAdHeight}
-                    className="m-auto"
+    <div className="relative my-8 border bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800">
+      <div className="absolute right-0 top-0 z-10 size-6 rounded-bl-sm border-b border-l bg-zinc-50 text-center font-sans text-xs uppercase leading-6 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-400">
+        ad
+      </div>
+      <div className="py-0 md:py-4">
+        <div className="px-0 md:px-[3.5vw]">
+          <div className="m-auto max-w-4xl">
+            <div
+              style={{
+                position: "relative",
+                aspectRatio:
+                  currentAd.midBannerAdWidth / currentAd.midBannerAdHeight,
+                maxHeight: currentAd.midBannerAdHeight,
+                maxWidth: currentAd.midBannerAdWidth,
+                margin: "0 auto",
+              }}
+            >
+              <div className="absolute inset-0" ref={adRef}>
+                {typeof currentAd.midBannerAdCode === "string" ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: currentAd.midBannerAdCode,
+                    }}
                   />
-                </a>
-              )}
+                ) : (
+                  <a
+                    href={currentAd.midBannerAdUrl}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Learn more from our advertising partner"
+                    onClick={() =>
+                      trackEvent("MidRoll Ad Banner Clicked", {
+                        midBannerAdUrl: currentAd.midBannerAdUrl,
+                      })
+                    }
+                  >
+                    <SanityImage
+                      id={currentAd.midBannerAdImage.id}
+                      baseUrl={baseUrl}
+                      preview={currentAd.midBannerAdImage.preview}
+                      width={currentAd.midBannerAdWidth}
+                      height={currentAd.midBannerAdHeight}
+                      className="m-auto"
+                    />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
