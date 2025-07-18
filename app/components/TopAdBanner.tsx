@@ -39,7 +39,7 @@ export default function TopAdBanner({}) {
     }
   }, [adConfig, currentAdIndex])
 
-  if (!adConfig || !adConfig.featuredAdsEnabled) {
+  if (!adConfig || !adConfig.featuredAdsEnabled || adConfig.topBannerAds.length === 0) {
     return null
   }
 
