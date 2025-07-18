@@ -43,11 +43,11 @@ export default function TopAdBanner({}) {
     return null
   }
 
-  const currentAd = adConfig.topBannerAds[currentAdIndex]
+  const currentAd = adConfig.topBannerAds?.length > 0 && adConfig.topBannerAds[currentAdIndex]
 
-  const aspectRatio = currentAd.topBannerAdWidth / currentAd.topBannerAdHeight
+  const aspectRatio = (currentAd.topBannerAdWidth ?? 0) / (currentAd.topBannerAdHeight ?? 0)
 
-  if (aspectRatio === undefined) {
+  if (aspectRatio === undefined || isNaN(aspectRatio)) {
     return null
   }
 
