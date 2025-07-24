@@ -1,30 +1,3 @@
-import type {
-  LoaderFunction,
-  LoaderFunctionArgs,
-  MetaFunction,
-} from "@remix-run/node"
-import { json } from "@remix-run/node"
-import { Link, Params, useLoaderData } from "@remix-run/react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { client } from "~/sanity/client"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
-import { Post, postBySlugQuery } from "~/sanity/queries"
-import useFormattedDate from "~/lib/useFormattedDate"
-import { PortableText } from "@portabletext/react"
-import { Layout } from "~/components/Layout"
-import { Typography } from "~/components/Typography"
-import { HeroImage } from "~/components/HeroImage"
-import { Separator } from "~/components/ui/separator"
-import invariant from "tiny-invariant"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import PortableTextComponents from "~/components/portable"
-import { MiniCard } from "~/components/MiniCard"
-import AuthorCard from "~/components/AuthorCard"
-import Share from "~/components/Share"
-import Prose from "~/components/portable/Prose"
-import { cn } from "~/lib/utils"
-import MidRollBannerAd from "~/components/MidRollBannerAd"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -33,20 +6,48 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { loadQueryWithDraft } from "~/sanity/loader.server"
-import { useQuery } from "~/sanity/loader"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { getDraftMode } from "~/sanity/get-draft-mode.server"
-import VerticalBannerAd from "~/components/VerticalBannerAd"
-import { useRef } from "react"
-import { QueryResponseInitial } from "@sanity/react-loader"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Link, Params, useLoaderData } from "@remix-run/react"
+import type {
+  LoaderFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
+import { Post, postBySlugQuery } from "~/sanity/queries"
+import { SiteConfigType, getSiteConfig } from "~/sanity/queries/siteConfig"
 import {
   generateBlogPostingSchema,
+  generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebsiteSchema,
-  generateBreadcrumbSchema,
 } from "~/lib/structuredData"
+
+import AuthorCard from "~/components/AuthorCard"
+import { HeroImage } from "~/components/HeroImage"
+import { Layout } from "~/components/Layout"
+import MidRollBannerAd from "~/components/MidRollBannerAd"
+import { MiniCard } from "~/components/MiniCard"
+import { PortableText } from "@portabletext/react"
+import PortableTextComponents from "~/components/portable"
+import Prose from "~/components/portable/Prose"
+import { QueryResponseInitial } from "@sanity/react-loader"
+import { Separator } from "~/components/ui/separator"
+import Share from "~/components/Share"
+import { Typography } from "~/components/Typography"
+import VerticalBannerAd from "~/components/VerticalBannerAd"
+import { client } from "~/sanity/client"
+import { cn } from "~/lib/utils"
+import { getDraftMode } from "~/sanity/get-draft-mode.server"
+import invariant from "tiny-invariant"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import { json } from "@remix-run/node"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import useFormattedDate from "~/lib/useFormattedDate"
+import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { useQuery } from "~/sanity/loader"
+import { useRef } from "react"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -202,7 +203,7 @@ export const loader: LoaderFunction = async ({
         "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
         // Tag with the post id
         "Cache-Tag": `posts:id:${post.data?._id}`,
-        Link: `<${post.data?.mainImage.url}>; rel=preload; as=image; fetchpriority=high`,
+        Link: `<${post.data?.mainImage?.url ?? ""}>; rel=preload; as=image; fetchpriority=high`,
       },
     }
   )
@@ -241,6 +242,18 @@ export default function Slug() {
   }
 
   const bottomMarkerRef = useRef<HTMLDivElement | null>(null)
+
+  if (typeof postToUse.author.name !== "string") {
+    throw new Error(
+      `Author is not yet saved, please update the post for "${postToUse.title[postToUse.language]}"`
+    )
+  }
+
+  if (typeof postToUse.mainImage.url !== "string") {
+    throw new Error(
+      `Main image is not yet saved, please update the post for "${postToUse.title[postToUse.language]}"`
+    )
+  }
 
   return (
     <Layout translationUrl={translationUrl}>
@@ -325,7 +338,9 @@ export default function Slug() {
                 to={`/${postToUse.language}/authors/${postToUse.author.slug}`}
                 className="hover:text-brand"
               >
-                {postToUse.author.name}
+                {typeof postToUse.author.name === "string"
+                  ? postToUse.author.name
+                  : "TBD"}
               </Link>
             </Typography.Paragraph>
             {postToUse.showDate && (
