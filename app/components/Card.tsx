@@ -112,7 +112,18 @@ export default function Card({
             </Link>
           </AspectRatio>
         </div>
-      ) : null}
+      ) : (
+        <AspectRatio
+          ratio={3 / 2}
+          className="mb-4 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
+        >
+          <img
+            src="https://place-hold.it/1024x640/bf2327/ffffff&text=placeholder&bold&fontsize=24"
+            alt="placeholder"
+            className="absolute inset-0 h-full object-cover hover:scale-[1.05]"
+          />
+        </AspectRatio>
+      )}
       <div className={cn("relative space-y-2", { "space-y-3": isLarge })}>
         <Typography.H4
           className={cn("text-sm font-normal text-brand", {
@@ -145,7 +156,7 @@ export default function Card({
             "text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400"
           )}
         >
-          By {post.author.name}
+          By {typeof post.author?.name === "string" ? post.author.name : "TBD"}
         </Typography.Paragraph>
         <p>
           <Link

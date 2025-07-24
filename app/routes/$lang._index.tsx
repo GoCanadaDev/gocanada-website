@@ -1,11 +1,13 @@
 import type {
-  MetaFunction,
-  LoaderFunction,
   HeadersFunction,
+  LoaderFunction,
+  MetaFunction,
 } from "@remix-run/node"
-import { json, redirect } from "@remix-run/node"
 import { Params, useLoaderData } from "@remix-run/react"
-import { useTranslation } from "react-i18next"
+import {
+  PopupPromoConfig,
+  getPopupPromoConfig,
+} from "~/sanity/queries/popupPromoConfig"
 import {
   Post,
   PostPreview,
@@ -13,34 +15,33 @@ import {
   postsQuery,
   trendingPostsQuery,
 } from "~/sanity/queries"
-import { client } from "~/sanity/client"
-import { SupportedLanguages } from "~/i18n"
-import { Layout } from "~/components/Layout"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { CardGrid } from "~/components/CardGrid"
-import { TopGrid } from "~/components/homepage/TopGrid"
-import { Trending } from "~/components/homepage/Trending"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import MidRollBannerAd from "~/components/MidRollBannerAd"
-import { useQuery } from "~/sanity/loader"
-import { loadQueryWithDraft } from "~/sanity/loader.server"
-import { QueryResponseInitial } from "@sanity/react-loader"
-import { genericMetaTags } from "~/lib/utils"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import PromoPopup from "~/components/PromoPopup"
-import {
-  getPopupPromoConfig,
-  PopupPromoConfig,
-} from "~/sanity/queries/popupPromoConfig"
-import { LoadMorePosts } from "~/components/LoadMorePosts"
-import { useState, useEffect } from "react"
-import { postsCountQuery } from "~/sanity/queries/posts"
+import { SiteConfigType, getSiteConfig } from "~/sanity/queries/siteConfig"
 import {
   generateBlogSchema,
   generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { json, redirect } from "@remix-run/node"
+import { useEffect, useState } from "react"
+
+import { CardGrid } from "~/components/CardGrid"
+import { Layout } from "~/components/Layout"
+import { LoadMorePosts } from "~/components/LoadMorePosts"
+import MidRollBannerAd from "~/components/MidRollBannerAd"
+import PromoPopup from "~/components/PromoPopup"
+import { QueryResponseInitial } from "@sanity/react-loader"
+import { SupportedLanguages } from "~/i18n"
+import { TopGrid } from "~/components/homepage/TopGrid"
+import { Trending } from "~/components/homepage/Trending"
+import { client } from "~/sanity/client"
+import { genericMetaTags } from "~/lib/utils"
+import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
+import { postsCountQuery } from "~/sanity/queries/posts"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { useQuery } from "~/sanity/loader"
+import { useTranslation } from "react-i18next"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
