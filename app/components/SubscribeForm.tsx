@@ -1,10 +1,4 @@
-import { Link, Form as RemixForm, useLocation } from "@remix-run/react"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
-import { toast } from "sonner"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import { Dispatch, SetStateAction } from "react"
 import {
   Form,
   FormControl,
@@ -13,9 +7,16 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form"
+import { Link, Form as RemixForm, useLocation } from "@remix-run/react"
+
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
 import { Typography } from "./Typography"
 import { cn } from "~/lib/utils"
-import { Dispatch, SetStateAction } from "react"
+import { toast } from "sonner"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -26,7 +27,7 @@ const SubscribeForm = ({
   setModalOpen,
   setSubmitted,
 }: {
-  pageLocation: "header" | "footer" | "welcome-dialog" | string
+  pageLocation: "header" | "footer" | "welcome-dialog" | "newsletter" | string
   setModalOpen?: (open: boolean) => void
   setSubmitted?: Dispatch<SetStateAction<boolean>>
 }) => {
@@ -111,26 +112,13 @@ const SubscribeForm = ({
             Subscribe
           </Button>
         </div>
-        {/* <div className="space-y-4">
-          <Typography.TextMuted className="text-pretty text-xs">
-            By signing up you agree to our{" "}
-            <Link
-              to={`/${location.pathname.split("/")[1]}/terms`}
-              className="text-brand underline hover:text-brandHover"
-            >
-              Terms of Use
-            </Link>
-            , our{" "}
-            <Link
-              to={`/${location.pathname.split("/")[1]}/privacy`}
-              className="text-brand underline hover:text-brandHover"
-            >
-              Privacy Policy
-            </Link>{" "}
-            and to receive marketing and subscription emails from Go Canada. You
-            can unsubscribe from our newsletter at any time.
+        <div className="space-y-4">
+          <Typography.TextMuted className="text-pretty">
+            By pressing subscribe, I agree to receive email communications from
+            GoCanada.com, including travel tips, stories, and promotions. I
+            understand I can unsubscribe at any time.
           </Typography.TextMuted>
-        </div> */}
+        </div>
       </RemixForm>
     </Form>
   )
