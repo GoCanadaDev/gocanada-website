@@ -45,8 +45,8 @@ const SubscribeForm = ({
       pageLocation === "footer" ||
       (pageLocation !== "header" && pageLocation !== "welcome-dialog")
     ) {
-      toast.success(`Thanks, we've received your request.`, {
-        description: `Please check your email to confirm your subscription.`,
+      toast.success(`Thank you for subscribing!`, {
+        description: `Please check your inbox for a welcome message to ensure newsletters are not ending up in your junk mail.`,
         action: {
           label: "Close",
           onClick: () => {
@@ -114,9 +114,15 @@ const SubscribeForm = ({
         </div>
         <div className="space-y-4">
           <Typography.TextMuted className="text-pretty">
-            By pressing subscribe, I agree to receive email communications from
-            GoCanada.com, including travel tips, stories, and promotions. I
-            understand I can unsubscribe at any time.
+            By pressing subscribe, I agree to receive email communications from{" "}
+            <Link to="/en" className="text-brand underline">
+              GoCanada.com
+            </Link>
+            , including travel tips, stories, and giveaways. I understand I can
+            unsubscribe at any time. We respect your privacy.{" "}
+            <Link to="/en/privacy" className="text-brand underline">
+              Privacy Policy
+            </Link>
           </Typography.TextMuted>
         </div>
       </RemixForm>
