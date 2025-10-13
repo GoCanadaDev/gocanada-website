@@ -43,12 +43,12 @@ export const MiniCard = ({
         ) : null}
       </div>
       <div className="space-y-2">
-        <Typography.H4 className="text-sm font-normal text-brand">
+        <p className="scroll-m-20 font-sans text-sm font-normal uppercase tracking-[6px] text-brand dark:text-zinc-100">
           {post.categories[0].title[post.language]}
-        </Typography.H4>
-        <Typography.H3 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand">
+        </p>
+        <Typography.H1 className="mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand lg:text-3xl lg:leading-[1]">
           {post.title[post.language]}
-        </Typography.H3>
+        </Typography.H1>
         {typeof post.excerpt[post.language] === "string" && (
           <Typography.Paragraph className="line-clamp-2 text-sm leading-snug text-zinc-600 dark:text-zinc-300">
             {post.excerpt[post.language]}

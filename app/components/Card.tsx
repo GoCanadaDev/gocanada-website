@@ -84,6 +84,9 @@ export default function Card({
                   aria-label={`Read more: ${post.title[post.language]}`}
                   hotspot={post.mainImage.hotspot}
                   crop={post.mainImage.crop}
+                  {...({
+                    fetchpriority: "high",
+                  } as React.ImgHTMLAttributes<HTMLImageElement>)}
                 />
 
                 {/* Secondary Image (only rendered if it exists and isLarge is true) */}
@@ -125,23 +128,29 @@ export default function Card({
         </AspectRatio>
       )}
       <div className={cn("relative space-y-2", { "space-y-3": isLarge })}>
-        <Typography.H4
-          className={cn("text-sm font-normal text-brand", {
-            "text-base": isLarge,
-          })}
+        <p
+          className={cn(
+            "scroll-m-20 font-sans text-sm font-normal uppercase tracking-[6px] text-brand dark:text-zinc-100",
+            {
+              "text-base": isLarge,
+            }
+          )}
         >
           {categoryToUse
             ? categoryToUse.title[post.language]
             : post.categories[0].title[post.language]}
-        </Typography.H4>
-        <Typography.H3
+        </p>
+        <Typography.H1
           className={cn(
-            "mt-[11px] text-3xl leading-[1] transition-colors duration-700 group-hover:text-brand",
-            { "text-4xl": isLarge }
+            "mt-[11px] leading-[1] transition-colors duration-700 group-hover:text-brand",
+            {
+              "text-4xl lg:text-4xl": isLarge,
+              "text-3xl lg:text-3xl lg:leading-[1]": !isLarge,
+            }
           )}
         >
           {post.title[post.language]}
-        </Typography.H3>
+        </Typography.H1>
         {showExcerpt ? (
           <Typography.Paragraph
             className={cn(

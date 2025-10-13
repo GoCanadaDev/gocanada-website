@@ -22,7 +22,7 @@ export function Header() {
     <header>
       <a
         href="#main"
-        className="sr-only left-1/2 z-50 rounded-b-md focus:not-sr-only focus:fixed focus:bg-zinc-100 focus:p-4 dark:focus:bg-zinc-800"
+        className="sr-only left-1/2 z-50 translate-x-[-50%] rounded-b-md focus:not-sr-only focus:fixed focus:bg-zinc-100 focus:p-4 dark:focus:bg-zinc-800"
       >
         Skip to main content
       </a>
