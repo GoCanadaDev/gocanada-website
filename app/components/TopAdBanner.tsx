@@ -6,14 +6,17 @@ import useVisibilityTracker from "~/lib/useVisibilityTracker"
 import { useState, useEffect } from "react"
 
 export default function TopAdBanner({}) {
-  const { adConfig } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const adConfig = rootLoaderData?.adConfig
   const [currentAdIndex, setCurrentAdIndex] = useState(0)
 
   const adRef = useVisibilityTracker(
     () => {
-      trackEvent("Top Ad Banner Viewed", {
-        topBannerAdUrl: adConfig.topBannerAds[currentAdIndex].topBannerAdUrl,
-      })
+      if (adConfig?.topBannerAds?.[currentAdIndex]) {
+        trackEvent("Top Ad Banner Viewed", {
+          topBannerAdUrl: adConfig.topBannerAds[currentAdIndex].topBannerAdUrl,
+        })
+      }
     },
     {
       threshold: 0.5, // Trigger when 50% of the ad is visible
@@ -39,13 +42,19 @@ export default function TopAdBanner({}) {
     }
   }, [adConfig, currentAdIndex])
 
-  if (!adConfig || !adConfig.featuredAdsEnabled || adConfig.topBannerAds?.length === 0) {
+  if (
+    !adConfig ||
+    !adConfig.featuredAdsEnabled ||
+    adConfig.topBannerAds?.length === 0
+  ) {
     return null
   }
 
-  const currentAd = adConfig.topBannerAds?.length > 0 && adConfig.topBannerAds[currentAdIndex]
+  const currentAd =
+    adConfig.topBannerAds?.length > 0 && adConfig.topBannerAds[currentAdIndex]
 
-  const aspectRatio = (currentAd.topBannerAdWidth ?? 0) / (currentAd.topBannerAdHeight ?? 0)
+  const aspectRatio =
+    (currentAd.topBannerAdWidth ?? 0) / (currentAd.topBannerAdHeight ?? 0)
 
   if (aspectRatio === undefined || isNaN(aspectRatio)) {
     return null

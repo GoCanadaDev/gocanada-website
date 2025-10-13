@@ -14,7 +14,8 @@ import useBoop from "~/lib/useBoop"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export function Header() {
-  const { spotlightPost } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const spotlightPost = rootLoaderData?.spotlightPost
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
 
   return (

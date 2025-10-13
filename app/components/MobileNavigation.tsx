@@ -41,21 +41,25 @@ const provinces = [
 const territories = ["Northwest Territories", "Nunavut", "Yukon"]
 
 export function MobileNavigation() {
-  const { categories } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const categories = rootLoaderData?.categories || []
   const { lang } = useParams()
 
   // need to backup to "en" if lang is not there for pages like Links which doesn't have a lang in the url
   const categoryTranslation = (lang || "en") as SupportedLanguages
 
-  const provincesList = [...categories[0].subCategories].filter((c) =>
+  // Safe access to first category's subcategories
+  const subCategories = categories[0]?.subCategories || []
+
+  const provincesList = subCategories.filter((c) =>
     provinces.includes(c.title[categoryTranslation])
   )
 
-  const territoriesList = [...categories[0].subCategories].filter((c) =>
+  const territoriesList = subCategories.filter((c) =>
     territories.includes(c.title[categoryTranslation])
   )
 
-  const citiesList = [...categories[0].subCategories].filter(
+  const citiesList = subCategories.filter(
     (c) =>
       !provinces.includes(c.title[categoryTranslation]) &&
       !territories.includes(c.title[categoryTranslation])
@@ -65,145 +69,151 @@ export function MobileNavigation() {
     <div className="mb-2 block w-full md:hidden">
       <Accordion type="single" collapsible>
         {categories.length > 0 &&
-          categories.map((category) => {
-            if (!category.enabled) {
-              return null
-            }
-            return (
-              <AccordionItem
-                value={category.title[categoryTranslation]}
-                key={category.title[categoryTranslation]}
-              >
-                <AccordionTrigger>
-                  <Link
-                    to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
-                    prefetch="intent"
-                    className="uppercase tracking-widest"
-                  >
-                    {category.title[categoryTranslation]}
-                  </Link>
-                </AccordionTrigger>
-                <AccordionContent>
-                  {category.title[categoryTranslation] === "Destinations" ? (
-                    <div className="">
-                      <div>
-                        <Typography.H4 className="text-base font-bold text-brand">
-                          By Province
-                        </Typography.H4>
-                        <ul>
-                          {provincesList.length > 0 &&
-                            provincesList
-                              ?.sort((a, b) =>
-                                a.title[categoryTranslation].localeCompare(
-                                  b.title[categoryTranslation]
+          categories
+            .filter((category) => category.enabled)
+            .map((category) => {
+              return (
+                <AccordionItem
+                  value={category.title[categoryTranslation]}
+                  key={category.title[categoryTranslation]}
+                >
+                  <AccordionTrigger>
+                    <Link
+                      to={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
+                      prefetch="intent"
+                      className="uppercase tracking-widest"
+                    >
+                      {category.title[categoryTranslation]}
+                    </Link>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {category.title[categoryTranslation] === "Destinations" ? (
+                      <div className="">
+                        <div>
+                          <Typography.H4 className="text-base font-bold text-brand">
+                            By Province
+                          </Typography.H4>
+                          <ul>
+                            {provincesList.length > 0 &&
+                              provincesList
+                                ?.sort((a, b) =>
+                                  a.title[categoryTranslation].localeCompare(
+                                    b.title[categoryTranslation]
+                                  )
                                 )
-                              )
-                              .map((subCategory) => {
-                                return (
-                                  <ListItem
-                                    key={subCategory.title[categoryTranslation]}
-                                    title={
-                                      subCategory.title[categoryTranslation]
-                                    }
-                                    href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                  />
-                                )
-                              })}
-                        </ul>
-                        <Separator
-                          orientation="horizontal"
-                          className="my-8 block h-0.5 md:hidden"
-                        />
-                        <Typography.H4 className="text-base font-bold text-brand">
-                          By Territory
-                        </Typography.H4>
-                        <ul>
-                          {territoriesList.length > 0 &&
-                            territoriesList
-                              ?.sort((a, b) =>
-                                a.title[categoryTranslation].localeCompare(
-                                  b.title[categoryTranslation]
-                                )
-                              )
-                              .map((subCategory) => {
-                                return (
-                                  <ListItem
-                                    key={subCategory.title[categoryTranslation]}
-                                    title={
-                                      subCategory.title[categoryTranslation]
-                                    }
-                                    href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                  />
-                                )
-                              })}
-                        </ul>
-                        <Separator
-                          orientation="horizontal"
-                          className="my-8 block h-0.5 md:hidden"
-                        />
-                      </div>
-                      <div>
-                        <Typography.H4 className="text-base font-bold text-brand">
-                          By City
-                        </Typography.H4>
-                        <ul>
-                          {citiesList.length > 0 &&
-                            citiesList
-                              ?.sort((a, b) =>
-                                a.title[categoryTranslation].localeCompare(
-                                  b.title[categoryTranslation]
-                                )
-                              )
-                              .map((subCategory) => {
-                                if (subCategory.enabledInNav === false) {
-                                  return null
-                                }
-                                return (
-                                  <ListItem
-                                    key={subCategory.title[categoryTranslation]}
-                                    title={
-                                      subCategory.title[categoryTranslation]
-                                    }
-                                    href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
-                                  />
-                                )
-                              })}
-                        </ul>
-                        <Separator
-                          orientation="horizontal"
-                          className="my-8 h-0.5"
-                        />
-                        <Typography.H4 className="text-base font-bold text-brand">
-                          Anywhere
-                        </Typography.H4>
-                        <ul>
-                          <ListItem
-                            key="All of Canada"
-                            title="All of Canada"
-                            href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
+                                .map((subCategory) => {
+                                  return (
+                                    <ListItem
+                                      key={
+                                        subCategory.title[categoryTranslation]
+                                      }
+                                      title={
+                                        subCategory.title[categoryTranslation]
+                                      }
+                                      href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                                    />
+                                  )
+                                })}
+                          </ul>
+                          <Separator
+                            orientation="horizontal"
+                            className="my-8 block h-0.5 md:hidden"
                           />
-                        </ul>
-                      </div>
-                    </div>
-                  ) : (
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
-                      {category.subCategories &&
-                        Array.isArray(category.subCategories) &&
-                        category.subCategories?.map((subCategory) => {
-                          return (
+                          <Typography.H4 className="text-base font-bold text-brand">
+                            By Territory
+                          </Typography.H4>
+                          <ul>
+                            {territoriesList.length > 0 &&
+                              territoriesList
+                                ?.sort((a, b) =>
+                                  a.title[categoryTranslation].localeCompare(
+                                    b.title[categoryTranslation]
+                                  )
+                                )
+                                .map((subCategory) => {
+                                  return (
+                                    <ListItem
+                                      key={
+                                        subCategory.title[categoryTranslation]
+                                      }
+                                      title={
+                                        subCategory.title[categoryTranslation]
+                                      }
+                                      href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                                    />
+                                  )
+                                })}
+                          </ul>
+                          <Separator
+                            orientation="horizontal"
+                            className="my-8 block h-0.5 md:hidden"
+                          />
+                        </div>
+                        <div>
+                          <Typography.H4 className="text-base font-bold text-brand">
+                            By City
+                          </Typography.H4>
+                          <ul>
+                            {citiesList.length > 0 &&
+                              citiesList
+                                .filter(
+                                  (subCategory) =>
+                                    subCategory.enabledInNav !== false
+                                )
+                                .sort((a, b) =>
+                                  a.title[categoryTranslation].localeCompare(
+                                    b.title[categoryTranslation]
+                                  )
+                                )
+                                .map((subCategory) => {
+                                  return (
+                                    <ListItem
+                                      key={
+                                        subCategory.title[categoryTranslation]
+                                      }
+                                      title={
+                                        subCategory.title[categoryTranslation]
+                                      }
+                                      href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                                    />
+                                  )
+                                })}
+                          </ul>
+                          <Separator
+                            orientation="horizontal"
+                            className="my-8 h-0.5"
+                          />
+                          <Typography.H4 className="text-base font-bold text-brand">
+                            Anywhere
+                          </Typography.H4>
+                          <ul>
                             <ListItem
-                              key={subCategory.title[categoryTranslation]}
-                              title={subCategory.title[categoryTranslation]}
-                              href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              key="All of Canada"
+                              title="All of Canada"
+                              href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}`}
                             />
-                          )
-                        })}
-                    </ul>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            )
-          })}
+                          </ul>
+                        </div>
+                      </div>
+                    ) : (
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px]">
+                        {category.subCategories &&
+                          Array.isArray(category.subCategories) &&
+                          category.subCategories?.map((subCategory) => {
+                            return (
+                              <ListItem
+                                key={subCategory._id}
+                                title={subCategory.title[categoryTranslation]}
+                                href={`/${categoryTranslation}/categories/${category.slug[categoryTranslation]}/${subCategory.slug[categoryTranslation]}`}
+                              />
+                            )
+                          })}
+                      </ul>
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              )
+            })}
       </Accordion>
     </div>
   )

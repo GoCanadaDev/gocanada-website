@@ -20,7 +20,8 @@ const SubscribeModal = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const { themePreference } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const themePreference = rootLoaderData?.themePreference
 
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>

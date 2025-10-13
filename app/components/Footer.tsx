@@ -22,7 +22,10 @@ import SubscribeForm from "./SubscribeForm"
 export function Footer() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
   const [style2, trigger2] = useBoop({ scale: 1.1, rotation: 5 })
-  const { footerLinks, partners, siteConfig } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const partners = rootLoaderData?.partners
+  const siteConfig = rootLoaderData?.siteConfig
+  const footerLinks = rootLoaderData?.footerLinks
   const {
     i18n: { language },
   } = useTranslation()
@@ -39,7 +42,7 @@ export function Footer() {
       {/* <div className="container mx-auto flex items-center justify-between pb-4 pt-8 lg:px-12">
         <LogoIcon />
       </div> */}
-      {siteConfig.enablePartners && (
+      {siteConfig?.enablePartners && (
         <div className="container mx-auto flex flex-col items-center justify-center gap-4 p-4 lg:px-12">
           <Typography.H4>Partners</Typography.H4>
           <ul className="flex justify-center gap-8" role="list">
@@ -73,10 +76,10 @@ export function Footer() {
           <LogoIcon />
           <div className="max-w-prose text-left text-zinc-400">
             <Typography.Paragraph className="mb-2 text-pretty text-zinc-300">
-              {siteConfig.siteDescription}
+              {siteConfig?.siteDescription}
             </Typography.Paragraph>
             <Typography.TextMuted className="text-pretty leading-6">
-              {siteConfig.footerText}
+              {siteConfig?.footerText}
             </Typography.TextMuted>
           </div>
         </div>
@@ -132,7 +135,7 @@ export function Footer() {
           className="flex flex-wrap items-start justify-start text-sm uppercase md:items-center md:justify-center"
           role="menu"
         >
-          {footerLinks.map((link, index) => (
+          {footerLinks?.map((link, index) => (
             <Fragment key={link.title[currentLang]}>
               <Link
                 to={`/${currentLang}${link.route}`}
@@ -143,7 +146,7 @@ export function Footer() {
                 {link.title[currentLang]}
               </Link>
 
-              {index !== footerLinks.length - 1 && (
+              {index !== footerLinks?.length - 1 && (
                 <Separator
                   orientation="vertical"
                   className="hidden h-6 md:block"

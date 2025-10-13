@@ -4,7 +4,8 @@ import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 export function Logo() {
-  const { themePreference } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const themePreference = rootLoaderData?.themePreference
   return (
     <Link
       to="/"

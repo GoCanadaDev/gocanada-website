@@ -1,11 +1,9 @@
-import { SanityImage } from "sanity-image"
 import { cn } from "~/lib/utils"
-import { baseUrl } from "~/sanity/projectDetails"
 import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
 import { Post } from "~/sanity/queries"
 import { ImageCrop, ImageHotspot, Reference } from "sanity"
-import { generateSrcSet } from "~/lib/sanity.image"
+import { generateSrcSet, urlForImage } from "~/lib/sanity.image"
 
 type HeroImageProps = {
   id: string
@@ -88,13 +86,18 @@ export const HeroImage = ({
     )
   }
 
-  // Generate srcSet string
-  const imageSrcSet = generateSrcSet({
+  // Generate srcSet and main URL
+  const imageAsset = {
     asset: {
       _ref: id,
       _type: "reference",
     } as Reference,
-  })
+    crop,
+    hotspot,
+  }
+
+  const imageSrcSet = generateSrcSet(imageAsset)
+  const mainImageUrl = urlForImage(imageAsset)?.width(2560).url()
 
   return fullBleed ? (
     <section
@@ -105,18 +108,16 @@ export const HeroImage = ({
       })}
     >
       <figure>
-        <SanityImage
-          id={id}
-          baseUrl={baseUrl}
-          preview={preview}
-          width={2560}
+        <img
+          src={mainImageUrl}
+          srcSet={imageSrcSet}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
           loading="eager"
           className="block h-auto max-h-screen w-full select-none object-cover"
           alt=""
-          hotspot={hotspot}
-          crop={crop}
-          srcSet={imageSrcSet || undefined}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
+          {...({
+            fetchpriority: "high",
+          } as React.ImgHTMLAttributes<HTMLImageElement>)}
         />
         {renderFigCaption()}
       </figure>
@@ -156,11 +157,10 @@ export const HeroImage = ({
   ) : (
     <section>
       <figure>
-        <SanityImage
-          id={id}
-          baseUrl={baseUrl}
-          preview={preview}
-          width={2560}
+        <img
+          src={mainImageUrl}
+          srcSet={imageSrcSet}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
           loading="eager"
           className={cn(
             "mx-auto mb-2 w-10/12 max-w-7xl select-none object-cover",
@@ -169,10 +169,9 @@ export const HeroImage = ({
             }
           )}
           alt=""
-          hotspot={hotspot}
-          crop={crop}
-          srcSet={imageSrcSet || undefined}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
+          {...({
+            fetchpriority: "high",
+          } as React.ImgHTMLAttributes<HTMLImageElement>)}
         />
         {renderFigCaption()}
       </figure>

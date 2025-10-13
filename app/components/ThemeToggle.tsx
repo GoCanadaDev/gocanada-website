@@ -19,7 +19,8 @@ export function ThemeToggle() {
   const [switchOff] = useSound(offSound)
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 10 })
 
-  const { themePreference } = useRootLoaderData()
+  const rootLoaderData = useRootLoaderData()
+  const themePreference = rootLoaderData?.themePreference
 
   const isDarkMode = themePreference === "dark"
 

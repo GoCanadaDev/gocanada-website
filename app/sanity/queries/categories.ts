@@ -14,6 +14,7 @@ export type Category = {
   posts?: PostPreview[]
   slug: LocalizedString
   subCategories: {
+    _id: string
     title: LocalizedString
     slug: LocalizedString
     enabledInNav?: boolean
@@ -39,6 +40,7 @@ export const categoriesQuery = groq`*[_type == "categoryType"] | order(displayOr
   displayOrder,
   enabled,
   "subCategories": subCategories[]->{
+    _id,
     "title": {
       "en": title.en,
       "fr": title.fr,
@@ -75,6 +77,7 @@ export const categoryBySlugQuery = groq`*[_type == "categoryType" && slug[$langu
     ${postsProjection}
   },
   "subCategories": subCategories[]->{
+    _id,
     "title": {
       "en": title.en,
       "fr": title.fr,

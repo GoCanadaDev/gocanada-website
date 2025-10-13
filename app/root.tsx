@@ -271,8 +271,8 @@ function App() {
       dir={i18n.dir()}
     >
       <head>
-        <Meta />
         <meta charSet="utf-8" />
+        <Meta />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title>{siteConfig.siteTitle}</title>
         <Links />
