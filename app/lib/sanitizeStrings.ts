@@ -15,8 +15,8 @@ export function sanitizeStrings<T extends Record<string, any>>(obj: T) {
   for (let key in obj) {
     if (typeof obj[key] === "string") {
       trimmedObj[key] = stegaClean(obj[key])
-    } else if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
-      // If the value is an object (but not an array), recursively call trimStrings
+    } else if (typeof obj[key] === "object" && obj[key] !== null && !Array.isArray(obj[key])) {
+      // If the value is an object (but not an array or null), recursively call trimStrings
       trimmedObj[key] = sanitizeStrings(obj[key])
     } else if (Array.isArray(obj[key])) {
       // check if its an array of strings, and if so, just trim the strings
@@ -27,7 +27,7 @@ export function sanitizeStrings<T extends Record<string, any>>(obj: T) {
         trimmedObj[key] = obj[key].map((item: any) => stegaClean(item))
       }
     } else {
-      // If the value is neither string nor object nor array, copy it as is
+      // If the value is neither string nor object nor array, copy it as is (includes null, undefined, numbers, booleans)
       trimmedObj[key] = obj[key]
     }
   }
