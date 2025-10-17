@@ -42,6 +42,7 @@ import { postsCountQuery } from "~/sanity/queries/posts"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { useQuery } from "~/sanity/loader"
 import { useTranslation } from "react-i18next"
+import { getDraftMode } from "~/sanity/get-draft-mode.server"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -111,9 +112,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     isLangSupportedLang(params.lang)
   }
 
-  const isDraftMode = Boolean(
-    request.headers.get("referer")?.includes("studio")
-  )
+  const isDraftMode = await getDraftMode(request)
 
   const siteConfig = await getSiteConfig(client)
   const popupPromoConfig = await getPopupPromoConfig(client)
