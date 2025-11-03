@@ -233,10 +233,19 @@ export default function Slug() {
   let halfwayThroughBodyMarker = Math.ceil(postToUse.body.length / 2)
 
   const halfwayBlock = postToUse.body[halfwayThroughBodyMarker]
-  if (halfwayBlock._type !== "block" && halfwayBlock.style !== "normal") {
+
+  if (
+    (halfwayBlock._type !== "block" && halfwayBlock.style !== "normal") ||
+    halfwayBlock.listItem === "number"
+  ) {
     const nextParagraph = [...postToUse.body]
       .slice(halfwayThroughBodyMarker, postToUse.body.length)
-      .findIndex((block) => block._type === "block" && block.style === "normal")
+      .findIndex(
+        (block) =>
+          block._type === "block" &&
+          block.style === "normal" &&
+          block.listItem !== "number"
+      )
 
     halfwayThroughBodyMarker = halfwayThroughBodyMarker + nextParagraph
   }
