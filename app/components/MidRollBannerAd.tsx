@@ -11,9 +11,11 @@ export default function MidRollBannerAd({}) {
 
   const adRef = useVisibilityTracker(
     () => {
-      trackEvent("Midroll Ad Banner Viewed", {
-        midBannerAdUrl: adConfig.midBannerAds[currentAdIndex].midBannerAdUrl,
-      })
+      if (adConfig?.midBannerAds?.[currentAdIndex]) {
+        trackEvent("Midroll Ad Banner Viewed", {
+          midBannerAdUrl: adConfig.midBannerAds[currentAdIndex].midBannerAdUrl,
+        })
+      }
     },
     {
       threshold: 0.5, // Trigger when 50% of the ad is visible
@@ -22,7 +24,7 @@ export default function MidRollBannerAd({}) {
   )
 
   useEffect(() => {
-    if (adConfig && adConfig.midBannerAds.length > 1) {
+    if (adConfig && adConfig.midBannerAds && adConfig.midBannerAds.length > 1) {
       const cycleTime = adConfig.midBannerAdsCycleTime * 1000 // Convert to milliseconds
       const interval = setInterval(() => {
         setCurrentAdIndex(
@@ -39,14 +41,26 @@ export default function MidRollBannerAd({}) {
     }
   }, [adConfig, currentAdIndex])
 
-  const currentAd = adConfig.midBannerAds[currentAdIndex]
-
   if (
     !adConfig ||
     !adConfig.featuredAdsEnabled ||
-    !adConfig.midBannerAds.length ||
-    !currentAd.midBannerAdImage.id
+    !adConfig.midBannerAds ||
+    adConfig.midBannerAds.length === 0
   ) {
+    return null
+  }
+
+  const currentAd =
+    adConfig.midBannerAds?.length > 0 && adConfig.midBannerAds[currentAdIndex]
+
+  if (!currentAd) {
+    return null
+  }
+
+  const aspectRatio =
+    (currentAd.midBannerAdWidth ?? 0) / (currentAd.midBannerAdHeight ?? 0)
+
+  if (aspectRatio === undefined || isNaN(aspectRatio)) {
     return null
   }
 

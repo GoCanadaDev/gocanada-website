@@ -17,10 +17,12 @@ export default function VerticalBannerAd({
 
   const adRef = useVisibilityTracker(
     () => {
-      trackEvent("Vertical Banner Ad Viewed", {
-        verticalBannerAdUrl:
-          adConfig.verticalBannerAds[currentAdIndex].verticalBannerAdUrl,
-      })
+      if (adConfig?.verticalBannerAds?.[currentAdIndex]) {
+        trackEvent("Vertical Banner Ad Viewed", {
+          verticalBannerAdUrl:
+            adConfig.verticalBannerAds[currentAdIndex].verticalBannerAdUrl,
+        })
+      }
     },
     {
       threshold: 0.5, // Trigger when 50% of the ad is visible
@@ -108,7 +110,11 @@ export default function VerticalBannerAd({
   }, [])
 
   useEffect(() => {
-    if (adConfig && adConfig.verticalBannerAds.length > 1) {
+    if (
+      adConfig &&
+      adConfig.verticalBannerAds &&
+      adConfig.verticalBannerAds.length > 1
+    ) {
       const cycleTime = adConfig.verticalBannerAdsCycleTime * 1000 // Convert to milliseconds
       const interval = setInterval(() => {
         setCurrentAdIndex(
@@ -128,12 +134,27 @@ export default function VerticalBannerAd({
   if (
     !adConfig ||
     !adConfig.featuredAdsEnabled ||
-    !adConfig.verticalBannerAds.length
+    !adConfig.verticalBannerAds ||
+    adConfig.verticalBannerAds.length === 0
   ) {
     return null
   }
 
-  const currentAd = adConfig.verticalBannerAds[currentAdIndex]
+  const currentAd =
+    adConfig.verticalBannerAds?.length > 0 &&
+    adConfig.verticalBannerAds[currentAdIndex]
+
+  if (!currentAd) {
+    return null
+  }
+
+  const aspectRatio =
+    (currentAd.verticalBannerAdWidth ?? 0) /
+    (currentAd.verticalBannerAdHeight ?? 0)
+
+  if (aspectRatio === undefined || isNaN(aspectRatio)) {
+    return null
+  }
 
   return (
     <>
@@ -147,9 +168,7 @@ export default function VerticalBannerAd({
               <div
                 style={{
                   position: "relative",
-                  aspectRatio:
-                    currentAd.verticalBannerAdWidth /
-                    currentAd.verticalBannerAdHeight,
+                  aspectRatio: aspectRatio,
                   maxHeight: currentAd.verticalBannerAdHeight,
                   maxWidth: currentAd.verticalBannerAdWidth,
                   margin: "0 auto",

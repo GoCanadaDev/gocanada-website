@@ -25,7 +25,7 @@ export default function TopAdBanner({}) {
   )
 
   useEffect(() => {
-    if (adConfig && adConfig.topBannerAds.length > 1) {
+    if (adConfig && adConfig.topBannerAds && adConfig.topBannerAds.length > 1) {
       const cycleTime = adConfig.topBannerAdsCycleTime * 1000 // Convert to milliseconds
       const interval = setInterval(() => {
         setCurrentAdIndex(
@@ -45,13 +45,18 @@ export default function TopAdBanner({}) {
   if (
     !adConfig ||
     !adConfig.featuredAdsEnabled ||
-    adConfig.topBannerAds?.length === 0
+    !adConfig.topBannerAds ||
+    adConfig.topBannerAds.length === 0
   ) {
     return null
   }
 
   const currentAd =
     adConfig.topBannerAds?.length > 0 && adConfig.topBannerAds[currentAdIndex]
+
+  if (!currentAd) {
+    return null
+  }
 
   const aspectRatio =
     (currentAd.topBannerAdWidth ?? 0) / (currentAd.topBannerAdHeight ?? 0)
