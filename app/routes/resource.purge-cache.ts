@@ -38,7 +38,7 @@ export const action: ActionFunction = async ({ request }) => {
     })
   } else if (_type === "featuredPostsConfig") {
     await purgeCache({
-      tags: ["posts"],
+      tags: ["posts", "featuredPostsConfig"],
     })
   } else if (_type === "categoryType") {
     await purgeCache({
