@@ -29,7 +29,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const png = await generatePngFromDocument(doc, origin)
 
   // Respond with the PNG buffer
-  return new Response(png, {
+  return new Response(png as unknown as BodyInit, {
     status: 200,
     headers: {
       // Tell the browser the response is an image
@@ -38,6 +38,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         process.env.NODE_ENV === "development"
           ? "no-cache"
           : "public, immutable, no-transform, max-age=31536000",
+      // Cache at CDN level for fast delivery
+      "Netlify-CDN-Cache-Control": "public, immutable, s-maxage=31536000",
+      // Tag with post id so it can be purged when post is updated
+      "Cache-Tag": `posts:id:${id}`,
     },
   })
 }
