@@ -14,6 +14,9 @@ export default async function (req: Request, context: Context) {
 
   const url = new URL(req.url)
   const upn = url.searchParams.get("upn")
+  if (!upn) {
+    return new Response("Missing upn parameter", { status: 400 })
+  }
 
   const headers = await new Promise<IncomingHttpHeaders>((resolve, reject) => {
     const httpReq = request(
@@ -23,7 +26,7 @@ export default async function (req: Request, context: Context) {
         },
         hostname: ips[0],
         method: "GET",
-        path: "/ls/click?upn=" + (upn ? encodeURIComponent(upn) : ""),
+        path: `/wf/unsubscribe?upn=${encodeURIComponent(upn)}`,
         port: 80,
       },
       (res) => {
@@ -50,5 +53,5 @@ export default async function (req: Request, context: Context) {
 }
 
 export const config: Config = {
-  path: "/ls/click",
+  path: "/wf/unsubscribe",
 }
