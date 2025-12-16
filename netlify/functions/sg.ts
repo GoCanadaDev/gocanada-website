@@ -42,7 +42,7 @@ export default async function (req: Request, context: Context) {
 
   return new Response("", {
     headers: {
-      location: headers.location || "https://emails.gocanada.com",
+      location: headers.location || "https://gocanada.com",
       "x-robots-tag": "nofollow, noindex",
     },
     status: 302,

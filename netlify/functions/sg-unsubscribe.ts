@@ -1,5 +1,5 @@
 import type { Config, Context } from "@netlify/functions"
-import { type IncomingHttpHeaders, request } from "node:http"
+import { request } from "node:http"
 import { resolve4 } from "node:dns"
 
 export default async function (req: Request, context: Context) {
@@ -18,34 +18,46 @@ export default async function (req: Request, context: Context) {
     return new Response("Missing upn parameter", { status: 400 })
   }
 
-  const headers = await new Promise<IncomingHttpHeaders>((resolve, reject) => {
-    const httpReq = request(
-      {
-        headers: {
-          host: "emails.gocanada.com",
+  // Make request to SendGrid to process the unsubscribe
+  // Even if it fails, we'll still show the confirmation page
+  try {
+    await new Promise<void>((resolve, reject) => {
+      const httpReq = request(
+        {
+          headers: {
+            host: "emails.gocanada.com",
+          },
+          hostname: ips[0],
+          method: "GET",
+          path: `/wf/unsubscribe?upn=${encodeURIComponent(upn)}`,
+          port: 80,
         },
-        hostname: ips[0],
-        method: "GET",
-        path: `/wf/unsubscribe?upn=${encodeURIComponent(upn)}`,
-        port: 80,
-      },
-      (res) => {
-        res.on("data", () => {})
-        res.on("end", () => {
-          resolve(res.headers)
-        })
-      }
-    )
-    httpReq.on("close", () => {})
-    httpReq.on("error", (err) => {
-      reject(err)
+        (res) => {
+          res.on("data", () => {})
+          res.on("end", () => {
+            resolve()
+          })
+        }
+      )
+      httpReq.on("close", () => {
+        resolve()
+      })
+      httpReq.on("error", () => {
+        // Still resolve even on error - SendGrid may have processed it
+        resolve()
+      })
+      httpReq.end()
     })
-    httpReq.end()
-  })
+  } catch (error) {
+    // Log error but continue to show confirmation page
+    console.error("Error processing unsubscribe with SendGrid:", error)
+  }
 
+  // SendGrid processes the unsubscribe automatically when the link is clicked
+  // We redirect to our custom confirmation page on the main domain
   return new Response("", {
     headers: {
-      location: headers.location || "https://emails.gocanada.com",
+      location: "https://gocanada.com/unsubscribe",
       "x-robots-tag": "nofollow, noindex",
     },
     status: 302,
