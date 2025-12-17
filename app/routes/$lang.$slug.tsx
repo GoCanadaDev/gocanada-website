@@ -176,11 +176,10 @@ export const loader: LoaderFunction = async ({
     data: res.data ? (res.data as Post) : null,
   }))
 
-  // post returns an empty object if the slug is not found, so check for empty object with Object.keys
-  if (Object.keys(post).length === 0) {
+  if (post.data === null) {
     throw new Response(null, {
       status: 404,
-      statusText: "Not Found",
+      statusText: "Post Not Found",
     })
   }
   const siteConfig = await getSiteConfig(client)

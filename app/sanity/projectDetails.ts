@@ -7,7 +7,7 @@ const {
   ALGOLIA_APPLICATION_ID,
   ALGOLIA_SEARCH_API_KEY,
   ALGOLIA_ADMIN_API_KEY,
-} = typeof document === "undefined" ? process.env : window.ENV
+} = typeof document === "undefined" ? process.env : window.ENV || {}
 
 export const projectId = SANITY_STUDIO_PROJECT_ID!
 export const dataset = SANITY_STUDIO_DATASET!

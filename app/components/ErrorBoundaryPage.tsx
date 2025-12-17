@@ -53,7 +53,7 @@ export default function ErrorBoundaryPage() {
               </div>
               <Typography.H1 className="w-full text-center">
                 {isRouteErrorResponse(error)
-                  ? `${error.status} ${error.statusText}`
+                  ? `${error.statusText}`
                   : "Something went wrong"}
               </Typography.H1>
               <div className="flex w-full justify-between sm:mb-6">
