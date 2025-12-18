@@ -49,5 +49,5 @@ export default async function (req: Request, context: Context) {
 }
 
 export const config: Config = {
-  path: "/asm/preferences",
+  path: "/asm",
 }
