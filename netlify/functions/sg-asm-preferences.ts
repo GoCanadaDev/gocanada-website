@@ -1,5 +1,5 @@
 import type { Config, Context } from "@netlify/functions"
-import { request } from "node:http"
+import { type IncomingHttpHeaders, request } from "node:http"
 import { resolve4 } from "node:dns"
 
 export default async function (req: Request, context: Context) {
@@ -16,22 +16,66 @@ export default async function (req: Request, context: Context) {
   const userId = url.searchParams.get("user_id")
   const data = url.searchParams.get("data")
 
-  // For preferences, we can either:
-  // 1. Redirect directly to SendGrid's preferences page
-  // 2. Forward the request and then redirect to our own page with an iframe
-  //
-  // Option 1: Direct redirect (simpler, but user leaves your domain)
+  // Forward the request to SendGrid and get the response
+  // Similar to how click tracking works - SendGrid will return a redirect or content
   if (userId && data) {
     const queryString = new URLSearchParams({
       user_id: userId,
       data: data,
     }).toString()
 
-    // Redirect to SendGrid's preferences page
-    // SendGrid will handle the preferences management
+    try {
+      const headers = await new Promise<IncomingHttpHeaders>(
+        (resolve, reject) => {
+          const httpReq = request(
+            {
+              headers: {
+                host: "emails.gocanada.com",
+              },
+              hostname: ips[0],
+              method: "GET",
+              path: `/asm/?${queryString}`,
+              port: 80,
+            },
+            (res) => {
+              res.on("data", () => {})
+              res.on("end", () => {
+                resolve(res.headers)
+              })
+            }
+          )
+          httpReq.on("close", () => {
+            reject(new Error("Connection closed"))
+          })
+          httpReq.on("error", (err) => {
+            reject(err)
+          })
+          httpReq.end()
+        }
+      )
+
+      // If SendGrid returns a location header, redirect to it
+      if (headers.location) {
+        return new Response("", {
+          headers: {
+            location: headers.location,
+            "x-robots-tag": "nofollow, noindex",
+          },
+          status: 302,
+        })
+      }
+    } catch (error) {
+      // Log error but continue to fallback redirect
+      console.error(
+        "Error forwarding ASM preferences request to SendGrid:",
+        error
+      )
+    }
+
+    // Fallback: redirect to SendGrid's preferences page if no location header
     return new Response("", {
       headers: {
-        location: `https://${ips[0]}/asm/preferences/?${queryString}`,
+        location: `https://sendgrid.net/asm/preferences/?${queryString}`,
         "x-robots-tag": "nofollow, noindex",
       },
       status: 302,
