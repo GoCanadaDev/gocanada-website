@@ -53,6 +53,10 @@ export const action: ActionFunction = async ({ request }) => {
           pathname: formInput.pathname ?? "",
           pageLocation: formInput.pageLocation ?? "",
         },
+        asm: {
+          groupId: 30038,
+          groupsToDisplay: [30038],
+        },
       }
       await sendgridMail.send(msg)
     })
