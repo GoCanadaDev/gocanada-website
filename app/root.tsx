@@ -51,6 +51,7 @@ import { useEffect, useState } from "react"
 import addExternalScripts from "./lib/addExternalScripts"
 import { Preview } from "./components/Preview"
 import { getDraftMode } from "./sanity/get-draft-mode.server"
+import { sanityFetchWithTimeout } from "./lib/sanityFetchWithTimeout"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -171,12 +172,97 @@ export const loader: LoaderFunction = async ({ request }) => {
   const isStudioRoute = new URL(request.url).pathname.startsWith("/studio")
   const bodyClassNames = getBodyClassNames(themePreference)
 
-  const categories = await getCategories(client, locale)
-  const footerLinks = await getFooterLinks(client, locale)
-  const partners = await getPartners(client)
-  const siteConfig = await getSiteConfig(client)
-  const adConfig = await getAdConfig(client)
-  const spotlightPost = await getSpotlightPost(client)
+  // Fetch all Sanity data with timeout protection and fallbacks
+  // Use Promise.allSettled to allow partial success if some queries fail
+  const [
+    categoriesResult,
+    footerLinksResult,
+    partnersResult,
+    siteConfigResult,
+    adConfigResult,
+    spotlightPostResult,
+  ] = await Promise.allSettled([
+    sanityFetchWithTimeout(
+      () => getCategories(client, locale),
+      8000,
+      [] as Category[]
+    ),
+    sanityFetchWithTimeout(
+      () => getFooterLinks(client, locale),
+      8000,
+      [] as StaticPageRoute[]
+    ),
+    sanityFetchWithTimeout(
+      () => getPartners(client),
+      8000,
+      [] as Partner[]
+    ),
+    sanityFetchWithTimeout(
+      () => getSiteConfig(client),
+      8000,
+      {
+        enablePartners: false,
+        keywords: [],
+        siteDescription: "Discover Canada",
+        siteTitle: "Go Canada",
+        siteTitleDescription: "Discover Canada",
+        footerText: "",
+      } as SiteConfigType
+    ),
+    sanityFetchWithTimeout(
+      () => getAdConfig(client),
+      8000,
+      {
+        featuredAdsEnabled: false,
+        topBannerAdsCycleTime: 5000,
+        topBannerAds: [],
+        midBannerAdsCycleTime: 5000,
+        midBannerAds: [],
+        verticalBannerAdsCycleTime: 5000,
+        verticalBannerAds: [],
+      } as AdConfigType
+    ),
+    sanityFetchWithTimeout(
+      () => getSpotlightPost(client),
+      8000,
+      { link: "", text: "" }
+    ),
+  ])
+
+  // Extract values or use fallbacks
+  const categories =
+    categoriesResult.status === "fulfilled" ? categoriesResult.value : []
+  const footerLinks =
+    footerLinksResult.status === "fulfilled" ? footerLinksResult.value : []
+  const partners =
+    partnersResult.status === "fulfilled" ? partnersResult.value : []
+  const siteConfig =
+    siteConfigResult.status === "fulfilled"
+      ? siteConfigResult.value
+      : {
+          enablePartners: false,
+          keywords: [],
+          siteDescription: "Discover Canada",
+          siteTitle: "Go Canada",
+          siteTitleDescription: "Discover Canada",
+          footerText: "",
+        }
+  const adConfig =
+    adConfigResult.status === "fulfilled"
+      ? adConfigResult.value
+      : {
+          featuredAdsEnabled: false,
+          topBannerAdsCycleTime: 5000,
+          topBannerAds: [],
+          midBannerAdsCycleTime: 5000,
+          midBannerAds: [],
+          verticalBannerAdsCycleTime: 5000,
+          verticalBannerAds: [],
+        }
+  const spotlightPost =
+    spotlightPostResult.status === "fulfilled"
+      ? spotlightPostResult.value
+      : { link: "", text: "" }
 
   let t = await i18next.getFixedT(request)
   const translations = await useTranslations(t)
