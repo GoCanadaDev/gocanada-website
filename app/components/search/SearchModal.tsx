@@ -20,8 +20,19 @@ import { Button } from "../ui/button"
 const SearchModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      // Blur active element so keyboard dismisses and viewport restores before unmount.
+      // Prevents wrong centering/zoom when reopening on mobile.
+      if (typeof document !== "undefined" && document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur()
+      }
+    }
+    setModalOpen(open)
+  }
+
   return (
-    <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+    <Dialog open={modalOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger className="focus:outline-none" aria-label="Search">
         <TooltipProvider>
           <Tooltip>
@@ -46,7 +57,12 @@ const SearchModal = () => {
             action="/resource/search"
             reloadDocument
           >
-            <Input name="search" type="search" autoFocus />
+            <Input
+              name="search"
+              type="search"
+              autoFocus
+              className="text-base min-[480px]:text-sm"
+            />
             <div className="w-3/12">
               <Button type="submit" className="gap-2" variant="default">
                 <Search size={16} /> Search
