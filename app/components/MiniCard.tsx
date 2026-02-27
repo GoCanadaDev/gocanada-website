@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import { Link, unstable_useViewTransitionState } from "@remix-run/react"
 import { PostPreview, Post, NextOrPreviousPostType } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
@@ -12,6 +12,9 @@ export const MiniCard = ({
   post: Post | PostPreview | NextOrPreviousPostType
   reverse?: boolean
 }) => {
+  const linkTo = `/${post.language}/${post.slug[post.language]}`
+  const isTransitioning = unstable_useViewTransitionState(linkTo)
+
   return (
     <article
       className={cn("group relative flex gap-8", {
@@ -38,6 +41,11 @@ export const MiniCard = ({
               preview={post.mainImage.preview ?? ""}
               loading="lazy"
               aria-label={`Read more: ${post.title[post.language]}`}
+              style={
+                isTransitioning
+                  ? { viewTransitionName: "post-hero-image" }
+                  : undefined
+              }
             />
           </AspectRatio>
         ) : null}
@@ -63,8 +71,9 @@ export const MiniCard = ({
           <Link
             className="before:absolute before:inset-0"
             prefetch="intent"
-            to={`/${post.language}/${post.slug[post.language]}`}
+            to={linkTo}
             aria-label={`Read more: ${post.title[post.language]}`}
+            unstable_viewTransition
           >
             <span className="sr-only">
               Continue reading about {post.title[post.language]}
