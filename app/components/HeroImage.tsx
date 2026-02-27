@@ -20,6 +20,8 @@ type HeroImageProps = {
   aspectRatio?: number
   isSponsored?: Post["isSponsored"]
   sponsoredText?: Post["sponsoredText"]
+  /** Used for View Transitions API – same value as Card image when navigating from list to post */
+  viewTransitionName?: string
 }
 
 export const HeroImage = ({
@@ -37,6 +39,7 @@ export const HeroImage = ({
   aspectRatio,
   isSponsored,
   sponsoredText,
+  viewTransitionName,
 }: HeroImageProps) => {
   const params = useParams()
 
@@ -115,6 +118,11 @@ export const HeroImage = ({
           loading="eager"
           className="block h-auto max-h-screen w-full select-none object-cover"
           alt=""
+          style={
+            viewTransitionName
+              ? { viewTransitionName }
+              : undefined
+          }
           {...({
             fetchpriority: "high",
           } as React.ImgHTMLAttributes<HTMLImageElement>)}
@@ -169,6 +177,11 @@ export const HeroImage = ({
             }
           )}
           alt=""
+          style={
+            viewTransitionName
+              ? { viewTransitionName }
+              : undefined
+          }
           {...({
             fetchpriority: "high",
           } as React.ImgHTMLAttributes<HTMLImageElement>)}

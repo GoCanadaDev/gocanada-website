@@ -325,6 +325,7 @@ export default function Slug() {
             aspectRatio={postToUse.mainImage.aspectRatio}
             isSponsored={postToUse.isSponsored}
             sponsoredText={postToUse.sponsoredText}
+            viewTransitionName="post-hero-image"
           />
         </div>
         <div

@@ -104,3 +104,17 @@ input[type="search"]::-webkit-search-results-decoration {
   place-items: center;
   overflow-y: auto;
 }
+
+/* View Transitions API: smooth image morph from Card to post hero */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.25s;
+  }
+  /* Named transition for card image → hero image (same name used in Card and HeroImage) */
+  ::view-transition-old(post-hero-image),
+  ::view-transition-new(post-hero-image) {
+    animation-duration: 0.35s;
+    mix-blend-mode: normal;
+  }
+}

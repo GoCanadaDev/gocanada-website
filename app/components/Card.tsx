@@ -1,4 +1,7 @@
-import { Link } from "@remix-run/react"
+import {
+  Link,
+  unstable_useViewTransitionState,
+} from "@remix-run/react"
 import { type PostPreview } from "~/sanity/queries"
 import { Typography } from "./Typography"
 import { Image } from "./Image"
@@ -46,6 +49,7 @@ export default function Card({
   }
 
   const linkTo = `/${post.language}/${post.slug[post.language]}`
+  const isTransitioning = unstable_useViewTransitionState(linkTo)
 
   return (
     <article className="group">
@@ -59,7 +63,11 @@ export default function Card({
             ratio={3 / 2}
             className="mb-4 overflow-hidden bg-zinc-200 dark:bg-zinc-800"
           >
-            <Link prefetch="intent" to={linkTo}>
+            <Link
+              prefetch="intent"
+              to={linkTo}
+              unstable_viewTransition
+            >
               <div className="relative h-full w-full">
                 {/* Main Image */}
                 <Image
@@ -70,6 +78,11 @@ export default function Card({
                   height={isLarge || hideImage ? 640 : 384}
                   preview={post.mainImage.preview ?? ""}
                   loading={loadingMode}
+                  style={
+                    isTransitioning
+                      ? { viewTransitionName: "post-hero-image" }
+                      : undefined
+                  }
                   className={cn(
                     "absolute inset-0 h-full object-cover hover:scale-[1.05]",
                     {
@@ -172,6 +185,7 @@ export default function Card({
             className="before:absolute before:inset-0"
             prefetch="intent"
             to={linkTo}
+            unstable_viewTransition
             aria-label={`Read more: ${post.title[post.language]}`}
           >
             <span className="sr-only">
