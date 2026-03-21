@@ -8,11 +8,15 @@ function encode<T extends Record<string, string>>(data: T) {
 }
 
 async function postFormUrlEncoded<T extends Record<string, string>>(values: T) {
-  fetch("https://gocanada-website.netlify.app/contact-form", {
+  const response = await fetch("https://gocanada-website.netlify.app/contact-form", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode(values),
   })
+
+  if (!response.ok) {
+    throw new Error(`Netlify form submit failed: ${response.status}`)
+  }
 }
 
 export default postFormUrlEncoded

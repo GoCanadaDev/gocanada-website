@@ -18,6 +18,7 @@ import {
   redirect,
   useSearchParams,
   useSubmit,
+  useNavigation,
   MetaFunction,
 } from "@remix-run/react"
 import { PortableText } from "@portabletext/react"
@@ -205,7 +206,9 @@ const Contact = () => {
   const otherLanguage = useOtherLanguage()
   const [searchParams] = useSearchParams()
   const submit = useSubmit()
+  const navigation = useNavigation()
   const formRef = useRef<HTMLFormElement>(null)
+  const isSubmitting = navigation.state === "submitting"
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -282,7 +285,6 @@ const Contact = () => {
               <Form {...form}>
                 <RemixForm
                   className="space-y-2"
-                  data-netlify="true"
                   method="POST"
                   ref={formRef}
                   onSubmit={form.handleSubmit(handleSubmit)}
@@ -397,9 +399,10 @@ const Contact = () => {
                   <div data-netlify-recaptcha="true"></div>
                   <Button
                     type="submit"
+                    disabled={isSubmitting}
                     className="bg-brand font-sans font-bold hover:bg-brandHover dark:bg-brand dark:text-white dark:hover:bg-brandHover"
                   >
-                    Submit
+                    {isSubmitting ? "Submitting..." : "Submit"}
                   </Button>
                 </RemixForm>
               </Form>
