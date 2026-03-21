@@ -4,6 +4,7 @@ node_modules
 /public/build
 /build
 .env
+tsconfig.tsbuildinfo
 
 # Local Netlify folder
 .netlify
