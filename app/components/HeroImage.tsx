@@ -100,7 +100,7 @@ export const HeroImage = ({
   }
 
   const imageSrcSet = generateSrcSet(imageAsset)
-  const mainImageUrl = urlForImage(imageAsset)?.width(2560).url()
+  const mainImageUrl = urlForImage(imageAsset)?.width(1920).url()
 
   return fullBleed ? (
     <section

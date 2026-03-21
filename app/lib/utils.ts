@@ -36,7 +36,10 @@ export const genericMetaTags = ({
     { property: "twitter:title", content: title },
     { property: "twitter:site", content: "@gocanada" },
     { property: "twitter:description", content: description },
-    { property: "twitter:image", content: "/images/og-main.png" },
+    {
+      property: "twitter:image",
+      content: "https://gocanada.com/images/og-main.png",
+    },
     { property: "twitter:image:alt", content: imageAlt },
     { property: "og:type", content: "website" },
     { property: "og:url", content: "https://gocanada.com/en" },
@@ -46,7 +49,10 @@ export const genericMetaTags = ({
     { property: "og:description", content: description },
     { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
-    { property: "og:image", content: "/images/og-main.png" },
+    {
+      property: "og:image",
+      content: "https://gocanada.com/images/og-main.png",
+    },
     { property: "og:image:type", content: "image/png" },
     { property: "og:image:alt", content: imageAlt },
   ]

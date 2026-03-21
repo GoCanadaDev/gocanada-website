@@ -360,7 +360,6 @@ function App() {
         <meta charSet="utf-8" />
         <Meta />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>{siteConfig.siteTitle}</title>
         <Links />
         <script src="/sw-register.js" defer></script>
       </head>

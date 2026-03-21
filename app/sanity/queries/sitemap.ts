@@ -7,7 +7,13 @@ export type SitemapSlugs = {
   subCategories?: { slug: string }[]
 }
 
-const sitemapQuery = groq`*[_type in ["postType", "authorType", "staticPageType", "categoryType"]]{
+const sitemapQuery = groq`*[
+  _type in ["postType", "authorType", "staticPageType", "categoryType"] &&
+  (
+    _type != "authorType" ||
+    count(*[_type == "postType" && !(_id in path("drafts.**")) && author._ref == ^._id]) > 0
+  )
+]{
     _type == "postType" => {
       "slug": "en/" + slug.en.current
     },

@@ -19,7 +19,8 @@ export const meta: MetaFunction<typeof loader> = ({
   data: StaticPageLoaderData
 }) => {
   const title = `The Wick | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description =
+    "Go Canada x The Wickaninnish Inn Sweepstakes Official Rules"
   return genericMetaTags({
     title,
     description,

@@ -17,7 +17,7 @@ export const urlForImage = (source: Image) => {
   return imageBuilder
     ?.image(source)
     .auto("format") // Automatically choose the best format (WebP, AVIF, etc.)
-    .quality(80) // Set quality to 80% for good compression
+    .quality(70) // Lower quality slightly to reduce payload size
     .fit("max") // Ensure the image fits within the specified dimensions
     .dpr(1) // Set device pixel ratio to 1 for better caching
 }
@@ -37,9 +37,8 @@ export const generateSrcSet = (
         ?.image(source)
         .width(width)
         .auto("format")
-        .quality(75)
+        .quality(70)
         .fit("max")
-        .format("webp") // Use WebP format for better compression
         .dpr(1)
         .url()
       return url ? `${url} ${width}w` : null
