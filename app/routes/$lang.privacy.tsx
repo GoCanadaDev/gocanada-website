@@ -30,7 +30,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: StaticPageLoaderData
 }) => {
   const title = `Privacy | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = `Learn how ${data.siteConfig.siteTitle} collects, uses, and protects your personal information.`
   const canonical = `https://gocanada.com/en/privacy`
   return genericMetaTags({
     title,

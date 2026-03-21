@@ -35,8 +35,10 @@ export const meta: MetaFunction<typeof loader> = ({
   data: LoaderDataType
 }) => {
   const title = `${data.author.name} | ${data.siteConfig.siteTitle}`
+  const authorBio = data.author.bio.en?.trim()
+  const fallbackDescription = `Read articles by ${data.author.name} on ${data.siteConfig.siteTitle}.`
   const description =
-    data.author.bio.en.substring(0, 160) || data.siteConfig.siteDescription
+    (authorBio ? authorBio.substring(0, 160) : "") || fallbackDescription
   const canonical = `https://gocanada.com/en/authors/${data.author.slug}`
   return genericMetaTags({
     title,

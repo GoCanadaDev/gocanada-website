@@ -38,7 +38,10 @@ export const meta: MetaFunction<typeof loader> = ({
   data: LoaderDataType
 }) => {
   const title = `${data.category.title.en} | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const categoryDescription = data.category.description.en?.trim()
+  const description =
+    categoryDescription ||
+    `Explore ${data.category.title.en} stories, guides, and recommendations on ${data.siteConfig.siteTitle}.`
   const canonical = `https://gocanada.com/en/categories/${data.category.slug.en}`
   return genericMetaTags({
     title,

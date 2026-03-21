@@ -20,7 +20,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: { siteConfig: SiteConfigType }
 }) => {
   const title = `Confirm Subscription | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = `Confirm your ${data.siteConfig.siteTitle} newsletter subscription and stay up to date with new stories and offers.`
   return genericMetaTags({ title, description })
 }
 

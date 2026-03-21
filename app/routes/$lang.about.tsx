@@ -24,7 +24,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: StaticPageLoaderData
 }) => {
   const title = `About | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = `Learn more about ${data.siteConfig.siteTitle}, our editorial approach, and how we help travelers discover Canada.`
   const canonical = `https://gocanada.com/en/about`
   return genericMetaTags({
     title,

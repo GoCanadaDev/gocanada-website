@@ -63,7 +63,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: StaticPageLoaderData
 }) => {
   const title = `Contact | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = `Contact ${data.siteConfig.siteTitle} for story submissions, media inquiries, advertising opportunities, or general questions.`
   const canonical = `https://gocanada.com/en/contact`
   return genericMetaTags({
     title,

@@ -17,7 +17,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: { siteConfig: SiteConfigType }
 }) => {
   const title = `Unsubscribed | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = `Manage your email preferences for ${data.siteConfig.siteTitle}, including newsletter unsubscribe confirmation.`
   return genericMetaTags({ title, description })
 }
 

@@ -22,7 +22,9 @@ export const meta: MetaFunction<typeof loader> = ({
   data: LoaderDataType
 }) => {
   const title = `Categories | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = data.categories.length
+    ? `Browse ${data.categories.length} travel categories on ${data.siteConfig.siteTitle} to find stories and tips by interest.`
+    : `Browse travel categories on ${data.siteConfig.siteTitle}.`
   const canonical = `/en/categories`
   return genericMetaTags({
     title,

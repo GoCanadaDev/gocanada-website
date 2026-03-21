@@ -42,7 +42,7 @@ export const genericMetaTags = ({
     },
     { property: "twitter:image:alt", content: imageAlt },
     { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://gocanada.com/en" },
+    { property: "og:url", content: canonical || "https://gocanada.com/en" },
     { property: "og:title", content: title },
     { property: "og:site_name", content: "Go Canada" },
     { property: "og:locale", content: "en_CA" },

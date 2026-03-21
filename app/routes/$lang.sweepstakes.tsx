@@ -19,7 +19,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: StaticPageLoaderData
 }) => {
   const title = `Sweepstakes | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const description = `Enter the latest ${data.siteConfig.siteTitle} sweepstakes for a chance to win travel-inspired prizes.`
   return genericMetaTags({
     title,
     description,

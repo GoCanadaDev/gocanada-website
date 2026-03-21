@@ -22,7 +22,12 @@ export const meta: MetaFunction<typeof loader> = ({
   data: LoaderDataType
 }) => {
   const title = `Authors | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const activeAuthorsCount = data.authors.filter(
+    (author) => author.postsCount && author.postsCount > 0
+  ).length
+  const description = activeAuthorsCount
+    ? `Meet ${activeAuthorsCount} contributors writing for ${data.siteConfig.siteTitle}.`
+    : `Meet the contributors behind ${data.siteConfig.siteTitle}.`
   const canonical = `https://gocanada.com/en/authors`
   return genericMetaTags({
     title,

@@ -50,7 +50,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: IndexLoaderData
 }) => {
   const title = `${data.siteConfig.siteTitle} | ${data.siteConfig.siteTitleDescription}`
-  const description = data.siteConfig.siteDescription
+  const description = `Discover travel stories, guides, and local tips from across Canada on ${data.siteConfig.siteTitle}.`
   const canonical = `https://gocanada.com/${data.params.lang}`
   return genericMetaTags({
     title,

@@ -23,7 +23,10 @@ export const meta: MetaFunction<typeof loader> = ({
   data: LoaderDataType
 }) => {
   const title = `Links | ${data.siteConfig.siteTitle}`
-  const description = data.siteConfig.siteDescription
+  const linksLeadIn = data.linksPageData.leadIn?.trim()
+  const description =
+    linksLeadIn ||
+    `Explore featured links and resources curated by ${data.siteConfig.siteTitle}.`
   const canonical = `https://gocanada.com/en/links`
   return genericMetaTags({
     title,
