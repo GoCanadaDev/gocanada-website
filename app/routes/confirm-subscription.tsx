@@ -109,7 +109,7 @@ export default function ConfirmSubscription() {
           <div className="flex justify-center">
             <Button
               type="button"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/en")}
               variant="default"
             >
               Explore GoCanada.com

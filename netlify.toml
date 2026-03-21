@@ -11,7 +11,7 @@ targetPort = 3000
 
 [[redirects]]
   from = "/contact-form"
-  to = "/"
+  to = "/en"
 
 # [[redirects]]
 #   from = "/ls/click"

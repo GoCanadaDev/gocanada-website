@@ -16,7 +16,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   // Handle either the standard validatePreviewUrl params or the ones from your logs
   let isValid = false
-  let redirectTo = "/"
+  let redirectTo = "/en"
 
   if (url.searchParams.has("sanity-preview-secret")) {
     // Handle the Sanity presentation tool format

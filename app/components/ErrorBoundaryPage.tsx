@@ -60,7 +60,7 @@ export default function ErrorBoundaryPage() {
                 <Typography.Paragraph className="text-center">
                   Please refresh the page and try again, or start over at the{" "}
                   <Link
-                    to="/"
+                    to="/en"
                     className="text-brand underline hover:text-brandHover"
                   >
                     home page

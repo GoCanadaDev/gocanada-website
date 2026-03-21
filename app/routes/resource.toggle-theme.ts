@@ -8,7 +8,7 @@ export const action: ActionFunction = async ({ request }) => {
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
   const themePreference = cookie.themePreference === `dark` ? `light` : `dark`
 
-  return redirect(request.headers.get("Referer") || "/", {
+  return redirect(request.headers.get("Referer") || "/en", {
     headers: {
       "Set-Cookie": await themePreferenceCookie.serialize({
         themePreference,

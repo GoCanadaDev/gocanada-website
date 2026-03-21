@@ -132,7 +132,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (formData.get("accept-gdpr") === "true") {
     gdprCookie.gdprConsent = true
-    return redirect(request.headers.get("Referer") || "/", {
+    return redirect(request.headers.get("Referer") || "/en", {
       headers: {
         "Set-Cookie": await gdprConsent.serialize(gdprCookie),
       },
@@ -192,41 +192,28 @@ export const loader: LoaderFunction = async ({ request }) => {
       8000,
       [] as StaticPageRoute[]
     ),
-    sanityFetchWithTimeout(
-      () => getPartners(client),
-      8000,
-      [] as Partner[]
-    ),
-    sanityFetchWithTimeout(
-      () => getSiteConfig(client),
-      8000,
-      {
-        enablePartners: false,
-        keywords: [],
-        siteDescription: "Discover Canada",
-        siteTitle: "Go Canada",
-        siteTitleDescription: "Discover Canada",
-        footerText: "",
-      } as SiteConfigType
-    ),
-    sanityFetchWithTimeout(
-      () => getAdConfig(client),
-      8000,
-      {
-        featuredAdsEnabled: false,
-        topBannerAdsCycleTime: 5000,
-        topBannerAds: [],
-        midBannerAdsCycleTime: 5000,
-        midBannerAds: [],
-        verticalBannerAdsCycleTime: 5000,
-        verticalBannerAds: [],
-      } as AdConfigType
-    ),
-    sanityFetchWithTimeout(
-      () => getSpotlightPost(client),
-      8000,
-      { link: "", text: "" }
-    ),
+    sanityFetchWithTimeout(() => getPartners(client), 8000, [] as Partner[]),
+    sanityFetchWithTimeout(() => getSiteConfig(client), 8000, {
+      enablePartners: false,
+      keywords: [],
+      siteDescription: "Discover Canada",
+      siteTitle: "Go Canada",
+      siteTitleDescription: "Discover Canada",
+      footerText: "",
+    } as SiteConfigType),
+    sanityFetchWithTimeout(() => getAdConfig(client), 8000, {
+      featuredAdsEnabled: false,
+      topBannerAdsCycleTime: 5000,
+      topBannerAds: [],
+      midBannerAdsCycleTime: 5000,
+      midBannerAds: [],
+      verticalBannerAdsCycleTime: 5000,
+      verticalBannerAds: [],
+    } as AdConfigType),
+    sanityFetchWithTimeout(() => getSpotlightPost(client), 8000, {
+      link: "",
+      text: "",
+    }),
   ])
 
   // Extract values or use fallbacks

@@ -58,7 +58,7 @@ export default function Unsubscribe() {
           <div className="flex justify-center">
             <Button
               type="button"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/en")}
               variant="default"
             >
               Return to GoCanada.com

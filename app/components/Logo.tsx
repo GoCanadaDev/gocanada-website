@@ -8,7 +8,7 @@ export function Logo() {
   const themePreference = rootLoaderData?.themePreference
   return (
     <Link
-      to="/"
+      to="/en"
       className="rounded-md hover:opacity-90 focus:opacity-90 focus-visible:outline-none active:bg-transparent "
     >
       <span className="sr-only">Go Canada</span>

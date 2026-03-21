@@ -110,7 +110,7 @@ export default function AuthorBySlugRoute() {
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/" prefetch="intent">
+              <Link to="/en" prefetch="intent">
                 Home
               </Link>
             </BreadcrumbLink>

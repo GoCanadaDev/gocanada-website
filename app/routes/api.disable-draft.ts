@@ -5,7 +5,7 @@ import { destroySession, getSession } from "../sessions"
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get("Cookie"))
 
-  return redirect("/", {
+  return redirect("/en", {
     headers: {
       "Set-Cookie": await destroySession(session),
     },

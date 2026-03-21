@@ -49,6 +49,34 @@ import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { useQuery } from "~/sanity/loader"
 import { useRef } from "react"
 
+function truncateMetaDescription(text: string, maxLength = 160): string {
+  const normalizedText = text.replace(/\s+/g, " ").trim()
+  if (normalizedText.length <= maxLength) {
+    return normalizedText
+  }
+
+  // Reserve room for the ellipsis.
+  const safeLimit = Math.max(1, maxLength - 1)
+  const candidate = normalizedText.slice(0, safeLimit)
+  const sentenceBoundary = Math.max(
+    candidate.lastIndexOf(". "),
+    candidate.lastIndexOf("! "),
+    candidate.lastIndexOf("? ")
+  )
+
+  // Prefer ending on a sentence when it is reasonably close to the limit.
+  if (sentenceBoundary >= safeLimit * 0.65) {
+    return `${candidate.slice(0, sentenceBoundary + 1).trim()}…`
+  }
+
+  const lastSpace = candidate.lastIndexOf(" ")
+  if (lastSpace > 0) {
+    return `${candidate.slice(0, lastSpace).trim()}…`
+  }
+
+  return `${candidate.trim()}…`
+}
+
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
@@ -63,7 +91,8 @@ export const meta: MetaFunction<typeof loader> = ({
     .join(" | ")
 
   const ogImageUrl = sanitizedData ? sanitizedData.ogImageUrl : null
-  const description = sanitizedData ? sanitizedData.post.data.excerpt.en : ""
+  const rawDescription = sanitizedData ? sanitizedData.post.data.excerpt.en : ""
+  const description = truncateMetaDescription(rawDescription, 160)
   const canonical = `https://gocanada.com/en/${sanitizedData.post.data.slug.en}`
 
   return [
@@ -270,7 +299,7 @@ export default function Slug() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link to="/" prefetch="intent">
+                <Link to="/en" prefetch="intent">
                   Home
                 </Link>
               </BreadcrumbLink>
