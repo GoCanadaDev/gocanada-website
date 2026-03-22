@@ -20,7 +20,7 @@ import {
 } from "~/sanity/queries"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { genericMetaTags, SITE_META } from "~/lib/utils"
+import { genericMetaTags } from "~/lib/utils"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -49,7 +49,7 @@ export const meta: MetaFunction<typeof loader> = ({
   const categoryDescription = data.category.description.en?.trim()
   const fallbackDescription =
     categoryTitle && subCategoryTitle
-      ? `Explore ${subCategoryTitle} resources in ${categoryTitle} on ${SITE_META.siteTitle}.`
+      ? `Explore ${subCategoryTitle} in ${categoryTitle} on ${data.siteConfig.siteTitle}: Canada travel stories, guides, and tips to plan trips and discover destinations that match your interests.`
       : data.siteConfig.siteDescription
   const description =
     subCategoryDescription || categoryDescription || fallbackDescription

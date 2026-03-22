@@ -22,9 +22,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: LoaderDataType
 }) => {
   const title = `Categories | ${data.siteConfig.siteTitle}`
-  const description = data.categories.length
-    ? `Browse ${data.categories.length} travel categories on ${data.siteConfig.siteTitle} to find stories and tips by interest.`
-    : `Browse travel categories on ${data.siteConfig.siteTitle}.`
+  const description = `Browse ${data.categories.length} travel categories on ${data.siteConfig.siteTitle} for Canadian travel stories, guides, and tips organized by theme, from city breaks to outdoor adventures.`
   const canonical = `/en/categories`
   return genericMetaTags({
     title,

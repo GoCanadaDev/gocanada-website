@@ -61,7 +61,7 @@ export const meta: MetaFunction<typeof loader> = ({
   data: StaticPageLoaderData
 }) => {
   const title = `Advertising | ${data.siteConfig.siteTitle}`
-  const description = `Partner with ${data.siteConfig.siteTitle} to reach engaged travelers across Canada. Request our media kit and advertising options.`
+  const description = `Partner with ${data.siteConfig.siteTitle} to reach engaged travelers planning trips across Canada. Request our media kit, rate card, and sponsorship options.`
   const canonical = `https://gocanada.com/en/advertising`
   return genericMetaTags({
     title,

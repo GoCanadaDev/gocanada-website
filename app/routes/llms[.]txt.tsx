@@ -121,6 +121,11 @@ function buildLlmsTxt({
     ``,
     `## Featured Posts`,
     ``,
+    ...(featuredPosts.frontAndCenterPosts?.map((p) => {
+      const slug = p.slug[lang] as string
+      const href = `${SITE_ORIGIN}/${lang}/${slug}.md`
+      return `- [${p.title[lang]}](${href}): ${p.excerpt[lang]}`
+    }) ?? []),
     ...(featuredPosts.featuredPosts?.map((p) => {
       const slug = p.slug[lang] as string
       const href = `${SITE_ORIGIN}/${lang}/${slug}.md`

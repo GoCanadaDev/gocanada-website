@@ -41,7 +41,7 @@ export const meta: MetaFunction<typeof loader> = ({
   const categoryDescription = data.category.description.en?.trim()
   const description =
     categoryDescription ||
-    `Explore ${data.category.title.en} stories, guides, and recommendations on ${data.siteConfig.siteTitle}.`
+    `Explore ${data.category.title.en} on ${data.siteConfig.siteTitle}: Canada travel articles, guides, and trip ideas in this category—from inspiration to practical planning.`
   const canonical = `https://gocanada.com/en/categories/${data.category.slug.en}`
   return genericMetaTags({
     title,
