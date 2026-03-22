@@ -19,6 +19,7 @@
     "@netlify/edge-functions": "^2.12.0",
     "@netlify/functions": "^2.8.1",
     "@netlify/remix-adapter": "^2.5.0",
+    "@portabletext/markdown": "^1.1.4",
     "@portabletext/react": "3.0.11",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-aspect-ratio": "^1.0.3",

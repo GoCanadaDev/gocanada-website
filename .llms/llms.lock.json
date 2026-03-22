@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "updatedAt": "2026-03-21T16:49:38.519Z",
+  "entries": {
+    "netlify": {
+      "slug": "netlify",
+      "format": "llms.txt",
+      "sourceUrl": "https://docs.netlify.com/llms.txt",
+      "etag": "W/\"8832f2fd9ffe6a6560f2c5c31a769b29-ssl-df\"",
+      "lastModified": null,
+      "fetchedAt": "2026-03-21T16:49:38.517Z",
+      "checksum": "22410b1c32e7dd33bbf0d917fe25ccad332d35c53fd41a990cbdaabba34e8cab",
+      "size": 18797,
+      "name": "Netlify"
+    }
+  }
+}
