@@ -7,10 +7,16 @@ type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const SONNER_HOST_ID = "sonner-host"
 
-/** Instagram / Facebook in-app browsers often break `position:fixed` for nodes under `<body>`. */
-const defaultMobileOffset = {
-  bottom: "max(16px, env(safe-area-inset-bottom, 0px))",
-} satisfies NonNullable<ToasterProps["mobileOffset"]>
+/** Full-viewport fixed layer so toasts are tied to the visual viewport, not page flow (in-app WebViews). */
+function applySonnerHostStyles(el: HTMLElement) {
+  el.setAttribute("data-sonner-host", "")
+  Object.assign(el.style, {
+    position: "fixed",
+    inset: "0",
+    zIndex: "2147483647",
+    pointerEvents: "none",
+  })
+}
 
 const baseToastOptions: NonNullable<ToasterProps["toastOptions"]> = {
   classNames: {
@@ -40,9 +46,8 @@ const Toaster = ({
       el.id = SONNER_HOST_ID
       document.documentElement.appendChild(el)
     }
+    applySonnerHostStyles(el)
     setContainer(el)
-    // Do not remove the host on unmount: React Strict Mode remounts would tear
-    // down Sonner between the cookie toast timeout and a second subscribe.
   }, [])
 
   if (!container) {
@@ -52,8 +57,8 @@ const Toaster = ({
   return createPortal(
     <Sonner
       theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      mobileOffset={mobileOffset ?? defaultMobileOffset}
+      className="toaster group pointer-events-auto"
+      mobileOffset={mobileOffset}
       toastOptions={{
         ...baseToastOptions,
         ...toastOptions,
