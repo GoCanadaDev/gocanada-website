@@ -33,6 +33,7 @@ import {
   getSpotlightPost,
 } from "~/sanity/queries"
 import styles from "~/tailwind.css"
+import sonnerStyles from "sonner/dist/styles.css"
 import { getEnv } from "./env.server"
 import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
@@ -56,6 +57,7 @@ import { sanityFetchWithTimeout } from "./lib/sanityFetchWithTimeout"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: sonnerStyles },
   { rel: "preconnect", href: "https://cdn.sanity.io" },
   {
     rel: "preconnect",
