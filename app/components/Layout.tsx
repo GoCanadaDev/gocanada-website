@@ -2,7 +2,6 @@ import { ArrowUp } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { Footer } from "~/components/Footer"
 import { Header } from "~/components/Header"
-import { Toaster } from "~/components/ui/sonner"
 import {
   Tooltip,
   TooltipContent,
@@ -49,14 +48,6 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
       <Header translationUrl={translationUrl} />
       <main className={classes} id="main">
         {children}
-        <Toaster
-          closeButton
-          toastOptions={{
-            classNames: {
-              actionButton: "!bg-brand !hover:bg-brandHover",
-            },
-          }}
-        />
       </main>
       <Footer />
       {showGoTop && (

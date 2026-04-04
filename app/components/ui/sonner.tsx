@@ -1,5 +1,4 @@
 import { useTheme } from "next-themes"
-import { createPortal } from "react-dom"
 import { Toaster as Sonner } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
@@ -7,14 +6,10 @@ type ToasterProps = React.ComponentProps<typeof Sonner>
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme()
 
-  if (typeof document === "undefined") {
-    return null
-  }
-
-  return createPortal(
+  return (
     <Sonner
       theme={theme as ToasterProps["theme"]}
-      className="toaster group"
+      className="toaster group pointer-events-auto"
       toastOptions={{
         classNames: {
           toast:
@@ -28,8 +23,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         },
       }}
       {...props}
-    />,
-    document.body,
+    />
   )
 }
 

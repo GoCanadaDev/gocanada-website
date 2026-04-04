@@ -43,6 +43,7 @@ import { SupportedLanguages } from "~/i18n"
 import { client } from "./sanity/client"
 import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages"
 import { CookieBanner } from "./components/CookieBanner"
+import { Toaster } from "./components/ui/sonner"
 import { useTranslations } from "./lib/useTranslations"
 import { TranslationKey } from "./lib/flattenMessages"
 import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
@@ -351,6 +352,15 @@ function App() {
         <script src="/sw-register.js" defer></script>
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
+        <Toaster
+          closeButton
+          toastOptions={{
+            classNames: {
+              actionButton: "!bg-brand !hover:bg-brandHover",
+            },
+          }}
+        />
+        {showCookieBanner && <CookieBanner />}
         {isDraftMode ? (
           <Preview>
             <Outlet />
@@ -372,7 +382,7 @@ function App() {
             src={`https://www.facebook.com/tr?id=${ENV.FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
-        {showCookieBanner && <CookieBanner />}
+
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
           <Hydrated>
