@@ -352,14 +352,7 @@ function App() {
         <script src="/sw-register.js" defer></script>
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        <Toaster
-          closeButton
-          toastOptions={{
-            classNames: {
-              actionButton: "!bg-brand !hover:bg-brandHover",
-            },
-          }}
-        />
+        <Toaster closeButton />
         {showCookieBanner && <CookieBanner />}
         {isDraftMode ? (
           <Preview>
