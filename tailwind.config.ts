@@ -22,6 +22,7 @@ const config = {
       colors: {
         brand: "#bf2327",
         brandHover: "#d64945",
+        brandDark: "#a00007",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

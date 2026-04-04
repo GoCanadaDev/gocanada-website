@@ -12,3 +12,6 @@ tsconfig.tsbuildinfo
 
 # Sentry Config File
 .sentryclirc
+
+# Claude
+.claude/settings.local.json
