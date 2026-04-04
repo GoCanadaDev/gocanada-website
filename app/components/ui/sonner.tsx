@@ -7,12 +7,20 @@ type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const SONNER_HOST_ID = "sonner-host"
 
-/** Full-viewport fixed layer so toasts are tied to the visual viewport, not page flow (in-app WebViews). */
+/**
+ * Narrow portal host under `<html>` (not `body`) for in-app WebViews.
+ * Do not use `inset: 0` here — a full-screen fixed wrapper nests Sonner’s own
+ * `position: fixed` toaster and breaks `%` widths + close-button positioning on mobile.
+ */
 function applySonnerHostStyles(el: HTMLElement) {
   el.setAttribute("data-sonner-host", "")
   Object.assign(el.style, {
     position: "fixed",
-    inset: "0",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "0",
+    overflow: "visible",
     zIndex: "2147483647",
     pointerEvents: "none",
   })
@@ -32,8 +40,10 @@ const baseToastOptions: NonNullable<ToasterProps["toastOptions"]> = {
 }
 
 const Toaster = ({
+  position = "bottom-right",
   mobileOffset,
   toastOptions,
+  style,
   ...props
 }: ToasterProps) => {
   const { theme = "system" } = useTheme()
@@ -56,8 +66,10 @@ const Toaster = ({
 
   return createPortal(
     <Sonner
+      position={position}
       theme={theme as ToasterProps["theme"]}
-      className="toaster group pointer-events-auto"
+      className="toaster"
+      style={{ pointerEvents: "auto", ...style }}
       mobileOffset={mobileOffset}
       toastOptions={{
         ...baseToastOptions,
