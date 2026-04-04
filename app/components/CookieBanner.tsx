@@ -8,23 +8,28 @@ export const CookieBanner = () => {
   formData.append("accept-gdpr", "true")
 
   useEffect(() => {
-    toast("This website uses cookies.", {
-      description:
-        "Cookies help us deliver the best experience on our website.",
-      onDismiss: () => {
-        submit(formData, { method: "post" })
-      },
-      action: {
-        label: "I understand",
-        onClick: () => {
-          toast.dismiss()
+    // Run after Sonner’s useEffect subscriber is registered. Portals mount after
+    // useLayoutEffect, so a synchronous toast here can fire before subscribe exists.
+    const id = window.setTimeout(() => {
+      toast("This website uses cookies.", {
+        description:
+          "Cookies help us deliver the best experience on our website.",
+        onDismiss: () => {
           submit(formData, { method: "post" })
-          // Once affirmative consent has been granted
-          window.fbq("consent", "grant")
         },
-      },
-      duration: Infinity,
-    })
+        action: {
+          label: "I understand",
+          onClick: () => {
+            toast.dismiss()
+            submit(formData, { method: "post" })
+            // Once affirmative consent has been granted
+            window.fbq("consent", "grant")
+          },
+        },
+        duration: Infinity,
+      })
+    }, 0)
+    return () => window.clearTimeout(id)
   }, [])
 
   return (
