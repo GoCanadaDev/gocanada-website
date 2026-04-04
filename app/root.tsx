@@ -356,10 +356,7 @@ function App() {
             <Outlet />
           </Preview>
         ) : (
-          <>
-            {showCookieBanner && <CookieBanner />}
-            <Outlet />
-          </>
+          <Outlet />
         )}
         <noscript>
           <iframe
@@ -375,7 +372,7 @@ function App() {
             src={`https://www.facebook.com/tr?id=${ENV.FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
-
+        {showCookieBanner && <CookieBanner />}
         <ScrollRestoration />
         {ENV.SANITY_STUDIO_USE_STEGA ? (
           <Hydrated>
