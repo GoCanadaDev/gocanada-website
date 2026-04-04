@@ -53,7 +53,7 @@ const Toaster = ({
       }}
       {...props}
     />,
-    document.body,
+    document.body
   )
 }
 
