@@ -1,5 +1,6 @@
 import { ArrowUp } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { cn } from "~/lib/utils"
 import { Footer } from "~/components/Footer"
 import { Header } from "~/components/Header"
 import {
@@ -46,7 +47,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
     <>
       <div ref={refScrollUp} />
       <Header translationUrl={translationUrl} />
-      <main className={classes} id="main">
+      <main className={cn("flex-1", classes)} id="main">
         {children}
       </main>
       <Footer />
