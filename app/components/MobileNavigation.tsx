@@ -66,7 +66,7 @@ export function MobileNavigation() {
   )
 
   return (
-    <div className="mb-2 block w-full md:hidden">
+    <div className="block w-full md:hidden">
       <Accordion type="single" collapsible>
         {categories.length > 0 &&
           categories
@@ -76,6 +76,7 @@ export function MobileNavigation() {
                 <AccordionItem
                   value={category.title[categoryTranslation]}
                   key={category.title[categoryTranslation]}
+                  className="last:border-b-0"
                 >
                   <AccordionTrigger>
                     <Link

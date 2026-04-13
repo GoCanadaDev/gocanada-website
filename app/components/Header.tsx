@@ -31,6 +31,9 @@ export function Header() {
         <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
           <Logo />
           <div className="flex items-center gap-1 md:gap-2">
+            <SubscribeModal pageLocation="header" />
+
+            <Separator orientation="vertical" className="inline-flex h-6" />
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
               href="https://instagram.com/canada"
@@ -42,7 +45,7 @@ export function Header() {
                 <animated.span style={style} className="inline-block">
                   <Instagram className="inline" />
                 </animated.span>
-                <span className="relative top-0.5 pl-2 text-sm uppercase md:text-base">
+                <span className="relative hidden pl-2 text-sm uppercase tracking-wide sm:inline md:text-base">
                   @canada
                 </span>
               </span>
@@ -64,10 +67,9 @@ export function Header() {
         </div>
       </div>
       <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
-        <div className="flex w-screen flex-col items-start justify-between px-4 pb-2 lg:container md:flex-row md:items-center md:py-1 lg:px-12">
+        <div className="flex w-screen flex-col items-start justify-between px-4 pb-0 lg:container md:flex-row md:items-center md:py-1 lg:px-12">
           <Navigation />
           <MobileNavigation />
-          <SubscribeModal pageLocation="header" />
         </div>
       </div>
       {spotlightPost && Object.keys(spotlightPost).length > 0 && (
