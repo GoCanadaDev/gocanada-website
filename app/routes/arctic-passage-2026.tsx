@@ -172,7 +172,7 @@ export default function ArcticPassage2026() {
     e.preventDefault()
     if (input === PASSWORD) {
       setOpen(false)
-      toast.success("Access granted. Welcome to the Arctic Passage 2026!")
+      toast.success("Access granted. Welcome to the Arctic Passage 2026.")
     } else {
       setError(true)
     }
@@ -479,7 +479,7 @@ export default function ArcticPassage2026() {
           }}
         >
           <div className="py-36">
-            <div className="space-y-12 rounded-3xl px-12 text-left text-lg">
+            <div className="space-y-12 rounded-3xl px-0 text-left text-lg md:px-12">
               <div className={cn(animateClass)}>
                 <h2 className="font-lg font-bold uppercase tracking-widest text-sky-200">
                   Sample Film Work
@@ -496,21 +496,23 @@ export default function ArcticPassage2026() {
                 </p>
               </div>
 
-              <AspectRatio
-                ratio={16 / 9}
-                className={cn(animateClass, "w-full delay-150")}
-              >
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/W0HuvT8FXcg?si=1Nx66u8wMVk2CX81"
-                  title="Svalbard Arctic Cruise: Polar Bears, Glaciers & Wildlife Expedition"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  className="rounded-3xl"
-                />
-              </AspectRatio>
+              <div className="rounded-3xl bg-black/20 p-3">
+                <AspectRatio
+                  ratio={16 / 9}
+                  className={cn(animateClass, "w-full delay-150")}
+                >
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/W0HuvT8FXcg?si=1Nx66u8wMVk2CX81"
+                    title="Svalbard Arctic Cruise: Polar Bears, Glaciers & Wildlife Expedition"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="rounded-2xl"
+                  />
+                </AspectRatio>
+              </div>
             </div>
           </div>
         </section>
