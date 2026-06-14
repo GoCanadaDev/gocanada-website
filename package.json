@@ -4,9 +4,9 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "npm run redirects:enable && remix build --sourcemap && sentry-upload-sourcemaps --org tonymamo --project gocanada",
+    "build": "npm run redirects:enable && remix vite:build && sentry-upload-sourcemaps --org tonymamo --project gocanada --build-path build/client/assets --url-prefix ~/assets",
     "postbuild": "npx workbox generateSW workbox-config.cjs",
-    "dev": "npm run redirects:disable && remix dev",
+    "dev": "npm run redirects:disable && remix vite:dev",
     "start": "netlify serve",
     "typecheck": "tsc -b",
     "redirects:enable": "shx cp .redirects public/_redirects",
@@ -104,8 +104,8 @@
   },
   "devDependencies": {
     "@portabletext/types": "2.0.8",
-    "@remix-run/dev": "2.4.1",
-    "@remix-run/eslint-config": "2.4.1",
+    "@remix-run/dev": "^2.12.0",
+    "@remix-run/eslint-config": "^2.12.0",
     "@tailwindcss/typography": "^0.5.10",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
@@ -115,6 +115,8 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.2.2",
+    "vite": "^6.4.3",
+    "vite-tsconfig-paths": "^6.1.1",
     "workbox-cli": "^7.3.0"
   },
   "engines": {

@@ -12,7 +12,7 @@ import { genericMetaTags } from "~/lib/utils"
 import { client } from "~/sanity/client"
 import type { SiteConfigType } from "~/sanity/queries/siteConfig"
 import { getSiteConfig } from "~/sanity/queries/siteConfig"
-import GoCanadaLogoRed from "../../public/images/logotype-red.png"
+const GoCanadaLogoRed = "/images/logotype-red.png"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

@@ -7,7 +7,6 @@ import type {
 import { json, redirect } from "@remix-run/node"
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -32,8 +31,8 @@ import {
   getPartners,
   getSpotlightPost,
 } from "~/sanity/queries"
-import styles from "~/tailwind.css"
-import sonnerStyles from "sonner/dist/styles.css"
+import styles from "~/tailwind.css?url"
+import sonnerStyles from "sonner/dist/styles.css?url"
 import { getEnv } from "./env.server"
 import VisualEditing from "./components/VisualEditing"
 import i18next from "~/i18next.server"
@@ -70,7 +69,7 @@ export const links: LinksFunction = () => [
     crossOrigin: "anonymous",
   },
   {
-    href: "https://fonts.googleapis.com/css2?family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Instrument+Serif&display=swap",
     rel: "stylesheet",
   },
   {
@@ -122,6 +121,7 @@ export type RootLoaderData = {
   params: {}
   partners: Partner[]
   showCookieBanner: boolean
+  showWelcomeDialog: boolean
   siteConfig: SiteConfigType
   spotlightPost: { link: string; text: string }
   themePreference: string | undefined
@@ -272,7 +272,10 @@ export const loader: LoaderFunction = async ({ request }) => {
       locale,
       params: {},
       partners,
-      showCookieBanner: !gdprCookie.gdprConsent,
+      showCookieBanner:
+        !gdprCookie.gdprConsent &&
+        !request.url.includes("/arctic-passage-2026"),
+      showWelcomeDialog: false,
       siteConfig,
       spotlightPost,
       themePreference,
@@ -354,7 +357,7 @@ function App() {
         <script src="/sw-register.js" defer></script>
       </head>
       <body className={isStudioRoute ? undefined : bodyClassNames}>
-        <Toaster closeButton />
+        <Toaster closeButton richColors />
         {showCookieBanner && <CookieBanner />}
         {isDraftMode ? (
           <Preview>
@@ -391,7 +394,6 @@ function App() {
           }}
         />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   )

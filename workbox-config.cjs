@@ -1,9 +1,9 @@
 module.exports = {
-  globDirectory: "public/",
+  globDirectory: "build/client/",
   globPatterns: [
     "**/*.{js,css,html,png,jpg,jpeg,svg,ico,json,woff2,woff,ttf,eot}",
   ],
-  swDest: "public/sw.js",
+  swDest: "build/client/sw.js",
   runtimeCaching: [
     {
       urlPattern: /\.(?:js|css|woff2|woff|ttf|eot)$/,

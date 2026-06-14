@@ -65,6 +65,7 @@ const config = {
       fontFamily: {
         sans: ["PT Sans", "Inter", "Roboto", "Open Sans", "sans-serif"],
         serif: ["Rasa", "PT Serif", "serif"],
+        instrumentSerif: ["Instrument Serif", "Rasa", "PT Serif", "serif"],
         body: [
           "Libre Baskerville",
           "Inter",

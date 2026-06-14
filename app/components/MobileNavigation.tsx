@@ -74,8 +74,8 @@ export function MobileNavigation() {
             .map((category) => {
               return (
                 <AccordionItem
-                  value={category.title[categoryTranslation]}
-                  key={category.title[categoryTranslation]}
+                  value={category._id}
+                  key={category._id}
                   className="last:border-b-0"
                 >
                   <AccordionTrigger>
@@ -105,9 +105,7 @@ export function MobileNavigation() {
                                 .map((subCategory) => {
                                   return (
                                     <ListItem
-                                      key={
-                                        subCategory.title[categoryTranslation]
-                                      }
+                                      key={subCategory._id}
                                       title={
                                         subCategory.title[categoryTranslation]
                                       }
@@ -134,9 +132,7 @@ export function MobileNavigation() {
                                 .map((subCategory) => {
                                   return (
                                     <ListItem
-                                      key={
-                                        subCategory.title[categoryTranslation]
-                                      }
+                                      key={subCategory._id}
                                       title={
                                         subCategory.title[categoryTranslation]
                                       }
@@ -169,9 +165,7 @@ export function MobileNavigation() {
                                 .map((subCategory) => {
                                   return (
                                     <ListItem
-                                      key={
-                                        subCategory.title[categoryTranslation]
-                                      }
+                                      key={subCategory._id}
                                       title={
                                         subCategory.title[categoryTranslation]
                                       }

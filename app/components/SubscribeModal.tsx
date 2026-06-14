@@ -9,8 +9,8 @@ import { useState } from "react"
 import { Button } from "./ui/button"
 import { Typography } from "./Typography"
 import SubscribeForm from "./SubscribeForm"
-import GoCanadaLogoColour from "../../public/images/logotype-colour-sm.png"
-import GoCanadaLogoReverse from "../../public/images/logotype-colour-reverse-sm.png"
+const GoCanadaLogoColour = "/images/logotype-colour-sm.png"
+const GoCanadaLogoReverse = "/images/logotype-colour-reverse-sm.png"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
 const SubscribeModal = ({
