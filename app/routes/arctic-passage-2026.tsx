@@ -193,7 +193,10 @@ export default function ArcticPassage2026() {
               continue.
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleSubmit} className="flex gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 md:flex-row"
+          >
             <div className="w-full">
               <Input
                 type={passwordVisible ? "text" : "password"}
