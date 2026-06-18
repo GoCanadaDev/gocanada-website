@@ -32,6 +32,9 @@ import {
   ScanEye,
   Mails,
   Eye,
+  X,
+  ArrowRightFromLine,
+  MoveRight,
 } from "lucide-react"
 
 const PASSWORD = "arctic2026"
@@ -231,28 +234,58 @@ export default function ArcticPassage2026() {
           </form>
         </DialogContent>
       </Dialog>
-      <header className="container flex justify-center bg-black/40 py-6">
-        <Logo />
-      </header>
+
       <main
         className={cn("transition-opacity duration-700", open && "opacity-0")}
       >
-        <section className="container">
-          <div className="grid grid-cols-1 gap-12 py-24 md:grid-cols-2">
+        <section
+          className="container pb-96 sm:pb-[400px] md:pb-[500px] lg:pb-[600px] xl:pb-[700px]"
+          style={{
+            backgroundImage: "url('/images/map.jpg')",
+            backgroundSize: "100% auto",
+            backgroundPosition: "bottom center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "#001f33",
+          }}
+        >
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
             <div
               className={cn(
                 animateClass,
                 "flex flex-col items-start justify-center gap-6"
               )}
             >
-              <h1 className="font-instrumentSerif text-5xl leading-none tracking-tight md:text-7xl">
+              <header className="flex items-center gap-4">
+                <Logo colorOverride="fill-sky-100" />
+                <X className="opacity-50" />
+                <a
+                  href="https://www.aurora-expeditions.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(animateClass, "delay-100")}
+                >
+                  <img
+                    alt=""
+                    src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png"
+                    width="1306"
+                    height="923"
+                    sizes="auto, 100vw"
+                    srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=2500w 2500w"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-48 hover:opacity-80"
+                  />
+                </a>
+              </header>
+              <h1 className="font-alternateSerif text-5xl leading-none tracking-[-.05em] md:text-7xl">
                 The Canadian Arctic. <br />
                 One Month. One Expedition. One Story.
               </h1>
+              <div className="w-24 border-t-4 border-brandDark"></div>
               <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
                 A Go Canada Original Film
               </p>
-              <p>
+              <p className="text-lg leading-relaxed">
                 In August 2026, Go Canada Studios will embark on a 30-day
                 expedition spanning the entire Canadian Arctic aboard{" "}
                 <a
@@ -266,12 +299,31 @@ export default function ArcticPassage2026() {
                 , following the legendary Northwest Passage through some of the
                 most remote landscapes on the planet.
               </p>
+
+              <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-100/70 md:text-sm">
+                Greenland <MoveRight className="text-brandDark" /> Nunavut
+                <MoveRight className="text-brandDark" />
+                Northwest Territories
+                <MoveRight className="text-brandDark" /> Alaska
+              </div>
+              <Button
+                variant="default"
+                className="!bg-brandDark hover:!bg-brand"
+                size="lg"
+                onClick={() =>
+                  document
+                    .getElementById("sample-film-work")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Watch Sample Film Work
+              </Button>
             </div>
             <div className="flex gap-3">
               <div
                 className={cn(
                   animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-screen"
+                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-8rem)] md:rounded-t-none"
                 )}
               >
                 <img
@@ -289,7 +341,7 @@ export default function ArcticPassage2026() {
               <div
                 className={cn(
                   animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-screen"
+                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-6rem)] md:rounded-t-none"
                 )}
               >
                 <img
@@ -307,7 +359,7 @@ export default function ArcticPassage2026() {
               <div
                 className={cn(
                   animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-screen"
+                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-4rem)] md:rounded-t-none"
                 )}
               >
                 <img
@@ -325,7 +377,7 @@ export default function ArcticPassage2026() {
               <div
                 className={cn(
                   animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-screen"
+                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-2rem)] md:rounded-t-none"
                 )}
               >
                 <img
@@ -343,66 +395,32 @@ export default function ArcticPassage2026() {
             </div>
           </div>
         </section>
-        <section className="container">
-          <div className="flex flex-col items-center justify-center py-12">
-            <div
-              className={cn(
-                animateClass,
-                "font-lg font-bold uppercase tracking-widest text-sky-200"
-              )}
-            >
-              In partnership with
-            </div>
-            <a
-              href="https://www.aurora-expeditions.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                animateClass,
-                "delay-100 [&.scroll-animated:hover]:opacity-80"
-              )}
-            >
-              <img
-                alt=""
-                src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png"
-                width="1306"
-                height="923"
-                sizes="auto, 100vw"
-                srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=2500w 2500w"
-                loading="lazy"
-                decoding="async"
-                className="w-48"
-              />
-            </a>
-          </div>
-        </section>
-        {/* <img
-          alt=""
-          className="h-full w-full object-cover object-center"
-          src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251914-JWBVTGRFFOBC130DNWS1/DSC00393.jpg?format=2500w"
-        /> */}
-        <video
-          playsInline
-          loop
-          muted
-          autoPlay
-          poster="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251914-JWBVTGRFFOBC130DNWS1/DSC00393.jpg?format=2500w"
-          src="https://res.cloudinary.com/getpackup/video/upload/v1781376024/high-arctic_lpqw30.mp4"
-        />
+
+        <AspectRatio ratio={21 / 9} className="overflow-hidden">
+          <video
+            playsInline
+            loop
+            muted
+            autoPlay
+            poster="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251914-JWBVTGRFFOBC130DNWS1/DSC00393.jpg?format=2500w"
+            src="https://res.cloudinary.com/getpackup/video/upload/v1781376024/high-arctic_lpqw30.mp4"
+            className="h-full w-full object-cover object-center"
+          />
+        </AspectRatio>
         <section className="container bg-black/40">
-          <div className="space-y-12 px-0 py-36 text-center md:px-12">
+          <div className="space-y-6 px-0 py-12 text-center md:px-12">
             <div className={cn(animateClass)}>
               <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
                 A 30-Day Arctic Expedition
               </div>
-              <h2 className="font-instrumentSerif text-5xl leading-none tracking-tight">
-                Go Canada's first flagship original film
+              <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
+                A Go Canada Original Film
               </h2>
             </div>
             <p
               className={cn(
                 animateClass,
-                "mx-auto max-w-3xl rounded-3xl bg-black/40 p-6 text-left text-lg delay-150 md:p-12"
+                "mx-auto max-w-5xl rounded-3xl text-left text-xl leading-loose delay-150 sm:p-6 md:p-12"
               )}
             >
               In August 2026, Go Canada Studios will join Aurora Expeditions on
@@ -474,6 +492,7 @@ export default function ArcticPassage2026() {
           </div>
         </section>
         <section
+          id="sample-film-work"
           className="container"
           style={{
             backgroundImage:
@@ -481,8 +500,8 @@ export default function ArcticPassage2026() {
             backgroundSize: "15px 15px",
           }}
         >
-          <div className="py-36">
-            <div className="space-y-12 rounded-3xl px-0 text-left text-lg md:px-12">
+          <div className="py-12">
+            <div className="space-y-6 rounded-3xl px-0 text-left text-lg md:px-12">
               <div className={cn(animateClass)}>
                 <h2 className="font-lg font-bold uppercase tracking-widest text-sky-200">
                   Sample Film Work
@@ -519,13 +538,13 @@ export default function ArcticPassage2026() {
             </div>
           </div>
         </section>
-        <section className="container bg-black/40">
-          <div className="space-y-12 px-0 py-36 text-center md:px-12">
+        <section className="container bg-gradient-to-br from-slate-950 to-sky-950">
+          <div className="space-y-6 px-0 py-12 text-center md:px-12">
             <div className={cn(animateClass)}>
               <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
                 Project Snapshot
               </div>
-              <h2 className="font-instrumentSerif text-5xl leading-none tracking-tight">
+              <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
                 Traversing the Northwest Passage
               </h2>
             </div>
@@ -540,7 +559,7 @@ export default function ArcticPassage2026() {
                     delayClassName
                   )}
                 >
-                  <div className="font-instrumentSerif relative flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden p-6 text-base transition-colors duration-300 hover:bg-black/20 sm:text-xl lg:text-2xl xl:text-3xl">
+                  <div className="font-alternateSerif relative flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden p-6 text-base transition-colors duration-300 hover:bg-black/20 sm:text-xl lg:text-2xl xl:text-3xl">
                     <div className="absolute z-0 text-sky-950">
                       <Icon className="size-32 opacity-30 transition-transform duration-300 group-hover:rotate-6 lg:size-40 xl:size-48" />
                     </div>
@@ -574,7 +593,7 @@ export default function ArcticPassage2026() {
                 <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
                   Get involved
                 </div>
-                <h2 className="font-instrumentSerif text-5xl leading-none tracking-tight">
+                <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
                   Partnership Opportunities
                 </h2>
               </div>
@@ -585,7 +604,7 @@ export default function ArcticPassage2026() {
                     "flex w-full flex-col items-center justify-center gap-3 rounded-3xl bg-black/40 p-12 text-center text-lg delay-100 md:w-2/3"
                   )}
                 >
-                  <h3 className="font-instrumentSerif text-[60px] leading-none tracking-tight">
+                  <h3 className="font-alternateSerif text-[60px] leading-none tracking-[-.05em]">
                     Presenting Partner
                   </h3>
                   <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
@@ -598,7 +617,7 @@ export default function ArcticPassage2026() {
                     "flex w-full flex-col items-center justify-center gap-3 rounded-3xl bg-black/40 p-12 text-center text-lg delay-300 md:w-1/3"
                   )}
                 >
-                  <h3 className="font-instrumentSerif text-4xl leading-none tracking-tight">
+                  <h3 className="font-alternateSerif text-4xl leading-none tracking-[-.05em]">
                     Expedition &amp; Destination Partners
                   </h3>
                   <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
@@ -611,21 +630,20 @@ export default function ArcticPassage2026() {
         </div>
       </main>
       <footer>
-        <section className="container bg-black/40">
+        <section className="container bg-slate-950">
           <div className="flex flex-col items-center justify-center space-y-12 py-24 text-center">
             <Logo />
             <div className="space-y-3">
               <p>
                 <a
                   href="mailto:rishad@gocanada.com"
-                  className="font-instrumentSerif text-xl tracking-wide hover:underline"
+                  className="font-alternateSerif text-xl tracking-wide hover:underline"
                 >
-                  rishad@gocanada.com
+                  &copy; {new Date().getFullYear()} Go Canada
                 </a>
               </p>
               <p className="text-xs uppercase tracking-widest text-sky-200">
-                &copy; {new Date().getFullYear()} Go Canada, a division of Stay
-                &amp; Wander Media Inc. All Rights Reserved.
+                A division of Stay &amp; Wander Media Inc. All Rights Reserved.
               </p>
             </div>
           </div>

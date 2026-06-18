@@ -69,7 +69,7 @@ export const links: LinksFunction = () => [
     crossOrigin: "anonymous",
   },
   {
-    href: "https://fonts.googleapis.com/css2?family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Instrument+Serif&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Rasa:ital,wght@0,300..700;1,300..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap",
     rel: "stylesheet",
   },
   {
