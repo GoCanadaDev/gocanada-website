@@ -241,7 +241,7 @@ export default function ArcticPassage2026() {
         <section
           className="container pb-96 sm:pb-[400px] md:pb-[500px] lg:pb-[600px] xl:pb-[700px]"
           style={{
-            backgroundImage: "url('/images/map.jpg')",
+            backgroundImage: "url('/images/arctic-passage/map.jpg')",
             backgroundSize: "100% auto",
             backgroundPosition: "bottom center",
             backgroundRepeat: "no-repeat",
@@ -266,11 +266,10 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png"
+                    src="/images/arctic-passage/Aurora+Expeditions+Logo+White,+Horizontal.webp"
                     width="1306"
                     height="923"
                     sizes="auto, 100vw"
-                    srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1769023825078-C03IRP9SVHZ0J1BKQRWR/Aurora+Expeditions+Logo+White%2C+Horizontal.png?format=2500w 2500w"
                     loading="lazy"
                     decoding="async"
                     className="w-48 hover:opacity-80"
@@ -328,12 +327,11 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg"
+                  src="/images/arctic-passage/DSC06693.webp"
                   width="4377"
                   height="6566"
                   sizes="auto, 100vw"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/e9a8f054-dd1f-4da9-9d4a-d357dd02146b/DSC06693.jpeg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                 />
@@ -346,12 +344,11 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg"
+                  src="/images/arctic-passage/DSC00393.webp"
                   width="2500"
                   height="1667"
                   sizes="auto, 100vw"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/84b9436b-70e5-4e07-9c8a-54e7db8bd11c/DSC00393.jpg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                 />
@@ -364,12 +361,11 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg"
+                  src="/images/arctic-passage/DJI_20250706102219_0089_D.webp"
                   width="1599"
                   height="2399"
                   sizes="auto, 100vw"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251906-8Y1G4IYHZ92KPAKDJM7V/DJI_20250706102219_0089_D.jpg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                 />
@@ -382,12 +378,11 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg"
+                  src="/images/arctic-passage/DSC06693.webp"
                   width="4672"
                   height="7008"
                   sizes="auto, 100vw"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/8656d3bb-15e1-452f-b359-7af2340388ad/DSC09810.jpg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                 />
@@ -402,7 +397,7 @@ export default function ArcticPassage2026() {
             loop
             muted
             autoPlay
-            poster="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1768940251914-JWBVTGRFFOBC130DNWS1/DSC00393.jpg?format=2500w"
+            poster="/images/arctic-passage/DSC00393.webp"
             src="https://res.cloudinary.com/getpackup/video/upload/v1781376024/high-arctic_lpqw30.mp4"
             className="h-full w-full object-cover object-center"
           />
@@ -442,11 +437,10 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg"
+                  src="/images/arctic-passage/5.webp"
                   width="3375"
                   height="4219"
                   sizes="auto, 100vw"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/72888b2c-63cd-4bed-a657-58f8834564ec/5.jpg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
@@ -460,11 +454,10 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg"
+                  src="/images/arctic-passage/6.webp"
                   width="3375"
                   height="4219"
                   sizes="auto, 100vw"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/4cd9d5e8-0f25-4f3c-b517-df394516c1f3/ARCTIC+%281%29.jpg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
@@ -478,11 +471,10 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg"
+                  src="/images/arctic-passage/4.webp"
                   width="3375"
                   height="4219"
                   sizes="auto, 100vw"
-                  srcSet="https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/1379c83c-5167-48c2-9caf-addb56094424/4.jpg?format=2500w 2500w"
                   loading="lazy"
                   decoding="async"
                   className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
@@ -573,8 +565,7 @@ export default function ArcticPassage2026() {
         <div
           className="relative overflow-hidden bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url(https://images.squarespace-cdn.com/content/v1/622a5f75500b0c6e6e39166d/37839eeb-f1e5-4450-95c7-ef59de60b74e/DSC00359.jpg)",
+            backgroundImage: "url(/images/arctic-passage/DSC00359.webp)",
           }}
         >
           <div
