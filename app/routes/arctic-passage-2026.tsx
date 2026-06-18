@@ -47,7 +47,7 @@ export const meta: MetaFunction = () => {
   const title = "Arctic Passage 2026"
   const description =
     "In August 2026, Go Canada Studios will embark on a 29-day expedition spanning the entire Canadian Arctic aboard Aurora Expeditions, following the legendary Northwest Passage through some of the most remote landscapes on the planet."
-  const ogImageUrl = "TODO:"
+  const ogImageUrl = "https://gocanada.com/images/arctic-passage/og-image.jpg"
   const canonical = `https://gocanada.com/arctic-passage-2026`
 
   return [
@@ -56,7 +56,7 @@ export const meta: MetaFunction = () => {
     { property: "og:description", content: description },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
     { property: "og:image:secure_url", content: ogImageUrl },
-    { property: "og:image:type", content: "image/png" },
+    { property: "og:image:type", content: "image/jpeg" },
     { property: "og:image:width", content: String(OG_IMAGE_WIDTH) },
     { property: "og:image", content: ogImageUrl },
     { property: "og:locale", content: "en_CA" },
