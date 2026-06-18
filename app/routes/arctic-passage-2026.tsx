@@ -430,7 +430,7 @@ export default function ArcticPassage2026() {
             >
               In August 2026, Go Canada Studios will join Aurora Expeditions on
               a 30-day journey through the entire Canadian Arctic through some
-              of Canada's most remote Arctic waterways and communities..
+              of Canada's most remote Arctic waterways and communities.
               Traversing remote Arctic waterways, Inuit communities, towering
               icefields, and some of the most wildlife-rich regions on Earth,
               the expedition will be documented through Go Canada's first
