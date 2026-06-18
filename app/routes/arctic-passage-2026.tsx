@@ -378,7 +378,7 @@ export default function ArcticPassage2026() {
               >
                 <img
                   alt=""
-                  src="/images/arctic-passage/DSC06693.webp"
+                  src="/images/arctic-passage/DSC09810.webp"
                   width="4672"
                   height="7008"
                   sizes="auto, 100vw"
@@ -411,6 +411,7 @@ export default function ArcticPassage2026() {
               <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
                 A Go Canada Original Film
               </h2>
+              <div className="mx-auto mt-4 w-24 border-t-4 border-brandDark"></div>
             </div>
             <p
               className={cn(
@@ -508,6 +509,7 @@ export default function ArcticPassage2026() {
                   </a>
                   , who will lead production on the Canadian Arctic expedition.
                 </p>
+                <div className="mt-4 w-24 border-t-4 border-brandDark"></div>
               </div>
 
               <div className="rounded-3xl bg-black/20 p-3">
@@ -539,6 +541,7 @@ export default function ArcticPassage2026() {
               <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
                 Traversing the Northwest Passage
               </h2>
+              <div className="mx-auto mt-4 w-24 border-t-4 border-brandDark"></div>
             </div>
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
               {projectSnapshots.map(({ icon: Icon, label, delayClassName }) => (
@@ -587,6 +590,7 @@ export default function ArcticPassage2026() {
                 <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
                   Partnership Opportunities
                 </h2>
+                <div className="mt-4 w-24 border-t-4 border-brandDark"></div>
               </div>
               <div className="flex flex-wrap gap-12 md:flex-nowrap">
                 <div
