@@ -46,7 +46,7 @@ const animateClass =
 export const meta: MetaFunction = () => {
   const title = "Arctic Passage 2026"
   const description =
-    "In August 2026, Go Canada Studios will embark on a 30-day expedition spanning the entire Canadian Arctic aboard Aurora Expeditions, following the legendary Northwest Passage through some of the most remote landscapes on the planet."
+    "In August 2026, Go Canada Studios will embark on a 29-day expedition spanning the entire Canadian Arctic aboard Aurora Expeditions, following the legendary Northwest Passage through some of the most remote landscapes on the planet."
   const ogImageUrl = "TODO:"
   const canonical = `https://gocanada.com/arctic-passage-2026`
 
@@ -101,7 +101,7 @@ export const meta: MetaFunction = () => {
 const projectSnapshots = [
   {
     icon: Calendar,
-    label: "30-Day Arctic Expedition",
+    label: "29-Day Arctic Expedition",
     delayClassName: "delay-100",
   },
   { icon: Ship, label: "1 Expedition Vessel", delayClassName: "delay-300" },
@@ -290,10 +290,12 @@ export default function ArcticPassage2026() {
               </h1>
               <div className="w-24 border-t-4 border-brandDark"></div>
               <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                A Go Canada Original Film
+                A Go Canada Original Film{" "}
+                <span className="select-none px-2 opacity-30">|</span> AUG
+                20-SEPT 20, 2026
               </p>
               <p className="text-lg leading-relaxed">
-                In August 2026, Go Canada Studios will embark on a 30-day
+                In August 2026, Go Canada Studios will embark on a 29-day
                 expedition spanning the entire Canadian Arctic aboard{" "}
                 <a
                   className="underline opacity-80 transition-opacity duration-500 hover:opacity-100"
@@ -415,7 +417,7 @@ export default function ArcticPassage2026() {
           <div className="space-y-3 px-0 py-12 text-center md:px-12">
             <div className={cn(animateClass)}>
               <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                A 30-Day Arctic Expedition
+                A 29-Day Arctic Expedition
               </div>
               <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
                 A Go Canada Original Film
@@ -429,7 +431,7 @@ export default function ArcticPassage2026() {
               )}
             >
               In August 2026, Go Canada Studios will join Aurora Expeditions on
-              a 30-day journey through the entire Canadian Arctic through some
+              a 29-day journey through the entire Canadian Arctic through some
               of Canada's most remote Arctic waterways and communities.
               Traversing remote Arctic waterways, Inuit communities, towering
               icefields, and some of the most wildlife-rich regions on Earth,
