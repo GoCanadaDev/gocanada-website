@@ -291,10 +291,12 @@ export default function ArcticPassage2026() {
                 </h1>
                 <div className="w-24 border-t-4 border-brandDark"></div>
 
-                <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                  A Go Canada Original Film{" "}
-                  <span className="select-none px-2 opacity-30">|</span> AUG
-                  20-SEPT 20, 2026
+                <p className="font-lg flex flex-col items-start justify-start gap-4 font-bold uppercase tracking-widest text-sky-200 sm:flex-row">
+                  <span>A Go Canada Original Film</span>
+                  <span className="hidden select-none opacity-30 sm:inline-flex">
+                    |
+                  </span>
+                  <span>AUG 20-SEPT 20, 2026</span>
                 </p>
                 <p className="text-lg leading-relaxed">
                   In August 2026, Go Canada Studios will embark on a 29-day
@@ -335,7 +337,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-8rem)]"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:min-h-[calc(100vh-8rem)] lg:rounded-t-none"
                   )}
                 >
                   <img
@@ -352,7 +354,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-6rem)]"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:min-h-[calc(100vh-6rem)] lg:rounded-t-none"
                   )}
                 >
                   <img
@@ -369,7 +371,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-4rem)]"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:min-h-[calc(100vh-4rem)] lg:rounded-t-none"
                   )}
                 >
                   <img
@@ -386,7 +388,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-2rem)]"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:min-h-[calc(100vh-2rem)] lg:rounded-t-none"
                   )}
                 >
                   <img
