@@ -240,7 +240,7 @@ export default function ArcticPassage2026() {
         className={cn("transition-opacity duration-700", open && "opacity-0")}
       >
         <section
-          className="container pb-96 sm:pb-[400px] md:pb-[500px] lg:pb-[600px] xl:pb-[800px]"
+          className="pb-96 sm:pb-[400px] md:pb-[500px] lg:pb-[600px] xl:pb-[800px]"
           style={{
             backgroundImage: "url('/images/arctic-passage/map.jpg')",
             backgroundSize: "100% auto",
@@ -249,154 +249,157 @@ export default function ArcticPassage2026() {
             backgroundColor: "#001f33",
           }}
         >
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            <div
-              className={cn(
-                animateClass,
-                "flex flex-col items-start justify-center gap-6"
-              )}
-            >
-              <header className="flex w-full items-center justify-between gap-4 pt-8">
-                <Logo colorOverride="fill-sky-100" />
+          <div className="container">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+              <div
+                className={cn(
+                  animateClass,
+                  "flex flex-col items-start justify-center gap-6"
+                )}
+              >
+                <header className="flex w-full items-center justify-between gap-4 pt-8">
+                  <Logo colorOverride="fill-sky-100" />
 
-                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <a
+                      href="https://www.aurora-expeditions.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(animateClass, "delay-100")}
+                    >
+                      <img
+                        alt=""
+                        src="/images/arctic-passage/Aurora+Expeditions+Logo+White,+Horizontal.webp"
+                        width="1306"
+                        height="923"
+                        sizes="auto, 100vw"
+                        loading="lazy"
+                        decoding="async"
+                        className="w-32 hover:opacity-80"
+                      />
+                    </a>
+                    <span className="text-xs font-bold uppercase tracking-widest text-sky-100/70 md:text-sm">
+                      Expedition Partner
+                    </span>
+                  </div>
+                </header>
+                <h1 className="font-alternateSerif text-4xl leading-none tracking-[-.05em] md:text-7xl">
+                  The Canadian Arctic. <br />
+                  One Month. <br />
+                  One Expedition. <br />
+                  One Story.
+                </h1>
+                <div className="w-24 border-t-4 border-brandDark"></div>
+
+                <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
+                  A Go Canada Original Film{" "}
+                  <span className="select-none px-2 opacity-30">|</span> AUG
+                  20-SEPT 20, 2026
+                </p>
+                <p className="text-lg leading-relaxed">
+                  In August 2026, Go Canada Studios will embark on a 29-day
+                  expedition spanning the entire Canadian Arctic aboard{" "}
                   <a
+                    className="underline opacity-80 transition-opacity duration-500 hover:opacity-100"
                     href="https://www.aurora-expeditions.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={cn(animateClass, "delay-100")}
                   >
-                    <img
-                      alt=""
-                      src="/images/arctic-passage/Aurora+Expeditions+Logo+White,+Horizontal.webp"
-                      width="1306"
-                      height="923"
-                      sizes="auto, 100vw"
-                      loading="lazy"
-                      decoding="async"
-                      className="w-32 hover:opacity-80"
-                    />
+                    Aurora Expeditions
                   </a>
-                  <span className="text-xs font-bold uppercase tracking-widest text-sky-100/70 md:text-sm">
-                    Expedition Partner
-                  </span>
-                </div>
-              </header>
-              <h1 className="font-alternateSerif text-4xl leading-none tracking-[-.05em] md:text-7xl">
-                The Canadian Arctic. <br />
-                One Month. <br />
-                One Expedition. <br />
-                One Story.
-              </h1>
-              <div className="w-24 border-t-4 border-brandDark"></div>
-              <p className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                A Go Canada Original Film{" "}
-                <span className="select-none px-2 opacity-30">|</span> AUG
-                20-SEPT 20, 2026
-              </p>
-              <p className="text-lg leading-relaxed">
-                In August 2026, Go Canada Studios will embark on a 29-day
-                expedition spanning the entire Canadian Arctic aboard{" "}
-                <a
-                  className="underline opacity-80 transition-opacity duration-500 hover:opacity-100"
-                  href="https://www.aurora-expeditions.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Aurora Expeditions
-                </a>
-                , following the legendary Northwest Passage through some of the
-                most remote landscapes on the planet.
-              </p>
+                  , following the legendary Northwest Passage through some of
+                  the most remote landscapes on the planet.
+                </p>
 
-              <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-100/70 md:text-sm">
-                Greenland <MoveRight className="text-brandDark" /> Nunavut
-                <MoveRight className="text-brandDark" />
-                Northwest Territories
-                <MoveRight className="text-brandDark" /> Yukon
-                <MoveRight className="text-brandDark" /> Alaska
+                <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-100/70 md:text-sm">
+                  Greenland <MoveRight className="text-brandDark" /> Nunavut
+                  <MoveRight className="text-brandDark" />
+                  Northwest Territories
+                  <MoveRight className="text-brandDark" /> Yukon
+                  <MoveRight className="text-brandDark" /> Alaska
+                </div>
+                <Button
+                  variant="default"
+                  className="!bg-brandDark hover:!bg-brand"
+                  size="lg"
+                  onClick={() =>
+                    document
+                      .getElementById("sample-film-work")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                >
+                  Watch Sample Film Work
+                </Button>
               </div>
-              <Button
-                variant="default"
-                className="!bg-brandDark hover:!bg-brand"
-                size="lg"
-                onClick={() =>
-                  document
-                    .getElementById("sample-film-work")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                Watch Sample Film Work
-              </Button>
-            </div>
-            <div className="flex gap-3">
-              <div
-                className={cn(
-                  animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-8rem)] md:rounded-t-none"
-                )}
-              >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/DSC06693.webp"
-                  width="4377"
-                  height="6566"
-                  sizes="auto, 100vw"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div
-                className={cn(
-                  animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-6rem)] md:rounded-t-none"
-                )}
-              >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/DSC00393.webp"
-                  width="2500"
-                  height="1667"
-                  sizes="auto, 100vw"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div
-                className={cn(
-                  animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-4rem)] md:rounded-t-none"
-                )}
-              >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/DJI_20250706102219_0089_D.webp"
-                  width="1599"
-                  height="2399"
-                  sizes="auto, 100vw"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div
-                className={cn(
-                  animateClass,
-                  "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-2rem)] md:rounded-t-none"
-                )}
-              >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/DSC09810.webp"
-                  width="4672"
-                  height="7008"
-                  sizes="auto, 100vw"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <div className="flex gap-3">
+                <div
+                  className={cn(
+                    animateClass,
+                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-8rem)] md:rounded-t-none"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/DSC06693.webp"
+                    width="4377"
+                    height="6566"
+                    sizes="auto, 100vw"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    animateClass,
+                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-6rem)] md:rounded-t-none"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/DSC00393.webp"
+                    width="2500"
+                    height="1667"
+                    sizes="auto, 100vw"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    animateClass,
+                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-4rem)] md:rounded-t-none"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/DJI_20250706102219_0089_D.webp"
+                    width="1599"
+                    height="2399"
+                    sizes="auto, 100vw"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    animateClass,
+                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-2rem)] md:rounded-t-none"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/DSC09810.webp"
+                    width="4672"
+                    height="7008"
+                    sizes="auto, 100vw"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -413,166 +416,175 @@ export default function ArcticPassage2026() {
             className="h-full w-full object-cover object-center"
           />
         </AspectRatio>
-        <section className="container bg-black/40">
-          <div className="space-y-3 px-0 py-12 text-center md:px-12">
-            <div className={cn(animateClass)}>
-              <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                A 29-Day Arctic Expedition
+        <section className="bg-black/40">
+          <div className="container">
+            <div className="space-y-3 px-0 py-12 text-center md:px-12">
+              <div className={cn(animateClass)}>
+                <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
+                  A 29-Day Arctic Expedition
+                </div>
+                <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
+                  A Go Canada Original Film
+                </h2>
+                <div className="mx-auto mt-4 w-24 border-t-4 border-brandDark"></div>
               </div>
-              <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
-                A Go Canada Original Film
-              </h2>
-              <div className="mx-auto mt-4 w-24 border-t-4 border-brandDark"></div>
-            </div>
-            <p
-              className={cn(
-                animateClass,
-                "mx-auto max-w-5xl rounded-3xl text-left text-xl leading-loose delay-150 md:px-6"
-              )}
-            >
-              In August 2026, Go Canada Studios will join Aurora Expeditions on
-              a 29-day journey through the entire Canadian Arctic through some
-              of Canada's most remote Arctic waterways and communities.
-              Traversing remote Arctic waterways, Inuit communities, towering
-              icefields, and some of the most wildlife-rich regions on Earth,
-              the expedition will be documented through Go Canada's first
-              flagship original film, supported by photography and editorial
-              storytelling from one of the last great wilderness frontiers on
-              the planet.
-            </p>
-            <div className="flex flex-wrap gap-6 pt-8 sm:flex-nowrap">
-              <div
+              <p
                 className={cn(
                   animateClass,
-                  "overflow-hidden rounded-3xl delay-100 sm:flex-1"
+                  "mx-auto max-w-5xl rounded-3xl text-left text-xl leading-loose delay-150 md:px-6"
                 )}
               >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/5.webp"
-                  width="3375"
-                  height="4219"
-                  sizes="auto, 100vw"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                />
-              </div>
-              <div
-                className={cn(
-                  animateClass,
-                  "overflow-hidden rounded-3xl delay-300 sm:flex-1"
-                )}
-              >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/6.webp"
-                  width="3375"
-                  height="4219"
-                  sizes="auto, 100vw"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                />
-              </div>
-              <div
-                className={cn(
-                  animateClass,
-                  "overflow-hidden rounded-3xl delay-500 sm:flex-1"
-                )}
-              >
-                <img
-                  alt=""
-                  src="/images/arctic-passage/4.webp"
-                  width="3375"
-                  height="4219"
-                  sizes="auto, 100vw"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
-                />
+                In August 2026, Go Canada Studios will join Aurora Expeditions
+                on a 29-day journey through the entire Canadian Arctic through
+                some of Canada's most remote Arctic waterways and communities.
+                Traversing remote Arctic waterways, Inuit communities, towering
+                icefields, and some of the most wildlife-rich regions on Earth,
+                the expedition will be documented through Go Canada's first
+                flagship original film, supported by photography and editorial
+                storytelling from one of the last great wilderness frontiers on
+                the planet.
+              </p>
+              <div className="flex flex-wrap gap-6 pt-8 sm:flex-nowrap">
+                <div
+                  className={cn(
+                    animateClass,
+                    "overflow-hidden rounded-3xl delay-100 sm:flex-1"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/5.webp"
+                    width="3375"
+                    height="4219"
+                    sizes="auto, 100vw"
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    animateClass,
+                    "overflow-hidden rounded-3xl delay-300 sm:flex-1"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/6.webp"
+                    width="3375"
+                    height="4219"
+                    sizes="auto, 100vw"
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    animateClass,
+                    "overflow-hidden rounded-3xl delay-500 sm:flex-1"
+                  )}
+                >
+                  <img
+                    alt=""
+                    src="/images/arctic-passage/4.webp"
+                    width="3375"
+                    height="4219"
+                    sizes="auto, 100vw"
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </section>
         <section
           id="sample-film-work"
-          className="container"
+          className=""
           style={{
             backgroundImage:
               "radial-gradient(circle, #0C1C2B 1.2px, transparent 1.2px)",
             backgroundSize: "15px 15px",
           }}
         >
-          <div className="py-12">
-            <div className="space-y-6 rounded-3xl px-0 text-left text-lg md:px-12">
-              <div className={cn(animateClass)}>
-                <h2 className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                  Sample Film Work
-                </h2>
-                <p>
-                  Previous Arctic film work by expedition cinematographer{" "}
-                  <a
-                    href="https://www.instagram.com/jonanthonyjames/"
-                    className="underline opacity-80 transition-opacity hover:opacity-100"
-                  >
-                    Jonanthony James
-                  </a>
-                  , who will lead production on the Canadian Arctic expedition.
-                </p>
-                <div className="mt-4 w-24 border-t-4 border-brandDark"></div>
-              </div>
+          <div className="container">
+            <div className="py-12">
+              <div className="space-y-6 rounded-3xl px-0 text-left text-lg md:px-12">
+                <div className={cn(animateClass)}>
+                  <h2 className="font-lg font-bold uppercase tracking-widest text-sky-200">
+                    Sample Film Work
+                  </h2>
+                  <p>
+                    Previous Arctic film work by expedition cinematographer{" "}
+                    <a
+                      href="https://www.instagram.com/jonanthonyjames/"
+                      className="underline opacity-80 transition-opacity hover:opacity-100"
+                    >
+                      Jonanthony James
+                    </a>
+                    , who will lead production on the Canadian Arctic
+                    expedition.
+                  </p>
+                  <div className="mt-4 w-24 border-t-4 border-brandDark"></div>
+                </div>
 
-              <div className="rounded-3xl bg-black/20 p-3">
-                <AspectRatio
-                  ratio={16 / 9}
-                  className={cn(animateClass, "w-full delay-150")}
-                >
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/W0HuvT8FXcg?si=1Nx66u8wMVk2CX81"
-                    title="Svalbard Arctic Cruise: Polar Bears, Glaciers & Wildlife Expedition"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    className="rounded-2xl"
-                  />
-                </AspectRatio>
+                <div className="rounded-3xl bg-black/20 p-3">
+                  <AspectRatio
+                    ratio={16 / 9}
+                    className={cn(animateClass, "w-full delay-150")}
+                  >
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/W0HuvT8FXcg?si=1Nx66u8wMVk2CX81"
+                      title="Svalbard Arctic Cruise: Polar Bears, Glaciers & Wildlife Expedition"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                      className="rounded-2xl"
+                    />
+                  </AspectRatio>
+                </div>
               </div>
             </div>
           </div>
         </section>
-        <section className="container bg-gradient-to-br from-slate-950 to-sky-950">
-          <div className="space-y-6 px-0 py-12 text-center md:px-12">
-            <div className={cn(animateClass)}>
-              <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
-                Project Snapshot
+        <section className="bg-gradient-to-br from-slate-950 to-sky-950">
+          <div className="container">
+            <div className="space-y-6 px-0 py-12 text-center md:px-12">
+              <div className={cn(animateClass)}>
+                <div className="font-lg font-bold uppercase tracking-widest text-sky-200">
+                  Project Snapshot
+                </div>
+                <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
+                  Traversing the Northwest Passage
+                </h2>
+                <div className="mx-auto mt-4 w-24 border-t-4 border-brandDark"></div>
               </div>
-              <h2 className="font-alternateSerif text-5xl leading-none tracking-[-.05em]">
-                Traversing the Northwest Passage
-              </h2>
-              <div className="mx-auto mt-4 w-24 border-t-4 border-brandDark"></div>
-            </div>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-              {projectSnapshots.map(({ icon: Icon, label, delayClassName }) => (
-                <AspectRatio
-                  ratio={1}
-                  key={label}
-                  className={cn(
-                    animateClass,
-                    "group select-none rounded-3xl bg-black/40 ",
-                    delayClassName
-                  )}
-                >
-                  <div className="relative flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden p-6 font-alternateSerif text-base transition-colors duration-300 hover:bg-black/20 sm:text-xl lg:text-2xl xl:text-3xl">
-                    <div className="absolute z-0 text-sky-950">
-                      <Icon className="size-32 opacity-30 transition-transform duration-300 group-hover:rotate-6 lg:size-40 xl:size-48" />
-                    </div>
-                    <div className="relative z-10">{label}</div>
-                  </div>
-                </AspectRatio>
-              ))}
+              <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+                {projectSnapshots.map(
+                  ({ icon: Icon, label, delayClassName }) => (
+                    <AspectRatio
+                      ratio={1}
+                      key={label}
+                      className={cn(
+                        animateClass,
+                        "group select-none rounded-3xl bg-black/40 ",
+                        delayClassName
+                      )}
+                    >
+                      <div className="relative flex h-full w-full flex-col items-center justify-center gap-4 overflow-hidden p-6 font-alternateSerif text-base transition-colors duration-300 hover:bg-black/20 sm:text-xl lg:text-2xl xl:text-3xl">
+                        <div className="absolute z-0 text-sky-950">
+                          <Icon className="size-32 opacity-30 transition-transform duration-300 group-hover:rotate-6 lg:size-40 xl:size-48" />
+                        </div>
+                        <div className="relative z-10">{label}</div>
+                      </div>
+                    </AspectRatio>
+                  )
+                )}
+              </div>
             </div>
           </div>
         </section>
@@ -632,21 +644,23 @@ export default function ArcticPassage2026() {
         </div>
       </main>
       <footer>
-        <section className="container bg-slate-950">
-          <div className="flex flex-col items-center justify-center space-y-12 py-24 text-center">
-            <Logo />
-            <div className="space-y-3">
-              <p>
-                <a
-                  href="mailto:rishad@gocanada.com"
-                  className="font-alternateSerif text-xl tracking-wide hover:underline"
-                >
-                  &copy; {new Date().getFullYear()} Go Canada
-                </a>
-              </p>
-              <p className="text-xs uppercase tracking-widest text-sky-200">
-                All Rights Reserved.
-              </p>
+        <section className="bg-slate-950">
+          <div className="container">
+            <div className="flex flex-col items-center justify-center space-y-12 py-24 text-center">
+              <Logo />
+              <div className="space-y-3">
+                <p>
+                  <a
+                    href="mailto:rishad@gocanada.com"
+                    className="font-alternateSerif text-xl tracking-wide hover:underline"
+                  >
+                    &copy; {new Date().getFullYear()} Go Canada
+                  </a>
+                </p>
+                <p className="text-xs uppercase tracking-widest text-sky-200">
+                  All Rights Reserved.
+                </p>
+              </div>
             </div>
           </div>
         </section>
