@@ -240,7 +240,7 @@ export default function ArcticPassage2026() {
         className={cn("transition-opacity duration-700", open && "opacity-0")}
       >
         <section
-          className="pb-96 sm:pb-[400px] md:pb-[500px] lg:pb-[600px] xl:pb-[800px]"
+          className="pb-96 sm:pb-[400px] md:pb-[100vh]"
           style={{
             backgroundImage: "url('/images/arctic-passage/map.jpg')",
             backgroundSize: "100% auto",
@@ -250,7 +250,7 @@ export default function ArcticPassage2026() {
           }}
         >
           <div className="container">
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
               <div
                 className={cn(
                   animateClass,
@@ -335,7 +335,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-8rem)] md:rounded-t-none"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-8rem)]"
                   )}
                 >
                   <img
@@ -352,7 +352,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-6rem)] md:rounded-t-none"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-6rem)]"
                   )}
                 >
                   <img
@@ -369,7 +369,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-4rem)] md:rounded-t-none"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-4rem)]"
                   )}
                 >
                   <img
@@ -386,7 +386,7 @@ export default function ArcticPassage2026() {
                 <div
                   className={cn(
                     animateClass,
-                    "h-96 flex-1 overflow-hidden rounded-3xl delay-100 md:min-h-[calc(100vh-2rem)] md:rounded-t-none"
+                    "h-[50vh] flex-1 overflow-hidden rounded-3xl delay-100 lg:rounded-t-none lg:min-h-[calc(100vh-2rem)]"
                   )}
                 >
                   <img
