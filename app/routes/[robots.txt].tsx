@@ -5,6 +5,7 @@ export const loader = () => {
         
         User-agent: *
         Allow: /
+        Disallow: /arctic-passage-2026
         Disallow: /wp-admin/
         Disallow: /wp-login/
         Disallow: /login/

@@ -10,7 +10,12 @@ import {
   DialogTitle,
 } from "~/components/ui/dialog"
 import { toast } from "sonner"
-import type { MetaFunction } from "@remix-run/node"
+import {
+  json,
+  type HeadersFunction,
+  type LoaderFunction,
+  type MetaFunction,
+} from "@remix-run/node"
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
 import {
   generateBreadcrumbSchema,
@@ -52,6 +57,7 @@ export const meta: MetaFunction = () => {
 
   return [
     { title },
+    { name: "robots", content: "noindex, nofollow" },
     { name: "description", content: description },
     { property: "og:description", content: description },
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
@@ -97,6 +103,21 @@ export const meta: MetaFunction = () => {
     },
   ]
 }
+
+export const loader: LoaderFunction = async () =>
+  json(
+    {},
+    {
+      headers: {
+        // Always revalidate in the browser
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        // Cache for a year at Netlify's edge; purged automatically on every deploy
+        "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
+      },
+    }
+  )
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 const projectSnapshots = [
   {
