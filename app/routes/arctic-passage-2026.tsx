@@ -263,7 +263,7 @@ export default function ArcticPassage2026() {
         <section
           className="pb-96 sm:pb-[400px] md:pb-[100vh]"
           style={{
-            backgroundImage: "url('/images/arctic-passage/map.jpg')",
+            backgroundImage: "url('/images/arctic-passage/map.webp')",
             backgroundSize: "100% auto",
             backgroundPosition: "bottom center",
             backgroundRepeat: "no-repeat",
@@ -363,10 +363,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/DSC06693.webp"
-                    width="4377"
-                    height="6566"
-                    sizes="auto, 100vw"
+                    src="/images/arctic-passage/DSC06693-1600w.webp"
+                    srcSet="/images/arctic-passage/DSC06693-400w.webp 400w, /images/arctic-passage/DSC06693-800w.webp 800w, /images/arctic-passage/DSC06693-1200w.webp 1200w, /images/arctic-passage/DSC06693-1600w.webp 1600w"
+                    sizes="25vw"
+                    width="1600"
+                    height="2400"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
                     loading="lazy"
                     decoding="async"
@@ -380,10 +381,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/DSC00393.webp"
-                    width="2500"
-                    height="1667"
-                    sizes="auto, 100vw"
+                    src="/images/arctic-passage/DSC00393-1600w.webp"
+                    srcSet="/images/arctic-passage/DSC00393-400w.webp 400w, /images/arctic-passage/DSC00393-800w.webp 800w, /images/arctic-passage/DSC00393-1200w.webp 1200w, /images/arctic-passage/DSC00393-1600w.webp 1600w"
+                    sizes="25vw"
+                    width="1600"
+                    height="1067"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
                     loading="lazy"
                     decoding="async"
@@ -397,10 +399,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/DJI_20250706102219_0089_D.webp"
+                    src="/images/arctic-passage/DJI_20250706102219_0089_D-1600w.webp"
+                    srcSet="/images/arctic-passage/DJI_20250706102219_0089_D-400w.webp 400w, /images/arctic-passage/DJI_20250706102219_0089_D-800w.webp 800w, /images/arctic-passage/DJI_20250706102219_0089_D-1200w.webp 1200w, /images/arctic-passage/DJI_20250706102219_0089_D-1600w.webp 1600w"
+                    sizes="25vw"
                     width="1599"
                     height="2399"
-                    sizes="auto, 100vw"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
                     loading="lazy"
                     decoding="async"
@@ -414,10 +417,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/DSC09810.webp"
-                    width="4672"
-                    height="7008"
-                    sizes="auto, 100vw"
+                    src="/images/arctic-passage/DSC09810-1600w.webp"
+                    srcSet="/images/arctic-passage/DSC09810-400w.webp 400w, /images/arctic-passage/DSC09810-800w.webp 800w, /images/arctic-passage/DSC09810-1200w.webp 1200w, /images/arctic-passage/DSC09810-1600w.webp 1600w"
+                    sizes="25vw"
+                    width="1600"
+                    height="2400"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
                     loading="lazy"
                     decoding="async"
@@ -434,7 +438,7 @@ export default function ArcticPassage2026() {
             loop
             muted
             autoPlay
-            poster="/images/arctic-passage/DSC00393.webp"
+            poster="/images/arctic-passage/DSC00393-1600w.webp"
             src="https://res.cloudinary.com/getpackup/video/upload/v1781376024/high-arctic_lpqw30.mp4"
             className="h-full w-full object-cover object-center"
           />
@@ -476,10 +480,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/5.webp"
-                    width="3375"
-                    height="4219"
-                    sizes="auto, 100vw"
+                    src="/images/arctic-passage/5-1600w.webp"
+                    srcSet="/images/arctic-passage/5-400w.webp 400w, /images/arctic-passage/5-800w.webp 800w, /images/arctic-passage/5-1200w.webp 1200w, /images/arctic-passage/5-1600w.webp 1600w"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    width="1600"
+                    height="2000"
                     loading="lazy"
                     decoding="async"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
@@ -493,10 +498,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/6.webp"
-                    width="3375"
-                    height="4219"
-                    sizes="auto, 100vw"
+                    src="/images/arctic-passage/6-1600w.webp"
+                    srcSet="/images/arctic-passage/6-400w.webp 400w, /images/arctic-passage/6-800w.webp 800w, /images/arctic-passage/6-1200w.webp 1200w, /images/arctic-passage/6-1600w.webp 1600w"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    width="1600"
+                    height="2000"
                     loading="lazy"
                     decoding="async"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
@@ -510,10 +516,11 @@ export default function ArcticPassage2026() {
                 >
                   <img
                     alt=""
-                    src="/images/arctic-passage/4.webp"
-                    width="3375"
-                    height="4219"
-                    sizes="auto, 100vw"
+                    src="/images/arctic-passage/4-1600w.webp"
+                    srcSet="/images/arctic-passage/4-400w.webp 400w, /images/arctic-passage/4-800w.webp 800w, /images/arctic-passage/4-1200w.webp 1200w, /images/arctic-passage/4-1600w.webp 1600w"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    width="1600"
+                    height="2000"
                     loading="lazy"
                     decoding="async"
                     className="h-full scale-105 object-cover object-center transition-all duration-300 hover:scale-100"
