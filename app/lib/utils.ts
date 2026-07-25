@@ -22,13 +22,17 @@ export const genericMetaTags = ({
   description,
   canonical,
   schemas,
+  image,
 }: {
   title: string
   description: string
   canonical?: string
   schemas?: Record<string, unknown>[]
+  image?: { url: string; alt?: string }
 }) => {
-  const imageAlt = "White logo for Go Canada on a red background"
+  const imageUrl = image?.url || "https://gocanada.com/images/og-main.png"
+  const imageAlt =
+    image?.alt || "White logo for Go Canada on a red background"
   const meta: MetaDescriptor[] = [
     { title },
     { name: "description", content: description },
@@ -38,7 +42,7 @@ export const genericMetaTags = ({
     { property: "twitter:description", content: description },
     {
       property: "twitter:image",
-      content: "https://gocanada.com/images/og-main.png",
+      content: imageUrl,
     },
     { property: "twitter:image:alt", content: imageAlt },
     { property: "og:type", content: "website" },
@@ -51,7 +55,7 @@ export const genericMetaTags = ({
     { property: "og:image:height", content: String(OG_IMAGE_HEIGHT) },
     {
       property: "og:image",
-      content: "https://gocanada.com/images/og-main.png",
+      content: imageUrl,
     },
     { property: "og:image:type", content: "image/png" },
     { property: "og:image:alt", content: imageAlt },

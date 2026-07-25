@@ -1,6 +1,11 @@
 import { Layout } from "~/components/Layout"
 import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json, LoaderFunction, HeadersFunction } from "@remix-run/node"
+import {
+  json,
+  LoaderFunction,
+  LoaderFunctionArgs,
+  HeadersFunction,
+} from "@remix-run/node"
 import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
 import { client } from "~/sanity/client"
 import { MetaFunction, useLoaderData } from "@remix-run/react"
@@ -11,28 +16,35 @@ import Prose from "~/components/portable/Prose"
 import { HeroImage } from "~/components/HeroImage"
 import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
 import { genericMetaTags } from "~/lib/utils"
-import SubscribeForm from "~/components/SubscribeForm"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
 }: {
   data: StaticPageLoaderData
 }) => {
+  const sanitizedData = sanitizeStrings(data)
+  const ogImageUrl = sanitizedData ? sanitizedData.ogImageUrl : undefined
   const title = `Sweepstakes | ${data.siteConfig.siteTitle}`
   const description = `Enter the latest ${data.siteConfig.siteTitle} sweepstakes for a chance to win travel-inspired prizes.`
   return genericMetaTags({
     title,
     description,
     canonical: "/en/sweepstakes",
+    image: ogImageUrl ? { url: ogImageUrl } : undefined,
   })
 }
 
 type StaticPageLoaderData = {
   staticPage: StaticPage
   siteConfig: SiteConfigType
+  ogImageUrl: string
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({
+  params,
+  request,
+}: LoaderFunctionArgs) => {
   isLangSupportedLang(params.lang)
 
   const staticPage = await getStaticPageByRoute(
@@ -41,9 +53,11 @@ export const loader: LoaderFunction = async ({ params }) => {
     "/sweepstakes"
   )
   const siteConfig = await getSiteConfig(client)
+  const { origin } = new URL(request.url)
+  const ogImageUrl = `${origin}/resource/og?id=${staticPage?._id}`
 
   return json(
-    { staticPage, siteConfig },
+    { staticPage, siteConfig, ogImageUrl },
     {
       status: 200,
       headers: {
