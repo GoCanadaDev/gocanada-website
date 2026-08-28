@@ -657,17 +657,6 @@ export default function ArcticPassage2026() {
                   photography, editorial, and social media initiatives stemming
                   from the expedition.
                 </p>
-                <div className="space-y-4 pt-4 font-alternateSerif text-lg leading-relaxed">
-                  <p className="flex items-center gap-2">
-                    <Compass /> Presenting Partner (1 Available)
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Compass /> Destination Partners (Limited Availability)
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Compass /> Brand Partners (Limited Availability)
-                  </p>
-                </div>
               </div>
             </div>
           </div>
