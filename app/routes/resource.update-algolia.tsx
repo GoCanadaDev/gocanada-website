@@ -10,6 +10,7 @@ import {
 } from "~/sanity/projectDetails"
 import { algoliaPostsProjection } from "~/sanity/queries"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { toAlgoliaPostRecord } from "~/algolia/records"
 
 const algoliaAdminInstance = algoliasearch(
   algoliaApplicationId,
@@ -34,7 +35,7 @@ export const action: ActionFunction = async ({ request }) => {
         projection: algoliaPostsProjection,
       },
     },
-    (document) => sanitizeStrings(document),
+    (document) => toAlgoliaPostRecord(sanitizeStrings(document)),
     // Visibility function to determine which document should be included
     (document) => !["unapproved"].includes(document.status)
   )
