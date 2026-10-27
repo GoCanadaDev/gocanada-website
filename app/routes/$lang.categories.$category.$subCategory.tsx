@@ -61,7 +61,11 @@ export const meta: MetaFunction<typeof loader> = ({
     schemas: [
       generateOrganizationSchema(),
       generateWebsiteSchema(),
-      generateBlogSchema({ description }),
+      generateBlogSchema({
+        description,
+        url: canonical,
+        posts: data.subCategory.posts,
+      }),
       generateBreadcrumbSchema([
         {
           name: "Home",

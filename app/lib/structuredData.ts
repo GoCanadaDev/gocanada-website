@@ -1,3 +1,5 @@
+import type { PostPreview } from "~/sanity/queries"
+
 const org = {
   name: "Go Canada",
   url: "https://gocanada.com",
@@ -31,12 +33,42 @@ export function generateWebsiteSchema() {
   }
 }
 
-export function generateBlogSchema({ description }: { description: string }) {
+// Listing pages can render hundreds of posts; cap what goes into the <head>
+const MAX_BLOG_POSTS_IN_SCHEMA = 20
+
+export function generateBlogSchema({
+  description,
+  url = org.url,
+  posts = [],
+}: {
+  description: string
+  url?: string
+  posts?: PostPreview[]
+}) {
+  const blogPost = posts
+    .filter((post) => post.slug?.en && post.title?.en)
+    .slice(0, MAX_BLOG_POSTS_IN_SCHEMA)
+    .map((post) => {
+      const slug =
+        typeof post.slug.en === "string" ? post.slug.en : post.slug.en.current
+      return {
+        "@type": "BlogPosting",
+        headline: post.title.en,
+        url: `https://gocanada.com/en/${slug}`,
+        ...(post.mainImage?.url && { image: post.mainImage.url }),
+        ...(post.author?.name && {
+          author: { "@type": "Person", name: post.author.name },
+        }),
+        datePublished: post.publishedAt,
+        dateModified: post._updatedAt || post.publishedAt,
+      }
+    })
+
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "Go Canada",
-    url: "https://gocanada.com",
+    url,
     description,
     publisher: {
       "@type": "Organization",
@@ -46,6 +78,7 @@ export function generateBlogSchema({ description }: { description: string }) {
         url: org.logoUrl,
       },
     },
+    ...(blogPost.length > 0 && { blogPost }),
   }
 }
 
