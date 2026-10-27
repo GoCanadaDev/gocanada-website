@@ -18,6 +18,7 @@ export interface WebhookBody {
     | "featuredPostsConfig"
     | "popupPromoConfig"
     | "adConfigType"
+    | "authorType"
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -42,7 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
     })
   } else if (_type === "categoryType") {
     await purgeCache({
-      tags: [`posts:category:${_id}`],
+      tags: [`category:${_id}`, "categories"],
     })
   } else if (_type === "subCategoryType") {
     await purgeCache({
@@ -50,11 +51,11 @@ export const action: ActionFunction = async ({ request }) => {
     })
   } else if (_type === "staticPageType") {
     await purgeCache({
-      tags: [`staticPage:${_id}`],
+      tags: [`static-pages:${_id}`],
     })
   } else if (_type === "authorType") {
     await purgeCache({
-      tags: [`authors, authors:${_id}`],
+      tags: ["authors", `authors:${_id}`],
     })
   }
 
