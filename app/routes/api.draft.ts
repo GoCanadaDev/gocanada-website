@@ -8,29 +8,16 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     throw new Response("Draft mode missing token!", { status: 401 })
   }
 
-  const url = new URL(request.url)
-
   const clientWithToken = client.withConfig({
     token: process.env.SANITY_READ_TOKEN,
   })
 
-  // Handle either the standard validatePreviewUrl params or the ones from your logs
-  let isValid = false
-  let redirectTo = "/en"
-
-  if (url.searchParams.has("sanity-preview-secret")) {
-    // Handle the Sanity presentation tool format
-    const secret = url.searchParams.get("sanity-preview-secret")
-    const pathname = url.searchParams.get("sanity-preview-pathname")
-
-    isValid = Boolean(secret) // You may want to validate this against a stored secret
-    redirectTo = pathname || redirectTo
-  } else {
-    // Fall back to the standard preview URL validation
-    const result = await validatePreviewUrl(clientWithToken, request.url)
-    isValid = result.isValid
-    redirectTo = result.redirectTo || redirectTo
-  }
+  // Checks the sanity-preview-secret param against the secret the Presentation
+  // tool stored in the dataset, and reads the redirect from sanity-preview-pathname
+  const { isValid, redirectTo = "/en" } = await validatePreviewUrl(
+    clientWithToken,
+    request.url
+  )
 
   if (!isValid) {
     throw new Response("Invalid secret!", { status: 401 })
