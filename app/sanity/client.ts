@@ -1,12 +1,6 @@
 import { createClient } from "@sanity/client"
 
-import {
-  apiVersion,
-  dataset,
-  projectId,
-  studioUrl,
-  useStega,
-} from "./projectDetails"
+import { apiVersion, dataset, projectId } from "./projectDetails"
 
 // Only create the client if we have the required values
 // This prevents errors when window.ENV is not yet available (e.g., in error boundaries)
@@ -20,10 +14,9 @@ export const client = hasRequiredValues
       dataset,
       apiVersion,
       useCdn: true,
-      stega: {
-        enabled: useStega,
-        studioUrl,
-      },
+      // Stega is only enabled for draft mode (see loadQueryWithDraft); encoding it
+      // into published pages bloats the HTML with zero-width characters
+      stega: { enabled: false },
     })
   : // Create a minimal client with placeholder values to satisfy type requirements
     // This won't be used on the client side anyway (client is only used in server loaders)

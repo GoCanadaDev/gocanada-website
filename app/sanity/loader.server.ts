@@ -1,5 +1,6 @@
 import { client } from "~/sanity/client"
 import { queryStore } from "~/sanity/loader"
+import { studioUrl, useStega } from "~/sanity/projectDetails"
 
 export const { loadQuery } = queryStore
 
@@ -20,6 +21,7 @@ export function loadQueryWithDraft(
     ? client.withConfig({
         token: process.env.SANITY_READ_TOKEN,
         perspective: "drafts",
+        stega: { enabled: useStega, studioUrl },
       })
     : client
 

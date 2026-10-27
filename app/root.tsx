@@ -382,7 +382,7 @@ function App() {
         </noscript>
 
         <ScrollRestoration />
-        {ENV.SANITY_STUDIO_USE_STEGA ? (
+        {isDraftMode && ENV.SANITY_STUDIO_USE_STEGA === "true" ? (
           <Hydrated>
             <VisualEditing />
           </Hydrated>
