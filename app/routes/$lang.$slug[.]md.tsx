@@ -200,6 +200,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       "Cache-Control": "public, max-age=0, must-revalidate",
       "Netlify-CDN-Cache-Control": "public, s-maxage=31536000",
       "Cache-Tag": `posts:id:${postData._id}`,
+      // French translations are on hold, so keep /fr pages out of search
+      ...(params.lang === "fr" && { "X-Robots-Tag": "noindex" }),
     },
   })
 }

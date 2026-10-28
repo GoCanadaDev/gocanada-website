@@ -109,8 +109,10 @@ export function Navigation() {
                         <ul>
                           {provincesList
                             ?.sort((a, b) =>
-                              a.title[categoryTranslation].localeCompare(
-                                b.title[categoryTranslation]
+                              (
+                                a.title[categoryTranslation] ?? ""
+                              ).localeCompare(
+                                b.title[categoryTranslation] ?? ""
                               )
                             )
                             .map((subCategory) => {
@@ -133,8 +135,10 @@ export function Navigation() {
                         <ul>
                           {territoriesList
                             ?.sort((a, b) =>
-                              a.title[categoryTranslation].localeCompare(
-                                b.title[categoryTranslation]
+                              (
+                                a.title[categoryTranslation] ?? ""
+                              ).localeCompare(
+                                b.title[categoryTranslation] ?? ""
                               )
                             )
                             .map((subCategory) => {

@@ -98,8 +98,10 @@ export function MobileNavigation() {
                             {provincesList.length > 0 &&
                               provincesList
                                 ?.sort((a, b) =>
-                                  a.title[categoryTranslation].localeCompare(
-                                    b.title[categoryTranslation]
+                                  (
+                                    a.title[categoryTranslation] ?? ""
+                                  ).localeCompare(
+                                    b.title[categoryTranslation] ?? ""
                                   )
                                 )
                                 .map((subCategory) => {
@@ -125,8 +127,10 @@ export function MobileNavigation() {
                             {territoriesList.length > 0 &&
                               territoriesList
                                 ?.sort((a, b) =>
-                                  a.title[categoryTranslation].localeCompare(
-                                    b.title[categoryTranslation]
+                                  (
+                                    a.title[categoryTranslation] ?? ""
+                                  ).localeCompare(
+                                    b.title[categoryTranslation] ?? ""
                                   )
                                 )
                                 .map((subCategory) => {
@@ -158,8 +162,10 @@ export function MobileNavigation() {
                                     subCategory.enabledInNav !== false
                                 )
                                 .sort((a, b) =>
-                                  a.title[categoryTranslation].localeCompare(
-                                    b.title[categoryTranslation]
+                                  (
+                                    a.title[categoryTranslation] ?? ""
+                                  ).localeCompare(
+                                    b.title[categoryTranslation] ?? ""
                                   )
                                 )
                                 .map((subCategory) => {

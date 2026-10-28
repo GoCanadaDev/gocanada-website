@@ -72,6 +72,11 @@ export default async function handleRequest(
 
           responseHeaders.set("Content-Type", "text/html")
 
+          // French translations are on hold, so keep /fr pages out of search
+          if (/^\/fr(\/|$)/.test(new URL(request.url).pathname)) {
+            responseHeaders.set("X-Robots-Tag", "noindex")
+          }
+
           resolve(
             // @ts-ignore
             new Response(body, {
