@@ -90,7 +90,7 @@ export default function MidRollBannerAd({}) {
                   <a
                     href={currentAd.midBannerAdUrl}
                     target="_blank"
-                    rel="noopener"
+                    rel="sponsored noopener"
                     aria-label="Learn more from our advertising partner"
                     onClick={() =>
                       trackEvent("MidRoll Ad Banner Clicked", {

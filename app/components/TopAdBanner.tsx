@@ -89,7 +89,7 @@ export default function TopAdBanner({}) {
                 <a
                   href={currentAd.topBannerAdUrl}
                   target="_blank"
-                  rel="noopener"
+                  rel="sponsored noopener"
                   aria-label="Learn more from our advertising partner"
                   onClick={() =>
                     trackEvent("Top Ad Banner Clicked", {

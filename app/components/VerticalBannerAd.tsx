@@ -185,7 +185,7 @@ export default function VerticalBannerAd({
                     <a
                       href={currentAd.verticalBannerAdUrl}
                       target="_blank"
-                      rel="noopener"
+                      rel="sponsored noopener"
                       aria-label="Learn more from our advertising partner"
                       onClick={() =>
                         trackEvent("Vertical Banner Ad Clicked", {

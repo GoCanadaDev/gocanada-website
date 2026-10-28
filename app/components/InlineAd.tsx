@@ -68,7 +68,7 @@ export default function InlineAd({
                 {typeof adCode === "string" ? (
                   <div dangerouslySetInnerHTML={{ __html: adCode }} />
                 ) : (
-                  <a href={adUrl} target="_blank" rel="noopener">
+                  <a href={adUrl} target="_blank" rel="sponsored noopener">
                     <SanityImage
                       id={adImage.id}
                       baseUrl={baseUrl}
