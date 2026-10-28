@@ -1,4 +1,6 @@
+import { Form, useSubmit } from "@remix-run/react"
 import { useEffect, useState } from "react"
+
 import {
   Dialog,
   DialogContent,
@@ -6,13 +8,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+
+import { SubscribeForm } from "./SubscribeForm"
 const GoCanadaLogoColour = "/images/logotype-colour-sm.png"
 const GoCanadaLogoReverse = "/images/logotype-colour-reverse-sm.png"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
-import SubscribeForm from "./SubscribeForm"
-import { Form, useSubmit } from "@remix-run/react"
 
-export default function WelcomeDialog() {
+export function WelcomeDialog() {
   const submit = useSubmit()
   const [isOpen, setIsOpen] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)

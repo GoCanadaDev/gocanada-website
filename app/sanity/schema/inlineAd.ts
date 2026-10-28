@@ -1,5 +1,6 @@
 import { defineType } from "sanity"
-import { InlineAdProps } from "~/components/InlineAd"
+
+import type { InlineAdProps } from "~/components/InlineAd"
 
 export const inlineAdType = defineType({
   name: "inlineAdType",

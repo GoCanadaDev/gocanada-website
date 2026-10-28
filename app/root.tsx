@@ -1,4 +1,3 @@
-import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
 import type {
   ActionFunction,
   LinksFunction,
@@ -15,44 +14,45 @@ import {
   useLocation,
   useRouteError,
 } from "@remix-run/react"
-import { useChangeLanguage } from "remix-i18next"
+import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useChangeLanguage } from "remix-i18next"
+import sonnerStyles from "sonner/dist/styles.css?url"
 import { z } from "zod"
+
 import {
+  gdprConsent,
   langPreferenceCookie,
   themePreferenceCookie,
-  gdprConsent,
 } from "~/cookies.server"
-import { getBodyClassNames } from "~/lib/getBodyClassNames"
-import {
-  Category,
-  Partner,
-  getCategories,
-  getPartners,
-  getSpotlightPost,
-} from "~/sanity/queries"
-import styles from "~/tailwind.css?url"
-import sonnerStyles from "sonner/dist/styles.css?url"
-import { getEnv } from "./env.server"
-import VisualEditing from "./components/VisualEditing"
+import type { SupportedLanguages } from "~/i18n"
 import i18next from "~/i18next.server"
-import { Hydrated } from "./components/Hydrated"
-import ErrorBoundaryPage from "./components/ErrorBoundaryPage"
-import setLanguageCookie from "~/lib/setLanguageCookie"
-import { SupportedLanguages } from "~/i18n"
-import { client } from "./sanity/client"
-import { getFooterLinks, StaticPageRoute } from "~/sanity/queries/staticPages"
+import { getBodyClassNames } from "~/lib/getBodyClassNames"
+import { setLanguageCookie } from "~/lib/setLanguageCookie"
+import type { Category, Partner } from "~/sanity/queries"
+import { getCategories, getPartners, getSpotlightPost } from "~/sanity/queries"
+import type { StaticPageRoute } from "~/sanity/queries/staticPages"
+import { getFooterLinks } from "~/sanity/queries/staticPages"
+import styles from "~/tailwind.css?url"
+
 import { CookieBanner } from "./components/CookieBanner"
-import { Toaster } from "./components/ui/sonner"
-import { useTranslations } from "./lib/useTranslations"
-import { TranslationKey } from "./lib/flattenMessages"
-import { getSiteConfig, SiteConfigType } from "./sanity/queries/siteConfig"
-import { getAdConfig, AdConfigType } from "./sanity/queries/adConfig"
-import { useEffect, useState } from "react"
-import addExternalScripts from "./lib/addExternalScripts"
+import { ErrorBoundaryPage } from "./components/ErrorBoundaryPage"
+import { Hydrated } from "./components/Hydrated"
 import { Preview } from "./components/Preview"
-import { getDraftMode } from "./sanity/get-draft-mode.server"
+import { Toaster } from "./components/ui/sonner"
+import VisualEditing from "./components/VisualEditing"
+import { getEnv } from "./env.server"
+import { addExternalScripts } from "./lib/addExternalScripts"
+import type { TranslationKey } from "./lib/flattenMessages"
 import { sanityFetchWithTimeout } from "./lib/sanityFetchWithTimeout"
+import { useTranslations } from "./lib/useTranslations"
+import { client } from "./sanity/client"
+import { getDraftMode } from "./sanity/get-draft-mode.server"
+import type { AdConfigType } from "./sanity/queries/adConfig"
+import { getAdConfig } from "./sanity/queries/adConfig"
+import type { SiteConfigType } from "./sanity/queries/siteConfig"
+import { getSiteConfig } from "./sanity/queries/siteConfig"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },

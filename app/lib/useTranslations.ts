@@ -1,4 +1,4 @@
-import { Namespace, TFunction } from "i18next"
+import type { Namespace, TFunction } from "i18next"
 
 export const useTranslations = async (t: TFunction<Namespace, undefined>) => {
   // for each key in the translation file, we can call t(key) to get the translation

@@ -1,21 +1,17 @@
 import type {
+  HeadersFunction,
   LoaderFunction,
   LoaderFunctionArgs,
-  HeadersFunction,
 } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
+import type { MetaFunction } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 import { MoveLeft } from "lucide-react"
 import invariant from "tiny-invariant"
+
 import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { Separator } from "~/components/ui/separator"
-import { client } from "~/sanity/client"
-import { Category, getCategory } from "~/sanity/queries"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { genericMetaTags } from "~/lib/utils"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,13 +20,21 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import { Separator } from "~/components/ui/separator"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { Category } from "~/sanity/queries"
+import { getCategory } from "~/sanity/queries"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

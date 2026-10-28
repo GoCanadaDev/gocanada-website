@@ -1,5 +1,5 @@
-import { defineType } from "sanity"
 import { Megaphone } from "lucide-react"
+import { defineType } from "sanity"
 
 export const adConfigType = defineType({
   name: "adConfigType",

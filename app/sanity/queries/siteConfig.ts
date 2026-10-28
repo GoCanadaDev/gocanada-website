@@ -1,5 +1,6 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
+import groq from "groq"
+
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export type SiteConfigType = {

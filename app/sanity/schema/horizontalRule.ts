@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import HorizontalRule from "~/components/portable/HorizontalRule"
 
 export const horizontalRuleType = defineType({

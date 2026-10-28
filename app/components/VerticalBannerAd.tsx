@@ -1,11 +1,12 @@
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
-import { SanityImage } from "sanity-image"
-import { baseUrl } from "~/sanity/projectDetails"
-import { trackEvent } from "~/lib/utils"
-import useVisibilityTracker from "~/lib/useVisibilityTracker"
 import { useEffect, useRef, useState } from "react"
+import { SanityImage } from "sanity-image"
 
-export default function VerticalBannerAd({
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+import { useVisibilityTracker } from "~/lib/useVisibilityTracker"
+import { trackEvent } from "~/lib/utils"
+import { baseUrl } from "~/sanity/projectDetails"
+
+export function VerticalBannerAd({
   bottomMarkerRef,
 }: {
   bottomMarkerRef: React.RefObject<HTMLDivElement>

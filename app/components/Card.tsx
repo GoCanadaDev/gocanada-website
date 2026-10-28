@@ -1,12 +1,14 @@
 import { Link, useViewTransitionState } from "@remix-run/react"
-import { type PostPreview } from "~/sanity/queries"
-import { Typography } from "./Typography"
-import { Image } from "./Image"
-import { AspectRatio } from "./ui/aspect-ratio"
-import { cn } from "~/lib/utils"
 import { useEffect, useState } from "react"
 
-export default function Card({
+import { cn } from "~/lib/utils"
+import { type PostPreview } from "~/sanity/queries"
+
+import { Image } from "./Image"
+import { Typography } from "./Typography"
+import { AspectRatio } from "./ui/aspect-ratio"
+
+export function Card({
   post,
   showExcerpt,
   isLarge,

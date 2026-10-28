@@ -1,11 +1,12 @@
-import { Layout } from "~/components/Layout"
 import type { LoaderFunction } from "@remix-run/node"
 import type { MetaFunction } from "@remix-run/react"
-import type { SiteConfigType } from "~/sanity/queries/siteConfig"
-import SubscribeForm from "~/components/SubscribeForm"
+
+import { Layout } from "~/components/Layout"
+import { SubscribeForm } from "~/components/SubscribeForm"
 import { Typography } from "~/components/Typography"
-import { client } from "~/sanity/client"
 import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
 import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({

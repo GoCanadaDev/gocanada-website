@@ -1,14 +1,15 @@
-import * as Sentry from "@sentry/remix"
 import { RemixBrowser, useLocation, useMatches } from "@remix-run/react"
-import { startTransition, StrictMode, useEffect } from "react"
-import { hydrateRoot } from "react-dom/client"
-import i18n from "./i18n"
+import * as Sentry from "@sentry/remix"
 import i18next from "i18next"
-import { I18nextProvider, initReactI18next } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import Backend from "i18next-http-backend"
-import { getInitialNamespaces } from "remix-i18next"
 import posthog from "posthog-js"
+import { startTransition, StrictMode, useEffect } from "react"
+import { hydrateRoot } from "react-dom/client"
+import { I18nextProvider, initReactI18next } from "react-i18next"
+import { getInitialNamespaces } from "remix-i18next"
+
+import i18n from "./i18n"
 
 function PosthogInit() {
   useEffect(() => {

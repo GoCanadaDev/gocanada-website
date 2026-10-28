@@ -1,10 +1,13 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
-import { LocalizedString } from "~/sanity/queries/shared"
+import groq from "groq"
+import type { ImageAsset, ImageCrop, ImageHotspot, Slug } from "sanity"
+
+import type { SupportedLanguages } from "~/i18n"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { SupportedLanguages } from "~/i18n"
-import { PostPreview, postsProjection } from "./posts"
-import { ImageAsset, ImageCrop, ImageHotspot, Slug } from "sanity"
+import type { LocalizedString } from "~/sanity/queries/shared"
+
+import type { PostPreview } from "./posts"
+import { postsProjection } from "./posts"
 
 export type Author = {
   _id: string

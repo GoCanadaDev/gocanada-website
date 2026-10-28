@@ -1,4 +1,5 @@
 import { useHitsPerPage } from "react-instantsearch"
+
 import {
   Select,
   SelectContent,

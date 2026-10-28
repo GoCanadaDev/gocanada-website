@@ -3,7 +3,7 @@
  * @param formData A Remix `FormData` object to parse
  * @returns An object representation of the `FormData` in the given type with all values as strings
  */
-export default function getObjectFromFormData<T>(formData: FormData): T {
+export function getObjectFromFormData<T>(formData: FormData): T {
   const obj: Record<string, unknown> = {}
   for (const [key, value] of formData.entries()) {
     obj[key] = typeof value === "object" ? value : value.toString()

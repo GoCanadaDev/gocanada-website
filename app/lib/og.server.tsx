@@ -21,7 +21,7 @@ export async function generatePngFromDocument(
   doc: SanityDocument,
   origin: string
 ) {
-  const { title, mainImage, author } = doc
+  const { mainImage } = doc
 
   // Prepare font data and settings for Satori
   // const fontSerifData = await fontSerif(origin)

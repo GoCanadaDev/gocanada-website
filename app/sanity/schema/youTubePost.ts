@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import YouTubeEmbed from "~/components/portable/YouTubeEmbed"
 
 export const youTubePostType = defineType({

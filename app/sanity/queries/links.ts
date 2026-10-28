@@ -1,6 +1,7 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
-import { ImageAsset } from "sanity"
+import groq from "groq"
+import type { ImageAsset } from "sanity"
+
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export type LinksPageType = {

@@ -1,7 +1,10 @@
-import React from "react"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
 import { Link, useParams } from "@remix-run/react"
-import { SupportedLanguages } from "~/i18n"
+import React from "react"
+
+import type { SupportedLanguages } from "~/i18n"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+
+import { Typography } from "./Typography"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,7 +13,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu"
-import { Typography } from "./Typography"
 import { Separator } from "./ui/separator"
 
 const ListItem = React.forwardRef<

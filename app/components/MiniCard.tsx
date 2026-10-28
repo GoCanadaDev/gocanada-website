@@ -1,9 +1,15 @@
 import { Link, useViewTransitionState } from "@remix-run/react"
-import { PostPreview, Post, NextOrPreviousPostType } from "~/sanity/queries"
-import { Typography } from "./Typography"
-import { Image } from "./Image"
-import { AspectRatio } from "./ui/aspect-ratio"
+
 import { cn } from "~/lib/utils"
+import type {
+  NextOrPreviousPostType,
+  Post,
+  PostPreview,
+} from "~/sanity/queries"
+
+import { Image } from "./Image"
+import { Typography } from "./Typography"
+import { AspectRatio } from "./ui/aspect-ratio"
 
 export const MiniCard = ({
   post,

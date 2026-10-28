@@ -3,7 +3,7 @@ type ThreadsIconProps = {
   size?: number
   className?: string
 }
-export default function ThreadsIcon({
+export function ThreadsIcon({
   fill = "#bf2327",
   size = 32,
   className,

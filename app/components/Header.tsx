@@ -1,17 +1,19 @@
-import { Instagram } from "lucide-react"
 import { Link } from "@remix-run/react"
-import { Logo } from "~/components/Logo"
-import { MobileNavigation } from "./MobileNavigation"
-import { MouseEventHandler } from "react"
-import { Navigation } from "./Navigation"
-import SearchModal from "~/components/search/SearchModal"
-import { Separator } from "~/components/ui/separator"
-import SubscribeModal from "./SubscribeModal"
-import { ThemeToggle } from "~/components/ThemeToggle"
-import TopAdBanner from "./TopAdBanner"
+import { Instagram } from "lucide-react"
+import type { MouseEventHandler } from "react"
 import { animated } from "react-spring"
-import useBoop from "~/lib/useBoop"
+
+import { Logo } from "~/components/Logo"
+import SearchModal from "~/components/search/SearchModal"
+import { ThemeToggle } from "~/components/ThemeToggle"
+import { Separator } from "~/components/ui/separator"
+import { useBoop } from "~/lib/useBoop"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
+
+import { MobileNavigation } from "./MobileNavigation"
+import { Navigation } from "./Navigation"
+import { SubscribeModal } from "./SubscribeModal"
+import { TopAdBanner } from "./TopAdBanner"
 
 export function Header() {
   const rootLoaderData = useRootLoaderData()

@@ -67,7 +67,9 @@ const { results } = await algolia("/*/objects", {
 const indexed = new Set(results.filter(Boolean).map((r: any) => r.objectID))
 const missing = posts.filter((post: any) => !indexed.has(post.objectID))
 
-console.log(`${posts.length} posts in Sanity, ${missing.length} missing from Algolia`)
+console.log(
+  `${posts.length} posts in Sanity, ${missing.length} missing from Algolia`
+)
 missing.forEach((post: any) => console.log(`  - ${post.slug}`))
 
 if (missing.length === 0) process.exit(0)

@@ -3,7 +3,7 @@ type BlueSkyIconProps = {
   size?: number
   className?: string
 }
-export default function BlueSkyIcon({
+export function BlueSkyIcon({
   fill = "currentColor",
   size = 32,
 }: BlueSkyIconProps) {

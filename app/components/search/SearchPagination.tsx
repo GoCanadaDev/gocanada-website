@@ -1,4 +1,5 @@
 import { usePagination } from "react-instantsearch"
+
 import {
   Pagination,
   PaginationContent,

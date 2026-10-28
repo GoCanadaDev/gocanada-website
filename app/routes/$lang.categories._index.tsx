@@ -1,20 +1,25 @@
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react"
-import { json, LoaderFunction } from "@remix-run/node"
-import { Category, getCategories } from "~/sanity/queries"
-import { client } from "~/sanity/client"
-import { SupportedLanguages } from "~/i18n"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import type { LoaderFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
+import type { MetaFunction } from "@remix-run/react"
+import { Link, useLoaderData, useParams } from "@remix-run/react"
+import { Tag as TagIcon } from "lucide-react"
+
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { Tag as TagIcon } from "lucide-react"
-import { genericMetaTags, SITE_META } from "~/lib/utils"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
+import type { SupportedLanguages } from "~/i18n"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import {
   generateBlogSchema,
   generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { genericMetaTags, SITE_META } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { Category } from "~/sanity/queries"
+import { getCategories } from "~/sanity/queries"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

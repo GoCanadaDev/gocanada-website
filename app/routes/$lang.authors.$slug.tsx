@@ -1,17 +1,14 @@
 import type { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node"
 import { json } from "@remix-run/node"
-import { Link, MetaFunction, useLoaderData } from "@remix-run/react"
+import type { MetaFunction } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
+import { Search } from "lucide-react"
 import invariant from "tiny-invariant"
+
+import { AuthorCard } from "~/components/AuthorCard"
 import { CardGrid } from "~/components/CardGrid"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { Separator } from "~/components/ui/separator"
-import { client } from "~/sanity/client"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { Author, getAuthor } from "~/sanity/queries"
-import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { Search } from "lucide-react"
-import AuthorCard from "~/components/AuthorCard"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,15 +17,22 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { genericMetaTags } from "~/lib/utils"
+import { Separator } from "~/components/ui/separator"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
   generateProfilePageSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { Author } from "~/sanity/queries"
+import { getAuthor } from "~/sanity/queries"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

@@ -1,8 +1,11 @@
-import { SupportedLanguages } from "~/i18n"
+import { useEffect, useState } from "react"
 
-import { useState, useEffect } from "react"
+import type { SupportedLanguages } from "~/i18n"
 
-const useFormattedDate = (date: string, language: SupportedLanguages) => {
+export const useFormattedDate = (
+  date: string,
+  language: SupportedLanguages
+) => {
   const [formattedDate, setFormattedDate] = useState<string | null>(null)
 
   useEffect(
@@ -19,5 +22,3 @@ const useFormattedDate = (date: string, language: SupportedLanguages) => {
 
   return formattedDate
 }
-
-export default useFormattedDate

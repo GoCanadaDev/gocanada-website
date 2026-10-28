@@ -1,7 +1,5 @@
-import {
-  TikTokEmbed as TikTokEmbedComponent,
-  TikTokEmbedProps,
-} from "react-social-media-embed"
+import type { TikTokEmbedProps } from "react-social-media-embed"
+import { TikTokEmbed as TikTokEmbedComponent } from "react-social-media-embed"
 
 const TikTokEmbed = ({ url, ...rest }: TikTokEmbedProps) => {
   if (!url) {

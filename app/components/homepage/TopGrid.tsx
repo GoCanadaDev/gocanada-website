@@ -1,7 +1,8 @@
-import { PostPreview } from "~/sanity/queries"
-import Card from "../Card"
+import type { PostPreview } from "~/sanity/queries"
+
+import { Card } from "../Card"
+import { FrontAndCenterPostCarousel } from "../FrontAndCenterPostCarousel"
 import { Separator } from "../ui/separator"
-import FrontAndCenterPostCarousel from "../FrontAndCenterPostCarousel"
 
 export const TopGrid = ({
   featuredPosts,

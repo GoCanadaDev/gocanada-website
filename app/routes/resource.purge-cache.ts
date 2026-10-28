@@ -1,12 +1,13 @@
-import { client } from "~/sanity/client"
 import { purgeCache } from "@netlify/functions"
 import {
-  redirect,
   type ActionFunction,
   type LoaderFunction,
+  redirect,
 } from "@remix-run/node"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
+
 import { langPreferenceCookie } from "~/cookies.server"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { client } from "~/sanity/client"
 
 export interface WebhookBody {
   _id: string

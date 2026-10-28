@@ -1,10 +1,11 @@
 import type { Image } from "sanity"
-import type { Author, PostPreview } from "~/sanity/queries"
+
 import {
   type AuthorProfileKey,
   getAuthorProfileUrls,
 } from "~/lib/authorProfileUrls"
 import { urlForImage } from "~/lib/sanity.image"
+import type { Author, PostPreview } from "~/sanity/queries"
 
 const org = {
   // Stable identifier so publisher/WebSite nodes resolve to the same entity

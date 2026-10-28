@@ -1,5 +1,4 @@
-import { Typography } from "~/components/Typography"
-import { Author } from "~/sanity/queries"
+import { Link } from "@remix-run/react"
 import {
   AtSign,
   Facebook,
@@ -11,9 +10,11 @@ import {
   UserSquare2,
   Youtube,
 } from "lucide-react"
+
 import { Image } from "~/components/Image"
-import { Link } from "@remix-run/react"
+import { Typography } from "~/components/Typography"
 import { getAuthorProfileUrl } from "~/lib/authorProfileUrls"
+import type { Author } from "~/sanity/queries"
 
 enum AuthorLinksKeys {
   Website = "website",
@@ -25,7 +26,7 @@ enum AuthorLinksKeys {
   Email = "email",
 }
 
-export default function AuthorCard({
+export function AuthorCard({
   author,
   showLinkToAuthorPage,
 }: {

@@ -1,9 +1,11 @@
-import { client } from "~/sanity/client"
-import { loadMorePostsQuery } from "~/sanity/queries/posts"
-import { PostPreview } from "~/sanity/queries"
-import { Button } from "./ui/button"
-import { CardGrid } from "./CardGrid"
 import { useState } from "react"
+
+import { client } from "~/sanity/client"
+import type { PostPreview } from "~/sanity/queries"
+import { loadMorePostsQuery } from "~/sanity/queries/posts"
+
+import { CardGrid } from "./CardGrid"
+import { Button } from "./ui/button"
 
 type LoadMorePostsProps = {
   lastPostId?: string

@@ -1,7 +1,5 @@
-import {
-  XEmbed as XEmbedComponent,
-  XEmbedProps,
-} from "react-social-media-embed"
+import type { XEmbedProps } from "react-social-media-embed"
+import { XEmbed as XEmbedComponent } from "react-social-media-embed"
 
 const XEmbed = ({ url, ...rest }: XEmbedProps) => {
   if (!url) {

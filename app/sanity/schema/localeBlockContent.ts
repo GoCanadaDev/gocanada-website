@@ -1,5 +1,6 @@
-import { defineType } from "sanity";
-import { supportedLanguages } from "~/sanity/schema/language";
+import { defineType } from "sanity"
+
+import { supportedLanguages } from "~/sanity/schema/language"
 
 export const localeBlockContentType = defineType({
   title: "Localized Block Content",

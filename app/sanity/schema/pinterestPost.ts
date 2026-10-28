@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import PinterestEmbed from "~/components/portable/PinterestEmbed"
 
 export const pinterestPostType = defineType({

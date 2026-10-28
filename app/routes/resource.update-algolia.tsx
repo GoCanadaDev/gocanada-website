@@ -1,16 +1,15 @@
+import type { ActionFunction } from "@remix-run/node"
 import algoliasearch from "algoliasearch"
-import { client } from "~/sanity/client"
 import indexer from "sanity-algolia"
 
-import type { ActionFunction } from "@remix-run/node"
-
+import { toAlgoliaPostRecord } from "~/algolia/records"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { client } from "~/sanity/client"
 import {
   algoliaAdminApiKey,
   algoliaApplicationId,
 } from "~/sanity/projectDetails"
 import { algoliaPostsProjection } from "~/sanity/queries"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { toAlgoliaPostRecord } from "~/algolia/records"
 
 const algoliaAdminInstance = algoliasearch(
   algoliaApplicationId,

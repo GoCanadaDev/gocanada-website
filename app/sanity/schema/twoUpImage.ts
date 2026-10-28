@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
 
 export const twoUpImageType = defineType({

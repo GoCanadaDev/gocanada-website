@@ -1,7 +1,9 @@
 import groq from "groq"
-import { ValidationContext, defineField, defineType } from "sanity"
-import { baseLanguage } from "~/sanity/schema/language"
+import type { ValidationContext } from "sanity"
+import { defineField, defineType } from "sanity"
+
 import { client } from "~/sanity/client"
+import { baseLanguage } from "~/sanity/schema/language"
 
 const isUniqueNumber = async (number: number, context: ValidationContext) => {
   const { document } = context

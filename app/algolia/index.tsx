@@ -1,4 +1,5 @@
 import algoliasearch from "algoliasearch"
+
 import {
   algoliaAdminApiKey,
   algoliaApplicationId,

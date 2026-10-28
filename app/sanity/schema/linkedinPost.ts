@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import LinkedInEmbed from "~/components/portable/LinkedInEmbed"
 
 export const linkedinPostType = defineType({

@@ -1,9 +1,11 @@
-import { cn } from "~/lib/utils"
-import { Typography } from "./Typography"
 import { Link, useParams } from "@remix-run/react"
-import { Post } from "~/sanity/queries"
-import { ImageCrop, ImageHotspot, Reference } from "sanity"
+import type { ImageCrop, ImageHotspot, Reference } from "sanity"
+
 import { generateSrcSet, urlForImage } from "~/lib/sanity.image"
+import { cn } from "~/lib/utils"
+import type { Post } from "~/sanity/queries"
+
+import { Typography } from "./Typography"
 
 type HeroImageProps = {
   id: string
@@ -118,11 +120,7 @@ export const HeroImage = ({
           loading="eager"
           className="block h-auto max-h-screen w-full select-none object-cover"
           alt=""
-          style={
-            viewTransitionName
-              ? { viewTransitionName }
-              : undefined
-          }
+          style={viewTransitionName ? { viewTransitionName } : undefined}
           {...({
             fetchpriority: "high",
           } as React.ImgHTMLAttributes<HTMLImageElement>)}
@@ -177,11 +175,7 @@ export const HeroImage = ({
             }
           )}
           alt=""
-          style={
-            viewTransitionName
-              ? { viewTransitionName }
-              : undefined
-          }
+          style={viewTransitionName ? { viewTransitionName } : undefined}
           {...({
             fetchpriority: "high",
           } as React.ImgHTMLAttributes<HTMLImageElement>)}

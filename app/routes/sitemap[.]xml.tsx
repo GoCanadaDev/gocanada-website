@@ -1,6 +1,8 @@
-import { LoaderFunction } from "@remix-run/node"
+import type { LoaderFunction } from "@remix-run/node"
+
 import { client } from "~/sanity/client"
-import { getSitemapSlugs, SitemapSlugs } from "~/sanity/queries/sitemap"
+import type { SitemapSlugs } from "~/sanity/queries/sitemap"
+import { getSitemapSlugs } from "~/sanity/queries/sitemap"
 
 const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
   const url = "https://gocanada.com"

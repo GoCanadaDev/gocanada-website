@@ -1,11 +1,12 @@
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
+import { useEffect, useState } from "react"
 import { SanityImage } from "sanity-image"
-import { baseUrl } from "~/sanity/projectDetails"
-import { trackEvent } from "~/lib/utils"
-import useVisibilityTracker from "~/lib/useVisibilityTracker"
-import { useState, useEffect } from "react"
 
-export default function MidRollBannerAd({}) {
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+import { useVisibilityTracker } from "~/lib/useVisibilityTracker"
+import { trackEvent } from "~/lib/utils"
+import { baseUrl } from "~/sanity/projectDetails"
+
+export function MidRollBannerAd({}) {
   const { adConfig } = useRootLoaderData()
   const [currentAdIndex, setCurrentAdIndex] = useState(0)
 

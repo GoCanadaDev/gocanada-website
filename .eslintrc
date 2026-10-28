@@ -4,29 +4,24 @@
     "@remix-run/eslint-config/node",
     "prettier"
   ],
-  "ignorePatterns": ["node_modules", "build", ".cache"],
-  "plugins": ["prettier", "simple-import-sort"],
+  "ignorePatterns": ["node_modules", "build", ".cache", "public"],
+  "plugins": ["simple-import-sort"],
   "overrides": [
     {
       // No default exports other than in root files and routes
       "files": ["./app/*/*.{js,jsx,ts,tsx}"],
-      "excludedFiles": ["./app/routes/**"],
+      "excludedFiles": ["./app/routes/**", "**/*.d.ts"],
       "rules": {
+    // Outbound/sponsored links intentionally keep the Referer header for partner attribution
+    "react/jsx-no-target-blank": ["warn", { "allowReferrer": true }],
         "import/no-default-export": "error"
       }
     }
   ],
   "rules": {
+    // Outbound/sponsored links intentionally keep the Referer header for partner attribution
+    "react/jsx-no-target-blank": ["warn", { "allowReferrer": true }],
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "prettier/prettier": [
-      "error",
-      {
-        "semi": false,
-        "printWidth": 80,
-        "bracketSpacing": false,
-        "singleQuote": true
-      }
-    ]
+    "simple-import-sort/exports": "error"
   }
 }

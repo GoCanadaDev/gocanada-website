@@ -1,6 +1,7 @@
-import Card from "./Card"
-import { PostPreview } from "~/sanity/queries"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import type { PostPreview } from "~/sanity/queries"
+
+import { Card } from "./Card"
 
 export const CardGrid = ({
   posts,

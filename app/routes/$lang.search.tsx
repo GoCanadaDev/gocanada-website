@@ -1,22 +1,24 @@
+import type { LoaderFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
+import type { MetaFunction } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import { renderToString } from "react-dom/server"
+import { useTranslation } from "react-i18next"
 import type { InstantSearchServerState } from "react-instantsearch"
 import { getServerState } from "react-instantsearch"
-import { json } from "@remix-run/node"
-import { MetaFunction, useLoaderData } from "@remix-run/react"
-import type { LoaderFunction } from "@remix-run/node"
-import { Typography } from "~/components/Typography"
-import { Layout } from "~/components/Layout"
-import { themePreferenceCookie } from "~/cookies.server"
 import { z } from "zod"
+
+import { Layout } from "~/components/Layout"
 import { SSRSearchProvider } from "~/components/search"
-import { genericMetaTags, SITE_META } from "~/lib/utils"
-import { useTranslation } from "react-i18next"
+import { Typography } from "~/components/Typography"
+import { themePreferenceCookie } from "~/cookies.server"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { genericMetaTags, SITE_META } from "~/lib/utils"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

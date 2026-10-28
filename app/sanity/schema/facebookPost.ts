@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import FacebookEmbed from "~/components/portable/FacebookEmbed"
 
 export const facebookPostType = defineType({

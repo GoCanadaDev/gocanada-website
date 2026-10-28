@@ -11,7 +11,7 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from "lucide-react"
-import { defineType, defineArrayMember } from "sanity"
+import { defineArrayMember, defineType } from "sanity"
 
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 

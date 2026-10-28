@@ -1,5 +1,5 @@
 import { Image } from "~/components/Image"
-import { ImageProps } from "~/components/portable/GalleryImages/index"
+import type { ImageProps } from "~/components/portable/GalleryImages/index"
 import { AspectRatio } from "~/components/ui/aspect-ratio"
 import { cn } from "~/lib/utils"
 

@@ -1,21 +1,24 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/node"
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import { client } from "~/sanity/client"
+
+import { Image } from "~/components/Image"
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { Image } from "~/components/Image"
-import { LinksPageType, getLinks } from "~/sanity/queries/links"
-import { urlForImage } from "~/lib/sanity.image"
 import { Avatar, AvatarImage } from "~/components/ui/avatar"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { genericMetaTags } from "~/lib/utils"
+import { urlForImage } from "~/lib/sanity.image"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { LinksPageType } from "~/sanity/queries/links"
+import { getLinks } from "~/sanity/queries/links"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

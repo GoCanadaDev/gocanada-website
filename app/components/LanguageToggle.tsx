@@ -1,19 +1,21 @@
 import { Form } from "@remix-run/react"
-import { useTranslation } from "react-i18next"
-import { SupportedLanguages } from "~/i18n"
-import useSound from "use-sound"
-import { MouseEventHandler, useEffect, useState } from "react"
-import { animated } from "react-spring"
-const clickSound = "/sounds/click.mp3"
-import useBoop from "~/lib/useBoop"
 import { Globe2 } from "lucide-react"
+import type { MouseEventHandler } from "react"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { animated } from "react-spring"
 import { toast } from "sonner"
+import useSound from "use-sound"
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
+import type { SupportedLanguages } from "~/i18n"
+import { useBoop } from "~/lib/useBoop"
+const clickSound = "/sounds/click.mp3"
 
 export function LanguageToggle({
   translationUrl,

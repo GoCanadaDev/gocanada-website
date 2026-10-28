@@ -1,7 +1,9 @@
 import invariant from "tiny-invariant"
-import { SUPPORTED_LANGUAGES, SupportedLanguages } from "~/i18n"
 
-const isLangSupportedLang = (lang: string | undefined) => {
+import type { SupportedLanguages } from "~/i18n"
+import { SUPPORTED_LANGUAGES } from "~/i18n"
+
+export const isLangSupportedLang = (lang: string | undefined) => {
   invariant(lang, "Expected lang param")
 
   const isSupported = Object.values(SUPPORTED_LANGUAGES).includes(
@@ -15,5 +17,3 @@ const isLangSupportedLang = (lang: string | undefined) => {
 
   return isSupported
 }
-
-export default isLangSupportedLang

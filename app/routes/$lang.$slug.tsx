@@ -1,3 +1,26 @@
+import { PortableText } from "@portabletext/react"
+import type {
+  LoaderFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node"
+import { json } from "@remix-run/node"
+import type { Params } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
+import type { QueryResponseInitial } from "@sanity/react-loader"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useRef } from "react"
+import invariant from "tiny-invariant"
+
+import { AuthorCard } from "~/components/AuthorCard"
+import { HeroImage } from "~/components/HeroImage"
+import { Layout } from "~/components/Layout"
+import { MidRollBannerAd } from "~/components/MidRollBannerAd"
+import { MiniCard } from "~/components/MiniCard"
+import PortableTextComponents from "~/components/portable"
+import Prose from "~/components/portable/Prose"
+import { Share } from "~/components/Share"
+import { Typography } from "~/components/Typography"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,48 +29,28 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Link, Params, useLoaderData } from "@remix-run/react"
-import type {
-  LoaderFunction,
-  LoaderFunctionArgs,
-  MetaFunction,
-} from "@remix-run/node"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
-import { Post, postBySlugQuery } from "~/sanity/queries"
-import { SiteConfigType, getSiteConfig } from "~/sanity/queries/siteConfig"
+import { Separator } from "~/components/ui/separator"
+import { VerticalBannerAd } from "~/components/VerticalBannerAd"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import {
   generateBlogPostingSchema,
   generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "~/lib/structuredData"
-
-import AuthorCard from "~/components/AuthorCard"
-import { HeroImage } from "~/components/HeroImage"
-import { Layout } from "~/components/Layout"
-import MidRollBannerAd from "~/components/MidRollBannerAd"
-import { MiniCard } from "~/components/MiniCard"
-import { PortableText } from "@portabletext/react"
-import PortableTextComponents from "~/components/portable"
-import Prose from "~/components/portable/Prose"
-import { QueryResponseInitial } from "@sanity/react-loader"
-import { Separator } from "~/components/ui/separator"
-import Share from "~/components/Share"
-import { Typography } from "~/components/Typography"
-import VerticalBannerAd from "~/components/VerticalBannerAd"
-import { client } from "~/sanity/client"
-import { cn } from "~/lib/utils"
-import { getDraftMode } from "~/sanity/get-draft-mode.server"
-import invariant from "tiny-invariant"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { json } from "@remix-run/node"
-import { loadQueryWithDraft } from "~/sanity/loader.server"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import useFormattedDate from "~/lib/useFormattedDate"
+import { useFormattedDate } from "~/lib/useFormattedDate"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { cn } from "~/lib/utils"
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "~/routes/resource.og"
+import { client } from "~/sanity/client"
+import { getDraftMode } from "~/sanity/get-draft-mode.server"
 import { useQuery } from "~/sanity/loader"
-import { useRef } from "react"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
+import type { Post } from "~/sanity/queries"
+import { postBySlugQuery } from "~/sanity/queries"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 function truncateMetaDescription(text: string, maxLength = 160): string {
   const normalizedText = text.replace(/\s+/g, " ").trim()

@@ -1,20 +1,25 @@
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react"
-import { json, LoaderFunction } from "@remix-run/node"
-import { client } from "~/sanity/client"
-import { SupportedLanguages } from "~/i18n"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import type { LoaderFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
+import type { MetaFunction } from "@remix-run/react"
+import { Link, useLoaderData, useParams } from "@remix-run/react"
+
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
-import { Author, getAuthors } from "~/sanity/queries"
-import UserMediaObject from "~/components/UserMediaObject"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { genericMetaTags } from "~/lib/utils"
+import { UserMediaObject } from "~/components/UserMediaObject"
+import type { SupportedLanguages } from "~/i18n"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { Author } from "~/sanity/queries"
+import { getAuthors } from "~/sanity/queries"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

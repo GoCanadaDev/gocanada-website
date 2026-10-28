@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import InstagramEmbed from "~/components/portable/InstagramEmbed"
 
 export const instagramPostType = defineType({

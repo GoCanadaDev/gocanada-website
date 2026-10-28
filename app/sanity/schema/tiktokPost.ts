@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import TikTokEmbed from "~/components/portable/TikTokEmbed"
 
 export const tiktokPostType = defineType({

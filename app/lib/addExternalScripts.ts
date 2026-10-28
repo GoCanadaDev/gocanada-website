@@ -1,5 +1,5 @@
 // @ts-nocheck
-export default function addExternalScripts(ENV: Window["ENV"]) {
+export function addExternalScripts(ENV: Window["ENV"]) {
   if (
     (!ENV.GTAG_ID && !ENV.FACEBOOK_PIXEL_ID) ||
     process.env.NODE_ENV === "development"

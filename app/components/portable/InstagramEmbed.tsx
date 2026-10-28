@@ -1,7 +1,5 @@
-import {
-  InstagramEmbed as InstagramEmbedComponent,
-  InstagramEmbedProps,
-} from "react-social-media-embed"
+import type { InstagramEmbedProps } from "react-social-media-embed"
+import { InstagramEmbed as InstagramEmbedComponent } from "react-social-media-embed"
 
 const InstagramEmbed = ({ url, ...rest }: InstagramEmbedProps) => {
   if (!url) {

@@ -1,16 +1,19 @@
+import type { PortableTextReactComponents } from "@portabletext/react"
+
+import { InlineAd } from "../InlineAd"
+import { SubscribeForm } from "../SubscribeForm"
 import FacebookEmbed from "./FacebookEmbed"
+import type { GalleryImagesProps } from "./GalleryImages"
+import GalleryImages from "./GalleryImages"
+import type { SingleImageProps } from "./GalleryImages/SingleImage"
+import { SingleImage } from "./GalleryImages/SingleImage"
+import HorizontalRule from "./HorizontalRule"
 import InstagramEmbed from "./InstagramEmbed"
 import LinkedInEmbed from "./LinkedInEmbed"
 import PinterestEmbed from "./PinterestEmbed"
 import TikTokEmbed from "./TikTokEmbed"
 import XEmbed from "./XEmbed"
 import YouTubeEmbed from "./YouTubeEmbed"
-import { SingleImage, SingleImageProps } from "./GalleryImages/SingleImage"
-import GalleryImages, { GalleryImagesProps } from "./GalleryImages"
-import HorizontalRule from "./HorizontalRule"
-import { PortableTextReactComponents } from "@portabletext/react"
-import InlineAd from "../InlineAd"
-import SubscribeForm from "../SubscribeForm"
 
 const PortableTextComponents = {
   marks: {

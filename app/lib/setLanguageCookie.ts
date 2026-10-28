@@ -1,12 +1,10 @@
-import { SupportedLanguages } from "~/i18n"
 import { langPreferenceCookie } from "~/cookies.server"
+import type { SupportedLanguages } from "~/i18n"
 
-const setLanguageCookie = async (langPreference: SupportedLanguages) => {
+export const setLanguageCookie = async (langPreference: SupportedLanguages) => {
   return {
     "Set-Cookie": await langPreferenceCookie.serialize({
       langPreference,
     }),
   }
 }
-
-export default setLanguageCookie

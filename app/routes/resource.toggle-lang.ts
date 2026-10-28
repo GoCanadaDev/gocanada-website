@@ -2,8 +2,8 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node"
 import { redirect } from "@remix-run/node"
 
 import { langPreferenceCookie } from "~/cookies.server"
-import getObjectFromFormData from "~/lib/getObjectFromFormData"
-import setLanguageCookie from "~/lib/setLanguageCookie"
+import { getObjectFromFormData } from "~/lib/getObjectFromFormData"
+import { setLanguageCookie } from "~/lib/setLanguageCookie"
 
 export const action: ActionFunction = async ({ request }) => {
   const cookieHeader = request.headers.get("Cookie")

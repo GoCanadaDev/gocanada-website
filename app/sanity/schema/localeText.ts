@@ -1,4 +1,5 @@
 import { defineType } from "sanity"
+
 import { supportedLanguages } from "~/sanity/schema/language"
 
 export const localeText = defineType({
