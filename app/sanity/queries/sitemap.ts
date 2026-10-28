@@ -4,6 +4,7 @@ import { sanitizeStrings } from "~/lib/sanitizeStrings"
 
 export type SitemapSlugs = {
   slug: string
+  lastmod?: string
   subCategories?: { slug: string }[]
 }
 
@@ -15,7 +16,8 @@ const sitemapQuery = groq`*[
   )
 ]{
     _type == "postType" => {
-      "slug": "en/" + slug.en.current
+      "slug": "en/" + slug.en.current,
+      "lastmod": _updatedAt
     },
     _type == "authorType" => {
       "slug": "en/authors/" + slug.current

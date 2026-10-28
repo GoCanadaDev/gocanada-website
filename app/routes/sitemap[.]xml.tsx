@@ -37,7 +37,8 @@ const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
         return `
           <url>
             <loc>${url}/${item.slug}</loc>
-             <priority>0.8</priority>
+            ${item.lastmod ? `<lastmod>${item.lastmod}</lastmod>` : ""}
+            <priority>0.8</priority>
           </url>
         `
       })
