@@ -1,4 +1,10 @@
-import type { PostPreview } from "~/sanity/queries"
+import type { Image } from "sanity"
+import type { Author, PostPreview } from "~/sanity/queries"
+import {
+  type AuthorProfileKey,
+  getAuthorProfileUrls,
+} from "~/lib/authorProfileUrls"
+import { urlForImage } from "~/lib/sanity.image"
 
 const org = {
   // Stable identifier so publisher/WebSite nodes resolve to the same entity
@@ -103,13 +109,52 @@ export function generateBlogSchema({
   }
 }
 
+export function getAuthorPageUrl(slug: string) {
+  return `https://gocanada.com/en/authors/${slug}`
+}
+
+type PersonSchemaAuthor = Pick<
+  Author,
+  "name" | "slug" | "bio" | "image" | AuthorProfileKey
+>
+
+// Same @id on author pages and articles so search engines merge them into one Person
+export function generatePersonSchema(author: PersonSchemaAuthor) {
+  const url = getAuthorPageUrl(author.slug)
+  const description = author.bio?.en?.trim()
+  const imageUrl = author.image
+    ? urlForImage(author.image as unknown as Image)
+        ?.width(400)
+        .url()
+    : undefined
+  const sameAs = getAuthorProfileUrls(author)
+
+  return {
+    "@type": "Person",
+    "@id": `${url}#person`,
+    name: author.name,
+    url,
+    ...(description && { description }),
+    ...(imageUrl && { image: imageUrl }),
+    ...(sameAs.length > 0 && { sameAs }),
+  }
+}
+
+export function generateProfilePageSchema(author: PersonSchemaAuthor) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    url: getAuthorPageUrl(author.slug),
+    mainEntity: generatePersonSchema(author),
+  }
+}
+
 type PostSchemaBase = {
   title: string
   description: string
   url: string
   imageUrl: string
-  authorName: string
-  authorUrl?: string
+  author: PersonSchemaAuthor
   datePublished: string
   dateModified?: string
 }
@@ -119,8 +164,7 @@ export function generateBlogPostingSchema({
   description,
   url,
   imageUrl,
-  authorName,
-  authorUrl,
+  author,
   datePublished,
   dateModified,
 }: PostSchemaBase) {
@@ -130,11 +174,7 @@ export function generateBlogPostingSchema({
     headline: title,
     description,
     image: imageUrl,
-    author: {
-      "@type": "Person",
-      name: authorName,
-      ...(authorUrl && { url: authorUrl }),
-    },
+    author: generatePersonSchema(author),
     publisher: {
       "@type": "Organization",
       ...orgReference,

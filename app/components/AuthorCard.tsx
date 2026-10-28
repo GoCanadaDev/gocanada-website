@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import { Image } from "~/components/Image"
 import { Link } from "@remix-run/react"
+import { getAuthorProfileUrl } from "~/lib/authorProfileUrls"
 
 enum AuthorLinksKeys {
   Website = "website",
@@ -32,22 +33,8 @@ export default function AuthorCard({
   showLinkToAuthorPage?: boolean
 }) {
   const getUrl = (key: AuthorLinksKeys) => {
-    switch (key) {
-      case AuthorLinksKeys.Website:
-        return author[key]
-      case AuthorLinksKeys.Instagram:
-        return `https://instagram.com/${author[key]}`
-      case AuthorLinksKeys.Threads:
-        return `https://threads.net/${author[key]}`
-      case AuthorLinksKeys.Twitter:
-        return `https://twitter.com/${author[key]}`
-      case AuthorLinksKeys.Youtube:
-        return `https://youtube.com/${author[key]}`
-      case AuthorLinksKeys.Facebook:
-        return `https://facebook.com/${author[key]}`
-      case AuthorLinksKeys.Email:
-        return `mailto:${author[key]}`
-    }
+    if (key === AuthorLinksKeys.Email) return `mailto:${author[key]}`
+    return getAuthorProfileUrl(key, author[key])
   }
 
   const getIcon = (key: AuthorLinksKeys) => {

@@ -27,6 +27,7 @@ import {
   generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateProfilePageSchema,
 } from "~/lib/structuredData"
 
 export const meta: MetaFunction<typeof loader> = ({
@@ -47,6 +48,7 @@ export const meta: MetaFunction<typeof loader> = ({
     schemas: [
       generateOrganizationSchema(),
       generateWebsiteSchema(),
+      generateProfilePageSchema(data.author),
       generateBlogSchema({
         description,
         url: canonical,
