@@ -109,6 +109,7 @@ type PostSchemaBase = {
   url: string
   imageUrl: string
   authorName: string
+  authorUrl?: string
   datePublished: string
   dateModified?: string
 }
@@ -119,6 +120,7 @@ export function generateBlogPostingSchema({
   url,
   imageUrl,
   authorName,
+  authorUrl,
   datePublished,
   dateModified,
 }: PostSchemaBase) {
@@ -128,7 +130,11 @@ export function generateBlogPostingSchema({
     headline: title,
     description,
     image: imageUrl,
-    author: { "@type": "Person", name: authorName },
+    author: {
+      "@type": "Person",
+      name: authorName,
+      ...(authorUrl && { url: authorUrl }),
+    },
     publisher: {
       "@type": "Organization",
       ...orgReference,

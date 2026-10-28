@@ -83,10 +83,9 @@ export const meta: MetaFunction<typeof loader> = ({
   data: Omit<LoaderDataType, "post"> & { post: { data: Post } }
 }) => {
   const sanitizedData = sanitizeStrings(data)
-  const title = [
-    sanitizedData?.post.data.title[sanitizedData.post.data.language],
-    data.siteConfig.siteTitle,
-  ]
+  const postTitle =
+    sanitizedData?.post.data.title[sanitizedData.post.data.language]
+  const title = [postTitle, data.siteConfig.siteTitle]
     .filter(Boolean)
     .join(" | ")
 
@@ -145,6 +144,12 @@ export const meta: MetaFunction<typeof loader> = ({
       href: canonical,
     },
     {
+      tagName: "link",
+      rel: "alternate",
+      type: "text/markdown",
+      href: `${canonical}.md`,
+    },
+    {
       "script:ld+json": generateOrganizationSchema(),
     },
     {
@@ -152,11 +157,12 @@ export const meta: MetaFunction<typeof loader> = ({
     },
     {
       "script:ld+json": generateBlogPostingSchema({
-        title,
+        title: postTitle,
         description,
         url: canonical,
         imageUrl: ogImageUrl ?? "",
         authorName: sanitizedData.post.data.author.name,
+        authorUrl: `https://gocanada.com/en/authors/${sanitizedData.post.data.author.slug}`,
         datePublished: sanitizedData.post.data.publishedAt,
         dateModified: sanitizedData.post.data._updatedAt,
       }),
@@ -168,7 +174,7 @@ export const meta: MetaFunction<typeof loader> = ({
           url: "https://gocanada.com/en",
         },
         {
-          name: title,
+          name: postTitle,
           url: canonical,
         },
       ]),
