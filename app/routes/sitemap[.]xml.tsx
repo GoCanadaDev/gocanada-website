@@ -41,7 +41,7 @@ const renderXML = (sitemapSlugs: SitemapSlugs[]) => {
           </url>
         `
       })
-      .join("")}}
+      .join("")}
   </urlset>`
 
   return sourceXML

@@ -17,7 +17,9 @@ export const loader = () => {
         Disallow: /ads.txt
         Disallow: /.well-known/
         Disallow: /wp-includes/
-        Disallow: /xmlrpc.php`
+        Disallow: /xmlrpc.php
+
+        Sitemap: https://gocanada.com/sitemap.xml`
 
   return new Response(robotText, {
     status: 200,
