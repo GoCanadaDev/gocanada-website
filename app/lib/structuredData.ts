@@ -1,20 +1,39 @@
 import type { PostPreview } from "~/sanity/queries"
 
 const org = {
+  // Stable identifier so publisher/WebSite nodes resolve to the same entity
+  id: "https://gocanada.com/#organization",
   name: "Go Canada",
+  alternateName: ["GoCanada.com", "@Canada"],
   url: "https://gocanada.com",
   logoUrl: "https://gocanada.com/images/android-chrome-192x192.png",
-  sameAs: ["https://instagram.com/canada", "https://threads.net/canada"],
+  description:
+    "Go Canada (GoCanada.com) is a Canadian-owned travel publication and media company that owns and operates @Canada on Instagram (instagram.com/canada).",
+  sameAs: ["https://www.instagram.com/canada/", "https://threads.net/canada"],
+  parentOrganization: {
+    name: "Stay & Wander Media Inc.",
+    url: "https://www.stayandwander.com/",
+  },
 }
+
+const orgReference = { "@id": org.id }
 
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": org.id,
     name: org.name,
+    alternateName: org.alternateName,
     url: org.url,
     logo: org.logoUrl,
+    description: org.description,
     sameAs: org.sameAs,
+    parentOrganization: {
+      "@type": "Organization",
+      name: org.parentOrganization.name,
+      url: org.parentOrganization.url,
+    },
   }
 }
 
@@ -24,6 +43,7 @@ export function generateWebsiteSchema() {
     "@type": "WebSite",
     url: "https://gocanada.com",
     name: "Go Canada",
+    publisher: orgReference,
     potentialAction: {
       "@type": "SearchAction",
       target:
@@ -72,6 +92,7 @@ export function generateBlogSchema({
     description,
     publisher: {
       "@type": "Organization",
+      ...orgReference,
       name: org.name,
       logo: {
         "@type": "ImageObject",
@@ -110,6 +131,7 @@ export function generateBlogPostingSchema({
     author: { "@type": "Person", name: authorName },
     publisher: {
       "@type": "Organization",
+      ...orgReference,
       name: org.name,
       logo: {
         "@type": "ImageObject",

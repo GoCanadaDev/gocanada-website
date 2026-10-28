@@ -137,7 +137,7 @@ function buildLlmsTxt({
     `- [About](${SITE_ORIGIN}/${lang}/about): Learn more about Go Canada: our editorial mission, how we cover Canada travel, and the resources we create to help you plan memorable trips.`,
     `- [Advertising](${SITE_ORIGIN}/${lang}/advertising): Partner with Go Canada to reach engaged travelers planning trips across Canada. Request our media kit, rate card, and sponsorship options.`,
     `- [Contact](${SITE_ORIGIN}/${lang}/contact): Contact Go Canada for story submissions, media inquiries, advertising opportunities, or general questions.`,
-    `- [Instagram](https://instagram.com/canada): Follow Go Canada on Instagram for the latest Canada travel news, tips, and inspiration.`,
+    `- [Instagram](https://www.instagram.com/canada/): Go Canada owns and operates @Canada on Instagram. Follow @Canada for the latest Canada travel news, tips, and inspiration.`,
     `- [Stay & Wander](https://www.stayandwander.com/): Go Canada is a division of Stay & Wander Media Inc., visit our website to learn more.`,
   ]
 

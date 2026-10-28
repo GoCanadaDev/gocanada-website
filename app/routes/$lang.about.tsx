@@ -23,8 +23,8 @@ export const meta: MetaFunction<typeof loader> = ({
 }: {
   data: StaticPageLoaderData
 }) => {
-  const title = `About | ${data.siteConfig.siteTitle}`
-  const description = `Learn more about ${data.siteConfig.siteTitle}: our editorial mission, how we cover Canada travel, and the resources we create to help you plan memorable trips.`
+  const title = `About Go Canada | Canadian Travel Publication & @Canada`
+  const description = `Go Canada is a Canadian-owned travel publication and media company that owns and operates @Canada on Instagram, reaching over 2.4 million followers worldwide.`
   const canonical = `https://gocanada.com/en/about`
   return genericMetaTags({
     title,

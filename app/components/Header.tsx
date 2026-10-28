@@ -36,10 +36,10 @@ export function Header() {
             <Separator orientation="vertical" className="inline-flex h-6" />
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
-              href="https://instagram.com/canada"
+              href="https://www.instagram.com/canada/"
               className="flex flex-col items-center justify-center rounded-md p-1 transition-colors duration-200 hover:text-brand focus:bg-zinc-100 focus:text-brand focus:outline-none dark:focus:bg-zinc-800"
               target="_blank"
-              rel="noopener"
+              rel="me noopener"
             >
               <span>
                 <animated.span style={style} className="inline-block">

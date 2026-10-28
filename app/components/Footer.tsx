@@ -90,10 +90,10 @@ export function Footer() {
             <div className="mt-2 flex flex-wrap items-center justify-center gap-4 md:flex-nowrap">
               <a
                 onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
-                href="https://instagram.com/canada"
+                href="https://www.instagram.com/canada/"
                 className="flex items-center text-brand transition-colors duration-200 hover:text-brandHover"
                 target="_blank"
-                rel="noopener"
+                rel="me noopener"
               >
                 <animated.span style={style} className="inline-block">
                   <Instagram className="inline" size={40} />
