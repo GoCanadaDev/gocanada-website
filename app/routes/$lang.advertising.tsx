@@ -19,7 +19,6 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { Image } from "~/components/Image"
 import { Layout } from "~/components/Layout"
 import PortableTextComponents from "~/components/portable"
 import Prose from "~/components/portable/Prose"

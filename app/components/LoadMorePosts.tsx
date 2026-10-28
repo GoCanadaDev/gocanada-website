@@ -4,7 +4,6 @@ import { client } from "~/sanity/client"
 import type { PostPreview } from "~/sanity/queries"
 import { loadMorePostsQuery } from "~/sanity/queries/posts"
 
-import { CardGrid } from "./CardGrid"
 import { Button } from "./ui/button"
 
 type LoadMorePostsProps = {

@@ -14,7 +14,7 @@ import {
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "~/lib/structuredData"
-import { genericMetaTags, SITE_META } from "~/lib/utils"
+import { genericMetaTags } from "~/lib/utils"
 import { client } from "~/sanity/client"
 import type { Category } from "~/sanity/queries"
 import { getCategories } from "~/sanity/queries"

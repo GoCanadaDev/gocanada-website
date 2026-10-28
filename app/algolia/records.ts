@@ -81,7 +81,9 @@ const byteLength = (value: unknown) =>
  * Converts a post's body to keywords and trims them so the whole record fits
  * under Algolia's record size limit.
  */
-export function toAlgoliaPostRecord<T extends { body?: unknown }>(post: T) {
+export function toAlgoliaPostRecord<
+  T extends Record<string, any> & { body?: unknown },
+>(post: T) {
   const bodyText = Array.isArray(post.body)
     ? post.body.join(" ")
     : String(post.body ?? "")

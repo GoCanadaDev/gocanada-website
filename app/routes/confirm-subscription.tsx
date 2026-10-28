@@ -4,7 +4,6 @@ import { useLoaderData, useNavigate } from "@remix-run/react"
 import type { ClientRequest } from "@sendgrid/client/src/request"
 
 import { Layout } from "~/components/Layout"
-import { Logo } from "~/components/Logo"
 import { Typography } from "~/components/Typography"
 import { Button } from "~/components/ui/button"
 import { sendgrid } from "~/lib/sendgrid"

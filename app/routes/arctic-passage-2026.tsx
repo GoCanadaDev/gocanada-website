@@ -6,10 +6,8 @@ import {
 } from "@remix-run/node"
 import {
   AlarmClock,
-  ArrowRightFromLine,
   BookImage,
   Calendar,
-  Compass,
   Eye,
   Film,
   Mails,
@@ -20,7 +18,6 @@ import {
   Send,
   Ship,
   Users,
-  X,
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"

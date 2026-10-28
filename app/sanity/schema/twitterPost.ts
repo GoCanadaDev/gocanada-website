@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity"
 
 import XEmbed from "~/components/portable/XEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const twitterPostType = defineType({
   name: "twitterPostType",
@@ -16,7 +17,7 @@ export const twitterPostType = defineType({
     }),
   ],
   components: {
-    preview: XEmbed,
+    preview: asPreviewComponent(XEmbed),
   },
   preview: {
     select: { url: "url" },

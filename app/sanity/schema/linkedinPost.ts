@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity"
 
 import LinkedInEmbed from "~/components/portable/LinkedInEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const linkedinPostType = defineType({
   name: "linkedinPostType",
@@ -16,7 +17,7 @@ export const linkedinPostType = defineType({
     }),
   ],
   components: {
-    preview: LinkedInEmbed,
+    preview: asPreviewComponent(LinkedInEmbed),
   },
   preview: {
     select: { url: "url" },

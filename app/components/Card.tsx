@@ -43,12 +43,14 @@ export function Card({
     }
   }, [post, isLarge])
 
+  const linkTo = post?.language
+    ? `/${post.language}/${post.slug[post.language]}`
+    : "/"
+  const isTransitioning = useViewTransitionState(linkTo)
+
   if (!post || !post.language) {
     return null
   }
-
-  const linkTo = `/${post.language}/${post.slug[post.language]}`
-  const isTransitioning = useViewTransitionState(linkTo)
 
   return (
     <article className="group">

@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react"
 
 import { client } from "~/sanity/client"
 import { useLiveMode } from "~/sanity/loader"
-import { studioUrl } from "~/sanity/projectDetails"
 
 // Default export required for React Lazy loading
 // eslint-disable-next-line import/no-default-export

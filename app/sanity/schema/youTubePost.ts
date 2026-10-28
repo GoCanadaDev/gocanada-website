@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity"
 
 import YouTubeEmbed from "~/components/portable/YouTubeEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const youTubePostType = defineType({
   name: "youTubePostType",
@@ -16,7 +17,7 @@ export const youTubePostType = defineType({
     }),
   ],
   components: {
-    preview: YouTubeEmbed,
+    preview: asPreviewComponent(YouTubeEmbed),
   },
   preview: {
     select: { url: "url" },

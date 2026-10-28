@@ -47,7 +47,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
   return (
     <>
       <div ref={refScrollUp} />
-      <Header translationUrl={translationUrl} />
+      <Header />
       <main className={cn("flex-1", classes)} id="main">
         {children}
       </main>

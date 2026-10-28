@@ -17,7 +17,7 @@ const GoCanadaLogoReverse = "/images/logotype-colour-reverse-sm.png"
 export function WelcomeDialog() {
   const submit = useSubmit()
   const [isOpen, setIsOpen] = useState(false)
-  const [modalOpen, setModalOpen] = useState(false)
+  const [, setModalOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const { themePreference, showWelcomeDialog } = useRootLoaderData()
 

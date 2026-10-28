@@ -6,7 +6,6 @@ import type {
 import { json } from "@remix-run/node"
 import type { MetaFunction } from "@remix-run/react"
 import { Link, useLoaderData } from "@remix-run/react"
-import { MoveLeft } from "lucide-react"
 import invariant from "tiny-invariant"
 
 import { CardGrid } from "~/components/CardGrid"

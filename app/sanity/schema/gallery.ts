@@ -1,8 +1,11 @@
+import { defineType } from "sanity"
+
 import GalleryImages, {
   GalleryDisplay,
 } from "~/components/portable/GalleryImages"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
-export const galleryType = {
+export const galleryType = defineType({
   name: "galleryType",
   type: "object",
   title: "Image(s)",
@@ -67,14 +70,14 @@ export const galleryType = {
     },
   ],
   components: {
-    preview: GalleryImages,
+    preview: asPreviewComponent(GalleryImages),
   },
   preview: {
     select: {
       display: "display",
       images: "images",
     },
-    prepare({ images, display }: { display: any; images: any }) {
+    prepare({ images, display }) {
       return {
         title: `A ${display} - ${Object.keys(images ?? {}).length} images`,
         value: {
@@ -84,4 +87,4 @@ export const galleryType = {
       }
     },
   },
-}
+})

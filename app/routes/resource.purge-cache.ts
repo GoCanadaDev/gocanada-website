@@ -6,8 +6,6 @@ import {
 } from "@remix-run/node"
 
 import { langPreferenceCookie } from "~/cookies.server"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { client } from "~/sanity/client"
 
 export interface WebhookBody {
   _id: string

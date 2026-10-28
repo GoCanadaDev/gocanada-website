@@ -15,7 +15,7 @@ import {
   useRouteError,
 } from "@remix-run/react"
 import { captureRemixErrorBoundaryError, withSentry } from "@sentry/remix"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useChangeLanguage } from "remix-i18next"
 import sonnerStyles from "sonner/dist/styles.css?url"
@@ -45,8 +45,8 @@ import VisualEditing from "./components/VisualEditing"
 import { getEnv } from "./env.server"
 import { addExternalScripts } from "./lib/addExternalScripts"
 import type { TranslationKey } from "./lib/flattenMessages"
+import { getTranslations } from "./lib/getTranslations"
 import { sanityFetchWithTimeout } from "./lib/sanityFetchWithTimeout"
-import { useTranslations } from "./lib/useTranslations"
 import { client } from "./sanity/client"
 import { getDraftMode } from "./sanity/get-draft-mode.server"
 import type { AdConfigType } from "./sanity/queries/adConfig"
@@ -255,7 +255,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       : { link: "", text: "" }
 
   let t = await i18next.getFixedT(request)
-  const translations = await useTranslations(t)
+  const translations = await getTranslations(t)
 
   const isDraftMode = await getDraftMode(request)
 
@@ -303,7 +303,6 @@ function App() {
     langPreference,
     isStudioRoute,
     showCookieBanner,
-    siteConfig,
     isDraftMode,
   } = useLoaderData<RootLoaderData>()
 

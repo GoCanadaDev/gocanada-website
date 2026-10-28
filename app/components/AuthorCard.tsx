@@ -1,6 +1,5 @@
 import { Link } from "@remix-run/react"
 import {
-  AtSign,
   Facebook,
   Globe,
   Instagram,

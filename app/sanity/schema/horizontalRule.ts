@@ -1,6 +1,7 @@
-import { defineField, defineType } from "sanity"
+import { defineType } from "sanity"
 
 import HorizontalRule from "~/components/portable/HorizontalRule"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const horizontalRuleType = defineType({
   name: "horizontalRuleType",
@@ -17,6 +18,6 @@ export const horizontalRuleType = defineType({
     },
   ],
   components: {
-    preview: HorizontalRule,
+    preview: asPreviewComponent(HorizontalRule),
   },
 })

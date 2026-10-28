@@ -196,14 +196,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Index() {
-  const {
-    posts,
-    featuredPosts,
-    trendingPosts,
-    params,
-    popupPromoConfig,
-    isDraftMode,
-  } = useLoaderData<IndexLoaderData>()
+  const { posts, featuredPosts, trendingPosts, params, popupPromoConfig } =
+    useLoaderData<IndexLoaderData>()
   const {
     i18n: { language },
   } = useTranslation()
@@ -225,7 +219,7 @@ export default function Index() {
     fetchCount()
   }, [params.lang])
 
-  const { data: postsData, loading } = useQuery<PostPreview[] | null>(
+  const { data: postsData } = useQuery<PostPreview[] | null>(
     postsQuery,
     { language: params.lang },
     {
@@ -233,7 +227,7 @@ export default function Index() {
     }
   )
 
-  const { data: featuredPostsData, loading: featuredPostsLoading } = useQuery<{
+  const { data: featuredPostsData } = useQuery<{
     featuredPosts: PostPreview[] | null
     frontAndCenterPosts: PostPreview[] | null
     mainPostCarouselCycleTime: number | null
@@ -245,7 +239,7 @@ export default function Index() {
     }
   )
 
-  const { data: trendingPostsData, loading: trendingPostsLoading } = useQuery<{
+  const { data: trendingPostsData } = useQuery<{
     trendingPosts: PostPreview[] | null
   }>(
     trendingPostsQuery,

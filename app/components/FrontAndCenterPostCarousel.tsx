@@ -29,14 +29,6 @@ export const FrontAndCenterPostCarousel = ({
 }: FrontAndCenterPostCarouselProps) => {
   const postsArray = Object.values(posts)
 
-  if (postsArray.length === 1) {
-    return (
-      <div>
-        <Card post={posts[0]} showExcerpt isLarge loadingMode="eager" />
-      </div>
-    )
-  }
-
   const [api, setApi] = useState<CarouselApi>()
 
   const progressNode = useRef<HTMLDivElement>(null)
@@ -55,6 +47,14 @@ export const FrontAndCenterPostCarousel = ({
     useAutoplay(api)
 
   const autoplay = api?.plugins()?.autoplay
+
+  if (postsArray.length === 1) {
+    return (
+      <div>
+        <Card post={posts[0]} showExcerpt isLarge loadingMode="eager" />
+      </div>
+    )
+  }
 
   return (
     <Carousel

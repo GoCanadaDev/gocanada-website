@@ -143,7 +143,6 @@ function portableTextMarkdownOptions() {
 }
 
 function postToMarkdown(post: Post): string {
-  const lang = post.language
   const title = localized(post, post.title)
 
   const sections: string[] = []

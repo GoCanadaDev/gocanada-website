@@ -22,6 +22,7 @@
     "skipLibCheck": true,
     "strict": true,
     "allowJs": true,
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "~/*": ["./app/*"]

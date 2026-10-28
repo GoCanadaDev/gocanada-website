@@ -7,11 +7,10 @@ import { cn } from "~/lib/utils"
 
 export const CarouselImages = ({ value }: GalleryImagesProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
-
-  if (!value || !value.images || value.images.length === 0) return null
+  const imageCount = value?.images?.length ?? 0
 
   const toIndex = (index: number) => {
-    const maxIndex = value.images.length - 1
+    const maxIndex = imageCount - 1
 
     if (index < 0) {
       return setCurrentSlide(maxIndex)
@@ -24,6 +23,8 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
 
   // timer to auto slide
   useEffect(() => {
+    if (imageCount === 0) return
+
     const interval = setInterval(() => {
       toIndex(currentSlide + 1)
     }, 3000)
@@ -31,7 +32,9 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
     return () => {
       clearInterval(interval)
     }
-  }, [currentSlide])
+  }, [currentSlide, imageCount])
+
+  if (!value || !value.images || value.images.length === 0) return null
 
   let attribution = value.images[currentSlide].attribution
   let attributionUrl = value.images[currentSlide].attributionUrl
