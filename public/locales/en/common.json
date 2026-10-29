@@ -3,6 +3,7 @@
   "advertising": "Advertising",
   "contact": "Contact",
   "currentLanguage": "English",
+  "imagePosition": "Image {{current}} of {{total}}",
   "greeting": "Hello",
   "languageChanged": "Langue changée en Français",
   "media": "Media",

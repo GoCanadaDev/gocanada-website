@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 import { Image } from "~/components/Image"
 import type { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
@@ -6,6 +7,7 @@ import { AspectRatio } from "~/components/ui/aspect-ratio"
 import { cn } from "~/lib/utils"
 
 export const CarouselImages = ({ value }: GalleryImagesProps) => {
+  const { t } = useTranslation()
   const [currentSlide, setCurrentSlide] = useState(0)
   const imageCount = value?.images?.length ?? 0
 
@@ -47,6 +49,10 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
       data-carousel="static"
     >
       <figure>
+        {/* Only the current slide is visible to screen readers, so say where it sits */}
+        <span className="sr-only">
+          {t("imagePosition", { current: currentSlide + 1, total: imageCount })}
+        </span>
         <AspectRatio ratio={3 / 2} className="overflow-hidden">
           {value?.images?.map((image, index) => {
             if (!image || !image.asset?._ref) {
