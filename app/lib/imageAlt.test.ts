@@ -139,3 +139,64 @@ describe("missingAltSeverity", () => {
     expect(missingAltSeverity(undefined)).toBe("error")
   })
 })
+
+const text = (_key: string, value: string, style = "normal") => ({
+  _type: "block",
+  _key,
+  style,
+  children: [{ text: value }],
+})
+
+describe("surrounding text context", () => {
+  it("gives a body image its section heading and the paragraphs on either side", () => {
+    const [image] = findBlockImagesMissingAlt("Body", "body", [
+      text("t1", "Banff is busy in summer."),
+      text("h1", "4. Johnston Canyon", "h2"),
+      text("t2", "A catwalk clings to the canyon wall."),
+      { _type: "image", _key: "i1", asset: { _ref: "image-canyon" } },
+      text("t3", "Go early to beat the crowds."),
+    ])
+
+    expect(image.context).toEqual({
+      heading: "4. Johnston Canyon",
+      before: "A catwalk clings to the canyon wall.",
+      after: "Go early to beat the crowds.",
+    })
+  })
+
+  it("doesn't borrow text from neighbouring sections, and shares it across a gallery", () => {
+    const images = findBlockImagesMissingAlt("Body", "body", [
+      text("t1", "Previous section's paragraph."),
+      text("h1", "Peggy's Cove", "h2"),
+      {
+        _type: "galleryType",
+        _key: "g1",
+        images: [
+          { _key: "a", asset: { _ref: "image-a" } },
+          { _key: "b", asset: { _ref: "image-b" } },
+        ],
+      },
+      text("h2", "Lunenburg", "h2"),
+      text("t2", "Next section's paragraph."),
+    ])
+
+    expect(images.map(({ context }) => context)).toEqual([
+      { heading: "Peggy's Cove" },
+      { heading: "Peggy's Cove" },
+    ])
+  })
+
+  it("trims long paragraphs to the part nearest the image", () => {
+    const long = (word: string) => Array(200).fill(word).join(" ")
+    const [image] = findBlockImagesMissingAlt("Body", "body", [
+      text("t1", `${long("far")} closest-before`),
+      { _type: "image", _key: "i1", asset: { _ref: "image-x" } },
+      text("t2", `closest-after ${long("far")}`),
+    ])
+
+    expect(image.context?.before).toMatch(/^….* closest-before$/)
+    expect(image.context?.after).toMatch(/^closest-after .*…$/)
+    expect(image.context?.before?.length).toBeLessThanOrEqual(401)
+    expect(image.context?.after?.length).toBeLessThanOrEqual(401)
+  })
+})

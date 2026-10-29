@@ -41,6 +41,7 @@ type SanityDocument = PostImages & {
   _type: "postType" | "staticPageType"
   _rev: string
   title?: { en?: string }
+  excerpt?: { en?: string }
   body?: BlockContent | { en?: BlockContent; fr?: BlockContent } | null
   [key: string]: unknown
 }
@@ -107,12 +108,30 @@ const imageUrl = createImageUrlBuilder({
 
 const SYSTEM_PROMPT = `You write alt text for photos on Go Canada, a Canadian travel and lifestyle publication. Readers using screen readers hear your alt text in place of the image.
 
-Write one plain sentence, under 125 characters, describing what the photo shows that matters to the article. Name a specific place, landmark, or dish only when the article title or caption makes clear what it is; otherwise describe what is visible. Don't start with "Image of" or "Photo of", don't repeat the caption word for word, and don't add opinions. If the image is mostly text, such as a logo, poster, or menu, give the gist of the text.
+Write one plain sentence, under 125 characters, describing what the photo shows that matters to the article. You'll get the text around the photo in the article. Use it only to identify what is visible, such as naming the place, landmark, or dish when the text makes clear that's what the photo shows. Never mention anything you can't see in the photo, even if the text talks about it, and when the text doesn't settle what something is, describe what is visible instead. Don't start with "Image of" or "Photo of", don't repeat the caption word for word, and don't add opinions. If the image is mostly text, such as a logo, poster, or menu, give the gist of the text.
 
 Reply with the alt text only, in English, with no quotes.`
 
+type Article = { title: string; excerpt?: string }
+
+// The main and secondary images have no text around them, so they get the
+// article's excerpt instead.
+function describeSurroundings(article: Article, image: MissingAltImage) {
+  const isLeadImage = !image.path.includes("[")
+  return [
+    `Article title: ${article.title}`,
+    isLeadImage && article.excerpt && `Article summary: ${article.excerpt}`,
+    image.context?.heading && `Section heading: ${image.context.heading}`,
+    image.context?.before && `Text before the photo: ${image.context.before}`,
+    image.context?.after && `Text after the photo: ${image.context.after}`,
+    image.caption && `Caption: ${image.caption}`,
+  ]
+    .filter(Boolean)
+    .join("\n")
+}
+
 async function draftAltText(
-  title: string,
+  article: Article,
   image: MissingAltImage
 ): Promise<string | null> {
   const response = await anthropic.beta.messages.create({
@@ -140,7 +159,7 @@ async function draftAltText(
           },
           {
             type: "text",
-            text: `Article: ${title}${image.caption ? `\nCaption: ${image.caption}` : ""}`,
+            text: describeSurroundings(article, image),
           },
         ],
       },
@@ -178,12 +197,15 @@ let drafted = 0
 let failed = 0
 
 for (const { publishedDocument, draft, missing } of work) {
-  const title = publishedDocument.title?.en ?? publishedDocument._id
-  console.log(`\n${title}`)
+  const article = {
+    title: publishedDocument.title?.en ?? publishedDocument._id,
+    excerpt: (draft ?? publishedDocument).excerpt?.en,
+  }
+  console.log(`\n${article.title}`)
 
   const altTexts = await mapConcurrently(missing, async (image) => {
     try {
-      return await draftAltText(title, image)
+      return await draftAltText(article, image)
     } catch (error) {
       if (error instanceof Anthropic.APIError) {
         console.error(`  ! ${image.location}: Claude API ${error.status}`)
