@@ -6,6 +6,7 @@ import {
 } from "@remix-run/node"
 
 import { langPreferenceCookie } from "~/cookies.server"
+import { submitPostToIndexNow } from "~/lib/indexNow.server"
 
 export interface WebhookBody {
   _id: string
@@ -28,6 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
     await purgeCache({
       tags: ["posts", `posts:id:${_id}`],
     })
+    await submitPostToIndexNow(_id)
   } else if (_type === "popupPromoConfig") {
     await purgeCache({
       tags: ["popupPromoConfig"],
