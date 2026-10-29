@@ -359,6 +359,7 @@ export default function Slug() {
             title={postToUse.title[postToUse.language]}
             category={postToUse.categories[0]}
             preview={postToUse.mainImage.preview}
+            alt={postToUse.mainImage.alt}
             mainImageCaption={postToUse.mainImageCaption}
             mainImageAttribution={postToUse.mainImageAttribution}
             mainImageAttributionUrl={postToUse.mainImageAttributionUrl}

@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
 
+import { altTextField } from "~/sanity/schema/altTextField"
+
 export const postType = defineType({
   name: "postType",
   title: "Post",
@@ -69,6 +71,7 @@ export const postType = defineType({
       options: {
         hotspot: true,
       },
+      fields: [altTextField],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -107,6 +110,7 @@ export const postType = defineType({
       options: {
         hotspot: true,
       },
+      fields: [altTextField],
     }),
     defineField({
       name: "isSponsored",
