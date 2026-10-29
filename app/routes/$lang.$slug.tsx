@@ -266,7 +266,7 @@ export default function Slug() {
 
   const translationUrl = `/${otherLanguage}/${postToUse.slug[otherLanguage]}`
 
-  const bodyComponents = postToUse.isSponsored
+  const postComponents = postToUse.isSponsored
     ? SponsoredPortableTextComponents
     : PortableTextComponents
 
@@ -422,7 +422,7 @@ export default function Slug() {
                 >
                   <PortableText
                     value={postToUse.byline}
-                    components={PortableTextComponents}
+                    components={postComponents}
                   />
                 </Prose>
               </>
@@ -437,14 +437,14 @@ export default function Slug() {
             {hasInlineAd ? (
               <PortableText
                 value={postToUse.body}
-                components={bodyComponents}
+                components={postComponents}
               />
             ) : (
               // if no inline ad in the postToUse, manually insert the MidRollBannerAd halfway through the body blocks
               <>
                 <PortableText
                   value={[...postToUse.body].slice(0, halfwayThroughBodyMarker)}
-                  components={bodyComponents}
+                  components={postComponents}
                 />
                 <div>
                   {postToUse.slug.en ===
@@ -457,7 +457,7 @@ export default function Slug() {
                     halfwayThroughBodyMarker,
                     postToUse.body.length
                   )}
-                  components={bodyComponents}
+                  components={postComponents}
                 />
               </>
             )}
