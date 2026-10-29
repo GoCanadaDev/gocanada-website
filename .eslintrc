@@ -12,8 +12,6 @@
       "files": ["./app/*/*.{js,jsx,ts,tsx}"],
       "excludedFiles": ["./app/routes/**", "**/*.d.ts"],
       "rules": {
-    // Outbound/sponsored links intentionally keep the Referer header for partner attribution
-    "react/jsx-no-target-blank": ["warn", { "allowReferrer": true }],
         "import/no-default-export": "error"
       }
     }
