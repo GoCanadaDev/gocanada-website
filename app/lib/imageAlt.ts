@@ -15,7 +15,7 @@ export function isMissingAlt(
   return !image.alt?.trim()
 }
 
-type BlockContent = ({
+export type BlockContent = ({
   _type: string
   images?: ImageWithAlt[] | null
   [key: string]: unknown
@@ -33,34 +33,38 @@ export type MissingAltImage = {
   assetRef: string
 }
 
-export function findPostImagesMissingAlt(post: PostImages): MissingAltImage[] {
-  const missing: MissingAltImage[] = []
-  const recordIfMissing = (location: string, image?: ImageWithAlt | null) => {
-    if (isMissingAlt(image)) {
-      missing.push({ location, assetRef: image.asset._ref })
+// Only the block types whose schema asks for alt text. Inline ad images
+// don't have an alt field, so they're left alone.
+export function findBlockImagesMissingAlt(
+  label: string,
+  blocks?: BlockContent | null
+): MissingAltImage[] {
+  return (blocks ?? []).flatMap((block, index) => {
+    const location = `${label} block ${index + 1}`
+    if (block._type === "image") {
+      return missingAltAt(location, block)
     }
-  }
+    if (block._type === "galleryType") {
+      return (block.images ?? []).flatMap((image, imageIndex) =>
+        missingAltAt(`${location}, gallery image ${imageIndex + 1}`, image)
+      )
+    }
+    return []
+  })
+}
 
-  recordIfMissing("Main image", post.mainImage)
-  recordIfMissing("Secondary image", post.secondaryImage)
+export function findPostImagesMissingAlt(post: PostImages): MissingAltImage[] {
+  return [
+    ...missingAltAt("Main image", post.mainImage),
+    ...missingAltAt("Secondary image", post.secondaryImage),
+    ...findBlockImagesMissingAlt("Body", post.body),
+    ...findBlockImagesMissingAlt("Byline", post.byline),
+  ]
+}
 
-  // Only the block types whose schema asks for alt text. Inline ad images
-  // don't have an alt field, so they're left alone.
-  const scanBlocks = (label: string, blocks?: BlockContent | null) => {
-    blocks?.forEach((block, index) => {
-      const location = `${label} block ${index + 1}`
-      if (block._type === "image") {
-        recordIfMissing(location, block)
-      } else if (block._type === "galleryType") {
-        block.images?.forEach((image, imageIndex) =>
-          recordIfMissing(`${location}, gallery image ${imageIndex + 1}`, image)
-        )
-      }
-    })
-  }
-
-  scanBlocks("Body", post.body)
-  scanBlocks("Byline", post.byline)
-
-  return missing
+function missingAltAt(
+  location: string,
+  image?: ImageWithAlt | null
+): MissingAltImage[] {
+  return isMissingAlt(image) ? [{ location, assetRef: image.asset._ref }] : []
 }

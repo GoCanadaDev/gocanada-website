@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest"
 
-import { findPostImagesMissingAlt, isMissingAlt } from "./imageAlt"
+import {
+  findBlockImagesMissingAlt,
+  findPostImagesMissingAlt,
+  isMissingAlt,
+} from "./imageAlt"
 
 const asset = { _ref: "image-abc-100x100-jpg" }
 
@@ -67,5 +71,21 @@ describe("findPostImagesMissingAlt", () => {
         body: [{ _type: "galleryType" }],
       })
     ).toEqual([])
+  })
+})
+
+describe("findBlockImagesMissingAlt", () => {
+  it("labels images in any block content field, e.g. a static page's French body", () => {
+    expect(
+      findBlockImagesMissingAlt("Body (FR)", [
+        { _type: "block" },
+        {
+          _type: "galleryType",
+          images: [{ asset: { _ref: "image-g1" } }],
+        },
+      ])
+    ).toEqual([
+      { location: "Body (FR) block 2, gallery image 1", assetRef: "image-g1" },
+    ])
   })
 })
