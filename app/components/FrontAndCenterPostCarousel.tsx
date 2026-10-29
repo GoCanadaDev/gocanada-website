@@ -1,43 +1,33 @@
-import { PostPreview } from "~/sanity/queries"
-import Card from "./Card"
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from "./ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import Fade from "embla-carousel-fade"
+import { Pause, Play } from "lucide-react"
 import { useRef, useState } from "react"
+
+import { cn } from "~/lib/utils"
+import type { PostPreview } from "~/sanity/queries"
+
+import { Card } from "./Card"
+import type { CarouselApi } from "./ui/carousel"
+import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel"
+import { useAutoplay } from "./ui/useAutoplay"
+import { useAutoplayProgress } from "./ui/useAutoplayProgress"
 import { DotButton, useDotButton } from "./ui/useDotButton"
 import {
   NextButton,
   PrevButton,
   usePrevNextButtons,
 } from "./ui/usePrevNextButtons"
-import { cn } from "~/lib/utils"
-import { useAutoplayProgress } from "./ui/useAutoplayProgress"
-import { useAutoplay } from "./ui/useAutoplay"
-import { Play, Pause } from "lucide-react"
 
 type FrontAndCenterPostCarouselProps = {
   posts: PostPreview[]
   mainPostCarouselCycleTime?: number | null
 }
 
-const FrontAndCenterPostCarousel = ({
+export const FrontAndCenterPostCarousel = ({
   posts,
   mainPostCarouselCycleTime,
 }: FrontAndCenterPostCarouselProps) => {
   const postsArray = Object.values(posts)
-
-  if (postsArray.length === 1) {
-    return (
-      <div>
-        <Card post={posts[0]} showExcerpt isLarge loadingMode="eager" />
-      </div>
-    )
-  }
 
   const [api, setApi] = useState<CarouselApi>()
 
@@ -57,6 +47,14 @@ const FrontAndCenterPostCarousel = ({
     useAutoplay(api)
 
   const autoplay = api?.plugins()?.autoplay
+
+  if (postsArray.length === 1) {
+    return (
+      <div>
+        <Card post={posts[0]} showExcerpt isLarge loadingMode="eager" />
+      </div>
+    )
+  }
 
   return (
     <Carousel
@@ -144,5 +142,3 @@ const FrontAndCenterPostCarousel = ({
     </Carousel>
   )
 }
-
-export default FrontAndCenterPostCarousel

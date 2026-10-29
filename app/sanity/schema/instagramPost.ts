@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
+
 import InstagramEmbed from "~/components/portable/InstagramEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const instagramPostType = defineType({
   name: "instagramPostType",
@@ -15,7 +17,7 @@ export const instagramPostType = defineType({
     }),
   ],
   components: {
-    preview: InstagramEmbed,
+    preview: asPreviewComponent(InstagramEmbed),
   },
   preview: {
     select: { url: "url" },

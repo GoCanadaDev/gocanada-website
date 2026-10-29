@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react"
 
 import { Image } from "~/components/Image"
-import { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
+import type { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
 import { AspectRatio } from "~/components/ui/aspect-ratio"
 import { cn } from "~/lib/utils"
 
 export const CarouselImages = ({ value }: GalleryImagesProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
-
-  if (!value || !value.images || value.images.length === 0) return null
+  const imageCount = value?.images?.length ?? 0
 
   const toIndex = (index: number) => {
-    const maxIndex = value.images.length - 1
+    const maxIndex = imageCount - 1
 
     if (index < 0) {
       return setCurrentSlide(maxIndex)
@@ -24,6 +23,8 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
 
   // timer to auto slide
   useEffect(() => {
+    if (imageCount === 0) return
+
     const interval = setInterval(() => {
       toIndex(currentSlide + 1)
     }, 3000)
@@ -31,7 +32,9 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
     return () => {
       clearInterval(interval)
     }
-  }, [currentSlide])
+  }, [currentSlide, imageCount])
+
+  if (!value || !value.images || value.images.length === 0) return null
 
   let attribution = value.images[currentSlide].attribution
   let attributionUrl = value.images[currentSlide].attributionUrl
@@ -73,7 +76,7 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
           >
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-zinc-800/30 dark:group-hover:bg-zinc-800/60 dark:group-focus:ring-zinc-800/70">
               <svg
-                className="h-4 w-4 text-white rtl:rotate-180 dark:text-zinc-800"
+                className="h-4 w-4 text-white dark:text-zinc-800 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -97,7 +100,7 @@ export const CarouselImages = ({ value }: GalleryImagesProps) => {
           >
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-zinc-800/30 dark:group-hover:bg-zinc-800/60 dark:group-focus:ring-zinc-800/70">
               <svg
-                className="h-4 w-4 text-white rtl:rotate-180 dark:text-zinc-800"
+                className="h-4 w-4 text-white dark:text-zinc-800 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

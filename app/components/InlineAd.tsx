@@ -1,7 +1,8 @@
-import { SanityImage } from "sanity-image"
-import { baseUrl } from "~/sanity/projectDetails"
-import { ImageCrop, ImageHotspot } from "sanity"
 import { useEffect, useState } from "react"
+import type { ImageCrop, ImageHotspot } from "sanity"
+import { SanityImage } from "sanity-image"
+
+import { baseUrl } from "~/sanity/projectDetails"
 
 export type InlineAdProps = {
   enabledUntil?: string
@@ -17,7 +18,7 @@ export type InlineAdProps = {
     crop?: ImageCrop
   }
 }
-export default function InlineAd({
+export function InlineAd({
   value: { enabledUntil, adUrl, adCode, adWidth, adHeight, adImage },
 }: {
   value: InlineAdProps

@@ -3,7 +3,7 @@ type MapleLeafProps = {
   size?: number
   className?: string
 }
-export default function MapleLeaf({
+export function MapleLeaf({
   fill = "#b91c1c",
   size = 32,
   className,

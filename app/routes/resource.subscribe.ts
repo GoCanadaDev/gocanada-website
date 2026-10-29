@@ -1,11 +1,11 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node"
-
-import { ClientRequest } from "@sendgrid/client/src/request"
-import getObjectFromFormData from "~/lib/getObjectFromFormData"
-import { langPreferenceCookie } from "~/cookies.server"
 import { redirect } from "@remix-run/node"
 import sendgrid from "@sendgrid/client"
+import type { ClientRequest } from "@sendgrid/client/src/request"
 import sendgridMail from "@sendgrid/mail"
+
+import { langPreferenceCookie } from "~/cookies.server"
+import { getObjectFromFormData } from "~/lib/getObjectFromFormData"
 
 sendgrid.setApiKey(String(process.env.SENDGRID_API_KEY))
 sendgridMail.setApiKey(String(process.env.SENDGRID_API_KEY))

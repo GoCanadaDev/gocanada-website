@@ -1,10 +1,10 @@
-import { client } from "~/sanity/client"
-import { json } from "@remix-run/node"
 import type { ActionFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
 
-import { getAlgoliaPosts } from "~/sanity/queries"
 import { algoliaAdminInstance } from "~/algolia"
 import { toAlgoliaPostRecord } from "~/algolia/records"
+import { client } from "~/sanity/client"
+import { getAlgoliaPosts } from "~/sanity/queries"
 
 export const action: ActionFunction = async ({ request }) => {
   const posts = await getAlgoliaPosts(client)

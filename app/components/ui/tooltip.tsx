@@ -1,5 +1,5 @@
-import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import * as React from "react"
 
 import { cn } from "~/lib/utils"
 
@@ -29,8 +29,8 @@ TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
 export {
   Tooltip,
-  TooltipTrigger,
+  TooltipArrow,
   TooltipContent,
   TooltipProvider,
-  TooltipArrow,
+  TooltipTrigger,
 }

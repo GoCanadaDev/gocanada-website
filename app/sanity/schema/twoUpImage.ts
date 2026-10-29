@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
+
 import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const twoUpImageType = defineType({
   name: "twoUpImageType",
@@ -51,7 +53,7 @@ export const twoUpImageType = defineType({
     },
   ],
   components: {
-    preview: TwoUpImage,
+    preview: asPreviewComponent(TwoUpImage),
   },
   preview: {
     select: { imageOne: "imageOne", imageTwo: "imageTwo" },

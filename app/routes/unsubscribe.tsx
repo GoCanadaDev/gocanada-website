@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node"
 import type { MetaFunction } from "@remix-run/react"
-import { useLoaderData, useNavigate } from "@remix-run/react"
+import { useNavigate } from "@remix-run/react"
 
 import { Layout } from "~/components/Layout"
 import { Typography } from "~/components/Typography"
@@ -30,7 +30,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function Unsubscribe() {
-  const { siteConfig } = useLoaderData<typeof loader>()
   const navigate = useNavigate()
   return (
     <Layout>

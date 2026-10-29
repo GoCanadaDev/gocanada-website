@@ -1,5 +1,4 @@
 import { defineType } from "sanity"
-import { InlineAdProps } from "~/components/InlineAd"
 
 export const inlineAdType = defineType({
   name: "inlineAdType",
@@ -50,7 +49,7 @@ export const inlineAdType = defineType({
       adUrl: "adUrl",
       adImage: "adImage",
     },
-    prepare({ adUrl, adImage }: InlineAdProps) {
+    prepare({ adUrl, adImage }) {
       return {
         title: `Ad: ${adUrl}`,
         media: adImage,

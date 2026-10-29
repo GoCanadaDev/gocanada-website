@@ -1,10 +1,11 @@
 import type { Hit as AlgoliaHit } from "instantsearch.js"
-import { SupportedLanguages } from "~/i18n"
-import { Highlight } from "react-instantsearch"
 import { useTranslation } from "react-i18next"
-import { AspectRatio } from "~/components/ui/aspect-ratio"
+import { Highlight } from "react-instantsearch"
+
 import { Image } from "~/components/Image"
 import { Typography } from "~/components/Typography"
+import { AspectRatio } from "~/components/ui/aspect-ratio"
+import type { SupportedLanguages } from "~/i18n"
 
 type HitProps = {
   hit: AlgoliaHit<{

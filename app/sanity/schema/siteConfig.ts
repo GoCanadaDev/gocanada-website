@@ -1,5 +1,5 @@
-import { defineField, defineType } from "sanity"
 import { Cog } from "lucide-react"
+import { defineField, defineType } from "sanity"
 
 export const siteConfigType = defineType({
   name: "siteConfigType",

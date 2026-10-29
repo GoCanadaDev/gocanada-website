@@ -1,6 +1,8 @@
-import { redirect, type LoaderFunctionArgs } from "@remix-run/node"
+import { type LoaderFunctionArgs, redirect } from "@remix-run/node"
 import { validatePreviewUrl } from "@sanity/preview-url-secret"
+
 import { client } from "~/sanity/client"
+
 import { commitSession, getSession } from "../sessions"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

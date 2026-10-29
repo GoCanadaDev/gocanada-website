@@ -1,18 +1,19 @@
 import { Form } from "@remix-run/react"
 import { Moon, Sun } from "lucide-react"
-import useSound from "use-sound"
-const onSound = "/sounds/switch-on.mp3"
-const offSound = "/sounds/switch-off.mp3"
-import useBoop from "~/lib/useBoop"
+import type { MouseEventHandler } from "react"
 import { animated } from "react-spring"
-import { MouseEventHandler } from "react"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
+import useSound from "use-sound"
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
+import { useBoop } from "~/lib/useBoop"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+const onSound = "/sounds/switch-on.mp3"
+const offSound = "/sounds/switch-off.mp3"
 
 export function ThemeToggle() {
   const [switchOn] = useSound(onSound)
@@ -41,7 +42,7 @@ export function ThemeToggle() {
               onClick={() => {
                 isDarkMode ? switchOn() : switchOff()
               }}
-              className="rounded-md p-1 focus:bg-zinc-100 focus:outline-none md:first-letter:p-2 dark:focus:bg-zinc-800"
+              className="rounded-md p-1 focus:bg-zinc-100 focus:outline-none dark:focus:bg-zinc-800 md:first-letter:p-2"
             >
               {isDarkMode ? <Sun /> : <Moon />}
             </animated.button>

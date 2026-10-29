@@ -1,5 +1,6 @@
 import { Search } from "lucide-react"
 import { useInstantSearch } from "react-instantsearch"
+
 import { Typography } from "~/components/Typography"
 
 export const NoResults = () => {

@@ -1,17 +1,12 @@
-import { client } from "~/sanity/client"
-import { SiteConfigType, getSiteConfig } from "~/sanity/queries/siteConfig"
-import { loadQueryWithDraft } from "~/sanity/loader.server"
-import {
-  Category,
-  Post,
-  PostPreview,
-  featuredPostsQuery,
-  getCategories,
-  postsQuery,
-} from "~/sanity/queries"
-import { sanityFetchWithTimeout } from "~/lib/sanityFetchWithTimeout"
-import { SupportedLanguages } from "~/i18n"
+import type { SupportedLanguages } from "~/i18n"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { sanityFetchWithTimeout } from "~/lib/sanityFetchWithTimeout"
+import { client } from "~/sanity/client"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
+import type { Category, Post, PostPreview } from "~/sanity/queries"
+import { featuredPostsQuery, getCategories, postsQuery } from "~/sanity/queries"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 type FeaturedPostsType = {
   mainPostCarouselCycleTime: number | null

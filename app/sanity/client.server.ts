@@ -1,4 +1,4 @@
-import { createClient, type SanityClient } from "@sanity/client"
+import { createClient } from "@sanity/client"
 
 import { apiVersion, dataset, projectId } from "./projectDetails"
 

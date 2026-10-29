@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react"
 import { Link } from "@remix-run/react"
+import { Instagram } from "lucide-react"
+import type { MouseEventHandler } from "react"
+import { Fragment, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { animated } from "react-spring"
+
 import { LogoIcon } from "~/components/LogoIcon"
 import { Separator } from "~/components/ui/separator"
-import { Fragment, MouseEventHandler } from "react"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
-import { SupportedLanguages } from "~/i18n"
-import { useTranslation } from "react-i18next"
-import { Image } from "./Image"
-import { Typography } from "./Typography"
-import useBoop from "~/lib/useBoop"
-import { animated } from "react-spring"
-import { Instagram } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
-import SubscribeForm from "./SubscribeForm"
-import BrandArrow from "./BrandArrow"
+import type { SupportedLanguages } from "~/i18n"
+import { useBoop } from "~/lib/useBoop"
+import { useRootLoaderData } from "~/lib/useRootLoaderData"
+
+import { BrandArrow } from "./BrandArrow"
+import { Image } from "./Image"
+import { SubscribeForm } from "./SubscribeForm"
+import { Typography } from "./Typography"
 
 export function Footer() {
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })

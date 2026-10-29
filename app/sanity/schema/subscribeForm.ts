@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
-import SubscribeForm from "~/components/SubscribeForm"
+
+import { SubscribeForm } from "~/components/SubscribeForm"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const subscribeFormType = defineType({
   name: "subscribeFormType",
@@ -13,6 +15,6 @@ export const subscribeFormType = defineType({
     }),
   ],
   components: {
-    preview: SubscribeForm,
+    preview: asPreviewComponent(SubscribeForm),
   },
 })

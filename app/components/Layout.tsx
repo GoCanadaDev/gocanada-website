@@ -1,6 +1,6 @@
 import { ArrowUp } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-import { cn } from "~/lib/utils"
+
 import { Footer } from "~/components/Footer"
 import { Header } from "~/components/Header"
 import {
@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
+import { cn } from "~/lib/utils"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -46,7 +47,7 @@ export function Layout({ children, translationUrl, useMargins }: LayoutProps) {
   return (
     <>
       <div ref={refScrollUp} />
-      <Header translationUrl={translationUrl} />
+      <Header />
       <main className={cn("flex-1", classes)} id="main">
         {children}
       </main>

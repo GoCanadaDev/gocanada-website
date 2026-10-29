@@ -1,9 +1,11 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
-import { LocalizedString } from "~/sanity/queries/shared"
+import groq from "groq"
+
+import type { SupportedLanguages } from "~/i18n"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { SupportedLanguages } from "~/i18n"
-import { PostPreview, postsProjection } from "~/sanity/queries/posts"
+import type { PostPreview } from "~/sanity/queries/posts"
+import { postsProjection } from "~/sanity/queries/posts"
+import type { LocalizedString } from "~/sanity/queries/shared"
 
 export type SubCategory = {
   _id: string

@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
+
 import PinterestEmbed from "~/components/portable/PinterestEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const pinterestPostType = defineType({
   name: "pinterestPostType",
@@ -15,7 +17,7 @@ export const pinterestPostType = defineType({
     }),
   ],
   components: {
-    preview: PinterestEmbed,
+    preview: asPreviewComponent(PinterestEmbed),
   },
   preview: {
     select: { url: "url" },

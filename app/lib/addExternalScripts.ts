@@ -1,5 +1,5 @@
 // @ts-nocheck
-export default function addExternalScripts(ENV: Window["ENV"]) {
+export function addExternalScripts(ENV: Window["ENV"]) {
   if (
     (!ENV.GTAG_ID && !ENV.FACEBOOK_PIXEL_ID) ||
     process.env.NODE_ENV === "development"
@@ -9,7 +9,8 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
 
   // Check if window is defined to ensure it's running on the client
   if (typeof window !== "undefined") {
-    // Add the Facebook Pixel script dynamically
+    // Add the Facebook Pixel script dynamically (vendor snippet)
+    /* eslint-disable prefer-spread */
     ;(function (f, b, e, v, n, t, s) {
       if (f.fbq) return
       n = f.fbq = function () {
@@ -17,6 +18,7 @@ export default function addExternalScripts(ENV: Window["ENV"]) {
           ? n.callMethod.apply(n, arguments)
           : n.queue.push(arguments)
       }
+      /* eslint-enable prefer-spread */
       if (!f._fbq) f._fbq = n
       n.push = n
       n.loaded = !0

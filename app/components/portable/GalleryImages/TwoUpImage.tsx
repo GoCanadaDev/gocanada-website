@@ -1,4 +1,4 @@
-import { ImageProps } from "~/components/portable/GalleryImages/index"
+import type { ImageProps } from "~/components/portable/GalleryImages/index"
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 
 export type TwoUpImageProps = {

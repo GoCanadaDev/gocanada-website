@@ -1,13 +1,15 @@
+import { history } from "instantsearch.js/cjs/lib/routers/index.js"
+import { Search, X } from "lucide-react"
+import type { InstantSearchServerState } from "react-instantsearch"
 import {
   DynamicWidgets,
   Hits,
   InstantSearch,
   InstantSearchSSRProvider,
-  InstantSearchServerState,
   PoweredBy,
   SearchBox,
 } from "react-instantsearch"
-import { history } from "instantsearch.js/cjs/lib/routers/index.js"
+
 import { algoliaSearchClient } from "~/algolia"
 import {
   FallbackComponent,
@@ -17,7 +19,6 @@ import {
   NoResultsBoundary,
   SearchPagination,
 } from "~/components/search"
-import { Search, X } from "lucide-react"
 
 type SSRSearchProviderProps = {
   serverState?: InstantSearchServerState

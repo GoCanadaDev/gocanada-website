@@ -1,5 +1,5 @@
-import { defineType } from "sanity"
 import { AppWindow } from "lucide-react"
+import { defineType } from "sanity"
 
 export const popupPromoConfigType = defineType({
   name: "popupPromoConfigType",

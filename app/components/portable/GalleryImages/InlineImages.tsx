@@ -1,4 +1,5 @@
-import { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
+import type { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
+
 import { SingleImage } from "./SingleImage"
 
 export const InlineImages = ({ value }: GalleryImagesProps) => {

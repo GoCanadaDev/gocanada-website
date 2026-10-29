@@ -1,5 +1,7 @@
-import { Search } from "lucide-react"
 import { Form } from "@remix-run/react"
+import { Search } from "lucide-react"
+import { useState } from "react"
+
 import {
   Dialog,
   DialogContent,
@@ -7,15 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog"
-import { useState } from "react"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip"
-import { Input } from "../ui/input"
+
 import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 
 const SearchModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -24,7 +26,10 @@ const SearchModal = () => {
     if (!open) {
       // Blur active element so keyboard dismisses and viewport restores before unmount.
       // Prevents wrong centering/zoom when reopening on mobile.
-      if (typeof document !== "undefined" && document.activeElement instanceof HTMLElement) {
+      if (
+        typeof document !== "undefined" &&
+        document.activeElement instanceof HTMLElement
+      ) {
         document.activeElement.blur()
       }
     }

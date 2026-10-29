@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+
 import { baseLanguage } from "~/sanity/schema/language"
 
 export const subCategoryType = defineType({

@@ -21,12 +21,13 @@ import { postType } from "~/sanity/schema/post"
 import { siteConfigType } from "~/sanity/schema/siteConfig"
 import { staticPageType } from "~/sanity/schema/staticPage"
 import { subCategoryType } from "~/sanity/schema/subCategory"
-import { subscribeFormType } from "./subscribeForm"
 import { tagType } from "~/sanity/schema/tag"
 import { tiktokPostType } from "~/sanity/schema/tiktokPost"
 import { twitterPostType } from "~/sanity/schema/twitterPost"
 import { twoUpImageType } from "~/sanity/schema/twoUpImage"
 import { youTubePostType } from "~/sanity/schema/youTubePost"
+
+import { subscribeFormType } from "./subscribeForm"
 
 export default [
   adConfigType,

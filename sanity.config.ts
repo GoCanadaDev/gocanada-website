@@ -1,10 +1,11 @@
-import { presentationTool } from "sanity/presentation"
 import { visionTool } from "@sanity/vision"
 import { defineConfig } from "sanity"
+import { presentationTool } from "sanity/presentation"
+import { structureTool } from "sanity/structure"
 import { media } from "sanity-plugin-media"
+
 import { dataset, projectId } from "~/sanity/projectDetails"
 import schema from "~/sanity/schema"
-import { structureTool } from "sanity/structure"
 import { defaultDocumentNode, structure } from "~/sanity/structure"
 
 export const config = defineConfig({

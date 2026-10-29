@@ -1,7 +1,5 @@
-import {
-  YouTubeEmbed as YoutubeEmbedComponent,
-  YouTubeEmbedProps,
-} from "react-social-media-embed"
+import type { YouTubeEmbedProps } from "react-social-media-embed"
+import { YouTubeEmbed as YoutubeEmbedComponent } from "react-social-media-embed"
 
 const YouTubeEmbed = ({ url, ...rest }: YouTubeEmbedProps) => {
   if (!url) {

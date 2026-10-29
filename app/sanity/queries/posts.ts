@@ -1,12 +1,14 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
+import type { PortableTextBlock } from "@sanity/types"
+import groq from "groq"
 import type { ImageCrop, ImageHotspot, ImageMetadata, Slug } from "sanity"
-import { PortableTextBlock } from "@sanity/types"
-import { LocalizedString } from "~/sanity/queries/shared"
+
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { Category } from "./categories"
-import { Tag } from "./tags"
-import { Author } from "./authors"
+import type { LocalizedString } from "~/sanity/queries/shared"
+
+import type { Author } from "./authors"
+import type { Category } from "./categories"
+import type { Tag } from "./tags"
 
 export const algoliaPostsProjection = `{
   "objectID": _id,

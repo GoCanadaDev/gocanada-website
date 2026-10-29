@@ -1,4 +1,4 @@
-import {z} from 'zod'
+import { z } from "zod"
 
 // This is a Zod schema
 // https://zod.dev/
@@ -21,7 +21,7 @@ export const recordZ = z.object({
         _key: z.string(),
         title: z.string().nullable(),
         duration: z.number().nullable(),
-      }),
+      })
     )
     .nullable(),
   // ...being a touch lazy here, these could be more strongly typed

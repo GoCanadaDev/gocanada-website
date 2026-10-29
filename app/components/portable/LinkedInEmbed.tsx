@@ -1,7 +1,5 @@
-import {
-  LinkedInEmbed as LinkedInEmbedComponent,
-  LinkedInEmbedProps,
-} from "react-social-media-embed"
+import type { LinkedInEmbedProps } from "react-social-media-embed"
+import { LinkedInEmbed as LinkedInEmbedComponent } from "react-social-media-embed"
 
 const LinkedInEmbed = ({ url, ...rest }: LinkedInEmbedProps) => {
   if (!url) {

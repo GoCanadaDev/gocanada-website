@@ -1,13 +1,15 @@
+import { PortableText } from "@portabletext/react"
 import { useEffect, useState } from "react"
+
 import { Dialog, DialogContent } from "~/components/ui/dialog"
-import { PopupPromoConfig } from "~/sanity/queries/popupPromoConfig"
+import type { PopupPromoConfig } from "~/sanity/queries/popupPromoConfig"
+
 import { Image } from "./Image"
 import PortableTextComponents from "./portable"
 import Prose from "./portable/Prose"
-import { PortableText } from "@portabletext/react"
 import { Typography } from "./Typography"
 
-export default function PromoPopup({ config }: { config: PopupPromoConfig }) {
+export function PromoPopup({ config }: { config: PopupPromoConfig }) {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {

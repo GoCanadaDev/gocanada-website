@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
+
 import TikTokEmbed from "~/components/portable/TikTokEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const tiktokPostType = defineType({
   name: "tiktokPostType",
@@ -15,7 +17,7 @@ export const tiktokPostType = defineType({
     }),
   ],
   components: {
-    preview: TikTokEmbed,
+    preview: asPreviewComponent(TikTokEmbed),
   },
   preview: {
     select: { url: "url" },

@@ -1,4 +1,5 @@
 import { client } from "~/sanity/client"
+
 import { getSession } from "../sessions"
 
 export async function getDraftMode(request: Request) {

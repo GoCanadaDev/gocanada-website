@@ -5,7 +5,7 @@ type VisibilityTrackerOptions = {
   rootMargin?: string
 }
 
-function useVisibilityTracker(
+export function useVisibilityTracker(
   onVisible: () => void,
   options: VisibilityTrackerOptions = {}
 ) {
@@ -43,5 +43,3 @@ function useVisibilityTracker(
 
   return elementRef
 }
-
-export default useVisibilityTracker

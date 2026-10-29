@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import {
   Dialog,
   DialogContent,
@@ -5,15 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog"
-import { useState } from "react"
-import { Button } from "./ui/button"
-import { Typography } from "./Typography"
-import SubscribeForm from "./SubscribeForm"
-const GoCanadaLogoColour = "/images/logotype-colour-sm.png"
-const GoCanadaLogoReverse = "/images/logotype-colour-reverse-sm.png"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
-const SubscribeModal = ({
+import { SubscribeForm } from "./SubscribeForm"
+import { Typography } from "./Typography"
+import { Button } from "./ui/button"
+const GoCanadaLogoColour = "/images/logotype-colour-sm.png"
+const GoCanadaLogoReverse = "/images/logotype-colour-reverse-sm.png"
+
+export const SubscribeModal = ({
   pageLocation,
 }: {
   pageLocation: "header" | "footer"
@@ -82,5 +84,3 @@ const SubscribeModal = ({
     </Dialog>
   )
 }
-
-export default SubscribeModal

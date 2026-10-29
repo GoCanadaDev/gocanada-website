@@ -14,6 +14,7 @@ import {
   XIcon,
 } from "react-share"
 import { toast } from "sonner"
+
 import { dataset, projectId } from "~/sanity/projectDetails"
 const baseImageUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/`
 
@@ -25,13 +26,7 @@ type ShareProps = {
   description: string
 }
 
-export default function Share({
-  url,
-  title,
-  tags,
-  media,
-  description,
-}: ShareProps) {
+export function Share({ url, title, tags, media, description }: ShareProps) {
   // TODO: update URL to production URL
   const shareUrl = `https://gocanada.com${url}`
 

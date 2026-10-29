@@ -9,12 +9,12 @@ import { Layout } from "~/components/Layout"
 import PortableTextComponents from "~/components/portable"
 import Prose from "~/components/portable/Prose"
 import { Typography } from "~/components/Typography"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { genericMetaTags } from "~/lib/utils"

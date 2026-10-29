@@ -1,9 +1,8 @@
+import { usePrefersReducedMotion } from "@sanity/ui"
 import React from "react"
 import { useSpring } from "react-spring"
 
-import { usePrefersReducedMotion } from "@sanity/ui"
-
-function useBoop({
+export function useBoop({
   x = 0,
   y = 0,
   rotation = 0,
@@ -43,4 +42,3 @@ function useBoop({
   let appliedStyle = prefersReducedMotion ? {} : style
   return [appliedStyle, trigger]
 }
-export default useBoop

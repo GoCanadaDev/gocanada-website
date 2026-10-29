@@ -3,46 +3,45 @@ import type {
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/node"
-import { Params, useLoaderData } from "@remix-run/react"
-import {
-  PopupPromoConfig,
-  getPopupPromoConfig,
-} from "~/sanity/queries/popupPromoConfig"
-import {
-  Post,
-  PostPreview,
-  featuredPostsQuery,
-  postsQuery,
-  trendingPostsQuery,
-} from "~/sanity/queries"
-import { SiteConfigType, getSiteConfig } from "~/sanity/queries/siteConfig"
+import { json, redirect } from "@remix-run/node"
+import type { Params } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
+import type { QueryResponseInitial } from "@sanity/react-loader"
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+
+import { CardGrid } from "~/components/CardGrid"
+import { TopGrid } from "~/components/homepage/TopGrid"
+import { Trending } from "~/components/homepage/Trending"
+import { Layout } from "~/components/Layout"
+import { LoadMorePosts } from "~/components/LoadMorePosts"
+import { MidRollBannerAd } from "~/components/MidRollBannerAd"
+import { PromoPopup } from "~/components/PromoPopup"
+import type { SupportedLanguages } from "~/i18n"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
+import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import {
   generateBlogSchema,
   generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "~/lib/structuredData"
-import { json, redirect } from "@remix-run/node"
-import { useEffect, useState } from "react"
-
-import { CardGrid } from "~/components/CardGrid"
-import { Layout } from "~/components/Layout"
-import { LoadMorePosts } from "~/components/LoadMorePosts"
-import MidRollBannerAd from "~/components/MidRollBannerAd"
-import PromoPopup from "~/components/PromoPopup"
-import { QueryResponseInitial } from "@sanity/react-loader"
-import { SupportedLanguages } from "~/i18n"
-import { TopGrid } from "~/components/homepage/TopGrid"
-import { Trending } from "~/components/homepage/Trending"
-import { client } from "~/sanity/client"
 import { genericMetaTags } from "~/lib/utils"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { loadQueryWithDraft } from "~/sanity/loader.server"
-import { postsCountQuery } from "~/sanity/queries/posts"
-import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { useQuery } from "~/sanity/loader"
-import { useTranslation } from "react-i18next"
+import { client } from "~/sanity/client"
 import { getDraftMode } from "~/sanity/get-draft-mode.server"
+import { useQuery } from "~/sanity/loader"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
+import type { Post, PostPreview } from "~/sanity/queries"
+import {
+  featuredPostsQuery,
+  postsQuery,
+  trendingPostsQuery,
+} from "~/sanity/queries"
+import type { PopupPromoConfig } from "~/sanity/queries/popupPromoConfig"
+import { getPopupPromoConfig } from "~/sanity/queries/popupPromoConfig"
+import { postsCountQuery } from "~/sanity/queries/posts"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,
@@ -197,14 +196,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 export const headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export default function Index() {
-  const {
-    posts,
-    featuredPosts,
-    trendingPosts,
-    params,
-    popupPromoConfig,
-    isDraftMode,
-  } = useLoaderData<IndexLoaderData>()
+  const { posts, featuredPosts, trendingPosts, params, popupPromoConfig } =
+    useLoaderData<IndexLoaderData>()
   const {
     i18n: { language },
   } = useTranslation()
@@ -226,7 +219,7 @@ export default function Index() {
     fetchCount()
   }, [params.lang])
 
-  const { data: postsData, loading } = useQuery<PostPreview[] | null>(
+  const { data: postsData } = useQuery<PostPreview[] | null>(
     postsQuery,
     { language: params.lang },
     {
@@ -234,7 +227,7 @@ export default function Index() {
     }
   )
 
-  const { data: featuredPostsData, loading: featuredPostsLoading } = useQuery<{
+  const { data: featuredPostsData } = useQuery<{
     featuredPosts: PostPreview[] | null
     frontAndCenterPosts: PostPreview[] | null
     mainPostCarouselCycleTime: number | null
@@ -246,7 +239,7 @@ export default function Index() {
     }
   )
 
-  const { data: trendingPostsData, loading: trendingPostsLoading } = useQuery<{
+  const { data: trendingPostsData } = useQuery<{
     trendingPosts: PostPreview[] | null
   }>(
     trendingPostsQuery,

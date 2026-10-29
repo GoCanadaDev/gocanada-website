@@ -1,8 +1,9 @@
-import { type PostPreview } from "~/sanity/queries"
-import { Typography } from "../Typography"
-import { MiniCard } from "../MiniCard"
-import { Separator } from "../ui/separator"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
+import { type PostPreview } from "~/sanity/queries"
+
+import { MiniCard } from "../MiniCard"
+import { Typography } from "../Typography"
+import { Separator } from "../ui/separator"
 
 export const Trending = ({ posts }: { posts: PostPreview[] }) => {
   const sanitizedPosts = Object.values(sanitizeStrings<PostPreview[]>(posts))

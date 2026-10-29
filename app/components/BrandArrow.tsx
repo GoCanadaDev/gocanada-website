@@ -5,7 +5,7 @@ type BrandArrowProps = {
   className?: string
 }
 
-const BrandArrow = ({
+export const BrandArrow = ({
   width = 15.1,
   height = 14.26666667,
   fill = "currentColor",
@@ -31,5 +31,3 @@ const BrandArrow = ({
     </svg>
   )
 }
-
-export default BrandArrow

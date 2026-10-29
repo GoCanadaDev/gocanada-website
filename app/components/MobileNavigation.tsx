@@ -1,15 +1,16 @@
+import { Link, useParams } from "@remix-run/react"
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion"
-import { Link, useParams } from "@remix-run/react"
-
-import { Separator } from "./ui/separator"
-import { SupportedLanguages } from "~/i18n"
-import { Typography } from "./Typography"
+import type { SupportedLanguages } from "~/i18n"
 import { useRootLoaderData } from "~/lib/useRootLoaderData"
+
+import { Typography } from "./Typography"
+import { Separator } from "./ui/separator"
 
 const ListItem = ({ title, href }: { title: string; href: string }) => {
   return (

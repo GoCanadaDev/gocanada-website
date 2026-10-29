@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Form as RemixForm, Link, useLocation } from "@remix-run/react"
+import type { Dispatch, SetStateAction } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
+
 import {
   Form,
   FormControl,
@@ -7,22 +13,17 @@ import {
   FormLabel,
   FormMessage,
 } from "~/components/ui/form"
-import { Link, Form as RemixForm, useLocation } from "@remix-run/react"
+import { cn } from "~/lib/utils"
 
+import { Typography } from "./Typography"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { Typography } from "./Typography"
-import { cn } from "~/lib/utils"
-import { toast } from "sonner"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({
   email: z.string().email(),
 })
 
-const SubscribeForm = ({
+export const SubscribeForm = ({
   pageLocation,
   setModalOpen,
   setSubmitted,
@@ -129,5 +130,3 @@ const SubscribeForm = ({
     </Form>
   )
 }
-
-export default SubscribeForm

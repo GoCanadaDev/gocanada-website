@@ -1,9 +1,10 @@
-import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
-import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
+import type { ImageCrop, ImageHotspot, ImageMetadata } from "sanity"
+
 import { CarouselImages } from "~/components/portable/GalleryImages/CarouselImages"
 import { GridImages } from "~/components/portable/GalleryImages/GridImages"
 import { InlineImages } from "~/components/portable/GalleryImages/InlineImages"
-import { ImageCrop, ImageHotspot, ImageMetadata } from "sanity"
+import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
+import { TwoUpImage } from "~/components/portable/GalleryImages/TwoUpImage"
 
 export type ImageProps = {
   asset: {

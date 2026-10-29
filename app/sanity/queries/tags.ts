@@ -1,9 +1,12 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
-import { LocalizedString } from "~/sanity/queries/shared"
+import groq from "groq"
+
+import type { SupportedLanguages } from "~/i18n"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { SupportedLanguages } from "~/i18n"
-import { PostPreview, postsProjection } from "./posts"
+import type { LocalizedString } from "~/sanity/queries/shared"
+
+import type { PostPreview } from "./posts"
+import { postsProjection } from "./posts"
 
 export type Tag = {
   title: LocalizedString

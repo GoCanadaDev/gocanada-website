@@ -1,6 +1,6 @@
 import React from "react"
 
-import { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
+import type { GalleryImagesProps } from "~/components/portable/GalleryImages/index"
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 
 export const GridImages = ({ value }: GalleryImagesProps) => {

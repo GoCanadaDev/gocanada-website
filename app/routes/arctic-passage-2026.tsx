@@ -1,7 +1,30 @@
+import {
+  type HeadersFunction,
+  json,
+  type LoaderFunction,
+  type MetaFunction,
+} from "@remix-run/node"
+import {
+  AlarmClock,
+  BookImage,
+  Calendar,
+  Eye,
+  Film,
+  Mails,
+  MapIcon,
+  MoveRight,
+  ScanEye,
+  ScissorsSquare,
+  Send,
+  Ship,
+  Users,
+} from "lucide-react"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
+
 import { Logo } from "~/components/Logo"
+import { AspectRatio } from "~/components/ui/aspect-ratio"
 import { Button } from "~/components/ui/button"
-import { Input } from "~/components/ui/input"
 import {
   Dialog,
   DialogContent,
@@ -9,39 +32,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog"
-import { toast } from "sonner"
-import {
-  json,
-  type HeadersFunction,
-  type LoaderFunction,
-  type MetaFunction,
-} from "@remix-run/node"
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
+import { Input } from "~/components/ui/input"
 import {
   generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "~/lib/structuredData"
-import { AspectRatio } from "~/components/ui/aspect-ratio"
 import { cn } from "~/lib/utils"
-import {
-  AlarmClock,
-  Calendar,
-  Film,
-  MapIcon,
-  BookImage,
-  ScissorsSquare,
-  Ship,
-  Users,
-  Send,
-  ScanEye,
-  Mails,
-  Eye,
-  X,
-  ArrowRightFromLine,
-  MoveRight,
-  Compass,
-} from "lucide-react"
+
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "./resource.og"
 
 const PASSWORD = "arctic2026"
 

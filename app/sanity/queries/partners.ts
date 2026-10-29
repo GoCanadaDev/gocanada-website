@@ -1,7 +1,8 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
+import groq from "groq"
+import type { ImageAsset } from "sanity"
+
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { ImageAsset } from "sanity"
 
 export type Partner = {
   name: string

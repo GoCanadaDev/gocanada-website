@@ -1,17 +1,19 @@
-import { AlertTriangle } from "lucide-react"
-import { Layout } from "./Layout"
 import {
   isRouteErrorResponse,
-  useRouteError,
+  Link,
   Links,
   Meta,
   Scripts,
-  Link,
+  useRouteError,
 } from "@remix-run/react"
-import { Typography } from "./Typography"
+import { AlertTriangle } from "lucide-react"
+
 import { getBodyClassNames } from "~/lib/getBodyClassNames"
 
-export default function ErrorBoundaryPage() {
+import { Layout } from "./Layout"
+import { Typography } from "./Typography"
+
+export function ErrorBoundaryPage() {
   const error = useRouteError()
   const bodyClassNames = getBodyClassNames("")
 

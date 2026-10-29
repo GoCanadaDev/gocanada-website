@@ -1,4 +1,5 @@
-import { ComponentProps, ReactNode, useEffect, useRef } from "react"
+import type { ComponentProps, ReactNode } from "react"
+import { useEffect, useRef } from "react"
 import { useInstantSearch } from "react-instantsearch"
 
 type ScrollToProps = ComponentProps<"div"> & {

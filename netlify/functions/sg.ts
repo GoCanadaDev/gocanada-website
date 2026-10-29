@@ -1,6 +1,7 @@
-import type { Config, Context } from "@netlify/functions"
-import { type IncomingHttpHeaders, request } from "node:http"
 import { resolve4 } from "node:dns"
+import { type IncomingHttpHeaders, request } from "node:http"
+
+import type { Config, Context } from "@netlify/functions"
 
 export default async function (req: Request, context: Context) {
   const ips = await new Promise<string[]>((resolve, reject) => {

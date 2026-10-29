@@ -15,7 +15,11 @@ export function sanitizeStrings<T extends Record<string, any>>(obj: T) {
   for (let key in obj) {
     if (typeof obj[key] === "string") {
       trimmedObj[key] = stegaClean(obj[key])
-    } else if (typeof obj[key] === "object" && obj[key] !== null && !Array.isArray(obj[key])) {
+    } else if (
+      typeof obj[key] === "object" &&
+      obj[key] !== null &&
+      !Array.isArray(obj[key])
+    ) {
       // If the value is an object (but not an array or null), recursively call trimStrings
       trimmedObj[key] = sanitizeStrings(obj[key])
     } else if (Array.isArray(obj[key])) {

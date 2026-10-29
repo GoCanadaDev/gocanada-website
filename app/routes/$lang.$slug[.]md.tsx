@@ -1,12 +1,13 @@
-import type { LoaderFunctionArgs } from "@remix-run/node"
 import { portableTextToMarkdown } from "@portabletext/markdown"
+import type { LoaderFunctionArgs } from "@remix-run/node"
 import invariant from "tiny-invariant"
 
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import { Post, postBySlugQuery } from "~/sanity/queries"
-import { loadQueryWithDraft } from "~/sanity/loader.server"
 import { getDraftMode } from "~/sanity/get-draft-mode.server"
+import { loadQueryWithDraft } from "~/sanity/loader.server"
+import type { Post } from "~/sanity/queries"
+import { postBySlugQuery } from "~/sanity/queries"
 
 const SITE_ORIGIN = "https://gocanada.com"
 
@@ -142,7 +143,6 @@ function portableTextMarkdownOptions() {
 }
 
 function postToMarkdown(post: Post): string {
-  const lang = post.language
   const title = localized(post, post.title)
 
   const sections: string[] = []

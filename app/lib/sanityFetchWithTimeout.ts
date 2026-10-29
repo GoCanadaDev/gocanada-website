@@ -1,5 +1,3 @@
-import type { SanityClient } from "@sanity/client"
-
 /**
  * Wraps a Sanity fetch call with a timeout to prevent hanging requests
  * in restrictive WebView environments (e.g., Instagram in-app browser).

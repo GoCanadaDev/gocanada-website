@@ -1,31 +1,31 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { useForm } from "react-hook-form"
-import { Layout } from "~/components/Layout"
-import { Typography } from "~/components/Typography"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
-import {
-  json,
-  LoaderFunction,
+import { PortableText } from "@portabletext/react"
+import type {
   ActionFunction,
   HeadersFunction,
+  LoaderFunction,
 } from "@remix-run/node"
-import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
-import { client } from "~/sanity/client"
+import { json } from "@remix-run/node"
+import type { MetaFunction } from "@remix-run/react"
 import {
-  useLoaderData,
   Form as RemixForm,
   redirect,
+  useLoaderData,
+  useNavigation,
   useSearchParams,
   useSubmit,
-  useNavigation,
-  MetaFunction,
 } from "@remix-run/react"
-import { PortableText } from "@portabletext/react"
-import PortableTextComponents from "~/components/portable"
-import { useOtherLanguage } from "~/lib/useOtherLanguage"
-import { Image } from "~/components/Image"
+import { useEffect, useRef } from "react"
+import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { z } from "zod"
+
+import { HeroImage } from "~/components/HeroImage"
+import { Image } from "~/components/Image"
+import { Layout } from "~/components/Layout"
+import PortableTextComponents from "~/components/portable"
+import Prose from "~/components/portable/Prose"
+import { Typography } from "~/components/Typography"
 import { Button } from "~/components/ui/button"
 import {
   Form,
@@ -36,10 +36,6 @@ import {
   FormMessage,
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
-import { Textarea } from "~/components/ui/textarea"
-import postFormUrlEncoded from "~/lib/postFormUrlEncoded"
-import { useEffect, useRef } from "react"
-import Prose from "~/components/portable/Prose"
 import {
   Select,
   SelectContent,
@@ -47,15 +43,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select"
-import { HeroImage } from "~/components/HeroImage"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { genericMetaTags } from "~/lib/utils"
+import { Textarea } from "~/components/ui/textarea"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
+import { postFormUrlEncoded } from "~/lib/postFormUrlEncoded"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
+import { useOtherLanguage } from "~/lib/useOtherLanguage"
+import { genericMetaTags } from "~/lib/utils"
+import { client } from "~/sanity/client"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
+import type { StaticPage } from "~/sanity/queries/staticPages"
+import { getStaticPageByRoute } from "~/sanity/queries/staticPages"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

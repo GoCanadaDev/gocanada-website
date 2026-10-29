@@ -1,9 +1,10 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
-import { PortableTextBlock } from "@sanity/types"
-import { LocalizedString } from "~/sanity/queries/shared"
+import type { PortableTextBlock } from "@sanity/types"
+import groq from "groq"
+import type { ImageCrop, ImageHotspot, ImageMetadata } from "sanity"
+
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { ImageCrop, ImageHotspot, ImageMetadata } from "sanity"
+import type { LocalizedString } from "~/sanity/queries/shared"
 
 export async function getStaticPageByRoute(
   client: SanityClient,

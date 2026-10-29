@@ -1,13 +1,14 @@
+import { UserSquare2 } from "lucide-react"
+import type { ImageAsset } from "sanity"
+
+import { Typography } from "~/components/Typography"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/ui/hover-card"
-import { Typography } from "~/components/Typography"
-import { ImageAsset } from "sanity"
 import { urlForImage } from "~/lib/sanity.image"
-import { UserSquare2 } from "lucide-react"
 
 type UserMediaObjectProps = {
   name: string
@@ -57,5 +58,3 @@ export function UserMediaObject({
     </div>
   )
 }
-
-export default UserMediaObject

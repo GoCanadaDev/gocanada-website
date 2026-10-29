@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity"
+
 import FacebookEmbed from "~/components/portable/FacebookEmbed"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const facebookPostType = defineType({
   name: "facebookPostType",
@@ -15,7 +17,7 @@ export const facebookPostType = defineType({
     }),
   ],
   components: {
-    preview: FacebookEmbed,
+    preview: asPreviewComponent(FacebookEmbed),
   },
   preview: {
     select: { url: "url" },

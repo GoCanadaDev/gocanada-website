@@ -1,8 +1,9 @@
-import groq from "groq"
 import type { SanityClient } from "@sanity/client"
+import type { PortableTextBlock } from "@sanity/types"
+import groq from "groq"
+import type { ImageCrop, ImageHotspot } from "sanity"
+
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
-import { ImageCrop, ImageHotspot } from "sanity"
-import { PortableTextBlock } from "@sanity/types"
 
 export type PopupPromoConfig = {
   popupPromoEnabled: boolean

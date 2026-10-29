@@ -11,9 +11,10 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from "lucide-react"
-import { defineType, defineArrayMember } from "sanity"
+import { defineArrayMember, defineType } from "sanity"
 
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
+import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
 
 export const blockContentType = defineType({
   title: "Block Content",
@@ -52,6 +53,7 @@ export const blockContentType = defineType({
     defineArrayMember({
       type: "image",
       // 'image' is deprecated, but a few posts might still use it
+      // @ts-expect-error `hidden` isn't in Sanity's array member types
       hidden: true,
       options: { hotspot: true },
       fields: [
@@ -82,7 +84,7 @@ export const blockContentType = defineType({
         },
       ],
       components: {
-        preview: SingleImage,
+        preview: asPreviewComponent(SingleImage),
       },
       preview: {
         select: {

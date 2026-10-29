@@ -1,23 +1,28 @@
 import { PortableText } from "@portabletext/react"
-import { HeadersFunction, json, LoaderFunction } from "@remix-run/node"
-import { MetaFunction, useLoaderData } from "@remix-run/react"
+import type { HeadersFunction, LoaderFunction } from "@remix-run/node"
+import { json } from "@remix-run/node"
+import type { MetaFunction } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
+
 import { HeroImage } from "~/components/HeroImage"
 import { Layout } from "~/components/Layout"
 import PortableTextComponents from "~/components/portable"
 import Prose from "~/components/portable/Prose"
 import { Typography } from "~/components/Typography"
-import isLangSupportedLang from "~/lib/isLangSupportedLang"
+import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
 import {
-  generateOrganizationSchema,
-  generateWebsiteSchema,
   generateBlogSchema,
   generateBreadcrumbSchema,
+  generateOrganizationSchema,
+  generateWebsiteSchema,
 } from "~/lib/structuredData"
 import { useOtherLanguage } from "~/lib/useOtherLanguage"
 import { genericMetaTags } from "~/lib/utils"
 import { client } from "~/sanity/client"
-import { getSiteConfig, SiteConfigType } from "~/sanity/queries/siteConfig"
-import { getStaticPageByRoute, StaticPage } from "~/sanity/queries/staticPages"
+import type { SiteConfigType } from "~/sanity/queries/siteConfig"
+import { getSiteConfig } from "~/sanity/queries/siteConfig"
+import type { StaticPage } from "~/sanity/queries/staticPages"
+import { getStaticPageByRoute } from "~/sanity/queries/staticPages"
 
 export const meta: MetaFunction<typeof loader> = ({
   data,

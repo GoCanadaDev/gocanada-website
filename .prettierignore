@@ -1,0 +1,8 @@
+build
+.cache
+.netlify
+public/sw.js
+public/workbox-*.js
+.agents
+.llms
+package-lock.json

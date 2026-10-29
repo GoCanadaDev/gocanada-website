@@ -1,8 +1,10 @@
-import { LoaderFunction, redirect } from "@remix-run/node"
-import i18next from "~/i18next.server"
-import { SupportedLanguages } from "~/i18n"
-import { langPreferenceCookie } from "~/cookies.server"
+import type { LoaderFunction } from "@remix-run/node"
+import { redirect } from "@remix-run/node"
 import { z } from "zod"
+
+import { langPreferenceCookie } from "~/cookies.server"
+import type { SupportedLanguages } from "~/i18n"
+import i18next from "~/i18next.server"
 
 export const loader: LoaderFunction = async ({ request }) => {
   let locale = (await i18next.getLocale(request)) as SupportedLanguages
