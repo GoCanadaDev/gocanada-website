@@ -17,7 +17,9 @@ import { HeroImage } from "~/components/HeroImage"
 import { Layout } from "~/components/Layout"
 import { MidRollBannerAd } from "~/components/MidRollBannerAd"
 import { MiniCard } from "~/components/MiniCard"
-import PortableTextComponents from "~/components/portable"
+import PortableTextComponents, {
+  SponsoredPortableTextComponents,
+} from "~/components/portable"
 import Prose from "~/components/portable/Prose"
 import { Share } from "~/components/Share"
 import { Typography } from "~/components/Typography"
@@ -264,6 +266,10 @@ export default function Slug() {
 
   const translationUrl = `/${otherLanguage}/${postToUse.slug[otherLanguage]}`
 
+  const bodyComponents = postToUse.isSponsored
+    ? SponsoredPortableTextComponents
+    : PortableTextComponents
+
   const hasInlineAd =
     postToUse.body.findIndex((block) => block._type === "inlineAdType") > -1
   let halfwayThroughBodyMarker = Math.ceil(postToUse.body.length / 2)
@@ -431,14 +437,14 @@ export default function Slug() {
             {hasInlineAd ? (
               <PortableText
                 value={postToUse.body}
-                components={PortableTextComponents}
+                components={bodyComponents}
               />
             ) : (
               // if no inline ad in the postToUse, manually insert the MidRollBannerAd halfway through the body blocks
               <>
                 <PortableText
                   value={[...postToUse.body].slice(0, halfwayThroughBodyMarker)}
-                  components={PortableTextComponents}
+                  components={bodyComponents}
                 />
                 <div>
                   {postToUse.slug.en ===
@@ -451,7 +457,7 @@ export default function Slug() {
                     halfwayThroughBodyMarker,
                     postToUse.body.length
                   )}
-                  components={PortableTextComponents}
+                  components={bodyComponents}
                 />
               </>
             )}

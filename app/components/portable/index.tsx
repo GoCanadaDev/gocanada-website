@@ -15,21 +15,54 @@ import TikTokEmbed from "./TikTokEmbed"
 import XEmbed from "./XEmbed"
 import YouTubeEmbed from "./YouTubeEmbed"
 
+const GOCANADA_HOSTNAME = /(^|\.)gocanada\.com$/i
+
+const isExternalHref = (href: string) => {
+  try {
+    // resolve against our own origin so relative paths read as internal and
+    // protocol-relative links (//example.com) read as external
+    const { protocol, hostname } = new URL(href, "https://gocanada.com")
+    return (
+      (protocol === "http:" || protocol === "https:") &&
+      !GOCANADA_HOSTNAME.test(hostname)
+    )
+  } catch {
+    return false
+  }
+}
+
+// Google's paid-link guidelines: outbound links in sponsored posts need rel="sponsored"
+const isSponsoredLink = (href: string, isSponsored: boolean) =>
+  isSponsored && isExternalHref(href)
+
+const createLinkMark = (isSponsored: boolean) => {
+  const LinkMark = ({
+    value,
+    children,
+  }: {
+    value: { href: string }
+    children: string
+  }) => {
+    return (
+      <a
+        href={value.href}
+        target="_blank"
+        rel={
+          isSponsoredLink(value.href, isSponsored)
+            ? "sponsored noopener"
+            : "noopener"
+        }
+      >
+        {children}
+      </a>
+    )
+  }
+  return LinkMark
+}
+
 const PortableTextComponents = {
   marks: {
-    link: ({
-      value,
-      children,
-    }: {
-      value: { href: string }
-      children: string
-    }) => {
-      return (
-        <a href={value.href} target="_blank" rel="noopener">
-          {children}
-        </a>
-      )
-    },
+    link: createLinkMark(false),
   },
   types: {
     subscribeFormType: ({ value }: { value: { trackingName: string } }) => (
@@ -83,6 +116,14 @@ const PortableTextComponents = {
     horizontalRuleType: ({ value }: { value: any }) => {
       return <HorizontalRule value={value} />
     },
+  },
+} as Partial<PortableTextReactComponents>
+
+export const SponsoredPortableTextComponents = {
+  ...PortableTextComponents,
+  marks: {
+    ...PortableTextComponents.marks,
+    link: createLinkMark(true),
   },
 } as Partial<PortableTextReactComponents>
 
