@@ -109,6 +109,25 @@ export async function getPosts(client: SanityClient, language: string) {
   return Object.values(sanitizeStrings(result)) as Post[]
 }
 
+export type PublishedPostSummary = {
+  title: string
+  slug: string
+  excerpt: string | null
+}
+
+// Every published English post, for the llms-full.txt AI index. Drafts and
+// release versions are excluded explicitly so each post appears exactly once.
+export const publishedPostSummariesQuery = groq`*[_type == "postType" && defined(slug.en.current) && !(_id in path("drafts.**")) && !(_id in path("versions.**"))] | order(publishedAt desc){
+  "title": title.en,
+  "slug": slug.en.current,
+  "excerpt": excerpt.en,
+}`
+
+export async function getPublishedPostSummaries(client: SanityClient) {
+  const result = await client.fetch(publishedPostSummariesQuery)
+  return Object.values(sanitizeStrings(result)) as PublishedPostSummary[]
+}
+
 export const featuredPostsQuery = groq`*[_type == "featuredPostsConfig"][0]{
   mainPostCarouselCycleTime,
   "frontAndCenterPosts": frontAndCenterPosts[]->{
