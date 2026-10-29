@@ -15,6 +15,20 @@ export function isMissingAlt(
   return !image.alt?.trim()
 }
 
+// Documents created before this only get a warning, so editors can keep
+// updating existing posts while the alt text backlog is filled in. Remove
+// once scripts/report-missing-alt-text.ts comes back clean.
+export const ALT_TEXT_REQUIRED_FROM = "2026-10-29T00:00:00Z"
+
+export function missingAltSeverity(
+  documentCreatedAt: string | undefined
+): "error" | "warning" {
+  if (!documentCreatedAt) return "error"
+  return new Date(documentCreatedAt) < new Date(ALT_TEXT_REQUIRED_FROM)
+    ? "warning"
+    : "error"
+}
+
 export type BlockContent = ({
   _type: string
   images?: ImageWithAlt[] | null

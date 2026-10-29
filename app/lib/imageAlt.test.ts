@@ -4,6 +4,7 @@ import {
   findBlockImagesMissingAlt,
   findPostImagesMissingAlt,
   isMissingAlt,
+  missingAltSeverity,
 } from "./imageAlt"
 
 const asset = { _ref: "image-abc-100x100-jpg" }
@@ -87,5 +88,20 @@ describe("findBlockImagesMissingAlt", () => {
     ).toEqual([
       { location: "Body (FR) block 2, gallery image 1", assetRef: "image-g1" },
     ])
+  })
+})
+
+describe("missingAltSeverity", () => {
+  it("only warns for documents created before alt text was required", () => {
+    expect(missingAltSeverity("2024-05-01T12:00:00Z")).toBe("warning")
+  })
+
+  it("blocks publishing for documents created once alt text is required", () => {
+    expect(missingAltSeverity("2026-10-29T00:00:00Z")).toBe("error")
+    expect(missingAltSeverity("2027-01-15T09:30:00Z")).toBe("error")
+  })
+
+  it("blocks publishing for a new document that hasn't been saved yet", () => {
+    expect(missingAltSeverity(undefined)).toBe("error")
   })
 })
