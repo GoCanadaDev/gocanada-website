@@ -1,10 +1,12 @@
 // Alt text rules shared by the Studio validation and the missing-alt report
-// script, so both agree on what counts as "missing". Kept free of Sanity
+// and drafting scripts, so both agree on what counts as "missing". Kept free of Sanity
 // imports so the script can load it with plain Node.
 
 export type ImageWithAlt = {
+  _key?: string
   asset?: { _ref?: string }
   alt?: string
+  caption?: string
 }
 
 // An image field with nothing uploaded doesn't need alt text yet.
@@ -43,24 +45,34 @@ export type PostImages = {
 }
 
 export type MissingAltImage = {
+  // Human-readable position, for editors
   location: string
+  // Sanity patch path to the image, e.g. body[_key=="abc"].images[_key=="def"]
+  path: string
   assetRef: string
+  caption?: string
 }
 
 // Only the block types whose schema asks for alt text. Inline ad images
 // don't have an alt field, so they're left alone.
 export function findBlockImagesMissingAlt(
   label: string,
+  path: string,
   blocks?: BlockContent | null
 ): MissingAltImage[] {
   return (blocks ?? []).flatMap((block, index) => {
     const location = `${label} block ${index + 1}`
+    const blockPath = `${path}[_key=="${block._key}"]`
     if (block._type === "image") {
-      return missingAltAt(location, block)
+      return missingAltAt(location, blockPath, block)
     }
     if (block._type === "galleryType") {
       return (block.images ?? []).flatMap((image, imageIndex) =>
-        missingAltAt(`${location}, gallery image ${imageIndex + 1}`, image)
+        missingAltAt(
+          `${location}, gallery image ${imageIndex + 1}`,
+          `${blockPath}.images[_key=="${image._key}"]`,
+          image
+        )
       )
     }
     return []
@@ -69,16 +81,20 @@ export function findBlockImagesMissingAlt(
 
 export function findPostImagesMissingAlt(post: PostImages): MissingAltImage[] {
   return [
-    ...missingAltAt("Main image", post.mainImage),
-    ...missingAltAt("Secondary image", post.secondaryImage),
-    ...findBlockImagesMissingAlt("Body", post.body),
-    ...findBlockImagesMissingAlt("Byline", post.byline),
+    ...missingAltAt("Main image", "mainImage", post.mainImage),
+    ...missingAltAt("Secondary image", "secondaryImage", post.secondaryImage),
+    ...findBlockImagesMissingAlt("Body", "body", post.body),
+    ...findBlockImagesMissingAlt("Byline", "byline", post.byline),
   ]
 }
 
 function missingAltAt(
   location: string,
+  path: string,
   image?: ImageWithAlt | null
 ): MissingAltImage[] {
-  return isMissingAlt(image) ? [{ location, assetRef: image.asset._ref }] : []
+  if (!isMissingAlt(image)) return []
+  return [
+    { location, path, assetRef: image.asset._ref, caption: image.caption },
+  ]
 }

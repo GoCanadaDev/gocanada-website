@@ -104,8 +104,8 @@ report(
     path: page.route,
     editUrl: editUrl(page._id, "staticPageType"),
     missing: [
-      ...findBlockImagesMissingAlt("Body (EN)", page.body?.en),
-      ...findBlockImagesMissingAlt("Body (FR)", page.body?.fr),
+      ...findBlockImagesMissingAlt("Body (EN)", "body.en", page.body?.en),
+      ...findBlockImagesMissingAlt("Body (FR)", "body.fr", page.body?.fr),
     ],
   }))
 )

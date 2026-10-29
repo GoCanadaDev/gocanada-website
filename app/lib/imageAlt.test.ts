@@ -35,8 +35,12 @@ describe("findPostImagesMissingAlt", () => {
         secondaryImage: { asset: { _ref: "image-second" }, alt: " " },
       })
     ).toEqual([
-      { location: "Main image", assetRef: "image-main" },
-      { location: "Secondary image", assetRef: "image-second" },
+      { location: "Main image", path: "mainImage", assetRef: "image-main" },
+      {
+        location: "Secondary image",
+        path: "secondaryImage",
+        assetRef: "image-second",
+      },
     ])
   })
 
@@ -45,23 +49,48 @@ describe("findPostImagesMissingAlt", () => {
       findPostImagesMissingAlt({
         mainImage: { asset: { _ref: "image-main" }, alt: "A lake" },
         body: [
-          { _type: "block" },
-          { _type: "image", asset: { _ref: "image-inline" } },
+          { _type: "block", _key: "b1" },
+          {
+            _type: "image",
+            _key: "b2",
+            asset: { _ref: "image-inline" },
+            caption: "Sunrise on the lake",
+          },
           {
             _type: "galleryType",
+            _key: "b3",
             images: [
-              { asset: { _ref: "image-g1" }, alt: "A canoe" },
-              { asset: { _ref: "image-g2" } },
+              { _key: "g1", asset: { _ref: "image-g1" }, alt: "A canoe" },
+              { _key: "g2", asset: { _ref: "image-g2" } },
             ],
           },
-          { _type: "inlineAdType", adImage: { asset: { _ref: "image-ad" } } },
+          {
+            _type: "inlineAdType",
+            _key: "b4",
+            adImage: { asset: { _ref: "image-ad" } },
+          },
         ],
-        byline: [{ _type: "image", asset: { _ref: "image-byline" } }],
+        byline: [
+          { _type: "image", _key: "y1", asset: { _ref: "image-byline" } },
+        ],
       })
     ).toEqual([
-      { location: "Body block 2", assetRef: "image-inline" },
-      { location: "Body block 3, gallery image 2", assetRef: "image-g2" },
-      { location: "Byline block 1", assetRef: "image-byline" },
+      {
+        location: "Body block 2",
+        path: 'body[_key=="b2"]',
+        assetRef: "image-inline",
+        caption: "Sunrise on the lake",
+      },
+      {
+        location: "Body block 3, gallery image 2",
+        path: 'body[_key=="b3"].images[_key=="g2"]',
+        assetRef: "image-g2",
+      },
+      {
+        location: "Byline block 1",
+        path: 'byline[_key=="y1"]',
+        assetRef: "image-byline",
+      },
     ])
   })
 
@@ -78,15 +107,20 @@ describe("findPostImagesMissingAlt", () => {
 describe("findBlockImagesMissingAlt", () => {
   it("labels images in any block content field, e.g. a static page's French body", () => {
     expect(
-      findBlockImagesMissingAlt("Body (FR)", [
-        { _type: "block" },
+      findBlockImagesMissingAlt("Body (FR)", "body.fr", [
+        { _type: "block", _key: "b1" },
         {
           _type: "galleryType",
-          images: [{ asset: { _ref: "image-g1" } }],
+          _key: "b2",
+          images: [{ _key: "g1", asset: { _ref: "image-g1" } }],
         },
       ])
     ).toEqual([
-      { location: "Body (FR) block 2, gallery image 1", assetRef: "image-g1" },
+      {
+        location: "Body (FR) block 2, gallery image 1",
+        path: 'body.fr[_key=="b2"].images[_key=="g1"]',
+        assetRef: "image-g1",
+      },
     ])
   })
 })
