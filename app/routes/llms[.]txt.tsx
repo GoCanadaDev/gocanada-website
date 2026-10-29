@@ -127,6 +127,10 @@ function buildLlmsTxt({
       return `- [${p.title[lang]}](${href}): ${p.excerpt[lang]}`
     }) ?? []),
     ``,
+    `## All Articles`,
+    ``,
+    `- [Full article index](${SITE_ORIGIN}/llms-full.txt): Every published Go Canada article with its title, Markdown link, and excerpt.`,
+    ``,
     `## Optional`,
     ``,
     `- [About](${SITE_ORIGIN}/${lang}/about): Learn more about Go Canada: our editorial mission, how we cover Canada travel, and the resources we create to help you plan memorable trips.`,
