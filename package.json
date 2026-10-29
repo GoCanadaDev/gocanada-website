@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "redirects:enable": "shx cp .redirects public/_redirects",
-    "redirects:disable": "shx rm -f public/_redirects"
+    "redirects:disable": "shx rm -f public/_redirects",
+    "test": "vitest run"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
@@ -121,6 +122,7 @@
     "typescript": "^5.2.2",
     "vite": "^6.4.3",
     "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^3.2.7",
     "workbox-cli": "^7.3.0"
   },
   "engines": {

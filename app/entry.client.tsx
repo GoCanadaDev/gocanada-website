@@ -10,6 +10,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next"
 import { getInitialNamespaces } from "remix-i18next"
 
 import i18n from "./i18n"
+import { detectAiSource } from "./lib/aiReferral"
 
 function PosthogInit() {
   useEffect(() => {
@@ -17,6 +18,22 @@ function PosthogInit() {
       posthog.init("phc_HRLvvfNFz7PVRK5BRZl29YVJYugZZkUrFgf8hVTMiPm", {
         api_host: "https://us.i.posthog.com",
         person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
+        loaded: (ph) => {
+          // Runs before the initial $pageview, so the landing pageview is tagged too
+          const aiSource = detectAiSource({
+            referrer: document.referrer,
+            url: window.location.href,
+          })
+          if (aiSource) {
+            ph.register_for_session({ ai_source: aiSource })
+            // Reloading the landing page keeps the same referrer, so only count once per session
+            const sessionId = ph.get_session_id()
+            if (sessionStorage.getItem("ai_referral_session") !== sessionId) {
+              sessionStorage.setItem("ai_referral_session", sessionId)
+              ph.capture("ai_referral", { ai_source: aiSource })
+            }
+          }
+        },
       })
     }
   }, [])
