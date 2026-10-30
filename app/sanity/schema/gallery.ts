@@ -4,6 +4,7 @@ import GalleryImages, {
   GalleryDisplay,
 } from "~/components/portable/GalleryImages"
 import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
+import { altTextField } from "~/sanity/schema/altTextField"
 
 export const galleryType = defineType({
   name: "galleryType",
@@ -23,11 +24,7 @@ export const galleryType = defineType({
             hotspot: true,
           },
           fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alternative text",
-            },
+            altTextField,
             {
               name: "caption",
               type: "string",

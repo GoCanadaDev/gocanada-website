@@ -15,6 +15,7 @@ import { defineArrayMember, defineType } from "sanity"
 
 import { SingleImage } from "~/components/portable/GalleryImages/SingleImage"
 import { asPreviewComponent } from "~/sanity/components/asPreviewComponent"
+import { altTextField } from "~/sanity/schema/altTextField"
 
 export const blockContentType = defineType({
   title: "Block Content",
@@ -72,11 +73,7 @@ export const blockContentType = defineType({
           type: "url",
           title: "Attribution URL",
         },
-        {
-          name: "alt",
-          type: "string",
-          title: "Alt text",
-        },
+        altTextField,
         {
           name: "fullBleed",
           type: "boolean",

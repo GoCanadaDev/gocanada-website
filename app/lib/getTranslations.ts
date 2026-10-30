@@ -8,6 +8,7 @@ export const getTranslations = async (t: TFunction<Namespace, undefined>) => {
   const contact = t("contact")
   const currentLanguage = t("currentLanguage")
   const greeting = t("greeting")
+  const imagePosition = t("imagePosition")
   const languageChanged = t("languageChanged")
   const media = t("media")
   const postsTagged = t("postsTagged")
@@ -24,6 +25,7 @@ export const getTranslations = async (t: TFunction<Namespace, undefined>) => {
     contact,
     currentLanguage,
     greeting,
+    imagePosition,
     languageChanged,
     media,
     postsTagged,

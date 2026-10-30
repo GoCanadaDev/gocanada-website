@@ -405,6 +405,7 @@ export type PostPreview = {
     crop?: ImageCrop
     metadata: ImageMetadata
     url: string
+    alt?: string
   }
   secondaryImage: {
     id: string

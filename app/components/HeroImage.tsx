@@ -12,6 +12,7 @@ type HeroImageProps = {
   title: string
   category?: Post["categories"][0]
   preview: string
+  alt?: string
   mainImageCaption?: string
   mainImageAttribution?: string
   mainImageAttributionUrl?: string
@@ -31,6 +32,7 @@ export const HeroImage = ({
   title,
   category,
   preview,
+  alt,
   mainImageCaption,
   mainImageAttribution,
   mainImageAttributionUrl,
@@ -119,7 +121,7 @@ export const HeroImage = ({
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
           loading="eager"
           className="block h-auto max-h-screen w-full select-none object-cover"
-          alt=""
+          alt={alt ?? ""}
           style={viewTransitionName ? { viewTransitionName } : undefined}
           {...({
             fetchpriority: "high",
@@ -174,7 +176,7 @@ export const HeroImage = ({
               "w-8/12": aspectRatio && aspectRatio < 1,
             }
           )}
-          alt=""
+          alt={alt ?? ""}
           style={viewTransitionName ? { viewTransitionName } : undefined}
           {...({
             fetchpriority: "high",
