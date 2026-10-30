@@ -3,6 +3,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node"
 import invariant from "tiny-invariant"
 
 import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
+import { withEnglishFallback } from "~/lib/localeFallback"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import { getDraftMode } from "~/sanity/get-draft-mode.server"
 import { loadQueryWithDraft } from "~/sanity/loader.server"
@@ -190,7 +191,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     })
   }
 
-  const postData = sanitizeStrings(post.data)
+  const postData = withEnglishFallback(sanitizeStrings(post.data))
   const markdown = postToMarkdown(postData)
 
   return new Response(markdown, {
