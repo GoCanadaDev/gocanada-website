@@ -34,6 +34,7 @@ import {
 import { Separator } from "~/components/ui/separator"
 import { VerticalBannerAd } from "~/components/VerticalBannerAd"
 import { isLangSupportedLang } from "~/lib/isLangSupportedLang"
+import { withEnglishFallback } from "~/lib/localeFallback"
 import { sanitizeStrings } from "~/lib/sanitizeStrings"
 import {
   generateBlogPostingSchema,
@@ -212,7 +213,7 @@ export const loader: LoaderFunction = async ({
     isDraftMode
   ).then((res) => ({
     ...res,
-    data: res.data ? (res.data as Post) : null,
+    data: res.data ? withEnglishFallback(res.data as Post) : null,
   }))
 
   if (post.data === null) {
@@ -256,7 +257,7 @@ export default function Slug() {
       initial: post as unknown as QueryResponseInitial<Post | null>,
     }
   )
-  const postToUse = sanitizeStrings(postData ?? post)
+  const postToUse = withEnglishFallback(sanitizeStrings(postData ?? post))
 
   const otherLanguage = useOtherLanguage()
   const formattedDate = useFormattedDate(
