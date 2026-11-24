@@ -41,7 +41,7 @@ export function Card({
       }, cycleTime)
       return () => clearInterval(interval)
     }
-  }, [post, isLarge])
+  }, [post, isLarge, disableImageTransition])
 
   const linkTo = post?.language
     ? `/${post.language}/${post.slug[post.language]}`

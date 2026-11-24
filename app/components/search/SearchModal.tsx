@@ -43,7 +43,7 @@ const SearchModal = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="p-1">
-                <Search className="inline" />
+                <Search className="inline hover:text-brand" />
               </div>
             </TooltipTrigger>
             <TooltipContent>Search</TooltipContent>

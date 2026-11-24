@@ -1,4 +1,3 @@
-import { Link } from "@remix-run/react"
 import { Instagram } from "lucide-react"
 import type { MouseEventHandler } from "react"
 import { animated } from "react-spring"
@@ -8,16 +7,13 @@ import SearchModal from "~/components/search/SearchModal"
 import { ThemeToggle } from "~/components/ThemeToggle"
 import { Separator } from "~/components/ui/separator"
 import { useBoop } from "~/lib/useBoop"
-import { useRootLoaderData } from "~/lib/useRootLoaderData"
 
+import { DestinationsNav } from "./DestinationsNav"
 import { MobileNavigation } from "./MobileNavigation"
-import { Navigation } from "./Navigation"
 import { SubscribeModal } from "./SubscribeModal"
 import { TopAdBanner } from "./TopAdBanner"
 
 export function Header() {
-  const rootLoaderData = useRootLoaderData()
-  const spotlightPost = rootLoaderData?.spotlightPost
   const [style, trigger] = useBoop({ scale: 1.1, rotation: 5 })
 
   return (
@@ -29,12 +25,14 @@ export function Header() {
         Skip to main content
       </a>
       <TopAdBanner />
-      <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
+      <div className="">
         <div className="container mx-auto flex items-center justify-between p-4 lg:px-12">
-          <Logo />
+          <div className="flex">
+            <Logo />
+            <DestinationsNav />
+          </div>
           <div className="flex items-center gap-1 md:gap-2">
             <SubscribeModal pageLocation="header" />
-
             <Separator orientation="vertical" className="inline-flex h-6" />
             <a
               onMouseEnter={trigger as MouseEventHandler<HTMLAnchorElement>}
@@ -65,27 +63,11 @@ export function Header() {
             <div className="">
               <ThemeToggle />
             </div>
+            <Separator orientation="vertical" className="h-6" />
+            <MobileNavigation />
           </div>
         </div>
       </div>
-      <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
-        <div className="flex w-screen flex-col items-start justify-between px-4 pb-0 lg:container md:flex-row md:items-center md:py-1 lg:px-12">
-          <Navigation />
-          <MobileNavigation />
-        </div>
-      </div>
-      {spotlightPost && Object.keys(spotlightPost).length > 0 && (
-        <div className="border-b border-zinc-900 transition-colors duration-1000 ease-in-out dark:border-zinc-100">
-          <div className="flex w-screen flex-col items-start justify-start px-4 py-2 lg:container md:flex-row md:items-center lg:px-12">
-            <Link
-              to={`/en/${spotlightPost.link}`}
-              className="block font-serif text-xl text-brand hover:underline"
-            >
-              {spotlightPost.text}
-            </Link>
-          </div>
-        </div>
-      )}
     </header>
   )
 }
