@@ -8,6 +8,7 @@ import { generateSrcSet, urlForImage } from "~/lib/sanity.image"
 import type { PostPreview } from "~/sanity/queries"
 
 import { Typography } from "../Typography"
+import { AspectRatio } from "../ui/aspect-ratio"
 import { Button } from "../ui/button"
 
 export const FeaturedPostHero = ({ post }: { post: PostPreview }) => {
@@ -27,44 +28,45 @@ export const FeaturedPostHero = ({ post }: { post: PostPreview }) => {
 
   return (
     <div className="relative -mx-12 -mt-4">
-      <img
-        src={mainImageUrl}
-        srcSet={imageSrcSet}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
-        loading="eager"
-        className="block h-auto max-h-screen w-full select-none object-cover"
-        alt={postData.mainImage.alt}
-        style={{ viewTransitionName: "post-hero-image" }}
-        {...({
-          fetchpriority: "high",
-        } as React.ImgHTMLAttributes<HTMLImageElement>)}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_150%_300%_at_left,var(--tw-gradient-stops))] from-black/90 to-transparent"></div>
-      <div className="absolute left-8 top-1/2 w-1/2 -translate-y-1/2 space-y-4">
-        <p
-          className={
-            "font-sans text-sm font-normal uppercase tracking-[6px] !text-zinc-100"
-          }
-        >
-          Featured Story
-        </p>
-        <Typography.H1
-          className={
-            "text-3xl leading-[1] !text-zinc-100 duration-700 lg:text-5xl lg:leading-[1]"
-          }
-        >
-          {postData.title[post.language]}
-        </Typography.H1>
-        <Typography.Lead className="leading-snug !text-zinc-100">
-          {postData.excerpt[post.language]}
-        </Typography.Lead>
-        <Button asChild variant="secondary">
-          <Link to={`/posts/${postData.slug[post.language]}`}>
-            Read the story <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      </div>
-      {/* <HeroImage
+      <AspectRatio ratio={2} className="overflow-hidden">
+        <img
+          src={mainImageUrl}
+          srcSet={imageSrcSet}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
+          loading="eager"
+          className="w-full object-cover"
+          alt={postData.mainImage.alt}
+          style={{ viewTransitionName: "post-hero-image" }}
+          {...({
+            fetchpriority: "high",
+          } as React.ImgHTMLAttributes<HTMLImageElement>)}
+        />
+        <div className="absolute inset-0 w-2/3 bg-[radial-gradient(ellipse_100%_100%_at_left,var(--tw-gradient-stops))] from-black/80 to-transparent"></div>
+        <div className="absolute left-8 top-1/2 w-1/2 -translate-y-1/2 space-y-4">
+          <p
+            className={
+              "font-sans text-sm font-normal uppercase tracking-[6px] !text-zinc-100 drop-shadow-md"
+            }
+          >
+            Featured Story
+          </p>
+          <Typography.H1
+            className={
+              "text-3xl leading-[1] !text-zinc-100 drop-shadow-md duration-700 lg:text-5xl lg:leading-[1]"
+            }
+          >
+            {postData.title[post.language]}
+          </Typography.H1>
+          <Typography.Lead className="leading-snug !text-zinc-100 drop-shadow-md">
+            {postData.excerpt[post.language]}
+          </Typography.Lead>
+          <Button asChild variant="secondary" className="drop-shadow-md">
+            <Link to={`/posts/${postData.slug[post.language]}`}>
+              Read the story <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+        {/* <HeroImage
         fullBleed={postData.mainImageFullBleed}
         id={postData.mainImage.id}
         title={postData.title[post.language]}
@@ -82,6 +84,7 @@ export const FeaturedPostHero = ({ post }: { post: PostPreview }) => {
         sponsoredText={postData.sponsoredText}
         viewTransitionName="post-hero-image"
       /> */}
+      </AspectRatio>
     </div>
   )
 }
