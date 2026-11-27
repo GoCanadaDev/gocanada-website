@@ -500,8 +500,8 @@ export default function Slug() {
                   <Link
                     className="hidden text-sm before:absolute before:inset-0 group-hover:text-brandHover md:block"
                     prefetch="intent"
-                    to={`/${postToUse.language}/${postToUse.slug[postToUse.language]}`}
-                    aria-label={`Read more: ${postToUse.title[postToUse.language]}`}
+                    to={`/${previousOrNextPost.language}/${previousOrNextPost.slug[previousOrNextPost.language]}`}
+                    aria-label={`Read more: ${previousOrNextPost.title[previousOrNextPost.language]}`}
                   >
                     <ChevronLeft className="size-8" />
                   </Link>
