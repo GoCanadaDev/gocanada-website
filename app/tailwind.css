@@ -123,3 +123,31 @@ input[type="search"]::-webkit-search-results-decoration {
   font-family: "HV analogue";
   src: url("/fonts/HV+Analogue+Regular.otf");
 }
+
+/* Scroll-driven parallax for the homepage featured hero image.
+   Driven by the page's scroll position (not the hero's view progress) so it
+   starts moving on the very first pixel of scroll. The image is scaled up from
+   its bottom edge, giving ~10% of extra image above the frame; that overhang
+   hides the gap that would otherwise open at the top while the hero is still
+   fully on screen. It drifts down 15vh over the first 100vh of scroll
+   (~15% of scroll speed). Unsupported browsers just get a static image. */
+@keyframes hero-parallax {
+  from {
+    transform: translateY(0) scale(1.1);
+  }
+  to {
+    transform: translateY(15vh) scale(1.1);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-parallax {
+      transform-origin: bottom center;
+      animation: hero-parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+      will-change: transform;
+    }
+  }
+}

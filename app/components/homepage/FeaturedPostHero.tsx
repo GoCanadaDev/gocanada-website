@@ -28,13 +28,13 @@ export const FeaturedPostHero = ({ post }: { post: PostPreview }) => {
 
   return (
     <div className="relative -mx-12 -mt-4">
-      <AspectRatio ratio={2} className="overflow-hidden">
+      <AspectRatio ratio={2.25} className="overflow-clip">
         <img
           src={mainImageUrl}
           srcSet={imageSrcSet}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 85vw, (max-width: 1536px) 75vw, 1920px"
           loading="eager"
-          className="w-full object-cover"
+          className="hero-parallax w-full object-cover"
           alt={postData.mainImage.alt}
           style={{ viewTransitionName: "post-hero-image" }}
           {...({
