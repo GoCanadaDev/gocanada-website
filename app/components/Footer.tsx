@@ -49,10 +49,10 @@ export function Footer() {
         {siteConfig?.enablePartners && (
           <div className="container mx-auto flex flex-col items-center justify-center gap-4 p-4 lg:px-12">
             <Typography.H4>Partners</Typography.H4>
-            <ul className="flex justify-center gap-8" role="list">
+            <ul className="flex justify-center gap-8">
               {partners.length > 0 &&
                 partners.map((partner) => (
-                  <li role="listitem" key={partner.name}>
+                  <li key={partner.name}>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -160,9 +160,12 @@ export function Footer() {
             ))}
           </nav>
         </div>
-        <div className="container mx-auto pb-8 pt-4 text-center text-xs text-zinc-300 lg:px-12">
+        <div className="container mx-auto max-w-lg pb-8 pt-4 text-center text-xs text-zinc-300 lg:px-12">
           &copy; {year} Go Canada, a division of Stay &amp; Wander Media Inc.
-          All Rights Reserved.
+          All Rights Reserved. All products and listings featured on
+          GoCanada.com are independently selected by our editors. However, we
+          may receive compensation from retailers and/or from purchases of
+          products through these links.
         </div>
       </div>
       <BrandArrow

@@ -8,6 +8,10 @@ When working with these technologies, read the corresponding skill for detailed 
 
 <!-- llmstxt:end -->
 
+## Language support
+
+The site is English-only for now. The French (`fr`) routes, translations and i18n plumbing still exist in the code, but no French content is published and there are no near-term plans to support it. New UI text only needs English; don't add French translations or treat missing French as a bug unless asked.
+
 ## Agent skills
 
 ### Issue tracker
