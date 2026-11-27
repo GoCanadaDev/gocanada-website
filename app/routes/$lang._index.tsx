@@ -275,13 +275,7 @@ export default function Index() {
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
       <FeaturedPostHero post={sanitizedFrontAndCenterPosts[0]} />
-      <TopGrid
-        featuredPosts={sanitizedFeaturedPosts}
-        frontAndCenterPosts={sanitizedFrontAndCenterPosts}
-        mainPostCarouselCycleTime={
-          featuredPostsData?.mainPostCarouselCycleTime ?? 10
-        }
-      />
+      <TopGrid featuredPosts={sanitizedFeaturedPosts} />
       <MidRollBannerAd />
       <Trending posts={sanitizedTrendingPosts} />
       <CardGrid posts={displayedPosts} />

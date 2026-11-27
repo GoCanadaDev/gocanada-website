@@ -55,35 +55,19 @@ export const FeaturedPostHero = ({ post }: { post: PostPreview }) => {
               "text-3xl leading-[1] !text-zinc-100 drop-shadow-md duration-700 lg:text-5xl lg:leading-[1]"
             }
           >
-            {postData.title[post.language]}
+            {postData.title[postData.language]}
           </Typography.H1>
           <Typography.Lead className="leading-snug !text-zinc-100 drop-shadow-md">
-            {postData.excerpt[post.language]}
+            {postData.excerpt[postData.language]}
           </Typography.Lead>
           <Button asChild variant="secondary" className="drop-shadow-md">
-            <Link to={`/posts/${postData.slug[post.language]}`}>
+            <Link
+              to={`/${postData.language}/${postData.slug[postData.language]}`}
+            >
               Read the story <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>
-        {/* <HeroImage
-        fullBleed={postData.mainImageFullBleed}
-        id={postData.mainImage.id}
-        title={postData.title[post.language]}
-        category={postData.categories[0]}
-        preview={postData.mainImage.preview}
-        alt={postData.mainImage.alt}
-        mainImageCaption={postData.mainImageCaption}
-        mainImageAttribution={postData.mainImageAttribution}
-        mainImageAttributionUrl={postData.mainImageAttributionUrl}
-        mainImageGradientOverlay={postData.mainImageGradientOverlay}
-        hotspot={postData.mainImage.hotspot}
-        crop={postData.mainImage.crop}
-        aspectRatio={postData.mainImage.aspectRatio}
-        isSponsored={postData.isSponsored}
-        sponsoredText={postData.sponsoredText}
-        viewTransitionName="post-hero-image"
-      /> */}
       </AspectRatio>
     </div>
   )
