@@ -16,16 +16,18 @@ export const algoliaPostsProjection = `{
   "slug": slug.en.current,
   mainImage{
     "id": asset._ref,
-    "preview": asset->metadata.lqip,
-    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    ...asset->{
+      "preview": metadata.lqip,
+      "aspectRatio": metadata.dimensions.aspectRatio,
+    },
   },
   "excerpt": excerpt.en,
   "body": body[_type == "block" && style == "normal"]{
     "text": children[].text
   }[].text[],
-  "author": {
-    "name": author->name,
-    "slug": author->slug.current,
+  "author": author->{
+    name,
+    "slug": slug.current,
   },
   "categories": categories[]->{
     "title": title.en,
@@ -68,23 +70,27 @@ export const postsProjection = `
   mainImage{
     ...,
     "id": asset._ref,
-    "preview": asset->metadata.lqip,
-    "aspectRatio": asset->metadata.dimensions.aspectRatio,
-    "url": asset->url,
+    ...asset->{
+      "preview": metadata.lqip,
+      "aspectRatio": metadata.dimensions.aspectRatio,
+      "url": url,
+    },
   },
   secondaryImage{
     ...,
     "id": asset._ref,
-    "preview": asset->metadata.lqip,
-    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    ...asset->{
+      "preview": metadata.lqip,
+      "aspectRatio": metadata.dimensions.aspectRatio,
+    },
   },
   "excerpt": {
     "en": excerpt.en,
     "fr": excerpt.fr,
     },
-  "author": {
-    "name": author->name,
-    "slug": author->slug.current,
+  "author": author->{
+    name,
+    "slug": slug.current,
   },
 `
 
@@ -186,8 +192,10 @@ const previousOrNextPostProjection = `
   mainImage{
     ...,
     "id": asset._ref,
-    "preview": asset->metadata.lqip,
-    "aspectRatio": asset->metadata.dimensions.aspectRatio,
+    ...asset->{
+      "preview": metadata.lqip,
+      "aspectRatio": metadata.dimensions.aspectRatio,
+    },
   },
   "excerpt": {
     "en": excerpt.en,
@@ -227,11 +235,11 @@ export const postBySlugQuery = groq`*[_type == "postType" && (slug[$language].cu
         adImage {
           ...,
           "id": asset._ref,
-          "preview": asset->metadata.lqip,
-          "metadata": asset->metadata,
-          "hotspot": asset->hotspot,
-          "crop": asset->crop,
-          "aspectRatio": asset->metadata.dimensions.aspectRatio,
+          ...asset->{
+            "preview": metadata.lqip,
+            metadata,
+            "aspectRatio": metadata.dimensions.aspectRatio,
+          },
         },
       },
       _type == 'galleryType' => {
@@ -239,21 +247,21 @@ export const postBySlugQuery = groq`*[_type == "postType" && (slug[$language].cu
         images[] {
           ...,
           "id": asset._ref,
-          "preview": asset->metadata.lqip,
-          "metadata": asset->metadata,
-          "hotspot": asset->hotspot,
-          "crop": asset->crop,
-          "aspectRatio": asset->metadata.dimensions.aspectRatio,
+          ...asset->{
+            "preview": metadata.lqip,
+            metadata,
+            "aspectRatio": metadata.dimensions.aspectRatio,
+          },
         },
       },
       _type == "image" => {
         ...,
         "id": asset._ref,
-        "preview": asset->metadata.lqip,
-        "metadata": asset->metadata,
-        "hotspot": asset->hotspot,
-        "crop": asset->crop,
-        "aspectRatio": asset->metadata.dimensions.aspectRatio,
+        ...asset->{
+          "preview": metadata.lqip,
+          metadata,
+          "aspectRatio": metadata.dimensions.aspectRatio,
+        },
       },
     ),
   },
@@ -322,9 +330,11 @@ export const postBySlugQuery = groq`*[_type == "postType" && (slug[$language].cu
   mainImage{
     ...,
     "id": asset._ref,
-    "preview": asset->metadata.lqip,
-    "aspectRatio": asset->metadata.dimensions.aspectRatio,
-    "url": asset->url,
+    ...asset->{
+      "preview": metadata.lqip,
+      "aspectRatio": metadata.dimensions.aspectRatio,
+      "url": url,
+    },
   },
   "previousPost": *[_type == "postType" && ^.publishedAt > publishedAt]|order(publishedAt desc)[0]{ 
     ${previousOrNextPostProjection}
