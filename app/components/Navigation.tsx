@@ -38,6 +38,8 @@ const ListItem = React.forwardRef<
   )
 })
 
+ListItem.displayName = "ListItem"
+
 const provinces = [
   "Alberta",
   "British Columbia",

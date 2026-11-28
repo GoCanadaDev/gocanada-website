@@ -370,11 +370,13 @@ function App() {
             src={`https://www.googletagmanager.com/ns.html?id=${ENV.GTAG_ID}`}
             height="0"
             width="0"
+            title="Google Tag Manager"
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
           <img
             height="1"
             width="1"
+            alt=""
             style={{ display: "none" }}
             src={`https://www.facebook.com/tr?id=${ENV.FACEBOOK_PIXEL_ID}&ev=PageView&noscript=1`}
           />

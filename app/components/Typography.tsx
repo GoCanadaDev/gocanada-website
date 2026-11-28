@@ -21,7 +21,7 @@ const H1 = ({ children, className }: TypographyProps) => (
 const H2 = ({ children, className }: TypographyProps) => (
   <h2
     className={cn(
-      "scroll-m-20 border-b border-zinc-900 pb-2 font-serif text-3xl font-normal tracking-tight first:mt-0 dark:border-zinc-100 dark:text-zinc-100",
+      "scroll-m-20 pb-2 font-serif text-3xl font-normal tracking-tight first:mt-0 dark:border-zinc-100 dark:text-zinc-100",
       className
     )}
   >
@@ -81,7 +81,9 @@ const InlineCode = ({ children, className }: TypographyProps) => (
 )
 
 const Lead = ({ children, className }: TypographyProps) => (
-  <p className={cn("font-sans text-xl lg:text-2xl", className)}>{children}</p>
+  <p className={cn("font-serif text-xl font-light lg:text-2xl", className)}>
+    {children}
+  </p>
 )
 
 const TextLarge = ({ children, className }: TypographyProps) => (

@@ -104,6 +104,7 @@ export async function generatePngFromDocument(
           src="https://gocanada.com/images/logotype-white.png"
           width={300}
           height={57.76}
+          alt="GoCanada Logo"
         />
       </div>
     </div>,

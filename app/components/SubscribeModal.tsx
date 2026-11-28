@@ -35,7 +35,7 @@ export const SubscribeModal = ({
         <Button
           type="button"
           variant="link"
-          className="px-1 py-0 text-sm uppercase tracking-wide text-brand hover:no-underline md:text-base"
+          className="px-1 py-0 text-sm uppercase tracking-wide hover:text-brand hover:no-underline hover:dark:text-brand md:text-base"
         >
           Newsletter
         </Button>

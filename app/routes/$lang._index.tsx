@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { CardGrid } from "~/components/CardGrid"
+import { FeaturedPostHero } from "~/components/homepage/FeaturedPostHero"
 import { TopGrid } from "~/components/homepage/TopGrid"
 import { Trending } from "~/components/homepage/Trending"
 import { Layout } from "~/components/Layout"
@@ -265,7 +266,7 @@ export default function Index() {
     if (sanitizedPosts.length > 0 && displayedPosts.length === 0) {
       setDisplayedPosts(sanitizedPosts.slice(0, 12))
     }
-  }, [sanitizedPosts])
+  }, [sanitizedPosts, displayedPosts.length])
 
   const handleLoadMore = (newPosts: PostPreview[]) => {
     setDisplayedPosts((prev) => [...prev, ...newPosts])
@@ -273,13 +274,8 @@ export default function Index() {
 
   return (
     <Layout translationUrl={currentLang === "en" ? "/fr" : "/en"} useMargins>
-      <TopGrid
-        featuredPosts={sanitizedFeaturedPosts}
-        frontAndCenterPosts={sanitizedFrontAndCenterPosts}
-        mainPostCarouselCycleTime={
-          featuredPostsData?.mainPostCarouselCycleTime ?? 10
-        }
-      />
+      <FeaturedPostHero post={sanitizedFrontAndCenterPosts[0]} />
+      <TopGrid featuredPosts={sanitizedFeaturedPosts} />
       <MidRollBannerAd />
       <Trending posts={sanitizedTrendingPosts} />
       <CardGrid posts={displayedPosts} />
